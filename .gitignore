@@ -1,0 +1,13 @@
+# secrets & plaintext hidden test set — never commit
+.secrets/
+bench/private/
+results/private-outputs/
+
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+site/dist/
+site/.astro/
+site/.wrangler/
+.DS_Store

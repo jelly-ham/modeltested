@@ -1,0 +1,54 @@
+---
+import "../styles/global.css";
+import { SITE_NAME, TAGLINE, REPO_URL, data, fmtDate } from "../lib/data";
+
+interface Props {
+  title: string;
+  description: string;
+  jsonLd?: object[];
+}
+const { title, description, jsonLd = [] } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const path = Astro.url.pathname;
+const nav = [
+  { href: "/best-local-llms/", label: "Local LLMs" },
+  { href: "/best-local-llms/coding/", label: "Coding" },
+  { href: "/best-local-llms/methodology/", label: "How we test" },
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    {jsonLd.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href="/">{SITE_NAME}</a>
+        <nav>
+          {nav.map((n) => <a href={n.href} aria-current={path === n.href ? "page" : undefined}>{n.label}</a>)}
+        </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        {SITE_NAME} — independent, task-based tests of AI models. {TAGLINE} Data updated {fmtDate(data.generated)}.
+        Test harness, public questions and raw outputs: <a href={REPO_URL}>GitHub</a>.
+      </div>
+    </footer>
+  </body>
+</html>

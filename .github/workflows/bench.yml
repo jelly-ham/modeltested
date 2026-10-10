@@ -1,0 +1,98 @@
+name: bench
+
+# Daily: find new open-weight models, test them, rebuild and deploy the site.
+# NOTE: this repo is public, so logs and artifacts are world-readable. The runner
+# only ever prints question ids and scores; never add steps that print or upload
+# anything from bench/private/ or model outputs for hidden questions.
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      budget_usd:
+        description: "Max OpenRouter spend for this run (USD)"
+        default: "3"
+  push:
+    branches: [main]
+    paths: ["runner/**", "bench/**", "site/**", ".github/workflows/bench.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bench
+  cancel-in-progress: false
+
+jobs:
+  bench:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install age and sandbox image
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq age
+          docker pull -q python:3.12-slim
+
+      - name: Decrypt hidden test set
+        env:
+          AGE_SECRET_KEY: ${{ secrets.AGE_SECRET_KEY }}
+        run: |
+          test -n "$AGE_SECRET_KEY" || { echo "AGE_SECRET_KEY secret is missing"; exit 1; }
+          scripts/decrypt-private.sh
+
+      - name: Validate question bank
+        run: python -m runner selfcheck
+
+      - name: Discover new models
+        run: python -m runner discover
+
+      - name: Run benchmarks
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python -m runner run --budget-usd "${{ inputs.budget_usd || '3' }}"
+
+      - name: Build site data
+        run: python -m runner build-data
+
+      - name: Commit results
+        run: |
+          rm -rf bench/private
+          git config user.name "bench-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results bench/models.json site/src/data
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -q -m "bench: update results $(date -u +%F)"
+            git push -q
+          fi
+
+      - name: Build site
+        working-directory: site
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: site
+          wranglerVersion: "4.135.0"
+          command: deploy

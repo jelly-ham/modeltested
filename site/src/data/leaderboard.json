@@ -1,0 +1,144 @@
+{
+ "generated": "2026-10-10",
+ "suites": [
+  {
+   "id": "coding",
+   "name": "Coding",
+   "description": "Function-level Python tasks, graded by hidden unit tests run in a sandbox.",
+   "n_public": 5,
+   "n_private": 15
+  },
+  {
+   "id": "extract",
+   "name": "Structured extraction",
+   "description": "Turn messy real-world text into JSON with a given schema, graded field by field.",
+   "n_public": 4,
+   "n_private": 12
+  }
+ ],
+ "tiers": [
+  {
+   "id": "gpu-8",
+   "label": "8 GB GPU",
+   "kind": "gpu",
+   "gb": 8,
+   "usable_gb": 7.5
+  },
+  {
+   "id": "gpu-12",
+   "label": "12 GB GPU",
+   "kind": "gpu",
+   "gb": 12,
+   "usable_gb": 11.5
+  },
+  {
+   "id": "gpu-16",
+   "label": "16 GB GPU",
+   "kind": "gpu",
+   "gb": 16,
+   "usable_gb": 15.5
+  },
+  {
+   "id": "gpu-24",
+   "label": "24 GB GPU",
+   "kind": "gpu",
+   "gb": 24,
+   "usable_gb": 23.5
+  },
+  {
+   "id": "gpu-32",
+   "label": "32 GB GPU",
+   "kind": "gpu",
+   "gb": 32,
+   "usable_gb": 31.5
+  },
+  {
+   "id": "mac-16",
+   "label": "Mac 16 GB",
+   "kind": "mac",
+   "gb": 16,
+   "usable_gb": 10.7
+  },
+  {
+   "id": "mac-24",
+   "label": "Mac 24 GB",
+   "kind": "mac",
+   "gb": 24,
+   "usable_gb": 16.0
+  },
+  {
+   "id": "mac-32",
+   "label": "Mac 32 GB",
+   "kind": "mac",
+   "gb": 32,
+   "usable_gb": 21.3
+  },
+  {
+   "id": "mac-48",
+   "label": "Mac 48 GB",
+   "kind": "mac",
+   "gb": 48,
+   "usable_gb": 36.0
+  },
+  {
+   "id": "mac-64",
+   "label": "Mac 64 GB",
+   "kind": "mac",
+   "gb": 64,
+   "usable_gb": 48.0
+  }
+ ],
+ "memory_assumptions": {
+  "context": 8192,
+  "overhead_gb": 0.6,
+  "quants": {
+   "Q4_K_M": 4.85,
+   "Q5_K_M": 5.69,
+   "Q6_K": 6.59,
+   "Q8_0": 8.5
+  }
+ },
+ "models": [],
+ "pending": [
+  "gemma-2-27b-it",
+  "gemma-3-12b-it",
+  "gemma-3-27b-it",
+  "gemma-3-4b-it",
+  "gemma-4-26b-a4b-it",
+  "gemma-4-31b-it",
+  "glm-4-7-flash",
+  "gpt-oss-20b",
+  "granite-4-0-h-micro",
+  "granite-4-2-8b",
+  "llama-3-1-8b-instruct",
+  "llama-3-2-1b-instruct",
+  "llama-3-2-3b-instruct",
+  "ministral-14b-2512",
+  "ministral-3b-2512",
+  "ministral-8b-2512",
+  "mistral-nemo",
+  "mistral-small-24b-instruct-2501",
+  "mistral-small-3-1-24b-instruct",
+  "mistral-small-3-2-24b-instruct",
+  "nemotron-3-5-lightning",
+  "nemotron-3-nano-30b-a3b",
+  "phi-4",
+  "qwen-2-5-7b-instruct",
+  "qwen-2-5-coder-32b-instruct",
+  "qwen3-14b",
+  "qwen3-30b-a3b",
+  "qwen3-30b-a3b-instruct-2507",
+  "qwen3-32b",
+  "qwen3-5-27b",
+  "qwen3-5-35b-a3b",
+  "qwen3-5-9b",
+  "qwen3-6-27b",
+  "qwen3-6-35b-a3b",
+  "qwen3-8-27b",
+  "qwen3-coder-30b-a3b-instruct",
+  "qwen3-vl-30b-a3b-instruct",
+  "qwen3-vl-30b-a3b-thinking",
+  "qwen3-vl-8b-instruct"
+ ],
+ "changelog": []
+}

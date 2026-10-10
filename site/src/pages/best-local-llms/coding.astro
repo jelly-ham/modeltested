@@ -1,0 +1,46 @@
+---
+import Base from "../../layouts/Base.astro";
+import Leaderboard from "../../components/Leaderboard.astro";
+import TierPicks from "../../components/TierPicks.astro";
+import { data, ranked, monthYear, fmtDate, pct } from "../../lib/data";
+
+const suite = data.suites.find((s) => s.id === "coding")!;
+const rows = ranked("coding");
+const when = monthYear();
+const title = `Best Local LLM for Coding (${when}): Tested with Unit Tests`;
+const description = `Which local model writes the most correct code? ${rows.length} open-weight models, ${suite.n_public + suite.n_private} Python tasks graded by hidden unit tests, with the best pick for each GPU and Mac size. Updated ${fmtDate(data.generated)}.`;
+const top = rows[0];
+---
+<Base title={title} description={description}>
+  <h1>Best Local LLM for Coding ({when})</h1>
+  <p class="lede">
+    Function-level Python tasks — parsers, date math, data cleanup, small stateful classes — each graded by unit tests the
+    model never sees. A task counts only if every test passes. Ollama and LM Studio friendly picks for every hardware size.
+  </p>
+  <p class="meta">Last updated {fmtDate(data.generated)} · {suite.n_public + suite.n_private} tasks ({suite.n_public} public samples)</p>
+
+  {rows.length === 0 ? (
+    <p class="note">The first round of results is being collected. Check back soon.</p>
+  ) : (
+    <>
+      <p class="note">
+        <strong>Short answer:</strong> <a href={`/models/${top.slug}/`}>{top.name}</a> passed the most tasks ({pct(top.suites.coding?.score)}%).
+        Below are the best coders that fit each memory size.
+      </p>
+      <h2>Best local coding model by GPU</h2>
+      <TierPicks by="coding" kind="gpu" />
+      <h2>Best local coding model by Mac</h2>
+      <TierPicks by="coding" kind="mac" />
+      <h2>Coding leaderboard</h2>
+      <Leaderboard by="coding" />
+    </>
+  )}
+
+  <h2>What this test does and doesn't measure</h2>
+  <p>
+    It measures whether a model can turn a precise spec into working code on the first try — the everyday "write me a
+    function" use of a local model in an editor or chat. It does not measure multi-file agentic work (that's a different,
+    much more expensive benchmark) or speed on your machine. See <a href="/best-local-llms/methodology/">the methodology</a> and the
+    public sample tasks with every model's raw answers.
+  </p>
+</Base>

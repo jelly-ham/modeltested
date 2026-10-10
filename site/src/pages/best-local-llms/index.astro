@@ -1,0 +1,101 @@
+---
+import Base from "../../layouts/Base.astro";
+import Leaderboard from "../../components/Leaderboard.astro";
+import TierPicks from "../../components/TierPicks.astro";
+import { data, models, forTier, monthYear, fmtDate, pct } from "../../lib/data";
+
+const when = monthYear();
+const title = `Best Local LLMs (${when}): Tested & Ranked by Hardware`;
+const description = `Which open-weight model should you run locally? We test ${models.length} models on coding and data-extraction tasks and show the best pick for 8–32 GB GPUs and 16–64 GB Macs. Updated ${fmtDate(data.generated)}.`;
+
+const top = models[0];
+const pick = (tier: string) => forTier(tier)[0];
+const faq = [
+  ["gpu-8", "What is the best local LLM for an 8 GB GPU?"],
+  ["gpu-12", "What is the best local LLM for 12 GB of VRAM?"],
+  ["gpu-16", "What is the best local LLM for 16 GB of VRAM?"],
+  ["gpu-24", "What is the best local LLM for a 24 GB GPU like the RTX 3090/4090?"],
+  ["mac-16", "What is the best local LLM for a 16 GB Mac?"],
+  ["mac-32", "What is the best local LLM for a 32 GB Mac?"],
+]
+  .map(([tier, q]) => {
+    const p = pick(tier);
+    return p && { q, a: `${p.model.name} at ${p.quant} scored highest (${pct(p.model.overall)}/100) among the models that fit, as of ${fmtDate(data.generated)}.` };
+  })
+  .filter(Boolean) as { q: string; a: string }[];
+faq.push({
+  q: "Why don't you publish tokens-per-second speed numbers?",
+  a: "Speed depends on your exact GPU, drivers, runtime (llama.cpp, Ollama, LM Studio, MLX), context length and settings, so a single number would mislead more than it helps. We focus on quality and on whether a model fits in your memory.",
+});
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: title,
+    itemListElement: models.slice(0, 10).map((m, i) => ({ "@type": "ListItem", position: i + 1, name: m.name, url: new URL(`/models/${m.slug}/`, Astro.site).href })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  },
+];
+---
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <h1>Best Local LLMs ({when})</h1>
+  <p class="lede">
+    We run every new open-weight model through the same hidden test set — real coding tasks checked by unit tests, and
+    messy-text-to-JSON extraction — then work out which ones fit on your GPU or Mac. Re-tested whenever a notable model ships.
+  </p>
+  <p class="meta">Last updated {fmtDate(data.generated)} · {models.length} models tested{data.pending.length > 0 && ` · ${data.pending.length} in progress`}</p>
+
+  {models.length === 0 ? (
+    <p class="note">The first round of results is being collected. Check back soon.</p>
+  ) : (
+    <>
+      <p class="note">
+        <strong>Short answer:</strong> the strongest model we've tested is <a href={`/models/${top.slug}/`}>{top.name}</a> ({pct(top.overall)}/100).
+        If it doesn't fit your hardware, use the picks below.
+      </p>
+
+      <h2 id="gpu">Best pick for your GPU (VRAM)</h2>
+      <TierPicks by="overall" kind="gpu" />
+
+      <h2 id="mac">Best pick for your Mac (unified memory)</h2>
+      <TierPicks by="overall" kind="mac" />
+
+      <h2 id="leaderboard">Full leaderboard</h2>
+      <Leaderboard by="overall" />
+    </>
+  )}
+
+  <h2 id="how">How we test</h2>
+  <ul>
+    {data.suites.map((s) => <li><strong>{s.name}</strong> — {s.description} ({s.n_public + s.n_private} tasks)</li>)}
+  </ul>
+  <p>
+    Most tasks are kept private so models can't be trained on them; a sample is public along with every model's raw answers.
+    Models are queried at full or FP8 precision through hosted APIs, so expect slightly lower quality from a Q4 download.
+    <a href="/best-local-llms/methodology/">Full methodology →</a>
+  </p>
+
+  {data.changelog.length > 0 && (
+    <>
+      <h2 id="changelog">Changelog</h2>
+      <ul class="log">
+        {data.changelog.slice(0, 12).map((c) => (
+          <li><span class="meta">{fmtDate(c.date)}</span> — Added <a href={`/models/${c.slug}/`}>{c.name}</a>: {pct(c.overall)}/100, ranked #{c.rank} of {c.of}.</li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <h2 id="faq">FAQ</h2>
+  {faq.map((f) => (
+    <>
+      <h3>{f.q}</h3>
+      <p>{f.a}</p>
+    </>
+  ))}
+</Base>
