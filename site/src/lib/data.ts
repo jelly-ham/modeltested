@@ -2,7 +2,7 @@ import board from "../data/leaderboard.json";
 
 export const SITE_NAME = "Model Tested";
 export const TAGLINE = "Every new AI model, put through real tasks.";
-export const REPO_URL = "https://github.com/YOUR_GITHUB_USER/local-llm-bench";
+export const REPO_URL = "https://github.com/jelly-ham/modeltested";
 
 export type SuiteScore = { score: number | null; public: number | null; private: number | null; done: number; total: number };
 export type Model = {
