@@ -1,0 +1,259 @@
+{
+ "model": "glm-4-7-flash",
+ "runner_version": 1,
+ "items": {
+  "coding/code-business-day": {
+   "h": "6edd0827fd3a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-cron-matches": {
+   "h": "3d42429ae11d",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-dedupe-emails": {
+   "h": "286981be824d",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-diff-dicts": {
+   "h": "23e48c290b3c",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-evaluate-expr": {
+   "h": "9645efdf07a9",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-inventory": {
+   "h": "50c4fef1ef24",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-mask-secrets": {
+   "h": "0b802cf0137a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-money-split": {
+   "h": "aa121a0efaa6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-paginate": {
+   "h": "6d0e58ddd5b7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-parse-duration": {
+   "h": "7d2f96c9a827",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-parse-query": {
+   "h": "c758323f80cf",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-search-index": {
+   "h": "3fc4c534a420",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-slugify": {
+   "h": "ff09da2f4a43",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Novita",
+   "truncated": true,
+   "at": "2026-10-10"
+  },
+  "coding/code-sort-versions": {
+   "h": "e34aa61843e7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-summarize-logs": {
+   "h": "712019075476",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-summarize-ranges": {
+   "h": "5fc14f626f2b",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-token-bucket": {
+   "h": "d3602409587d",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-top-customers": {
+   "h": "61620e14b107",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-topo-sort": {
+   "h": "3abb90497cc4",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "coding/code-wrap-text": {
+   "h": "b079bee015b9",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-addresses": {
+   "h": "4fdc9cdc8fc4",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-bank-statement": {
+   "h": "79e8b9cb5ee6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-contract": {
+   "h": "f084278fcd34",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-email-scheduling": {
+   "h": "c4ff70dbfe0a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-flight": {
+   "h": "fadcd5e28c48",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-invoice-email": {
+   "h": "7479db623f41",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-job-posting": {
+   "h": "74f4bf47cd8c",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-meeting": {
+   "h": "774de3c4d357",
+   "v": "publ",
+   "score": 0.9,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-nutrition": {
+   "h": "2ace5302ada6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-press-release": {
+   "h": "43f9b77add71",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-product-review": {
+   "h": "f8ab2cde6360",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-real-estate": {
+   "h": "f11f2b001fb1",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-recipe": {
+   "h": "f7682e91e03f",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-resume": {
+   "h": "e6e7077b4ff9",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-shipping": {
+   "h": "ff5c42167fdf",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  },
+  "extract/extract-support-ticket": {
+   "h": "e36bc282659b",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Venice",
+   "at": "2026-10-10"
+  }
+ }
+}

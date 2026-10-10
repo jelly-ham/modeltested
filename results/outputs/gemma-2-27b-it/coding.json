@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "\n\n```python\ndef parse_duration(s: str) =\n    s = s.strip().lower()\n    if not s:\n       raise ValueError(\"Empty/blank string not allowed.\")\n    parts = s.split()\n    if len(parts) == 0 or len(parts) > 3:\n        raise ValueError(\"Invalid duration format.\")\n\n    total_seconds = 0\n    seen_units = set()\n\n    for part in parts:\n        if len(part) < 2: \n            raise ValueError(\"Invalid duration format (number without unit).\")\n        number = part[:-1]\n        unit = part[-1]\n\n        if not number.isdigit():\n            raise ValueError(\"Invalid duration format (non-digit number).\")\n\n        if unit not in ('h', 'm', 's'):\n            raise ValueError(\"Unknown unit\")\n        if unit in seen_units:\n            raise ValueError(\"Repeated unit.\")\n        seen_units.add(unit)\n\n        if unit == 'h':\n            total_seconds += int(number) * 3600\n        elif unit == 'm':\n            total_seconds += int(number) * 60\n        else:\n            total_seconds += int(number)\n\n    return total_seconds   \n```",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: expected ':'"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    title = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii')\n    title = title.lower()\n    title = ''.join('-'.join(title.split('-')).split() )\n    words = title.split('-')\n\n    for i in range(len(words)):\n        if len(words[i]) > max_len:\n            if i == 0:\n                return words[i][:max_len]\n            else:\n                return '-'.join(words[:i])\n    \n    return '-'.join(words) \n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    nums = sorted(set(nums))\n    if not nums:\n        return \"\"\n    ranges = []\n    start = nums[0]\n    for i in range(1, len(nums)):\n        if nums[i] != nums[i - 1] + 1:\n            if i - 1 >= 2 and nums[i - 1] - start >= 2:\n                ranges.append(f\"{start}..{nums[i - 1]}\")\n            else:\n                ranges.extend([str(x) for x in range(start, i)])\n            start = nums[i]\n    if i == len(nums) - 1:\n        if i - 1 >= 2 and nums[i] - start >= 2:\n            ranges.append(f\"{start}..{nums[i]}\")\n        else:\n            ranges.extend([str(x) for x in range(start, i + 1)])\n\n    return \",\".join(ranges)\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "UnboundLocalError: cannot access local variable 'i' where it is not associated with a value"
+  }
+ },
+ "code-token-bucket": {
+  "output": "\n\n```python\nfrom typing import Callable, Optional\nimport time\nclass TokenBucket:\n\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]):\n        self._capacity = capacity\n        self._refill_per_sec = refill_per_sec\n        self._clock = clock\n        self._tokens = self._capacity\n        self._last_refill = self._clock()\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n\n    def _refill(self):\n        now = self._clock()\n        elapsed = now - self._last_refill\n        self._tokens = min(self._capacity, self._tokens + self._refill_per_sec * elapsed)\n        self._last_refill = now \n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nimport re\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    customer_sums = {}\n    for row in rows:\n        customer = row.get(\"customer\", \"\").strip().lower()\n        amount_str = row.get(\"amount\")\n        if customer and re.match(r\"^\\$\\d+(\\.\\d+)?$\", amount_str):\n            amount = float(re.sub(r\"\\$\", \"\", amount_str))\n            if amount < 0:\n                amount *= -1 \n            if customer not in customer_sums:\n                customer_sums[customer] = 0\n            customer_sums[customer] += amount\n\n    top_customers = sorted(customer_sums.items(), key=lambda x: (-x[1], x[0]))\n    return [(name, round(total, 2)) for name, total in top_customers[:n]]\n```\n",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ }
+}

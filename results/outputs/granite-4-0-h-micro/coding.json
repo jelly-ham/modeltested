@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Convert a duration string into total seconds.\n    \n    Supported units: h (hours), m (minutes), s (seconds). Units are case-insensitive.\n    Each part is a non-negative integer followed by a unit, e.g. \"1h30m\", \"45s\", \"2H\", \"1h 5m 10s\", \"90m\".\n    Whitespace is allowed before, after and between parts.\n    Units must appear in the order h, m, s and each at most once.\n    \n    Raises:\n        ValueError: For empty/blank strings, numbers without a unit, unknown units, decimals, repeated units, or units out of order.\n    \"\"\"\n    if not s.strip():\n        raise ValueError(\"Empty or blank string provided.\")\n    \n    pattern = re.compile(r'^\\s*(?P<hours>\\d+)h\\s*(?P<minutes>\\d+)m\\s*(?P<seconds>\\d+)s\\s*$', re.IGNORECASE)\n    match = pattern.match(s)\n    \n    if not match:\n        raise ValueError(\"Invalid duration format.\")\n    \n    hours = int(match.group('hours'))\n    minutes = int(match.group('minutes'))\n    seconds = int(match.group('seconds'))\n    \n    if hours < 0 or minutes < 0 or seconds < 0:\n        raise ValueError(\"Negative values are not allowed.\")\n    \n    return hours * 3600 + minutes * 60 + seconds\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: Invalid duration format."
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Transliterate accented characters to ASCII\n    slug = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii')\n    \n    # Lowercase\n    slug = slug.lower()\n    \n    # Replace non-alphanumeric characters with '-'\n    slug = re.sub(r'[^a-z0-9]+', '-', slug)\n    \n    # Strip leading/trailing '-'\n    slug = slug.strip('-')\n    \n    # Handle max_len\n    if len(slug) > max_len:\n        # Try to find the longest prefix of whole words\n        words = slug.split('-')\n        new_slug = ''\n        for word in words:\n            if len(new_slug) + len(word) + 1 <= max_len:\n                new_slug += word + '-'\n            else:\n                break\n        slug = new_slug.rstrip('-')\n    \n    return slug\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    nums = sorted(set(nums))\n    result = []\n    start = nums[0]\n    \n    for i in range(1, len(nums)):\n        if nums[i] != nums[i - 1] + 1:\n            if nums[i - 1] == start:\n                result.append(str(start))\n            elif nums[i - 1] == start + 1:\n                result.extend([str(start), str(nums[i - 1])])\n            else:\n                result.append(f\"{start}..{nums[i - 1]}\")\n            start = nums[i]\n    \n    if nums[-1] == start:\n        result.append(str(start))\n    elif nums[-1] == start + 1:\n        result.extend([str(start), str(nums[-1])])\n    else:\n        result.append(f\"{start}..{nums[-1]}\")\n    \n    return \",\".join(result)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = capacity\n        self.last_refill = self.clock()\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self.tokens\n\n    def _refill(self):\n        elapsed = self.clock() - self.last_refill\n        refill = min(self.refill_per_sec * elapsed, self.capacity - self.tokens)\n        self.tokens = min(self.capacity, self.tokens + refill)\n        self.last_refill = self.clock()\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AttributeError: property 'tokens' of 'TokenBucket' object has no setter"
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nfrom decimal import Decimal\nfrom typing import List, Dict, Tuple\n\ndef top_customers(rows: List[Dict[str, str]], n: int) -> List[Tuple[str, float]]:\n    customer_totals = {}\n    \n    for row in rows:\n        customer_name = row.get(\"customer\", \"\").strip()\n        if not customer_name:\n            continue\n        \n        amount_str = row.get(\"amount\", \"\").strip()\n        try:\n            amount = Decimal(amount_str.replace('$', '').replace(',', ''))\n        except (ValueError, TypeError):\n            continue\n        \n        if amount == 0:\n            continue\n        \n        customer_name_lower = customer_name.lower()\n        if customer_name_lower not in customer_totals:\n            customer_totals[customer_name_lower] = 0\n        \n        customer_totals[customer_name_lower] += amount\n    \n    sorted_customers = sorted(\n        customer_totals.items(),\n        key=lambda item: (-item[1], item[0])\n    )\n    \n    return [(name, float(total)) for name, total in sorted_customers[:n]]\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "decimal.InvalidOperation: [<class 'decimal.ConversionSyntax'>]"
+  }
+ }
+}

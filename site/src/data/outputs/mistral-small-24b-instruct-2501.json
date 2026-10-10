@@ -1,0 +1,85 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    if not s or s.isspace():\n        raise ValueError(\"Empty or blank input string\")\n\n    # Regular expression to match the duration parts\n    pattern = re.compile(r'(\\d+)(h|m|s)', re.IGNORECASE)\n    parts = pattern.findall(s)\n\n    if not parts:\n        raise ValueError(\"No valid duration parts found\")\n\n    total_seconds = 0\n    last_unit = None\n\n    for value, unit in parts:\n        value = int(value)\n        unit = unit.lower()\n\n        if unit not in {'h', 'm', 's'}:\n            raise ValueError(f\"Unknown unit: {unit}\")\n\n        if unit == 'h':\n            total_seconds += value * 3600\n        elif unit == 'm':\n            total_seconds += value * 60\n        elif unit == 's':\n            total_seconds += value\n\n        if last_unit and unit <= last_unit:\n            raise ValueError(\"Units must appear in the order h, m, s and each at most once\")\n\n        last_unit = unit\n\n    return total_seconds\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError: 1.5h"
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Transliterate accented characters to ASCII and drop any other non-ASCII characters\n    title = unicodedata.normalize('NFKD', title)\n    title = ''.join(c for c in title if unicodedata.category(c).startswith('L') or c.isdigit() or c.isspace())\n\n    # Lowercase\n    title = title.lower()\n\n    # Replace every run of characters other than a-z and 0-9 with a single \"-\"\n    title = re.sub(r'[^a-z0-9]+', '-', title)\n\n    # Strip leading/trailing \"-\"\n    title = title.strip('-')\n\n    # Shorten the slug if it is longer than max_len\n    if len(title) > max_len:\n        words = title.split('-')\n        shortened_slug = []\n        current_length = 0\n\n        for word in words:\n            if current_length + len(word) + 1 <= max_len:\n                shortened_slug.append(word)\n                current_length += len(word) + 1\n            else:\n                break\n\n        if current_length > max_len:\n            shortened_slug = [shortened_slug[0][:max_len]]\n\n        title = '-'.join(shortened_slug)\n\n    return title\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    nums = sorted(set(nums))\n    ranges = []\n    start = nums[0]\n\n    for i in range(1, len(nums)):\n        if nums[i] == nums[i - 1] + 1:\n            continue\n        if nums[i - 1] - start >= 2:\n            ranges.append(f\"{start}..{nums[i - 1]}\")\n        elif nums[i - 1] - start == 1:\n            ranges.append(f\"{start},{nums[i - 1]}\")\n        else:\n            ranges.append(f\"{nums[i - 1]}\")\n        start = nums[i]\n\n    if nums[-1] - start >= 2:\n        ranges.append(f\"{start}..{nums[-1]}\")\n    elif nums[-1] - start == 1:\n        ranges.append(f\"{start},{nums[-1]}\")\n    else:\n        ranges.append(f\"{nums[-1]}\")\n\n    return \",\".join(ranges)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.current_tokens = capacity\n        self.last_refill_time = clock()\n\n    def _refill(self):\n        now = self.clock()\n        elapsed = now - self.last_refill_time\n        self.current_tokens = min(self.capacity, self.current_tokens + elapsed * self.refill_per_sec)\n        self.last_refill_time = now\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self.current_tokens >= cost:\n            self.current_tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self.current_tokens\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nimport re\nfrom collections import defaultdict\n\ndef parse_amount(amount: str) -> float:\n    # Remove any commas and dollar signs, then convert to float\n    amount = re.sub(r'[$,]', '', amount)\n    return round(float(amount), 2)\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    customer_totals = defaultdict(float)\n\n    for row in rows:\n        customer = row.get(\"customer\", \"\").strip()\n        amount_str = row.get(\"amount\", \"\")\n\n        if not customer or not amount_str:\n            continue\n\n        try:\n            amount = parse_amount(amount_str)\n        except ValueError:\n            continue\n\n        customer = customer.lower()\n        customer_totals[customer] += amount\n\n    # Sort by total descending, then by name ascending\n    sorted_customers = sorted(customer_totals.items(), key=lambda x: (-x[1], x[0]))\n\n    # Get the top n customers\n    return sorted_customers[:n]\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  }
+ },
+ "extract": {
+  "extract-invoice-email": {
+   "output": "```json\n{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": null,\n  \"line_items\": [\n    {\n      \"sku\": \"WEB-01\",\n      \"quantity\": 1,\n      \"unit_price\": 3500\n    },\n    {\n      \"sku\": \"HST-12\",\n      \"quantity\": 3,\n      \"unit_price\": 270\n    }\n  ]\n}\n```",
+   "score": 0.9231,
+   "detail": {
+    "matched": 12,
+    "total": 13,
+    "wrong": [
+     "$.due_date"
+    ],
+    "bare_json": false
+   }
+  },
+  "extract-meeting": {
+   "output": "```json\n{\n  \"title\": null,\n  \"date\": \"2024-07-18\",\n  \"start_time\": \"14:30\",\n  \"timezone\": \"America/Los_Angeles\",\n  \"duration_minutes\": 90,\n  \"attendees\": [\n    \"dana@acme.io\",\n    \"li.wei@acme.io\",\n    \"raj@outsource.dev\"\n  ],\n  \"zoom_meeting_id\": \"89122345501\",\n  \"first_presenter\": \"Dana\"\n}\n```",
+   "score": 0.9,
+   "detail": {
+    "matched": 9,
+    "total": 10,
+    "wrong": [
+     "$.title"
+    ],
+    "bare_json": false
+   }
+  },
+  "extract-resume": {
+   "output": "```json\n{\n  \"full_name\": \"JORDAN LEE\",\n  \"email\": \"jordan.lee@protonmail.com\",\n  \"phone_e164\": \"+12065550147\",\n  \"city\": \"Seattle\",\n  \"state\": \"WA\",\n  \"current_title\": \"Senior Data Engineer\",\n  \"current_company\": \"Northwind Health\",\n  \"employers\": [\n    \"Northwind Health\",\n    \"Contoso Retail\",\n    \"Fabrikam\"\n  ],\n  \"career_start\": \"2015-01\",\n  \"graduation_year\": 2014,\n  \"skills\": [\n    \"Python\",\n    \"SQL\",\n    \"Apache Spark\",\n    \"Airflow\",\n    \"dbt\"\n  ]\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "matched": 17,
+    "total": 17,
+    "wrong": [],
+    "bare_json": false
+   }
+  },
+  "extract-support-ticket": {
+   "output": "```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"plan\": \"Pro\",\n  \"order_ids\": [\"A-55821\", \"A-55822\"],\n  \"refund_requested\": true,\n  \"sentiment\": \"negative\",\n  \"customer_name\": \"Priya\"\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "matched": 8,
+    "total": 8,
+    "wrong": [],
+    "bare_json": false
+   }
+  }
+ }
+}

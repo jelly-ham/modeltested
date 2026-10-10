@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'parse_duration' is not defined"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters to ASCII and drop non-ASCII\n    title = unicodedata.normalize('NFKD', title)\n    title = ''.join([c for c in title if ord(c) < 128])\n    # Step 2: Lowercase\n    title = title.lower()\n    # Step 3: Replace non-alphanumeric with '-', then strip leading/trailing '-'\n    title = re.sub(r'[^a-z0-9]+', '-', title)\n    title = title.strip('-')\n    \n    # Step 4: Shorten if necessary\n    if len(title) <= max_len:\n        return title\n    \n    parts = title.split('-')\n    if not parts:\n        return ''\n    \n    first_part = parts[0]\n    if len(first_part) > max_len:\n        return first_part[:max_len]\n    \n    selected_parts = [first_part]\n    current_length = len(first_part)\n    \n    for part in parts[1:]:\n        if current_length + 1 + len(part) <= max_len:\n            current_length += 1 + len(part)\n            selected_parts.append(part)\n        else:\n            break\n    \n    return '-'.join(selected_parts)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    sorted_nums = sorted(set(nums))\n    ranges = []\n    current_start = sorted_nums[0]\n    current_end = sorted_nums[0]\n    for num in sorted_nums[1:]:\n        if num == current_end + 1:\n            current_end = num\n        else:\n            ranges.append((current_start, current_end))\n            current_start = num\n            current_end = num\n    ranges.append((current_start, current_end))\n    parts = []\n    for start, end in ranges:\n        if start == end:\n            parts.append(str(start))\n        elif end - start == 1:\n            parts.append(f\"{start},{end}\")\n        else:\n            parts.append(f\"{start}..{end}\")\n    return \",\".join(parts)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.last_refill_time = clock()\n        self.current_tokens = capacity\n\n    def allow(self, cost: float = 1.0) -> bool:\n        now = self.clock()\n        delta = now - self.last_refill_time\n        self.current_tokens = min(self.current_tokens + delta * self.refill_per_sec, self.capacity)\n        self.last_refill_time = now\n        if self.current_tokens >= cost:\n            self.current_tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        now = self.clock()\n        delta = now - self.last_refill_time\n        self.current_tokens = min(self.current_tokens + delta * self.refill_per_sec, self.capacity)\n        self.last_refill_time = now\n        return self.current_tokens\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    first_valid_name = {}\n    customer_totals = {}\n    for row in rows:\n        customer = row.get('customer', '').strip()\n        if not customer:\n            continue\n        amount_str = row.get('amount', '').replace('$', '').replace(',', '')\n        try:\n            amount = float(amount_str)\n        except ValueError:\n            continue\n        lower_name = customer.lower()\n        if lower_name not in first_valid_name:\n            first_valid_name[lower_name] = customer\n        if lower_name not in customer_totals:\n            customer_totals[lower_name] = 0.0\n        customer_totals[lower_name] += amount\n    result = []\n    for lower_name in customer_totals:\n        name = first_valid_name[lower_name]\n        total = round(customer_totals[lower_name], 2)\n        result.append((name, total))\n    result.sort(key=lambda x: (-x[1], x[0]))\n    return result[:n]\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ }
+}

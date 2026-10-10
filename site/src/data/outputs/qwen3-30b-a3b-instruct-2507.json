@@ -1,0 +1,83 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    # Strip whitespace and check for empty string\n    s = s.strip()\n    if not s:\n        raise ValueError(\"Empty or blank string\")\n    \n    # Pattern to match valid duration parts: optional spaces, number, unit (h/m/s), optional spaces\n    pattern = r'^\\s*(\\d+)(h|m|s)\\s*'\n    parts = []\n    remaining = s\n    \n    # Expected order of units\n    expected_units = ['h', 'm', 's']\n    seen_units = set()\n    \n    # Parse each part in order\n    for unit in expected_units:\n        match = re.match(pattern + r'(\\s*,?\\s*|)', remaining, re.IGNORECASE)\n        if match:\n            value = int(match.group(1))\n            found_unit = match.group(2).lower()\n            \n            # Check if unit is correct and not repeated\n            if found_unit != unit:\n                raise ValueError(f\"Unit '{found_unit}' is not in expected order or is invalid\")\n            if found_unit in seen_units:\n                raise ValueError(f\"Unit '{found_unit}' repeated\")\n            \n            parts.append((unit, value))\n            seen_units.add(found_unit)\n            remaining = remaining[match.end():].strip()\n        else:\n            # If we expect a unit but don't find it, it's missing or out of order\n            if unit in ['h', 'm'] and len(parts) == 0:\n                # Must start with 'h'\n                raise ValueError(\"Duration must start with 'h'\")\n            # If we're past the expected unit, it's out of order\n            if len(parts) > 0 and (unit == 'm' and 'h' not in [p[0] for p in parts]) or (unit == 's' and ('h' not in [p[0] for p in parts] or 'm' not in [p[0] for p in parts])):\n                raise ValueError(\"Units must be in order: h, then m, then s\")\n    \n    # Check if there's anything left after parsing\n    if remaining:\n        # If remaining string still has digits, it means no unit was provided\n        if re.match(r'^\\s*\\d+', remaining):\n            raise ValueError(\"Number without a unit\")\n        # If remaining has unknown characters or units, it's invalid\n        if re.search(r'\\d', remaining) and not re.search(r'[hms]', remaining):\n            raise ValueError(\"Unknown units or malformed input\")\n        raise ValueError(\"Invalid duration format\")\n    \n    # Check that we have all required parts in order or just partial parts\n    # But we must have units in correct order\n    for i, (unit, value) in enumerate(parts):\n        if unit != expected_units[i]:\n            raise ValueError(f\"Unit {unit} out of order\")\n    \n    # Convert to seconds\n    total_seconds = 0\n    for unit, value in parts:\n        if unit == 'h':\n            total_seconds += value * 3600\n        elif unit == 'm':\n            total_seconds += value * 60\n        elif unit == 's':\n            total_seconds += value\n    \n    return total_seconds\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "ValueError: Unit 's' is not in expected order or is invalid"
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters to ASCII and drop non-ASCII\n    normalized = unicodedata.normalize('NFKD', title)\n    ascii_chars = ''.join(c for c in normalized if unicodedata.category(c) != 'Mn')\n    ascii_only = ''.join(c for c in ascii_chars if ord(c) < 128)\n    \n    # Step 2: Lowercase\n    lowercased = ascii_only.lower()\n    \n    # Step 3: Replace non-alphanumeric chars with single \"-\" and strip leading/trailing \"-\"\n    slug = re.sub(r'[^a-z0-9]+', '-', lowercased).strip('-')\n    \n    # Step 4: Shorten if longer than max_len without cutting words\n    if len(slug) <= max_len:\n        return slug\n    \n    # Split into words and build prefix\n    words = slug.split('-')\n    prefix = \"\"\n    for word in words:\n        candidate = prefix + (word if not prefix else f\"-{word}\")\n        if len(candidate) <= max_len:\n            prefix = candidate\n        else:\n            # If adding this word would exceed max_len, check if first word is longer\n            if len(words[0]) > max_len:\n                return words[0][:max_len]\n            break\n    \n    return prefix\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    # Remove duplicates and sort\n    unique_nums = sorted(set(nums))\n    \n    result = []\n    i = 0\n    n = len(unique_nums)\n    \n    while i < n:\n        start = unique_nums[i]\n        # Find the end of the current consecutive sequence\n        j = i\n        while j + 1 < n and unique_nums[j + 1] == unique_nums[j] + 1:\n            j += 1\n        \n        # Check if the run is 3 or more numbers\n        if j - i + 1 >= 3:\n            result.append(f\"{start}..{unique_nums[j]}\")\n        else:\n            # Add individual numbers\n            for k in range(i, j + 1):\n                result.append(str(unique_nums[k]))\n        \n        i = j + 1\n    \n    return \",\".join(result)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self._tokens = capacity\n        self._last_refill_time = clock()\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    def _refill(self):\n        now = self.clock()\n        elapsed = now - self._last_refill_time\n        refill_amount = elapsed * self.refill_per_sec\n        self._tokens = min(self.capacity, self._tokens + refill_amount)\n        self._last_refill_time = now\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nfrom typing import List, Dict, Tuple\nimport re\n\ndef top_customers(rows: List[Dict], n: int) -> List[Tuple[str, float]]:\n    customer_totals = {}\n    customer_names = {}\n    \n    # Regular expression to match valid amount strings\n    amount_pattern = re.compile(r'^([-+]?)\\$(\\d{1,3}(,\\d{3})*|\\d+)(\\.\\d{1,2})?$')\n    \n    for row in rows:\n        customer = row.get(\"customer\", \"\").strip()\n        amount_str = row.get(\"amount\", \"\").strip()\n        \n        # Skip empty customer name or unparsable amount\n        if not customer or not amount_str:\n            continue\n            \n        # Check if amount string matches the pattern\n        if not amount_pattern.match(amount_str):\n            continue\n            \n        # Parse the amount\n        try:\n            # Remove $ and commas, convert to float\n            clean_amount = amount_str.replace(\"$\", \"\").replace(\",\", \"\")\n            amount = float(clean_amount)\n        except ValueError:\n            continue\n            \n        # Normalize customer name (case-insensitive) and store first occurrence\n        customer_lower = customer.lower()\n        if customer_lower not in customer_names:\n            customer_names[customer_lower] = customer  # Use first valid spelling\n        \n        # Add to total\n        if customer_lower not in customer_totals:\n            customer_totals[customer_lower] = 0.0\n        customer_totals[customer_lower] += amount\n    \n    # Create result list with (name, total) tuples\n    result = []\n    for customer_lower, total in customer_totals.items():\n        name = customer_names[customer_lower]\n        # Round to 2 decimals\n        rounded_total = round(total, 2)\n        result.append((name, rounded_total))\n    \n    # Sort by total descending, then by name ascending\n    result.sort(key=lambda x: (-x[1], x[0]))\n    \n    # Return top n customers\n    return result[:n]\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  }
+ },
+ "extract": {
+  "extract-invoice-email": {
+   "output": "{\"invoice_number\":\"INV-2024-0193\",\"vendor\":\"BrightPixel Studio LLC\",\"contact_name\":\"Maria Gonzalez\",\"currency\":\"USD\",\"total\":4310,\"invoice_date\":\"2024-09-15\",\"due_date\":null,\"line_items\":[{\"sku\":\"WEB-01\",\"quantity\":1,\"unit_price\":3500},{\"sku\":\"HST-12\",\"quantity\":3,\"unit_price\":270}]}",
+   "score": 0.9231,
+   "detail": {
+    "matched": 12,
+    "total": 13,
+    "wrong": [
+     "$.due_date"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-meeting": {
+   "output": "{\"title\": \"Q3 planning sync\", \"date\": \"2024-07-18\", \"start_time\": \"14:30\", \"timezone\": \"America/Los_Angeles\", \"duration_minutes\": 90, \"attendees\": [\"dana@acme.io\", \"li.wei@acme.io\", \"raj@outsource.dev\"], \"zoom_meeting_id\": \"89122345501\", \"first_presenter\": \"Dana\"}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-resume": {
+   "output": "{\"full_name\":\"JORDAN LEE\",\"email\":\"jordan.lee@protonmail.com\",\"phone_e164\":\"+12065550147\",\"city\":\"Seattle\",\"state\":\"WA\",\"current_title\":\"Senior Data Engineer\",\"current_company\":\"Northwind Health\",\"employers\":[\"Northwind Health\",\"Contoso Retail\",\"Fabrikam\"],\"career_start\":\"2015-01\",\"graduation_year\":2014,\"skills\":[\"Python\",\"SQL\",\"Apache Spark\",\"Airflow\",\"dbt\"]}",
+   "score": 1.0,
+   "detail": {
+    "matched": 17,
+    "total": 17,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-support-ticket": {
+   "output": "{\"category\":\"billing\",\"priority\":\"high\",\"plan\":\"Pro\",\"order_ids\":[\"A-55821\",\"A-55822\"],\"refund_requested\":true,\"sentiment\":\"negative\",\"customer_name\":\"Priya\"}",
+   "score": 1.0,
+   "detail": {
+    "matched": 8,
+    "total": 8,
+    "wrong": [],
+    "bare_json": true
+   }
+  }
+ }
+}

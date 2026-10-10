@@ -1,0 +1,83 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    # Regular expression to match the parts of the duration string\n    pattern = re.compile(\n        r'(?P<hours>\\d+)\\s*h\\s*|\\s*(?P<minutes>\\d+)\\s*m\\s*|\\s*(?P<seconds>\\d+)\\s*s\\s*'\n    )\n    \n    if not s.strip():\n        raise ValueError(\"Empty or blank string\")\n    \n    # Matching all parts\n    matches = list(pattern.finditer(s))\n    \n    if not matches:\n        raise ValueError(\"No valid duration parts found\")\n    \n    # Dictionaries to hold the parsed values\n    values = {\n        'hours': None,\n        'minutes': None,\n        'seconds': None\n    }\n    \n    for match in matches:\n        for unit in ('hours', 'minutes', 'seconds'):\n            if match.group(unit):\n                if values[unit] is not None:\n                    raise ValueError(f\"Repeated unit '{unit}'\")\n                values[unit] = int(match.group(unit))\n    \n    # Check for units in the correct order\n    order = ['hours', 'minutes', 'seconds']\n    last_index = -1\n    \n    for unit in order:\n        if values[unit] is not None:\n            current_index = order.index(unit)\n            if current_index < last_index:\n                raise ValueError(f\"Units out of order: '{unit}'\")\n            last_index = current_index\n        elif last_index is not -1:\n            # If current unit is None, and previous units are not None\n            raise ValueError(f\"Missing unit '{unit}' after '{order[last_index]}'\")\n    \n    # Calculating total seconds\n    total_seconds = 0\n    if values['hours'] is not None:\n        total_seconds += values['hours'] * 3600\n    if values['minutes'] is not None:\n        total_seconds += values['minutes'] * 60\n    if values['seconds'] is not None:\n        total_seconds += values['seconds']\n    \n    return total_seconds\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "ValueError: Missing unit 'seconds' after 'minutes'"
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters to ASCII and remove non-ASCII characters\n    normalized = unicodedata.normalize('NFKD', title)\n    slug = ''.join(\n        char for char in normalized if unicodedata.category(char) != 'Mn' and char.isascii()\n    )\n    \n    # Step 2: Lowercase\n    slug = slug.lower()\n    \n    # Step 3: Replace runs of non-word characters with \"-\"\n    slug = re.sub(r'[^\\w\\s-]', '-', slug)\n    slug = re.sub(r'[-\\s]+', '-', slug).strip('-')\n    \n    # Step 4: Shorten slug if it exceeds max_len\n    if len(slug) > max_len:\n        words = slug.split('-')\n        result = []\n        length = 0\n        \n        for word in words:\n            if length + len(word) + (1 if result else 0) > max_len:\n                break\n            if result:\n                length += 1\n            result.append(word)\n            length += len(word)\n        \n        if not result:\n            result.append(slug[:max_len])  # Hard-cut the prefix if necessary\n        \n        slug = '-'.join(result)\n    \n    return slug\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums):\n    if not nums:\n        return \"\"\n\n    nums = sorted(set(nums))\n    ranges = []\n    start = nums[0]\n    prev = nums[0]\n\n    for num in nums[1:]:\n        if num == prev + 1:\n            prev = num\n        else:\n            if start == prev:\n                ranges.append(str(start))\n            elif prev - start == 1:\n                ranges.append(str(start))\n                ranges.append(str(prev))\n            else:\n                ranges.append(f\"{start}..{prev}\")\n            start = num\n            prev = num\n\n    if start == prev:\n        ranges.append(str(start))\n    elif prev - start == 1:\n        ranges.append(str(start))\n        ranges.append(str(prev))\n    else:\n        ranges.append(f\"{start}..{prev}\")\n\n    return \",\".join(ranges)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nfrom time import monotonic\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock) -> None:\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self._tokens = capacity\n        self._last_refill_timestamp = self.clock()\n\n    def _refill(self) -> None:\n        now = self.clock()\n        elapsed = now - self._last_refill_timestamp\n        self._last_refill_timestamp = now\n        to_add = elapsed * self.refill_per_sec\n        self._tokens = min(self.capacity, self._tokens + to_add)\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nimport re\nfrom collections import defaultdict\n\ndef top_customers(rows, n):\n    # Regular expression to match dollar amounts\n    amount_pattern = re.compile(r'^[-\\s]*\\$?(\\d{1,3}(?:,\\d{3})*|\\d+)(?:\\.\\d{2})?$')\n    \n    # Dictionary to store the total amount for each customer\n    customer_totals = defaultdict(float)\n    \n    # Set to track unique customer names with case insensitive matching\n    customer_names = {}\n    \n    for row in rows:\n        customer = row.get('customer', '').strip()\n        amount = row.get('amount', '')\n        \n        if not customer:\n            continue\n        \n        # Match the amount using the defined pattern\n        match = amount_pattern.match(amount.replace(',', ''))\n        if match:\n            # Convert the matched amount to a float\n            total_amount = float(match.group(1))\n            # Normalize customer names (case insensitive)\n            normalized_customer = customer.lower()\n            if normalized_customer not in customer_names:\n                customer_names[normalized_customer] = customer\n            # Accumulate the total amount for the customer\n            customer_totals[customer_names[normalized_customer]] += total_amount\n    \n    # Create a sorted list of customers by total amount descending, then name ascending\n    sorted_customers = sorted(customer_totals.items(), key=lambda x: (-x[1], x[0]))\n    \n    # Return the top n customers\n    return sorted_customers[:n]\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  }
+ },
+ "extract": {
+  "extract-invoice-email": {
+   "output": "```json\n{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310.00,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    { \"sku\": \"WEB-01\", \"quantity\": 1, \"unit_price\": 3500.00 },\n    { \"sku\": \"HST-12\", \"quantity\": 3, \"unit_price\": 270.00 }\n  ]\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "matched": 13,
+    "total": 13,
+    "wrong": [],
+    "bare_json": false
+   }
+  },
+  "extract-meeting": {
+   "output": "```json\n{\n  \"title\": null,\n  \"date\": \"2024-07-18\",\n  \"start_time\": \"14:30\",\n  \"timezone\": \"America/Los_Angeles\",\n  \"duration_minutes\": 90,\n  \"attendees\": [\n    \"dana@acme.io\",\n    \"li.wei@acme.io\",\n    \"raj@outsource.dev\"\n  ],\n  \"zoom_meeting_id\": \"89122345501\",\n  \"first_presenter\": \"Dana\"\n}\n```",
+   "score": 0.9,
+   "detail": {
+    "matched": 9,
+    "total": 10,
+    "wrong": [
+     "$.title"
+    ],
+    "bare_json": false
+   }
+  },
+  "extract-resume": {
+   "output": "```json\n{\n  \"full_name\": \"JORDAN LEE\",\n  \"email\": \"jordan.lee@protonmail.com\",\n  \"phone_e164\": \"+12065550147\",\n  \"city\": \"Seattle\",\n  \"state\": \"WA\",\n  \"current_title\": \"Senior Data Engineer\",\n  \"current_company\": \"Northwind Health\",\n  \"employers\": [\"Northwind Health\", \"Contoso Retail\", \"Fabrikam\"],\n  \"career_start\": \"2015-01\",\n  \"graduation_year\": 2014,\n  \"skills\": [\"Python\", \"SQL\", \"Apache Spark\", \"Airflow\", \"dbt\"]\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "matched": 17,
+    "total": 17,
+    "wrong": [],
+    "bare_json": false
+   }
+  },
+  "extract-support-ticket": {
+   "output": "```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"plan\": \"Pro\",\n  \"order_ids\": [\"A-55821\", \"A-55822\"],\n  \"refund_requested\": true,\n  \"sentiment\": \"negative\",\n  \"customer_name\": \"Priya\"\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "matched": 8,
+    "total": 8,
+    "wrong": [],
+    "bare_json": false
+   }
+  }
+ }
+}

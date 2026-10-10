@@ -1,0 +1,84 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\ndef parse_duration(s: str) -> int:\n    import re\n    \n    if not s.strip():\n        raise ValueError(\"Duration string cannot be empty or blank\")\n    \n    pattern = r\"(\\d+)(h|m|s)\"\n    matches = re.findall(pattern, s.replace(\" \", \"\").lower())\n    \n    if not matches:\n        raise ValueError(\"Duration string must contain at least one valid unit with a number\")\n    \n    units = {\"h\": 3600, \"m\": 60, \"s\": 1}\n    total_seconds = 0\n    \n    for amount, unit in matches:\n        if unit not in units:\n            raise ValueError(f\"Unknown unit: {unit}\")\n        total_seconds += int(amount) * units[unit]\n    \n    return total_seconds\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError: 1m1h"
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport re\nfrom unicodedata import normalize\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Transliterate accented characters to ASCII and lowercase\n    ascii_title = normalize('NFKD', title).encode('ASCII', 'ignore').decode().lower()\n    \n    # Replace every run of non-alphanumeric characters with a single \"-\"\n    slug = re.sub(r'[^a-z0-9]+', '-', ascii_title)\n    \n    # Strip leading/trailing \"-\"\n    slug = slug.strip('-')\n    \n    # If the slug is longer than max_len, shorten it without cutting a word\n    if len(slug) > max_len:\n        # Find the last space before max_len that allows us to keep whole words\n        last_space = max((i for i in range(max_len) if slug[i] == '-'), default=max_len)\n        slug = slug[:last_space]\n        # Ensure the result does not end with \"-\"\n        if slug.endswith('-'):\n            slug = slug[:-1]\n    \n    return slug\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    nums.sort()\n    result = []\n    start = None\n    \n    for i in range(len(nums)):\n        if start is None or nums[i] == nums[i - 1] + 1:\n            start = nums[i]\n        else:\n            if i > 0 and nums[i - 1] - nums[i - 2] >= 2:\n                result.append(f\"{start}..{nums[i - 1]}\")\n                start = nums[i]\n            else:\n                result.extend(map(str, range(nums[i - 1], nums[i])))\n    \n    if start is not None:\n        if len(nums) - nums.index(start) >= 2:\n            result.append(f\"{start}..{nums[-1]}\")\n        else:\n            result.extend(map(str, range(start, nums[-1] + 1)))\n    \n    return \",\".join(result)\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nfrom collections import deque\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock=time.time):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.tokens = capacity\n        self.clock = clock\n        self.last_refill_time = clock()\n        self.refill_queue = deque()\n\n    def _refill(self):\n        current_time = self.clock()\n        if not self.refill_queue or current_time >= self.refill_queue[-1]:\n            elapsed_time = max(current_time - self.last_refill_time, 0)\n            tokens_to_add = min(elapsed_time * self.refill_per_sec, self.capacity - self.tokens)\n            self.tokens = min(self.capacity, self.tokens + tokens_to_add)\n            self.last_refill_time = current_time\n            if tokens_to_add > 0:\n                self.refill_queue.append(current_time + 1 / self.refill_per_sec)\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n\n    @tokens.setter\n    def tokens(self, value: float):\n        self._tokens = min(value, self.capacity)\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "RecursionError: maximum recursion depth exceeded"
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nfrom typing import List, Tuple\nimport re\n\ndef top_customers(rows: List[dict], n: int) -> List[Tuple[str, float]]:\n    def parse_amount(amount_str: str) -> float:\n        amount_str = amount_str.strip()\n        if not amount_str:\n            return 0.0\n        match = re.match(r'^-?\\$?(\\d+(,\\d{3})*(\\.\\d+)?|\\.\\d+)$', amount_str.replace(',', ''))\n        if not match:\n            return 0.0\n        return round(float(match.group(1).replace(',', '')), 2)\n\n    customers = {}\n    for row in rows:\n        name = row.get('customer').strip().lower()\n        if not name:\n            continue\n        amount = parse_amount(row.get('amount'))\n        if amount == 0.0:\n            continue\n        if name not in customers:\n            customers[name] = amount\n        else:\n            customers[name] += amount\n\n    sorted_customers = sorted(customers.items(), key=lambda x: (-x[1], x[0]))\n    return sorted_customers[:n]\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  }
+ },
+ "extract": {
+  "extract-invoice-email": {
+   "output": "{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    {\n      \"sku\": \"WEB-01\",\n      \"quantity\": 1,\n      \"unit_price\": 3500\n    },\n    {\n      \"sku\": \"HST-12\",\n      \"quantity\": 3,\n      \"unit_price\": 270\n    }\n  ]\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 13,
+    "total": 13,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-meeting": {
+   "output": "{\n  \"title\": \"Q3 planning sync\",\n  \"date\": \"2024-07-18\",\n  \"start_time\": \"14:30\",\n  \"timezone\": \"America/Los_Angeles\",\n  \"duration_minutes\": 90,\n  \"attendees\": [\n    \"dana@acme.io\",\n    \"li.wei@acme.io\",\n    \"raj@outsource.dev\"\n  ],\n  \"zoom_meeting_id\": \"891 2234 5501\",\n  \"first_presenter\": \"dana@acme.io\"\n}",
+   "score": 0.8,
+   "detail": {
+    "matched": 8,
+    "total": 10,
+    "wrong": [
+     "$.first_presenter",
+     "$.zoom_meeting_id"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-resume": {
+   "output": "{\n  \"full_name\": \"JORDAN LEE\",\n  \"email\": \"jordan.lee@protonmail.com\",\n  \"phone_e164\": \"+12065550147\",\n  \"city\": \"Seattle\",\n  \"state\": \"WA\",\n  \"current_title\": \"Senior Data Engineer\",\n  \"current_company\": \"Northwind Health\",\n  \"employers\": [\"Northwind Health\", \"Contoso Retail\", \"Fabrikam\"],\n  \"career_start\": \"2015-01\",\n  \"graduation_year\": 2014,\n  \"skills\": [\"Python\", \"SQL\", \"Apache Spark\", \"Airflow\", \"dbt\"]\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 17,
+    "total": 17,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-support-ticket": {
+   "output": "{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"plan\": \"Pro\",\n  \"order_ids\": [\"A-55821\", \"A-55822\"],\n  \"refund_requested\": true,\n  \"sentiment\": \"negative\",\n  \"customer_name\": \"Priya\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 8,
+    "total": 8,
+    "wrong": [],
+    "bare_json": true
+   }
+  }
+ }
+}

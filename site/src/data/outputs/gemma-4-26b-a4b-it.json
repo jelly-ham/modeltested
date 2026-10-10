@@ -1,0 +1,81 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Converts a duration string into a total number of seconds.\n    Supported units: h, m, s (case-insensitive).\n    \"\"\"\n    s = s.strip()\n    if not s:\n        raise ValueError(\"Duration string cannot be empty or blank.\")\n\n    # Regex to find pairs of (number)(unit)\n    # \\d+ ensures we only match integers (no decimals allowed)\n    # [a-zA-Z] captures the unit part\n    pattern = re.compile(r'(\\d+)([a-zA-Z])')\n    \n    # To validate the string structure, we find all matches and check if \n    # they cover the entire non-whitespace content of the string.\n    # We first remove all whitespace to simplify verification.\n    stripped_content = \"\".join(s.split())\n    \n    matches = list(pattern.finditer(s))\n    \n    # Check if there are any matches at all\n    if not matches:\n        raise ValueError(\"No valid duration parts found.\")\n\n    # Validate that the entire string is composed strictly of valid parts\n    # Reconstruct the string from matches and compare with stripped content\n    reconstructed = \"\"\n    for m in matches:\n        reconstructed += m.group(1) + m.group(2).lower()\n    \n    if reconstructed != stripped_content:\n        # This handles cases like \"10.5h\", \"10x\", \"1h5\", etc.\n        raise ValueError(\"Invalid format or unsupported characters.\")\n\n    unit_map = {'h': 3600, 'm': 60, 's': 1}\n    order_map = {'h': 0, 'm': 1, 's': 2}\n    \n    total_seconds = 0\n    seen_units = []\n\n    for m in matches:\n        value = int(m.group(1))\n        unit = m.group(2).lower()\n\n        if unit not in unit_map:\n            raise ValueError(f\"Unknown unit: {unit}\")\n        \n        if unit in seen_units:\n            raise ValueError(f\"Duplicate unit: {unit}\")\n        \n        # Check if units are in order (h -> m -> s)\n        # Since we iterate through the matches, if current unit's rank \n        # is less than the previous unit's rank, it's out of order.\n        current_rank = order_map[unit]\n        if seen_units:\n            prev_rank = order_map[seen_units[-1]]\n            if current_rank <= prev_rank:\n                raise ValueError(\"Units must appear in order: h, m, s.\")\n\n        seen_units.append(unit)\n        total_seconds += value * unit_map[unit]\n\n    return total_seconds\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "ValueError: Invalid format or unsupported characters."
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # 1. Transliterate accented characters to ASCII and drop others\n    # Normalize to decomposed form to separate accents from base characters\n    normalized = unicodedata.normalize('NFKD', title)\n    # Encode to ASCII, ignoring characters that cannot be converted\n    ascii_bytes = normalized.encode('ascii', 'ignore')\n    text = ascii_bytes.decode('ascii')\n\n    # 2. Lowercase\n    text = text.lower()\n\n    # 3. Replace runs of non-alphanumeric characters with a single \"-\"\n    # and strip leading/trailing \"-\"\n    text = re.sub(r'[^a-z0-9]+', '-', text)\n    text = text.strip('-')\n\n    if not text:\n        return \"\"\n\n    # 4. Length management\n    if len(text) <= max_len:\n        return text\n\n    # Split into words based on the delimiter\n    words = text.split('-')\n    \n    # Try to find the longest prefix of whole words that fits\n    current_slug = \"\"\n    for i, word in enumerate(words):\n        # Calculate length if we add this word (including a dash if not the first word)\n        addition = len(word) + (1 if current_slug else 0)\n        \n        if len(current_slug) + addition <= max_len:\n            if current_slug:\n                current_slug += \"-\" + word\n            else:\n                current_slug = word\n        else:\n            # Cannot add this whole word without exceeding max_len\n            break\n\n    # 5. If even the first word is longer than max_len, hard-cut it\n    if not current_slug:\n        current_slug = text[:max_len].rstrip('-')\n        # Ensure we don't end with a dash after a hard cut\n        if current_slug.endswith('-'):\n            current_slug = current_slug[:-1]\n\n    return current_slug\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    # Sort and remove duplicates\n    sorted_nums = sorted(set(nums))\n    \n    result_parts = []\n    n = len(sorted_nums)\n    i = 0\n    \n    while i < n:\n        start = i\n        # Find the end of the current consecutive run\n        while i + 1 < n and sorted_nums[i + 1] == sorted_nums[i] + 1:\n            i += 1\n        \n        end = i\n        run_length = end - start + 1\n        \n        # Collapse runs of 3 or more into \"a..b\"\n        if run_length >= 3:\n            result_parts.append(f\"{sorted_nums[start]}..{sorted_nums[end]}\")\n        else:\n            # Otherwise, list them individually\n            for j in range(start, end + 1):\n                result_parts.append(str(sorted_nums[j]))\n        \n        i += 1\n        \n    return \",\".join(result_parts)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self._capacity = float(capacity)\n        self._refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._last_refill_time = self._clock()\n        self._tokens = self._capacity\n\n    def _refill(self) -> None:\n        now = self._clock()\n        elapsed = now - self._last_refill_time\n        \n        if elapsed > 0:\n            new_tokens = elapsed * self._refill_per_sec\n            self._tokens = min(self._capacity, self._tokens + new_tokens)\n            self._last_refill_time = now\n\n    def allow(self, cost: float = 1.0) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nimport re\nfrom collections import defaultdict\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    \"\"\"\n    Calculates the top n customers based on total spending.\n    \"\"\"\n    # totals maps lowercase name -> running total\n    totals = defaultdict(float)\n    # name_map maps lowercase name -> original trimmed name from first occurrence\n    name_map = {}\n    \n    # Regex to extract numeric parts: allows leading '-', optional '$', \n    # commas, and decimal points.\n    # We strip '$' and ',' manually for simplicity and reliability.\n    \n    for row in rows:\n        raw_name = row.get(\"customer\")\n        raw_amount = row.get(\"amount\")\n        \n        if not isinstance(raw_name, str) or not isinstance(raw_amount, str):\n            continue\n            \n        trimmed_name = raw_name.strip()\n        if not trimmed_name:\n            continue\n            \n        # Parse amount\n        # Remove currency symbols and thousands separators\n        clean_amount = raw_amount.replace('$', '').replace(',', '')\n        try:\n            amount_val = float(clean_amount)\n        except ValueError:\n            continue\n            \n        lower_name = trimmed_name.lower()\n        \n        # If this is the first time we see this customer, store the trimmed spelling\n        if lower_name not in name_map:\n            name_map[lower_name] = trimmed_name\n            \n        totals[lower_name] += amount_val\n\n    # Prepare results: list of (original_name, total_amount)\n    # Round totals to 2 decimals as requested\n    results = []\n    for lower_name, total in totals.items():\n        results.append((name_map[lower_name], round(total, 2)))\n        \n    # Sort: total descending (-x[1]), then name ascending (x[0])\n    results.sort(key=lambda x: (-x[1], x[0]))\n    \n    return results[:n]\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "extract": {
+  "extract-invoice-email": {
+   "output": "{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310.0,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    {\n      \"sku\": \"WEB-01\",\n      \"quantity\": 1,\n      \"unit_price\": 3500.0\n    },\n    {\n      \"sku\": \"HST-12\",\n      \"quantity\": 3,\n      \"unit_price\": 270.0\n    }\n  ]\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 13,
+    "total": 13,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-meeting": {
+   "output": "{\n  \"title\": \"Q3 planning sync\",\n  \"date\": \"2024-07-18\",\n  \"start_time\": \"14:30\",\n  \"timezone\": \"America/Los_Angeles\",\n  \"duration_minutes\": 90,\n  \"attendees\": [\n    \"dana@acme.io\",\n    \"li.wei@acme.io\",\n    \"raj@outsource.dev\"\n  ],\n  \"zoom_meeting_id\": \"89122345501\",\n  \"first_presenter\": \"Dana\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-resume": {
+   "output": "{\n  \"full_name\": \"JORDAN LEE\",\n  \"email\": \"jordan.lee@protonmail.com\",\n  \"phone_e164\": \"+12065550147\",\n  \"city\": \"Seattle\",\n  \"state\": \"WA\",\n  \"current_title\": \"Senior Data Engineer\",\n  \"current_company\": \"Northwind Health\",\n  \"employers\": [\n    \"Northwind Health\",\n    \"Contoso Retail\",\n    \"Fabrikam\"\n  ],\n  \"career_start\": \"2015-01\",\n  \"graduation_year\": 2014,\n  \"skills\": [\n    \"Python\",\n    \"SQL\",\n    \"Apache Spark\",\n    \"Airflow\",\n    \"dbt\"\n  ]\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 17,
+    "total": 17,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-support-ticket": {
+   "output": "{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"plan\": \"Pro\",\n  \"order_ids\": [\n    \"A-55821\",\n    \"A-55822\"\n  ],\n  \"refund_requested\": true,\n  \"sentiment\": \"negative\",\n  \"customer_name\": \"Priya\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 8,
+    "total": 8,
+    "wrong": [],
+    "bare_json": true
+   }
+  }
+ }
+}

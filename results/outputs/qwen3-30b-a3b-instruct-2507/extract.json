@@ -1,0 +1,44 @@
+{
+ "extract-invoice-email": {
+  "output": "{\"invoice_number\":\"INV-2024-0193\",\"vendor\":\"BrightPixel Studio LLC\",\"contact_name\":\"Maria Gonzalez\",\"currency\":\"USD\",\"total\":4310,\"invoice_date\":\"2024-09-15\",\"due_date\":null,\"line_items\":[{\"sku\":\"WEB-01\",\"quantity\":1,\"unit_price\":3500},{\"sku\":\"HST-12\",\"quantity\":3,\"unit_price\":270}]}",
+  "score": 0.9231,
+  "detail": {
+   "matched": 12,
+   "total": 13,
+   "wrong": [
+    "$.due_date"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-meeting": {
+  "output": "{\"title\": \"Q3 planning sync\", \"date\": \"2024-07-18\", \"start_time\": \"14:30\", \"timezone\": \"America/Los_Angeles\", \"duration_minutes\": 90, \"attendees\": [\"dana@acme.io\", \"li.wei@acme.io\", \"raj@outsource.dev\"], \"zoom_meeting_id\": \"89122345501\", \"first_presenter\": \"Dana\"}",
+  "score": 1.0,
+  "detail": {
+   "matched": 10,
+   "total": 10,
+   "wrong": [],
+   "bare_json": true
+  }
+ },
+ "extract-resume": {
+  "output": "{\"full_name\":\"JORDAN LEE\",\"email\":\"jordan.lee@protonmail.com\",\"phone_e164\":\"+12065550147\",\"city\":\"Seattle\",\"state\":\"WA\",\"current_title\":\"Senior Data Engineer\",\"current_company\":\"Northwind Health\",\"employers\":[\"Northwind Health\",\"Contoso Retail\",\"Fabrikam\"],\"career_start\":\"2015-01\",\"graduation_year\":2014,\"skills\":[\"Python\",\"SQL\",\"Apache Spark\",\"Airflow\",\"dbt\"]}",
+  "score": 1.0,
+  "detail": {
+   "matched": 17,
+   "total": 17,
+   "wrong": [],
+   "bare_json": true
+  }
+ },
+ "extract-support-ticket": {
+  "output": "{\"category\":\"billing\",\"priority\":\"high\",\"plan\":\"Pro\",\"order_ids\":[\"A-55821\",\"A-55822\"],\"refund_requested\":true,\"sentiment\":\"negative\",\"customer_name\":\"Priya\"}",
+  "score": 1.0,
+  "detail": {
+   "matched": 8,
+   "total": 8,
+   "wrong": [],
+   "bare_json": true
+  }
+ }
+}

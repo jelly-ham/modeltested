@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Converts a duration string into a total number of seconds.\n\n    - Supported units: `h` (hours), `m` (minutes), `s` (seconds). Units are case-insensitive.\n    - Each part is a non-negative integer followed by a unit, e.g. \"1h30m\", \"45s\", \"2H\", \"1h 5m 10s\", \"90m\".\n    - Whitespace is allowed before, after and between parts.\n    - Units must appear in the order h, m, s and each at most once.\n    - Raise `ValueError` for empty/blank strings, numbers without a unit, unknown units, decimals, repeated units, or units out of order.\n    \"\"\"\n    if not s or s.strip() == \"\":\n        raise ValueError(\"Empty or blank string provided.\")\n\n    parts = re.split(r\"(\\d+)(\\b[hm]s\\b)\", s)\n    if len(parts) % 2 != 0:\n        raise ValueError(\"Invalid duration string format.\")\n\n    hours = 0\n    minutes = 0\n    seconds = 0\n    \n    for i in range(0, len(parts), 2):\n        try:\n            num = int(parts[i])\n        except ValueError:\n            raise ValueError(\"Invalid number format.\")\n        \n        unit = parts[i+1].lower()\n\n        if unit not in ['h', 'm', 's']:\n            raise ValueError(f\"Unknown unit: {unit}\")\n\n        if unit == 'h':\n            hours = num\n        elif unit == 'm':\n            minutes = num\n        else:\n            seconds = num\n    \n    if hours > 24:\n        raise ValueError(\"Hours cannot exceed 24.\")\n\n    total_seconds = (hours * 3600) + (minutes * 60) + seconds\n\n    return total_seconds\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: Invalid duration string format."
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    \"\"\"\n    Builds a URL slug.\n\n    1. Transliterate accented characters to ASCII (é -> e, ü -> u) and drop any other non-ASCII characters.\n    2. Lowercase.\n    3. Replace every run of characters other than a-z and 0-9 with a single \"-\", and strip leading/trailing \"-\".\n    4. If the slug is longer than `max_len`, shorten it without cutting a word: keep the longest prefix of whole words (words are separated by \"-\") whose length is <= max_len. If even the first word is longer than max_len, hard-cut it to max_len characters.\n    5. The result never ends with \"-\".\n    \"\"\"\n    title = title.lower()\n    title = re.sub(r'[^\\w\\s-]', '', title)\n    title = re.sub(r'[-\\s]+', '-', title)\n    title = title.strip('-')\n\n    if len(title) > max_len:\n        parts = title.split('-')\n        parts = [part for part in parts if len(part) <= max_len]\n        title = '-'.join(parts)\n        if title and title[-1] == '-':\n            title = title[:-1]\n\n    return title\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    \"\"\"Sort the numbers and remove duplicates. Then collapse runs of 3 or more consecutive integers into \"a..b\". Numbers in shorter runs (1 or 2 numbers) are listed individually. Join everything with \",\" (no spaces). An empty list returns \"\".\n\n    Examples: [1,2,3,5,7,8] -> \"1..3,5,7,8\"; [-3,-2,-1,1] -> \"-3..-1,1\".\n    \"\"\"\n    if not nums:\n        return \"\"\n\n    nums = sorted(list(set(nums)))\n    result = []\n\n    i = 0\n    while i < len(nums):\n        if i + 1 < len(nums) and nums[i] + 1 == nums[i + 1]:\n            j = i + 1\n            while j + 1 < len(nums) and nums[j] + 1 == nums[j + 1]:\n                j += 1\n            result.append(f\"{nums[i]}..{nums[j]}\")\n            i = j + 1\n        else:\n            result.append(str(nums[i]))\n            i += 1\n\n    return \",\".join(result)\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = capacity\n        self.last_refill = self.clock()\n\n    def refill(self):\n        now = self.clock()\n        elapsed = now - self.last_refill\n        if elapsed > 0:\n            refill_amount = elapsed * self.refill_per_sec\n            self.tokens = min(self.capacity, self.tokens + refill_amount)\n            self.last_refill = now\n\n    def allow(self, cost: float = 1) -> bool:\n        self.refill()\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        else:\n            return False\n\n    @property\n    def tokens(self):\n        self.refill()\n        return self.tokens\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AttributeError: property 'tokens' of 'TokenBucket' object has no setter"
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nfrom typing import List, Tuple\nimport re\n\ndef top_customers(rows: List[dict], n: int) -> List[Tuple[str, float]]:\n    \"\"\"\n    Calculates the total amount spent by each customer and returns the top n customers.\n\n    Args:\n        rows: A list of dictionaries, where each dictionary represents a row with a \"customer\" name and an \"amount\" string.\n        n: The number of top customers to return.\n\n    Returns:\n        A list of tuples, where each tuple contains the customer name and total amount spent, sorted by total descending,\n        then name ascending.\n    \"\"\"\n\n    customer_totals = {}\n    for row in rows:\n        customer_name = row.get(\"customer\", \"\").strip()\n        amount_str = row.get(\"amount\", \"\")\n\n        if not customer_name or not amount_str:\n            continue\n\n        try:\n            amount = float(amount_str.replace(\"$\", \"\").replace(\",\", \"\"))\n            if amount < 0:\n                amount = -amount  # Handle refunds\n\n            if customer_name not in customer_totals:\n                customer_totals[customer_name] = 0.0\n            customer_totals[customer_name] += amount\n        except ValueError:\n            continue\n\n    sorted_customers = sorted(customer_totals.items(), key=lambda item: (-item[1], item[0]))\n    return sorted_customers[:n]\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "extract-invoice-email": {
+  "output": "```json\n{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310.00,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    {\n      \"sku\": \"WEB-01\",\n      \"quantity\": 1,\n      \"unit_price\": 3500.00\n    },\n    {\n      \"sku\": \"HST-12\",\n      \"quantity\": 3,\n      \"unit_price\": 270.00\n    }\n  ]\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "matched": 13,
+   "total": 13,
+   "wrong": [],
+   "bare_json": false
+  }
+ },
+ "extract-meeting": {
+  "output": "```json\n{\n  \"title\": \"Q3 planning sync\",\n  \"date\": \"2024-07-18\",\n  \"start_time\": \"14:30\",\n  \"timezone\": \"America/Los_Angeles\",\n  \"duration_minutes\": 90,\n  \"attendees\": [\n    \"dana@acme.io\",\n    \"li.wei@acme.io\",\n    \"raj@outsource.dev\"\n  ],\n  \"zoom_meeting_id\": \"89122345501\",\n  \"first_presenter\": \"Dana\"\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "matched": 10,
+   "total": 10,
+   "wrong": [],
+   "bare_json": false
+  }
+ }
+}

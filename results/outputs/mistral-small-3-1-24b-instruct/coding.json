@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    if not s or s.strip() == \"\":\n        raise ValueError(\"Input string is empty or blank\")\n\n    # Regular expression to match the duration parts\n    pattern = re.compile(r'(\\d+)\\s*(h|m|s)\\b', re.IGNORECASE)\n    matches = pattern.findall(s)\n\n    if not matches:\n        raise ValueError(\"No valid duration parts found\")\n\n    # Dictionary to store the total count of each unit\n    duration = {'h': 0, 'm': 0, 's': 0}\n    seen_units = set()\n\n    for value, unit in matches:\n        value = int(value)\n        unit = unit.lower()\n\n        if unit in seen_units:\n            raise ValueError(f\"Repeated unit '{unit}' found\")\n\n        if unit == 'h' and duration['m'] > 0 or unit == 'm' and duration['s'] > 0:\n            raise ValueError(\"Units are out of order\")\n\n        seen_units.add(unit)\n        duration[unit] += value\n\n    # Convert to total seconds\n    total_seconds = (duration['h'] * 3600) + (duration['m'] * 60) + duration['s']\n    return total_seconds\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Transliterate accented characters to ASCII\n    title = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii')\n\n    # Lowercase\n    title = title.lower()\n\n    # Replace every run of characters other than a-z and 0-9 with a single \"-\"\n    title = re.sub(r'[^a-z0-9]+', '-', title)\n\n    # Strip leading/trailing \"-\"\n    title = title.strip('-')\n\n    # Shorten the slug if it is longer than max_len\n    if len(title) > max_len:\n        words = title.split('-')\n        truncated_slug =        current_length = 0\n\n        for word in words:\n            if current_length + len(word) + (1 if truncated_slug else 0) <= max_len:\n                truncated_slug.append(word)\n                current_length += len(word) + (1 if truncated_slug else 0)\n            else:\n                break\n\n        title = '-'.join(truncated_slug)\n\n    # Ensure the result never ends with \"-\"\n    if title.endswith('-'):\n        title = title[:-1]\n\n    return title\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "TypeError: can only join an iterable"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    # Sort the numbers and remove duplicates\n    nums = sorted(set(nums))\n\n    def collapse_ranges(numbers):\n        ranges =        start = end = numbers[0]\n\n        for i in range(1, len(numbers)):\n            if numbers[i] == end + 1:\n                end = numbers[i]\n            else:\n                if end - start >= 2:\n                    ranges.append(f\"{start}..{end}\")\n                elif start == end:\n                    ranges.append(str(start))\n                else:\n                    ranges.append(f\"{start},{end}\")\n                start = end = numbers[i]\n\n        # Handle the last range\n        if end - start >= 2:\n            ranges.append(f\"{start}..{end}\")\n        elif start == end:\n            ranges.append(str(start))\n        else:\n            ranges.append(f\"{start},{end}\")\n\n        return \",\".join(ranges)\n\n    return collapse_ranges(nums)\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AttributeError: 'int' object has no attribute 'append'"
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = capacity\n        self.last_refill_time = clock()\n\n    def _refill(self):\n        current_time = self.clock()\n        elapsed_time = current_time - self.last_refill_time\n        refill_amount = elapsed_time * self.refill_per_sec\n        self.tokens = min(self.capacity, self.tokens + refill_amount)\n        self.last_refill_time = current_time\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n\n    @tokens.setter\n    def tokens(self, value: float):\n        self._tokens = value\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "RecursionError: maximum recursion depth exceeded"
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nfrom collections import defaultdict\nfrom decimal import Decimal, InvalidOperation\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    customer_totals = defaultdict(Decimal)\n\n    for row in rows:\n        customer = row.get('customer', '').strip()\n        amount_str = row.get('amount', '')\n\n        if not customer or not amount_str:\n            continue\n\n        try:\n            amount = Decimal(amount_str.strip('$').replace(',', ''))\n        except InvalidOperation:\n            continue\n\n        customer_lower = customer.lower()\n        if customer_lower not in customer_totals:\n            customer_totals[customer_lower] = Decimal(0)\n\n        customer_totals[customer_lower] += amount\n\n    sorted_customers = sorted(\n        ((customer, float(total.quantity() if total > 0 else -total.quantity())) for customer, total in customer_totals.items()),\n        key=lambda x: (-x[1], x[0])\n    )\n\n    return [(customer, round(total, 2)) for customer, total in sorted_customers[:n]]\n\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AttributeError: 'decimal.Decimal' object has no attribute 'quantity'. Did you mean: 'quantize'?"
+  }
+ }
+}

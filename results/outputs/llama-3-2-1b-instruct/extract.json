@@ -1,0 +1,65 @@
+{
+ "extract-invoice-email": {
+  "output": "{\n  \"invoice_number\": null,\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": null,\n  \"total\": null,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-09-15\",\n  \"line_items\": [\n    {\n      \"sku\": \"WEB-01\",\n      \"quantity\": 1,\n      \"unit_price\": 3500\n    },\n    {\n      \"sku\": \"HST-12\",\n      \"quantity\": 3,\n      \"unit_price\": 270\n    }\n  ]\n}",
+  "score": 0.6923,
+  "detail": {
+   "matched": 9,
+   "total": 13,
+   "wrong": [
+    "$.currency",
+    "$.due_date",
+    "$.invoice_number",
+    "$.total"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-meeting": {
+  "output": "{\n  \"title\": null,\n  \"date\": \"2024-07-18\",\n  \"start_time\": \"14:30\",\n  \"timezone\": \"Pacific\",\n  \"duration_minutes\": null,\n  \"attendees\": [\"dana@acme.io\", \"li.wei@acme.io\", \"raj@outsource.dev\"],\n  \"zoom_meeting_id\": \"8912234-5501\",\n  \"first_presenter\": \"dana@acme.io\"\n}",
+  "score": 0.5,
+  "detail": {
+   "matched": 5,
+   "total": 10,
+   "wrong": [
+    "$.duration_minutes",
+    "$.first_presenter",
+    "$.timezone",
+    "$.title",
+    "$.zoom_meeting_id"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-resume": {
+  "output": "{\n  \"full_name\": \"JORDAN LEE\",\n  \"email\": \"jordan.lee@protonmail.com\",\n  \"phone_e164\": \"+12125550100\",\n  \"city\": \"Seattle\",\n  \"state\": \"WA\",\n  \"current_title\": \"Senior Data Engineer\",\n  \"current_company\": \"Northwind Health\",\n  \"employers\": [\"Contoso Retail\", \"Fabrikam\"],\n  \"career_start\": \"Mar 2021\",\n  \"graduation_year\": 2017,\n  \"skills\": [\"Python\", \"SQL\", \"Apache Spark\", \"Airflow\", \"dbt\"]\n}",
+  "score": 0.6471,
+  "detail": {
+   "matched": 11,
+   "total": 17,
+   "wrong": [
+    "$.career_start",
+    "$.employers[0]",
+    "$.employers[1]",
+    "$.employers[2]",
+    "$.graduation_year",
+    "$.phone_e164"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-support-ticket": {
+  "output": "{\n  \"category\": \"billing\",\n  \"priority\": \"medium\",\n  \"plan\": null,\n  \"order_ids\": [\"A-55821\", \"A-55822\"],\n  \"refund_requested\": false,\n  \"sentiment\": \"neutral\",\n  \"customer_name\": \"Priya\"\n}",
+  "score": 0.5,
+  "detail": {
+   "matched": 4,
+   "total": 8,
+   "wrong": [
+    "$.plan",
+    "$.priority",
+    "$.refund_requested",
+    "$.sentiment"
+   ],
+   "bare_json": true
+  }
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'parse_duration' is not defined"
+  }
+ },
+ "code-slugify": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'slugify' is not defined"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    # Sort and remove duplicates\n    sorted_nums = sorted(set(nums))\n\n    # Group into runs of consecutive integers\n    groups: list[list[int]] = []\n    current: list[int] = [sorted_nums[0]]\n\n    for n in sorted_nums[1:]:\n        if n == current[-1] + 1:\n            current.append(n)\n        else:\n            groups.append(current)\n            current = [n]\n    groups.append(current)\n\n    # Build the result string\n    parts: list[str] = []\n    for g in groups:\n        if len(g) >= 3:\n            parts.append(f\"{g[0]}..{g[-1]}\")\n        else:\n            parts.append(\",\".join(str(x) for x in g))\n\n    return \",\".join(parts)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock) -> None:\n        self._capacity = capacity\n        self._refill_per_sec = refill_per_sec\n        self._clock = clock\n        self._tokens = capacity\n        self._last_refill = clock()\n\n    def _refill(self) -> None:\n        now = self._clock()\n        elapsed = now - self._last_refill\n        if elapsed > 0:\n            self._tokens = min(self._capacity, self._tokens + elapsed * self._refill_per_sec)\n            self._last_refill = now\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\n\nimport re\nfrom collections import OrderedDict\nfrom typing import Any\n\ndef top_customers(rows: list[dict[str, Any]], n: int) -> list[tuple[str, float]]:\n    \"\"\"\n    Return top n customers as (name, total) tuples sorted by total descending,\n    then name ascending.\n\n    - Customer names are trimmed and matched case-insensitively; the trimmed\n      spelling of the first valid row for each customer is used.\n    - Rows with an empty customer name or an unparsable amount are skipped.\n    - Amounts are strings such as \"$1,234.50\", \"1234.5\", \"-$5.00\" (negative = refund).\n    - Totals are rounded to 2 decimal places.\n    \"\"\"\n    # Normalise: strip whitespace from name/amount and keep first occurrence per normalized name\n    customers: dict[str, tuple[str, float]] = {}  # key -> (display_name, total)\n\n    for row in rows:\n        # Guard against missing keys\n        name_raw = row.get(\"customer\", \"\")\n        amount_raw = row.get(\"amount\", \"\")\n\n        # Trim the name\n        name = name_raw.strip()\n        if not name:\n            continue  # skip empty customer name\n\n        # Normalise name for matching: lower + stripped\n        name_key = name.lower().strip()\n\n        # Parse amount\n        amount_str = amount_raw.strip()\n        if not amount_str:\n            continue  # skip unparsable amount\n\n        # Remove surrounding whitespace, then strip leading $ if present\n        # The regex below expects optional leading minus, optional $, digits, optional comma, optional decimal\n        # We'll just attempt a conversion after cleaning.\n        # Remove commas for float parsing\n        cleaned = amount_str.replace(\",\", \"\")\n\n        # Attempt float conversion; if it fails, skip row\n        try:\n            value = float(cleaned)\n        except ValueError:\n            continue\n\n        # Ensure we actually have a numeric result (e.g., string was just \"$\")\n        # float() on \"$12.3\" would raise, but we guard above.\n\n        # Determine if this is the first time we see this customer\n        if name_key not in customers:\n            # Store the trimmed spelling of the first valid row\n            customers[name_key] = (name, value)\n        else:\n            # Add to existing total\n            existing_name, existing_total = customers[name_key]\n            new_total = round(existing_total + value, 2)\n            customers[name_key] = (existing_name, new_total)\n\n    # Build list of (name, total) tuples\n    result: list[tuple[str, float]] = [\n        (display_name, total) for display_name, total in customers.values()\n    ]\n\n    # Sort by total descending, then name ascending (case‑insensitive but using stored name)\n    result.sort(key=lambda x: (-x[1], x[0].lower()))\n\n    # Return top n (or fewer if not enough customers)\n    return result[:n]\n\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ }
+}

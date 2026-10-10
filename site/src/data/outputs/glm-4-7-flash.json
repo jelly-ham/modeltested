@@ -1,0 +1,83 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\n_DURATION_RE = re.compile(\n    r\"\"\"^\\s*\n        (?:(\\d+)\\s*h\\s*)?   # hours\n        (?:(\\d+)\\s*m\\s*)?   # minutes\n        (?:(\\d+)\\s*s\\s*)?   # seconds\n        $\"\"\",\n    re.VERBOSE | re.IGNORECASE,\n)\n\n\ndef parse_duration(s: str) -> int:\n    \"\"\"Convert a duration string like '1h 30m 10s' into total seconds.\n\n    Supported units: h, m, s (case-insensitive). Each unit may appear at\n    most once, and must appear in the order hours, minutes, seconds.\n\n    Raises:\n        ValueError: for empty/blank strings, numbers without a unit,\n            unknown units, decimals, repeated units, or units out of order.\n    \"\"\"\n    if not isinstance(s, str):\n        raise ValueError(\"duration must be a string\")\n\n    match = _DURATION_RE.fullmatch(s)\n    if match is None or all(group is None for group in match.groups()):\n        raise ValueError(f\"invalid duration string: {s!r}\")\n\n    hours, minutes, seconds = (int(g) if g is not None else 0 for g in match.groups())\n    return hours * 3600 + minutes * 60 + seconds\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-slugify": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'slugify' is not defined"
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    s = sorted(set(nums))\n    parts: list[str] = []\n    i = 0\n    n = len(s)\n    while i < n:\n        j = i\n        while j + 1 < n and s[j + 1] == s[j] + 1:\n            j += 1\n        run_length = j - i + 1\n        if run_length >= 3:\n            parts.append(f\"{s[i]}..{s[j]}\")\n            i = j + 1\n        else:\n            parts.append(str(s[i]))\n            i += 1\n    return \",\".join(parts)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nimport threading\n\n\nclass TokenBucket:\n    \"\"\"A token-bucket rate limiter driven by an injected clock.\n\n    The bucket starts full. Tokens refill continuously at\n    ``refill_per_sec`` based on elapsed clock time, capped at\n    ``capacity``. All time is obtained from the zero-argument\n    callable ``clock`` (returning seconds as a float); ``time.time()``\n    is never called directly.\n    \"\"\"\n\n    __slots__ = (\"_capacity\", \"_refill_per_sec\", \"_clock\", \"_tokens\", \"_last_refill\", \"_lock\")\n\n    def __init__(self, capacity: float, refill_per_sec: float, clock) -> None:\n        \"\"\"\n        Args:\n            capacity: Maximum number of tokens the bucket can hold.\n            refill_per_sec: Rate at which tokens replenish per second.\n            clock: Zero-argument callable returning the current time in\n                seconds (float).\n        \"\"\"\n        self._capacity = float(capacity)\n        self._refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._tokens = self._capacity\n        self._last_refill = self._clock()\n        self._lock = threading.Lock()\n\n    @property\n    def capacity(self) -> float:\n        \"\"\"Maximum token count the bucket can hold.\"\"\"\n        return self._capacity\n\n    @property\n    def refill_per_sec(self) -> float:\n        \"\"\"Token replenishment rate per second.\"\"\"\n        return self._refill_per_sec\n\n    @property\n    def tokens(self) -> float:\n        \"\"\"Current token count, after applying any pending refill.\"\"\"\n        with self._lock:\n            self._refill_locked()\n            return self._tokens\n\n    def allow(self, cost: float = 1.0) -> bool:\n        \"\"\"Refill the bucket, then try to consume ``cost`` tokens.\n\n        Returns True (and subtracts the cost) if enough tokens are\n        available; otherwise returns False and leaves the balance\n        unchanged.\n        \"\"\"\n        cost = float(cost)\n        with self._lock:\n            self._refill_locked()\n            if self._tokens >= cost:\n                self._tokens -= cost\n                return True\n            return False\n\n    def _refill_locked(self) -> None:\n        \"\"\"Apply refill based on elapsed time. Caller must hold the lock.\"\"\"\n        now = self._clock()\n        elapsed = now - self._last_refill\n        if elapsed > 0.0:\n            self._tokens = min(self._capacity, self._tokens + elapsed * self._refill_per_sec)\n            self._last_refill = now\n        elif elapsed < 0.0:\n            # Clock moved backwards: discard the elapsed delta without\n            # granting tokens, and resynchronize to the current time.\n            self._last_refill = now\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nimport re\n\n\n_AMOUNT_RE = re.compile(r\"^\\s*([+-]?)\\s*\\$?\\s*([0-9][0-9,]*(\\.[0-9]+)?|\\.[0-9]+)\\s*$\")\n\n\ndef _parse_amount(raw) -> float | None:\n    if raw is None:\n        return None\n    s = str(raw).strip()\n    if not s:\n        return None\n    match = _AMOUNT_RE.match(s)\n    if not match:\n        return None\n    sign, digits = match.group(1), match.group(2)\n    try:\n        value = float(digits.replace(\",\", \"\"))\n    except ValueError:\n        return None\n    return -value if sign == \"-\" else value\n\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    if n <= 0:\n        return []\n\n    display_names: dict[str, str] = {}\n    totals: dict[str, float] = {}\n\n    for row in rows:\n        if not isinstance(row, dict):\n            continue\n        raw_name = row.get(\"customer\")\n        if raw_name is None:\n            continue\n        name = str(raw_name).strip()\n        if not name:\n            continue\n\n        amount = _parse_amount(row.get(\"amount\"))\n        if amount is None:\n            continue\n\n        key = name.casefold()\n        if key not in totals:\n            display_names[key] = name\n            totals[key] = 0.0\n        totals[key] += amount\n\n    ranked = sorted(\n        ((display_names[key], round(total, 2)) for key, total in totals.items()),\n        key=lambda item: (-item[1], item[0]),\n    )\n    return ranked[:n]\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "extract": {
+  "extract-invoice-email": {
+   "output": "{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310.00,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    {\n      \"sku\": \"WEB-01\",\n      \"quantity\": 1,\n      \"unit_price\": 3500.00\n    },\n    {\n      \"sku\": \"HST-12\",\n      \"quantity\": 3,\n      \"unit_price\": 270.00\n    }\n  ]\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 13,
+    "total": 13,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-meeting": {
+   "output": "{\n  \"title\": \"Q3 planning sync\",\n  \"date\": \"2024-07-18\",\n  \"start_time\": \"14:30\",\n  \"timezone\": \"America/Los_Angeles\",\n  \"duration_minutes\": 90,\n  \"attendees\": [\"dana@acme.io\", \"li.wei@acme.io\", \"raj@outsource.dev\"],\n  \"zoom_meeting_id\": \"89122345501\",\n  \"first_presenter\": \"dana@acme.io\"\n}",
+   "score": 0.9,
+   "detail": {
+    "matched": 9,
+    "total": 10,
+    "wrong": [
+     "$.first_presenter"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-resume": {
+   "output": "{\n  \"full_name\": \"Jordan Lee\",\n  \"email\": \"jordan.lee@protonmail.com\",\n  \"phone_e164\": \"+12065550147\",\n  \"city\": \"Seattle\",\n  \"state\": \"WA\",\n  \"current_title\": \"Senior Data Engineer\",\n  \"current_company\": \"Northwind Health\",\n  \"employers\": [\"Northwind Health\", \"Contoso Retail\", \"Fabrikam\"],\n  \"career_start\": \"2015-01\",\n  \"graduation_year\": 2014,\n  \"skills\": [\"Python\", \"SQL\", \"Apache Spark\", \"Airflow\", \"dbt\"]\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 17,
+    "total": 17,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-support-ticket": {
+   "output": "{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"plan\": \"Pro\",\n  \"order_ids\": [\"A-55821\", \"A-55822\"],\n  \"refund_requested\": true,\n  \"sentiment\": \"negative\",\n  \"customer_name\": \"Priya\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 8,
+    "total": 8,
+    "wrong": [],
+    "bare_json": true
+   }
+  }
+ }
+}

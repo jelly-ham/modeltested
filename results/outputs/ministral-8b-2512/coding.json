@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\nfrom typing import List, Tuple\n\ndef parse_duration(s: str) -> int:\n    if not s.strip():\n        raise ValueError(\"Empty or blank string\")\n\n    # Normalize whitespace and split into parts\n    parts = re.split(r'\\s+', s.strip())\n    if not parts:\n        raise ValueError(\"Empty or blank string\")\n\n    # Process each part to extract number and unit\n    processed_parts: List[Tuple[int, str]] = []\n    seen_units = set()\n\n    for part in parts:\n        # Match number and unit (case-insensitive)\n        match = re.fullmatch(r'^(\\d+)([hms])$', part.lower(), re.IGNORECASE)\n        if not match:\n            raise ValueError(f\"Invalid part: '{part}'\")\n\n        num_str, unit = match.groups()\n        num = int(num_str)\n        unit_lower = unit.lower()\n\n        if num < 0:\n            raise ValueError(f\"Negative number in part: '{part}'\")\n\n        if unit_lower in seen_units:\n            raise ValueError(f\"Repeated unit: '{unit}'\")\n\n        seen_units.add(unit_lower)\n        processed_parts.append((num, unit_lower))\n\n    # Check order of units\n    expected_order = ['h', 'm', 's']\n    actual_units = [unit for (_, unit) in processed_parts]\n\n    for i, unit in enumerate(actual_units):\n        if unit != expected_order[i]:\n            raise ValueError(f\"Units out of order. Expected {expected_order[i]} at position {i+1}\")\n\n    # Calculate total seconds\n    total_seconds = 0\n    for num, unit in processed_parts:\n        if unit == 'h':\n            total_seconds += num * 3600\n        elif unit == 'm':\n            total_seconds += num * 60\n        elif unit == 's':\n            total_seconds += num\n\n    return total_seconds\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: Invalid part: '1h30m'"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters and drop non-ASCII\n    normalized = unicodedata.normalize('NFKD', title)\n    ascii_only = ''.join(c for c in normalized if unicodedata.category(c) != 'Mn')\n    transliterated = ''.join(\n        c if unicodedata.category(c) == 'Ll' or c.isdigit()\n        else c.lower() if c.isalpha() else ' '\n        for c in ascii_only\n    )\n\n    # Step 2: Lowercase (already done in transliteration)\n    # Step 3: Replace non-alphanumeric runs with single \"-\"\n    slug = re.sub(r'[^a-z0-9]+', '-', transliterated).strip('-')\n\n    # Step 4: Handle max_len\n    if len(slug) > max_len:\n        words = slug.split('-')\n        prefix = []\n        current_len = 0\n        for word in words:\n            if current_len + len(word) + (1 if prefix else 0) <= max_len:\n                prefix.append(word)\n                current_len += len(word) + (1 if prefix else 0)\n            else:\n                break\n        if not prefix:\n            return slug[:max_len]\n        slug = '-'.join(prefix)\n        if len(slug) > max_len:\n            # Hard-cut if even first word is too long\n            slug = slug[:max_len]\n\n    # Ensure no trailing \"-\"\n    return slug.rstrip('-')\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    nums = sorted(set(nums))\n    result = []\n    i = 0\n    n = len(nums)\n\n    while i < n:\n        start = nums[i]\n        j = i + 1\n        while j < n and nums[j] == nums[j - 1] + 1:\n            j += 1\n\n        if j - i >= 3:\n            result.append(f\"{start}..{nums[j - 1]}\")\n        else:\n            for k in range(i, j):\n                result.append(str(nums[k]))\n\n        i = j\n\n    return \",\".join(result)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = capacity\n        self.last_refill_time = self.clock()\n\n    def _refill(self):\n        now = self.clock()\n        elapsed = now - self.last_refill_time\n        self.last_refill_time = now\n        refill_amount = elapsed * self.refill_per_sec\n        self.tokens = min(self.capacity, self.tokens + refill_amount)\n\n    @property\n    def tokens(self):\n        self._refill()\n        return self.tokens\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        return False\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AttributeError: property 'tokens' of 'TokenBucket' object has no setter"
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nimport re\nfrom collections import defaultdict\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    customer_totals = defaultdict(float)\n    customer_names = {}\n\n    for row in rows:\n        customer = row.get(\"customer\", \"\").strip()\n        amount_str = row.get(\"amount\", \"\")\n\n        if not customer or not amount_str:\n            continue\n\n        # Parse amount\n        amount_str = amount_str.replace(\"$\", \"\").replace(\",\", \"\")\n        if not re.fullmatch(r'^[+-]?\\d*\\.?\\d+$', amount_str):\n            continue\n\n        try:\n            amount = float(amount_str)\n        except ValueError:\n            continue\n\n        # Normalize customer name\n        normalized_name = customer.lower().strip()\n        if normalized_name not in customer_names:\n            customer_names[normalized_name] = customer.strip()\n\n        customer_totals[normalized_name] += amount\n\n    # Prepare results\n    results = []\n    for name in customer_names:\n        total = round(customer_totals[name], 2)\n        results.append((customer_names[name], total))\n\n    # Sort by total descending, then name ascending\n    results.sort(key=lambda x: (-x[1], x[0]))\n\n    # Return top n\n    return results[:n]\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ }
+}

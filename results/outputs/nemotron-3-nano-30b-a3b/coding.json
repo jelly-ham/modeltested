@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Convert a duration string to total seconds.\n\n    Supported units (case‑insensitive): h (hours), m (minutes), s (seconds).\n    Parts must appear in the order h, then m, then s, each at most once.\n    Whitespace is ignored. Raises ValueError for invalid input.\n    \"\"\"\n    if not s or s.strip() == '':\n        raise ValueError(\"empty string\")\n\n    # Pattern: optional h part, then optional m part, then optional s part.\n    # Each part: one or more digits followed by its unit, optional surrounding whitespace.\n    pattern = re.compile(\n        r'^\\s*'\n        r'(?:\\s*(\\d+)\\s*[hH]\\s*)?'   # 0 or 1 hour component\n        r'(?:\\s*(\\d+)\\s*[mM]\\s*)?'   # 0 or 1 minute component\n        r'(?:\\s*(\\d+)\\s*[sS]\\s*)?'   # 0 or 1 second component\n        r'\\s*$',\n        re.IGNORECASE\n    )\n\n    m = pattern.fullmatch(s)\n    if not m:\n        raise ValueError(\"invalid duration format\")\n\n    hours = int(m.group(1)) if m.group(1) else 0\n    minutes = int(m.group(2)) if m.group(2) else 0\n    seconds = int(m.group(3)) if m.group(3) else 0\n\n    return hours * 3600 + minutes * 60 + seconds\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport re\nimport unicodedata\n\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    \"\"\"\n    Convert a title into a URL slug following the rules described.\n    \"\"\"\n    # 1. Transliterate accented characters and drop other non‑ASCII.\n    slug = unicodedata.normalize(\"NFKD\", title).encode(\"ascii\", \"ignore\").decode(\"ascii\")\n\n    # 2. Lowercase.\n    slug = slug.lower()\n\n    # 3. Replace runs of non‑alphanumeric characters with a single '-',\n    #    then strip leading/trailing hyphens.\n    slug = re.sub(r\"[^a-z0-9]+\", \"-\", slug).strip(\"-\")\n\n    # 4. Shorten if necessary, preserving whole words.\n    if len(slug) <= max_len:\n        return slug\n\n    words = slug.split(\"-\")\n    parts: list[str] = []\n    cur_len = 0\n\n    for w in words:\n        # Length added by this word (including a preceding hyphen if not first)\n        added = len(w) + (1 if parts else 0)\n        if cur_len + added <= max_len:\n            parts.append(w)\n            cur_len += added\n        else:\n            break\n\n    if not parts:  # first word already longer than max_len\n        result = slug[:max_len]\n    else:\n        result = \"-\".join(parts)\n\n    # Ensure the slug never ends with a hyphen.\n    return result.rstrip(\"-\")\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    uniq = sorted(set(nums))\n    parts = []\n    i = 0\n    n = len(uniq)\n    while i < n:\n        j = i\n        while j + 1 < n and uniq[j + 1] == uniq[j] + 1:\n            j += 1\n        length = j - i + 1\n        if length >= 3:\n            parts.append(f\"{uniq[i]}..{uniq[j]}\")\n        else:\n            for k in range(i, j + 1):\n                parts.append(str(uniq[k]))\n        i = j + 1\n    return \",\".join(parts)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nfrom typing import Callable\n\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]) -> None:\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self._tokens = capacity\n        self._last_refill = clock()\n\n    def _refill(self) -> None:\n        now = self.clock()\n        elapsed = now - self._last_refill\n        added = elapsed * self.refill_per_sec\n        self._tokens = min(self.capacity, self._tokens + added)\n        self._last_refill = now\n\n    def allow(self, cost: float = 1.0) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    \"\"\"\n    Return the top `n` customers by summed amount.\n    Each row is expected to have keys \"customer\" and \"amount\".\n    - Customer names are trimmed and compared case‑insensitively.\n    - The displayed name is the trimmed version of the first valid row for that customer.\n    - Amount strings may be like \"$1,234.50\", \"1234.5\", \"-$5.00\", \"$1,000\".\n    - Rows with empty customer or unparsable amount are ignored.\n    - Totals are rounded to two decimal places.\n    - Result is sorted by total descending, then name ascending.\n    \"\"\"\n    import re\n\n    def parse_amount(s: str) -> float | None:\n        \"\"\"Convert a formatted amount string to a float, or return None on failure.\"\"\"\n        s = s.strip()\n        if not s:\n            return None\n\n        sign = 1\n        if s.startswith(\"-\"):\n            sign = -1\n            s = s[1:]\n\n        # Remove commas and any leading currency symbols\n        s = s.replace(\",\", \"\")\n        s = s.lstrip(\"$\")\n\n        try:\n            return sign * float(s)\n        except ValueError:\n            return None\n\n    # Mapping from lower‑cased trimmed name -> (display_name, accumulated_total)\n    totals: dict[str, tuple[str, float]] = {}\n\n    for row in rows:\n        # Extract and trim customer name\n        raw_customer = row.get(\"customer\", \"\")\n        cust_trimmed = raw_customer.strip()\n        if not cust_trimmed:\n            continue\n\n        # Extract and parse amount\n        raw_amount = row.get(\"amount\", \"\")\n        amount_val = parse_amount(raw_amount)\n        if amount_val is None:\n            continue\n\n        # Normalise key for case‑insensitive matching\n        key = cust_trimmed.lower()\n        if key not in totals:\n            # First time we see this customer – keep the trimmed spelling\n            totals[key] = (cust_trimmed, 0.0)\n\n        display_name, current_total = totals[key]\n        totals[key] = (display_name, current_total + amount_val)\n\n    # Build list of (name, rounded_total) and sort\n    result = [(info[0], round(info[1], 2)) for info in totals.values()]\n    result.sort(key=lambda x: (-x[1], x[0]))\n\n    return result[:n]\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    if not s.strip():\n        raise ValueError(\"Empty or blank string\")\n\n    units = {'h': 3600, 'm': 60, 's': 1}\n    pattern = r'^(\\d+[hms]?)*$'\n    if not re.match(pattern, s, re.IGNORECASE):\n        raise ValueError(\"Invalid duration format\")\n\n    parts = re.split(r'(\\d+)', s)\n    parts = [p for p in parts if p]\n\n    for i in range(0, len(parts), 2):\n        value = int(parts[i])\n        unit = parts[i + 1].lower()\n        if unit not in units:\n            raise ValueError(f\"Unknown unit: {unit}\")\n        if i > 0 and units[unit] < units[prev_unit]:\n            raise ValueError(\"Units out of order\")\n        total_seconds += value * units[unit]\n        prev_unit = unit\n\n    return total_seconds\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "UnboundLocalError: cannot access local variable 'total_seconds' where it is not associated with a value"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    title = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('utf-8')\n    title = re.sub(r'[^a-z0-9]+', '-', title.lower())\n    title = re.sub(r'-+', '-', title).strip('-')\n    words = title.split('-')\n    if len(title) > max_len:\n        title = '-'.join(words[:max_len // len(words[0])]) if max_len % len(words[0]) == 0 else '-'.join(words[:max_len // len(words[0]) + 1])\n        title = title[:max_len]\n    return title.rstrip('-')\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    nums = sorted(set(nums))\n    result = []\n    i = 0\n    while i < len(nums):\n        j = i + 1\n        while j < len(nums) and nums[j] == nums[j - 1] + 1:\n            j += 1\n        if j - i >= 3:\n            result.append(f\"{nums[i]}..{nums[j - 1]}\")\n        elif j - i == 2:\n            result.append(f\"{nums[i]},{nums[j - 1]}\")\n        else:\n            result.append(str(nums[i]))\n        i = j\n    return \",\".join(result)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: callable):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = capacity\n        self.last_refill = self.clock()\n\n    def allow(self, cost: float = 1) -> bool:\n        self.refill()\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self.refill()\n        return self._tokens\n\n    def refill(self) -> None:\n        elapsed = self.clock() - self.last_refill\n        self._tokens = min(self.capacity, self._tokens + elapsed * self.refill_per_sec)\n        self.last_refill = self.clock()\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AttributeError: property 'tokens' of 'TokenBucket' object has no setter"
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nfrom decimal import Decimal, InvalidOperation\nfrom collections import defaultdict\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    customers = defaultdict(Decimal)\n    for row in rows:\n        name = row.get(\"customer\", \"\").strip()\n        if not name:\n            continue\n        try:\n            amount = Decimal(row[\"amount\"].replace(\",\", \"\"))\n        except InvalidOperation:\n            continue\n        customers[name.lower()] += amount\n    return sorted(customers.items(), key=lambda x: (-x[1], x[0]))[:n]\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ }
+}

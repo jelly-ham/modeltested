@@ -1,0 +1,81 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\nimport re\nfrom typing import Optional\n\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Convert a duration string into a total number of seconds.\n\n    Supported units are 'h' (hours), 'm' (minutes), and 's' (seconds).\n    The parts must appear in the order h → m → s and each may appear at most once.\n    Leading and trailing whitespace, as well as spaces between parts, are allowed.\n    Raises ValueError for invalid inputs.\n    \"\"\"\n    if not isinstance(s, str):\n        raise ValueError(\"Input must be a string\")\n\n    # Strip the string to detect an entirely blank input.\n    stripped = s.strip()\n    if not stripped:\n        raise ValueError(\"Duration string cannot be empty or blank\")\n\n    # Regular expression that matches the entire string, allowing optional\n    # whitespace and each unit only once and in the correct order.\n    pattern = re.compile(\n        r'^\\s*(?:(?P<h>\\d+)h)?\\s*'   # hours, optional\n        r'(?:(?P<m>\\d+)m)?\\s*'       # minutes, optional\n        r'(?:(?P<s>\\d+)s)?\\s*$',\n        re.IGNORECASE\n    )\n\n    match = pattern.match(s)\n    if not match:\n        raise ValueError(f\"Invalid duration string: '{s}'\")\n\n    hours: Optional[str] = match.group('h')\n    minutes: Optional[str] = match.group('m')\n    seconds: Optional[str] = match.group('s')\n\n    total = 0\n    if hours is not None:\n        total += int(hours) * 3600\n    if minutes is not None:\n        total += int(minutes) * 60\n    if seconds is not None:\n        total += int(seconds)\n\n    return total\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport re\nimport unicodedata\nfrom typing import List\n\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    \"\"\"\n    Build a URL slug from the given title.\n\n    Parameters\n    ----------\n    title : str\n        The original title string.\n    max_len : int, optional\n        Maximum length of the resulting slug (default 50).\n\n    Returns\n    -------\n    str\n        The slugified string.\n    \"\"\"\n    if max_len <= 0:\n        return \"\"\n\n    # 1. Transliterate accented characters to ASCII and drop non‑ASCII.\n    #    Normalization decomposes characters; encoding to ASCII with 'ignore'\n    #    removes diacritics and any remaining non‑ASCII.\n    ascii_title = unicodedata.normalize(\"NFKD\", title).encode(\"ascii\", \"ignore\").decode(\"ascii\")\n\n    # 2. Lowercase.\n    ascii_title = ascii_title.lower()\n\n    # 3. Replace runs of non a‑z0‑9 with a single hyphen.\n    slug = re.sub(r\"[^a-z0-9]+\", \"-\", ascii_title)\n\n    # Strip leading/trailing hyphens.\n    slug = slug.strip(\"-\")\n\n    # If slug is empty after cleaning, return it.\n    if not slug:\n        return \"\"\n\n    # 4. Truncate without cutting a word.\n    if len(slug) <= max_len:\n        return slug\n\n    words: List[str] = slug.split(\"-\")\n    kept_words: List[str] = []\n    current_len = 0\n\n    for word in words:\n        # Determine length if this word is added.\n        add_len = len(word) if not kept_words else 1 + len(word)  # 1 for hyphen\n        if current_len + add_len <= max_len:\n            kept_words.append(word)\n            current_len += add_len\n        else:\n            break\n\n    if kept_words:\n        truncated = \"-\".join(kept_words)\n    else:\n        # 5. If even the first word is too long, hard‑cut to max_len.\n        truncated = slug[:max_len]\n\n    # Ensure the result never ends with a hyphen.\n    return truncated.rstrip(\"-\")\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\nfrom typing import List\n\ndef summarize_ranges(nums: List[int]) -> str:\n    \"\"\"Return a comma‑separated string summarizing consecutive runs.\"\"\"\n    if not nums:\n        return \"\"\n\n    sorted_nums = sorted(set(nums))\n    parts = []\n\n    start = sorted_nums[0]\n    prev = sorted_nums[0]\n\n    for num in sorted_nums[1:]:\n        if num == prev + 1:\n            prev = num\n            continue\n\n        # Close the current run\n        run_len = prev - start + 1\n        if run_len >= 3:\n            parts.append(f\"{start}..{prev}\")\n        else:\n            parts.extend(str(n) for n in range(start, prev + 1))\n\n        # Start a new run\n        start = prev = num\n\n    # Close the final run\n    run_len = prev - start + 1\n    if run_len >= 3:\n        parts.append(f\"{start}..{prev}\")\n    else:\n        parts.extend(str(n) for n in range(start, prev + 1))\n\n    return \",\".join(parts)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nfrom typing import Callable\n\n\nclass TokenBucket:\n    \"\"\"\n    A token bucket rate limiter.\n\n    Parameters\n    ----------\n    capacity : float\n        The maximum number of tokens the bucket can hold.\n    refill_per_sec : float\n        The rate at which tokens are added to the bucket per second.\n    clock : Callable[[], float]\n        A zero-argument callable that returns the current time in seconds.\n        The implementation must never call time.time() directly.\n    \"\"\"\n\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]):\n        self.capacity = float(capacity)\n        self.refill_per_sec = float(refill_per_sec)\n        self.clock = clock\n\n        # The bucket starts full.\n        self._tokens = self.capacity\n        # The last time we updated the token count.\n        self._last = self.clock()\n\n    def _refill(self) -> None:\n        \"\"\"Replenish tokens based on elapsed time.\"\"\"\n        now = self.clock()\n        elapsed = now - self._last\n        if elapsed > 0:\n            added = elapsed * self.refill_per_sec\n            if added > 0:\n                self._tokens = min(self.capacity, self._tokens + added)\n        self._last = now\n\n    def allow(self, cost: float = 1) -> bool:\n        \"\"\"\n        Attempt to consume `cost` tokens from the bucket.\n\n        Returns\n        -------\n        bool\n            True if the bucket had enough tokens and the cost was deducted;\n            False otherwise.\n        \"\"\"\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        \"\"\"\n        The current number of tokens in the bucket.\n\n        Returns\n        -------\n        float\n            The current token count after refilling.\n        \"\"\"\n        self._refill()\n        return self._tokens\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nfrom decimal import Decimal, InvalidOperation\nfrom collections import defaultdict\nfrom typing import Dict, List, Tuple\n\n\ndef _parse_amount(raw: str) -> Decimal:\n    \"\"\"\n    Convert an amount string into a Decimal value.\n\n    Accepts formats such as:\n        \"$1,234.50\", \"1234.5\", \"-$5.00\", \"$1,000\"\n    \"\"\"\n    if raw is None:\n        raise ValueError(\"No amount provided\")\n    text = raw.strip()\n    if not text:\n        raise ValueError(\"Empty amount\")\n\n    sign = 1\n    if text and text[0] == '-':\n        sign = -1\n        text = text[1:].strip()\n\n    if text.startswith('$'):\n        text = text[1:]\n\n    # Remove thousands separators\n    text = text.replace(',', '')\n\n    try:\n        value = Decimal(text)\n    except InvalidOperation as exc:\n        raise ValueError(f\"Invalid numeric value: {raw}\") from exc\n\n    return sign * value\n\n\ndef top_customers(rows: List[Dict], n: int) -> List[Tuple[str, float]]:\n    \"\"\"\n    Return the top `n` customers by total transaction amount.\n\n    Parameters\n    ----------\n    rows : List[Dict]\n        Each dict must contain a 'customer' and an 'amount' key.\n    n : int\n        Number of top customers to return.\n    \"\"\"\n    totals: Dict[str, Decimal] = defaultdict(Decimal)\n    first_name: Dict[str, str] = {}\n\n    for row in rows:\n        # Extract and validate customer name\n        raw_name = row.get('customer')\n        if raw_name is None:\n            continue\n        name = raw_name.strip()\n        if not name:\n            continue\n\n        # Parse amount\n        try:\n            amount = _parse_amount(row.get('amount'))\n        except (ValueError, TypeError):\n            continue\n\n        key = name.lower()\n        if key not in first_name:\n            first_name[key] = name\n\n        totals[key] += amount\n\n    # Build result list\n    result = [\n        (first_name[key], float(totals[key].quantize(Decimal('0.01'))))\n        for key in totals\n    ]\n\n    # Sort by total descending, then name ascending\n    result.sort(key=lambda x: (-x[1], x[0]))\n\n    return result[:n]\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "extract": {
+  "extract-invoice-email": {
+   "output": "{\"invoice_number\":\"INV-2024-0193\",\"vendor\":\"BrightPixel Studio LLC\",\"contact_name\":\"Maria Gonzalez\",\"currency\":\"USD\",\"total\":4310,\"invoice_date\":\"2024-09-15\",\"due_date\":\"2024-10-15\",\"line_items\":[{\"sku\":\"WEB-01\",\"quantity\":1,\"unit_price\":3500},{\"sku\":\"HST-12\",\"quantity\":3,\"unit_price\":270}]}",
+   "score": 1.0,
+   "detail": {
+    "matched": 13,
+    "total": 13,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-meeting": {
+   "output": "{\"title\":\"Q3 planning sync\",\"date\":\"2024-07-18\",\"start_time\":\"14:30\",\"timezone\":\"America/Los_Angeles\",\"duration_minutes\":90,\"attendees\":[\"dana@acme.io\",\"li.wei@acme.io\",\"raj@outsource.dev\"],\"zoom_meeting_id\":\"89122345501\",\"first_presenter\":\"Dana\"}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-resume": {
+   "output": "{\"full_name\":\"JORDAN LEE\",\"email\":\"jordan.lee@protonmail.com\",\"phone_e164\":\"+12065550147\",\"city\":\"Seattle\",\"state\":\"WA\",\"current_title\":\"Senior Data Engineer\",\"current_company\":\"Northwind Health\",\"employers\":[\"Northwind Health\",\"Contoso Retail\",\"Fabrikam\"],\"career_start\":\"2015-01\",\"graduation_year\":2014,\"skills\":[\"Python\",\"SQL\",\"Apache Spark\",\"Airflow\",\"dbt\"]}",
+   "score": 1.0,
+   "detail": {
+    "matched": 17,
+    "total": 17,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-support-ticket": {
+   "output": "{\"category\":\"billing\",\"priority\":\"high\",\"plan\":\"Pro\",\"order_ids\":[\"A-55821\",\"A-55822\"],\"refund_requested\":true,\"sentiment\":\"negative\",\"customer_name\":\"Priya\"}",
+   "score": 1.0,
+   "detail": {
+    "matched": 8,
+    "total": 8,
+    "wrong": [],
+    "bare_json": true
+   }
+  }
+ }
+}

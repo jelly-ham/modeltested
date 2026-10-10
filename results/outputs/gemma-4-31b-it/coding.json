@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Converts a duration string (e.g., \"1h 30m 10s\") into total seconds.\n    Raises ValueError for invalid formats, repeated units, or incorrect order.\n    \"\"\"\n    s = s.strip()\n    if not s:\n        raise ValueError(\"Duration string cannot be empty or blank.\")\n\n    # Pattern to identify segments of digits followed by a unit\n    # This allows us to check for unexpected characters between valid parts\n    pattern = re.compile(r'(\\d+)([hms])', re.IGNORECASE)\n    \n    # Check for decimals or non-digit characters that aren't the allowed units/whitespace\n    # We strip the valid matches to see if anything \"illegal\" remains\n    remaining = s\n    matches = pattern.findall(s)\n    for val, unit in matches:\n        remaining = remaining.replace(val + unit, '', 1)\n    \n    if remaining.strip():\n        # If there are characters left that aren't whitespace, it's an invalid format\n        # (e.g., decimals '.', unknown units 'x', or numbers without units)\n        raise ValueError(\"Invalid duration format or unknown units encountered.\")\n\n    if not matches:\n        raise ValueError(\"No valid duration parts found.\")\n\n    units_map = {'h': 3600, 'm': 60, 's': 1}\n    unit_order = {'h': 0, 'm': 1, 's': 2}\n    \n    total_seconds = 0\n    last_unit_index = -1\n    seen_units = set()\n\n    for value_str, unit_char in matches:\n        unit_lower = unit_char.lower()\n        \n        if unit_lower in seen_units:\n            raise ValueError(f\"Repeated unit: {unit_lower}\")\n        \n        current_unit_index = unit_order[unit_lower]\n        if current_unit_index <= last_unit_index:\n            raise ValueError(\"Units must appear in the order h, m, s.\")\n        \n        total_seconds += int(value_str) * units_map[unit_lower]\n        seen_units.add(unit_lower)\n        last_unit_index = current_unit_index\n\n    return total_seconds\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # 1. Transliterate accented characters to ASCII and drop non-ASCII\n    title = unicodedata.normalize('NFKD', title)\n    title = title.encode('ascii', 'ignore').decode('ascii')\n    \n    # 2. Lowercase\n    title = title.lower()\n    \n    # 3. Replace non-alphanumeric runs with \"-\", strip leading/trailing \"-\"\n    title = re.sub(r'[^a-z0-9]+', '-', title).strip('-')\n    \n    # 4 & 5. Length constraints\n    if len(title) <= max_len:\n        return title\n    \n    # Try to find the longest prefix of whole words\n    words = title.split('-')\n    current_slug = []\n    current_len = 0\n    \n    for word in words:\n        # Length of word plus the hyphen (if not the first word)\n        added_len = len(word) + (1 if current_slug else 0)\n        if current_len + added_len <= max_len:\n            current_slug.append(word)\n            current_len += added_len\n        else:\n            break\n            \n    if current_slug:\n        return '-'.join(current_slug)\n    else:\n        # Even the first word is longer than max_len, hard-cut it\n        return title[:max_len].rstrip('-')\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    # Sort and remove duplicates\n    sorted_nums = sorted(set(nums))\n    n = len(sorted_nums)\n    result = []\n    i = 0\n\n    while i < n:\n        start = i\n        # Find the end of the consecutive run\n        while i + 1 < n and sorted_nums[i + 1] == sorted_nums[i] + 1:\n            i += 1\n        \n        end = i\n        run_length = end - start + 1\n        \n        if run_length >= 3:\n            # Collapse run of 3 or more\n            result.append(f\"{sorted_nums[start]}..{sorted_nums[end]}\")\n        else:\n            # List individually for runs of 1 or 2\n            for j in range(start, end + 1):\n                result.append(str(sorted_nums[j]))\n        \n        i += 1\n\n    return \",\".join(result)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nfrom typing import Callable\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]):\n        self._capacity = capacity\n        self._refill_per_sec = refill_per_sec\n        self._clock = clock\n        self._tokens = capacity\n        self._last_update = self._clock()\n\n    def _refill(self) -> None:\n        now = self._clock()\n        elapsed = now - self._last_update\n        if elapsed > 0:\n            new_tokens = elapsed * self._refill_per_sec\n            self._tokens = min(self._capacity, self._tokens + new_tokens)\n            self._last_update = now\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nimport collections\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    def parse_amount(amount_str: str) -> float:\n        if not isinstance(amount_str, str):\n            raise ValueError(\"Amount must be a string\")\n        # Remove currency symbols and thousands separators\n        clean_str = amount_str.replace('$', '').replace(',', '').strip()\n        return float(clean_str)\n\n    # Store totals keyed by lowercase name\n    totals = collections.defaultdict(float)\n    # Store the original trimmed name for the first encounter of each customer\n    name_map = {}\n\n    for row in rows:\n        raw_name = row.get(\"customer\")\n        raw_amount = row.get(\"amount\")\n\n        if not isinstance(raw_name, str) or not isinstance(raw_amount, str):\n            continue\n\n        trimmed_name = raw_name.strip()\n        if not trimmed_name:\n            continue\n\n        try:\n            amount = parse_amount(raw_amount)\n            key = trimmed_name.lower()\n            \n            if key not in name_map:\n                name_map[key] = trimmed_name\n            \n            totals[key] += amount\n        except (ValueError, TypeError):\n            continue\n\n    # Prepare final list of (original_name, rounded_total)\n    result = []\n    for key, total in totals.items():\n        result.append((name_map[key], round(total, 2)))\n\n    # Sort by total descending, then name ascending\n    result.sort(key=lambda x: (-x[1], x[0]))\n\n    return result[:n]\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ }
+}

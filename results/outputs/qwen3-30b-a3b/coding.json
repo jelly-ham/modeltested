@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    s_clean = s.replace(' ', '')\n    if not s_clean:\n        raise ValueError(\"Empty string\")\n    parts = re.findall(r'(\\d+)([hmsHMS])', s_clean)\n    parsed_str = ''.join([num + unit for num, unit in parts])\n    if parsed_str != s_clean:\n        raise ValueError(\"Invalid format\")\n    units = []\n    for num_str, unit in parts:\n        unit_lower = unit.lower()\n        if unit_lower not in {'h', 'm', 's'}:\n            raise ValueError(\"Unknown unit\")\n        if unit_lower in units:\n            raise ValueError(\"Repeated unit\")\n        units.append(unit_lower)\n    for i in range(1, len(units)):\n        if units[i] < units[i-1]:\n            raise ValueError(\"Units out of order\")\n    total = 0\n    for num_str, unit in parts:\n        num = int(num_str)\n        unit_lower = unit.lower()\n        if unit_lower == 'h':\n            total += num * 3600\n        elif unit_lower == 'm':\n            total += num * 60\n        elif unit_lower == 's':\n            total += num\n    return total\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    normalized = unicodedata.normalize('NFKD', title)\n    ascii_chars = [c for c in normalized if ord(c) <= 127]\n    ascii_str = ''.join(ascii_chars)\n    lower_str = ascii_str.lower()\n    step3 = re.sub(r'[^a-z0-9]+', '-', lower_str).strip('-')\n    if len(step3) <= max_len:\n        return step3\n    words = step3.split('-')\n    prefix = []\n    current_length = 0\n    for word in words:\n        if not prefix:\n            possible_length = len(word)\n        else:\n            possible_length = current_length + len(word) + 1\n        if possible_length > max_len:\n            break\n        else:\n            prefix.append(word)\n            current_length = possible_length\n    if not prefix:\n        if words:\n            slug = words[0][:max_len]\n        else:\n            slug = ''\n    else:\n        slug = '-'.join(prefix)\n    return slug\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    sorted_nums = sorted(nums)\n    sorted_unique = []\n    prev = None\n    for num in sorted_nums:\n        if num != prev:\n            sorted_unique.append(num)\n            prev = num\n    \n    groups = []\n    current_start = sorted_unique[0]\n    current_end = sorted_unique[0]\n    \n    for i in range(1, len(sorted_unique)):\n        num = sorted_unique[i]\n        if num == current_end + 1:\n            current_end = num\n        else:\n            groups.append((current_start, current_end))\n            current_start = num\n            current_end = num\n    \n    groups.append((current_start, current_end))\n    \n    parts = []\n    for start, end in groups:\n        if end - start >= 2:\n            parts.append(f\"{start}..{end}\")\n        else:\n            for num in range(start, end + 1):\n                parts.append(str(num))\n    \n    return ','.join(parts)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.current_tokens = capacity\n        self.last_time = clock()\n\n    def _refill(self):\n        now = self.clock()\n        elapsed = now - self.last_time\n        self.current_tokens += self.refill_per_sec * elapsed\n        if self.current_tokens > self.capacity:\n            self.current_tokens = self.capacity\n        self.last_time = now\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self.current_tokens >= cost:\n            self.current_tokens -= cost\n            return True\n        else:\n            return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self.current_tokens\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    customer_data = {}\n    for row in rows:\n        customer = row.get('customer', '').strip()\n        if not customer:\n            continue\n        amount_str = row.get('amount', '')\n        try:\n            cleaned = amount_str.replace('$', '').replace(',', '')\n            amount = float(cleaned)\n        except ValueError:\n            continue\n        lower_customer = customer.lower()\n        if lower_customer not in customer_data:\n            customer_data[lower_customer] = (customer, amount)\n        else:\n            existing_customer, total = customer_data[lower_customer]\n            customer_data[lower_customer] = (existing_customer, total + amount)\n    result = []\n    for key in customer_data:\n        original_name, total = customer_data[key]\n        rounded_total = round(total, 2)\n        result.append((original_name, rounded_total))\n    result.sort(key=lambda x: (-x[1], x[0]))\n    return result[:n]\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ }
+}
