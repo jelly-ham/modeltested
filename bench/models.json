@@ -335,6 +335,15 @@
       "arch": null
     },
     {
+      "slug": "mock-slow",
+      "name": "Mock (slow)",
+      "status": "test",
+      "openrouter_id": "mock:slow",
+      "params_b": 8,
+      "active_params_b": null,
+      "arch": null
+    },
+    {
       "slug": "nemotron-3-5-lightning",
       "name": "Nemotron 3.5 Lightning",
       "status": "active",

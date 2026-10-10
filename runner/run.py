@@ -8,7 +8,8 @@ from __future__ import annotations
 
 import json
 import os
-from concurrent.futures import ThreadPoolExecutor
+import time
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 
 from . import client, sandbox, suites
 from .common import (OUTPUTS_DIR, PRIVATE_OUTPUTS_DIR, Question, load_models, load_questions, load_scores,
@@ -22,6 +23,9 @@ def _mock_answer(model: dict, q: Question) -> client.ChatResult:
             text = "```python\n" + q.data["reference"] + "\n```"
         else:
             text = json.dumps(q.data["expected"])
+    elif kind == "slow":
+        time.sleep(2)
+        text = "too slow"
     else:
         text = "I'm not sure."
     return client.ChatResult(text=text, provider="mock")
@@ -33,30 +37,11 @@ def _ask(model: dict, q: Question) -> client.ChatResult:
     return client.chat(model, suites.build_prompt(q.suite, q.data))
 
 
-def run_model(model: dict, questions: list[Question], budget: list[float], concurrency: int, rerun: bool) -> None:
+def finalize_model(model: dict, todo: list[Question], answers: dict[str, client.ChatResult]) -> None:
+    """Grade the answers collected for one model and persist them."""
     slug = model["slug"]
     scores = load_scores(slug)
     items = scores["items"]
-    todo = [q for q in questions if rerun or items.get(q.key, {}).get("h") != q.hash]
-    if not todo:
-        print(f"[{slug}] up to date")
-        return
-    if budget[0] <= 0:
-        print(f"[{slug}] skipped: budget exhausted")
-        return
-    print(f"[{slug}] {len(todo)} questions to run")
-
-    answers: dict[str, client.ChatResult] = {}
-    with ThreadPoolExecutor(concurrency) as pool:
-        for i in range(0, len(todo), concurrency):
-            if budget[0] <= 0:
-                print(f"[{slug}] budget exhausted, stopping early")
-                break
-            batch = todo[i:i + concurrency]
-            for q, res in zip(batch, pool.map(lambda q: _ask(model, q), batch)):
-                answers[q.key] = res
-                budget[0] -= res.cost
-
     by_key = {q.key: q for q in todo}
     errors = {k: r for k, r in answers.items() if r.error}
     ok = {k: r for k, r in answers.items() if not r.error}
@@ -79,7 +64,9 @@ def run_model(model: dict, questions: list[Question], budget: list[float], concu
                     "truncated": r.finish_reason == "length" or None, "at": today()}
         items[k] = {kk: vv for kk, vv in items[k].items() if vv is not None}
         (private_out if q.private else public_out)[k] = {"output": r.text[:20000], "score": round(score, 4), "detail": detail}
-        print(f"[{slug}] {k} {score:.2f}")
+        # Grader errors are printed for public questions only (hidden ones would leak test details).
+        why = f"  ({detail.get('error')})" if q.suite == "coding" and not q.private and detail.get("error") else ""
+        print(f"[{slug}] {k} {score:.2f}{why}", flush=True)
 
     for k, r in errors.items():
         # Shown for hidden questions too: the error comes from the API, not from model output.
@@ -90,7 +77,8 @@ def run_model(model: dict, questions: list[Question], budget: list[float], concu
     if os.environ.get("BENCH_SAVE_PRIVATE_OUTPUTS") == "1" and not os.environ.get("CI"):
         _save_outputs(PRIVATE_OUTPUTS_DIR / slug, private_out)
     spent = sum(r.cost for r in answers.values())
-    print(f"[{slug}] done: {len(ok)} scored, {len(errors)} errors, ${spent:.4f}")
+    left = len(todo) - len(ok)
+    print(f"[{slug}] saved: {len(ok)} scored, {len(errors)} errors, {left} still to do, ${spent:.4f}", flush=True)
 
 
 def _save_outputs(d, outputs: dict) -> None:
@@ -117,7 +105,51 @@ def main(args) -> None:
     questions = load_questions()
     if args.suites:
         questions = [q for q in questions if q.suite in args.suites.split(",")]
-    budget = [args.budget_usd]
+
+    # One global queue of (model, question) jobs, ordered model by model so models
+    # complete one after another, while slow requests never block the others.
+    todo: dict[str, list[Question]] = {}
     for m in models:
-        run_model(m, questions, budget, args.concurrency, args.rerun)
-    print(f"total spent: ${args.budget_usd - budget[0]:.4f}")
+        items = load_scores(m["slug"])["items"]
+        todo[m["slug"]] = [q for q in questions if args.rerun or items.get(q.key, {}).get("h") != q.hash]
+    jobs = [(m, q) for m in models for q in todo[m["slug"]]]
+    print(f"{len(jobs)} (model, question) pairs to run across {sum(bool(v) for v in todo.values())} models", flush=True)
+
+    by_slug = {m["slug"]: m for m in models}
+    answers: dict[str, dict[str, client.ChatResult]] = {slug: {} for slug in todo}
+    pending = {slug: len(qs) for slug, qs in todo.items()}
+    deadline = time.monotonic() + args.max_minutes * 60
+    spent, stop = 0.0, None
+    queue = iter(jobs)
+
+    with ThreadPoolExecutor(args.concurrency) as pool:
+        inflight = {}
+        while True:
+            while stop is None and len(inflight) < args.concurrency:
+                if spent >= args.budget_usd:
+                    stop = f"budget of ${args.budget_usd} reached"
+                elif time.monotonic() > deadline:
+                    stop = f"time limit of {args.max_minutes} min reached"
+                else:
+                    job = next(queue, None)
+                    if job is None:
+                        break
+                    inflight[pool.submit(_ask, *job)] = job
+            if not inflight:
+                break
+            done, _ = wait(inflight, return_when=FIRST_COMPLETED)
+            for f in done:
+                m, q = inflight.pop(f)
+                res = f.result()
+                spent += res.cost
+                answers[m["slug"]][q.key] = res
+                pending[m["slug"]] -= 1
+                if pending[m["slug"]] == 0:
+                    finalize_model(m, todo[m["slug"]], answers.pop(m["slug"]))
+
+    if stop:
+        print(f"stopped submitting: {stop}", flush=True)
+    for slug, got in answers.items():  # models only partly answered when we stopped
+        if got:
+            finalize_model(by_slug[slug], todo[slug], got)
+    print(f"total spent: ${spent:.4f}", flush=True)

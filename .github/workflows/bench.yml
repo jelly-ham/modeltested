@@ -62,7 +62,9 @@ jobs:
       - name: Run benchmarks
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: python -m runner run --budget-usd "${{ inputs.budget_usd || '3' }}"
+          PYTHONUNBUFFERED: "1"
+        # Stops submitting at --max-minutes and saves partial progress; the next run continues.
+        run: python -m runner run --budget-usd "${{ inputs.budget_usd || '3' }}" --max-minutes 50
 
       - name: Build site data
         run: python -m runner build-data

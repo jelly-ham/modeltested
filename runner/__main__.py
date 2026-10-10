@@ -15,7 +15,8 @@ def main() -> None:
     p.add_argument("--models", help="comma-separated slugs (default: all active/auto models)")
     p.add_argument("--suites", help="comma-separated suites (default: all)")
     p.add_argument("--budget-usd", type=float, default=2.0, help="stop sending requests after this spend")
-    p.add_argument("--concurrency", type=int, default=8)
+    p.add_argument("--max-minutes", type=float, default=50, help="stop sending requests after this long, then save")
+    p.add_argument("--concurrency", type=int, default=16)
     p.add_argument("--rerun", action="store_true", help="ignore stored scores")
     p.set_defaults(fn=run.main)
 

@@ -43,7 +43,7 @@ def _post(path: str, body: dict, timeout: int) -> dict:
         return json.loads(r.read())
 
 
-def chat(model: dict, prompt: str, max_tokens: int = 8192, timeout: int = 600) -> ChatResult:
+def chat(model: dict, prompt: str, max_tokens: int = 8192, timeout: int = 180) -> ChatResult:
     body = {
         "model": model["openrouter_id"],
         "messages": [{"role": "user", "content": prompt}],
@@ -57,7 +57,7 @@ def chat(model: dict, prompt: str, max_tokens: int = 8192, timeout: int = 600) -
         body["reasoning"] = model["reasoning"]
 
     last_err = None
-    for attempt in range(4):
+    for attempt in range(3):
         try:
             d = _post("/chat/completions", body, timeout)
         except urllib.error.HTTPError as e:
@@ -72,8 +72,12 @@ def chat(model: dict, prompt: str, max_tokens: int = 8192, timeout: int = 600) -
                 continue
             break
         except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+            # A request that timed out once (very long reasoning, stuck provider) is
+            # retried once; the error is recorded and retried on the next daily run.
             last_err = f"network: {e}"
-            time.sleep(5 * 2 ** attempt)
+            if attempt >= 1:
+                break
+            time.sleep(3)
             continue
 
         if "error" in d:
