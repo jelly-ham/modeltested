@@ -13,7 +13,7 @@ const top = ranked("overall")[0];
 const featured = [
   codingPost,
   posts.find((p) => p.url === `/models/${top.slug}/`),
-  posts.find((p) => p.url === "/posts/document-test-harder/") ?? posts.find((p) => p.category === "Guides"),
+  posts.find((p) => p.url === "/best-decision-models/") ?? posts.find((p) => p.category === "Guides"),
 ].filter(Boolean) as typeof posts;
 const shown = new Set([hero.url, ...featured.map((p) => p.url)]);
 const latest = posts.filter((p) => !shown.has(p.url)).slice(0, 12);
