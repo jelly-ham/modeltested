@@ -2721,13 +2721,13 @@
    "status": "reference",
    "base": null,
    "quant": null,
-   "overall": 69.8,
-   "hard": 55.6,
+   "overall": 79.8,
+   "hard": 61.1,
    "suites": {
     "coding": {
-     "score": 40.0,
+     "score": 60.0,
      "public": 57.1,
-     "private": 34.8,
+     "private": 60.9,
      "done": 30,
      "total": 30
     },
