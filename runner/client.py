@@ -30,6 +30,7 @@ class ChatResult:
     finish_reason: str | None = None
     error: str | None = None
     usage: dict = field(default_factory=dict)
+    reasoning: str = ""
     # The answer limit was lowered to fit the model's context window: as long as it can ever get.
     capped: bool = False
 
@@ -111,6 +112,7 @@ def chat(model: dict, prompt: str, max_tokens: int = MAX_TOKENS, timeout: int = 
         usage = d.get("usage") or {}
         return ChatResult(
             text=(choice.get("message") or {}).get("content") or "",
+            reasoning=(choice.get("message") or {}).get("reasoning") or "",
             provider=d.get("provider"),
             cost=float(usage.get("cost") or 0),
             finish_reason=choice.get("finish_reason"),

@@ -18,6 +18,7 @@ def main() -> None:
     p.add_argument("--max-minutes", type=float, default=50, help="stop sending requests after this long, then save")
     p.add_argument("--concurrency", type=int, default=16)
     p.add_argument("--rerun", action="store_true", help="ignore stored scores")
+    p.add_argument("--rerun-truncated", action="store_true", help="re-run answers that hit the token limit")
     p.set_defaults(fn=run.main)
 
     p = sub.add_parser("local", help='run status "local" models through Ollama (Mac test machine)')

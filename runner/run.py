@@ -98,7 +98,11 @@ def finalize_model(model: dict, todo: list[Question], answers: dict[str, client.
                     "mt": model.get("max_tokens", client.MAX_TOKENS) if q.suite != "decisions" or model.get("kind") != "decision" else None,
                     "at": today()}
         items[k] = {kk: vv for kk, vv in items[k].items() if vv is not None}
-        (private_out if q.private else public_out)[k] = {"output": r.text[:20000], "score": round(score, 4), "detail": detail}
+        out = {"output": r.text[:20000], "score": round(score, 4), "detail": detail}
+        if r.finish_reason == "length" and r.reasoning and not q.private:
+            # Public questions only: where a model's reasoning was when it ran out of tokens.
+            out["reasoning_tail"] = r.reasoning[-6000:]
+        (private_out if q.private else public_out)[k] = out
         # Grader errors are printed for public questions only (hidden ones would leak test details).
         why = f"  ({detail.get('error')})" if q.suite == "coding" and not q.private and detail.get("error") else ""
         print(f"[{slug}] {k} {score:.2f}{why}", flush=True)
@@ -158,6 +162,7 @@ def main(args) -> None:
         items = load_scores(m["slug"])["items"]
         allowed = model_suites(m)
         todo[m["slug"]] = [q for q in questions if q.suite in allowed and (args.rerun or items.get(q.key, {}).get("h") != q.hash
+                           or (getattr(args, "rerun_truncated", False) and items[q.key].get("truncated"))
                            or items[q.key].get("provider") in client.BLOCKED_PROVIDERS
                            or items[q.key].get("cfg") != model_cfg(m)
                            or (items[q.key].get("truncated") and items[q.key].get("mt", 8192) < m.get("max_tokens", client.MAX_TOKENS)))]

@@ -13,6 +13,16 @@ on:
       budget_usd:
         description: "Max OpenRouter spend for this run (USD)"
         default: "3"
+      models:
+        description: "Only these model slugs (comma-separated; empty = all)"
+        default: ""
+      suites:
+        description: "Only these suites (comma-separated; empty = all)"
+        default: ""
+      rerun_truncated:
+        description: "Re-run answers that hit the token limit"
+        type: boolean
+        default: false
   push:
     branches: [main]
     # results/scores: local (Mac) runs push their scores, and the site should pick them up.
@@ -68,8 +78,17 @@ jobs:
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           PYTHONUNBUFFERED: "1"
+          BUDGET: ${{ inputs.budget_usd || '3' }}
+          MODELS: ${{ inputs.models }}
+          SUITES: ${{ inputs.suites }}
+          RERUN_TRUNCATED: ${{ inputs.rerun_truncated }}
         # Stops submitting at --max-minutes and saves partial progress; the next run continues.
-        run: python -m runner run --budget-usd "${{ inputs.budget_usd || '3' }}" --max-minutes 50
+        run: |
+          args=(--budget-usd "$BUDGET" --max-minutes 50)
+          [ -n "$MODELS" ] && args+=(--models "$MODELS")
+          [ -n "$SUITES" ] && args+=(--suites "$SUITES")
+          [ "$RERUN_TRUNCATED" = "true" ] && args+=(--rerun-truncated)
+          python -m runner run "${args[@]}"
 
       - name: Build site data
         if: ${{ !cancelled() }}  # publish partial progress even if benchmarking failed
