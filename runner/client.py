@@ -4,6 +4,7 @@ from __future__ import annotations
 import http.client
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.request
@@ -29,6 +30,8 @@ class ChatResult:
     finish_reason: str | None = None
     error: str | None = None
     usage: dict = field(default_factory=dict)
+    # The answer limit was lowered to fit the model's context window: as long as it can ever get.
+    capped: bool = False
 
 
 def _post(path: str, body: dict, timeout: int) -> dict:
@@ -67,8 +70,8 @@ def chat(model: dict, prompt: str, max_tokens: int = MAX_TOKENS, timeout: int = 
     if "reasoning" in model:
         body["reasoning"] = model["reasoning"]
 
-    last_err = None
-    for attempt in range(3):
+    last_err, capped = None, False
+    for attempt in range(4):
         try:
             d = _post("/chat/completions", body, timeout)
         except urllib.error.HTTPError as e:
@@ -78,6 +81,12 @@ def chat(model: dict, prompt: str, max_tokens: int = MAX_TOKENS, timeout: int = 
                 # No endpoint matches the precision filter: accept any precision,
                 # but still never a blocked provider.
                 body["provider"] = {"ignore": BLOCKED_PROVIDERS, "allow_fallbacks": True}
+                continue
+            m = re.search(r"maximum context length is (\d+) tokens.*?\((\d+) of text input", detail)
+            if e.code == 400 and m and not capped:
+                # Models with a 32k window can't take a 32k answer on top of the prompt.
+                body["max_tokens"] = int(m.group(1)) - int(m.group(2)) - 256
+                capped = True
                 continue
             if e.code in (408, 429, 500, 502, 503, 504):
                 time.sleep(5 * 2 ** attempt)
@@ -106,6 +115,7 @@ def chat(model: dict, prompt: str, max_tokens: int = MAX_TOKENS, timeout: int = 
             cost=float(usage.get("cost") or 0),
             finish_reason=choice.get("finish_reason"),
             usage={k: usage.get(k) for k in ("prompt_tokens", "completion_tokens")},
+            capped=capped,
         )
     return ChatResult(error=last_err or "unknown error")
 
