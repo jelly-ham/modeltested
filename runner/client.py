@@ -147,6 +147,53 @@ def _post_abs(url: str, body: dict, timeout: int) -> dict:
         return json.loads(r.read())
 
 
+# ---------- local models (Ollama on the Mac test machine) ----------
+
+OLLAMA = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
+if not OLLAMA.startswith("http"):
+    OLLAMA = "http://" + OLLAMA
+# Room for the prompt on top of the answer. Ollama's default context is a few thousand tokens,
+# which would silently cut reasoning models off mid-thought.
+PROMPT_ROOM = 8192
+
+
+def _ollama(path: str, body: dict | None = None, timeout: int = 60) -> dict:
+    req = urllib.request.Request(OLLAMA + path, data=json.dumps(body).encode() if body is not None else None,
+                                 headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return json.loads(r.read())
+
+
+def ollama_quant(tag: str) -> str | None:
+    """Quantization of a pulled model, e.g. "Q4_K_M"."""
+    return (_ollama("/api/show", {"model": tag}).get("details") or {}).get("quantization_level")
+
+
+def ollama_chat(model: dict, prompt: str, timeout: int = 4 * 3600) -> ChatResult:
+    max_tokens = model.get("max_tokens", MAX_TOKENS)
+    options = {"num_predict": max_tokens, "num_ctx": model.get("num_ctx", max_tokens + PROMPT_ROOM)}
+    if "temperature" in model:
+        options["temperature"] = model["temperature"]
+    body = {"model": model["ollama_tag"], "messages": [{"role": "user", "content": prompt}], "stream": False,
+            "options": options}
+    if "think" in model:
+        body["think"] = model["think"]
+    try:
+        d = _ollama("/api/chat", body, timeout)
+    except urllib.error.HTTPError as e:
+        return ChatResult(error=f"HTTP {e.code}: {e.read().decode(errors='replace')[:300]}")
+    except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.HTTPException, ValueError) as e:
+        return ChatResult(error=f"ollama: {e}")
+    if d.get("error"):
+        return ChatResult(error=f"ollama: {str(d['error'])[:300]}")
+    return ChatResult(
+        text=(d.get("message") or {}).get("content") or "",
+        provider=f"ollama/{model.get('quant') or 'local'}",
+        finish_reason=d.get("done_reason"),
+        usage={"prompt_tokens": d.get("prompt_eval_count"), "completion_tokens": d.get("eval_count")},
+    )
+
+
 def list_models() -> list[dict]:
     # output_modalities=all: the default list hides non-text models such as decision models.
     with urllib.request.urlopen(API + "/models?output_modalities=all", timeout=60) as r:

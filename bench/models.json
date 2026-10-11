@@ -123,6 +123,28 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "gemma-3-4b-q4-mac",
+      "name": "Gemma 3 4B (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "gemma3:4b-it-q4_K_M",
+      "quant": "Q4_K_M",
+      "base": "gemma-3-4b-it",
+      "openrouter_id": null,
+      "hf_id": "google/gemma-3-4b-it",
+      "org": "google",
+      "params_b": 4.3,
+      "active_params_b": null,
+      "arch": null,
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "gemma3:4b-it-q4_K_M",
+      "license": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "gemma-4-26b-a4b-it",
       "name": "Gemma 4 26B A4B ",
       "status": "active",
@@ -229,6 +251,32 @@
       "unavailable_since": "2026-10-11"
     },
     {
+      "slug": "granite-4-0-h-micro-mac",
+      "name": "Granite 4.0 Micro (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "granite4:micro-h",
+      "quant": "Q4_K_M",
+      "base": "granite-4-0-h-micro",
+      "openrouter_id": null,
+      "hf_id": "ibm-granite/granite-4.0-h-micro",
+      "org": "ibm-granite",
+      "params_b": 3.19,
+      "active_params_b": null,
+      "arch": {
+        "layers": 40,
+        "kv_heads": 8,
+        "head_dim": 64
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "granite4:micro-h",
+      "license": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "granite-4-2-8b",
       "name": "Granite 4.2 8B",
       "status": "active",
@@ -287,6 +335,28 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "llama-3-1-8b-q4-mac",
+      "name": "Llama 3.1 8B Instruct (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "llama3.1:8b-instruct-q4_K_M",
+      "quant": "Q4_K_M",
+      "base": "llama-3-1-8b-instruct",
+      "openrouter_id": null,
+      "hf_id": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "org": "meta-llama",
+      "params_b": 8.03,
+      "active_params_b": null,
+      "arch": null,
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "llama3.1:8b-instruct-q4_K_M",
+      "license": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "llama-3-2-1b-instruct",
       "name": "Llama 3.2 1B Instruct",
       "status": "unavailable",
@@ -301,6 +371,28 @@
       "previous_status": "active",
       "unavailable_reason": "only blocked providers (Cloudflare)",
       "unavailable_since": "2026-10-11"
+    },
+    {
+      "slug": "llama-3-2-1b-q4-mac",
+      "name": "Llama 3.2 1B Instruct (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "llama3.2:1b-instruct-q4_K_M",
+      "quant": "Q4_K_M",
+      "base": "llama-3-2-1b-instruct",
+      "openrouter_id": null,
+      "hf_id": "meta-llama/Llama-3.2-1B-Instruct",
+      "org": "meta-llama",
+      "params_b": 1.24,
+      "active_params_b": null,
+      "arch": null,
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "llama3.2:1b-instruct-q4_K_M",
+      "license": null,
+      "added": "2026-10-11"
     },
     {
       "slug": "llama-3-2-3b-instruct",
@@ -605,6 +697,32 @@
       },
       "ollama": "qwen2.5:7b",
       "added": "2026-10-10"
+    },
+    {
+      "slug": "qwen-2-5-7b-q4-mac",
+      "name": "Qwen2.5 7B Instruct (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "qwen2.5:7b-instruct-q4_K_M",
+      "quant": "Q4_K_M",
+      "base": "qwen-2-5-7b-instruct",
+      "openrouter_id": null,
+      "hf_id": "Qwen/Qwen2.5-7B-Instruct",
+      "org": "qwen",
+      "params_b": 7.62,
+      "active_params_b": null,
+      "arch": {
+        "layers": 28,
+        "kv_heads": 4,
+        "head_dim": 128
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "qwen2.5:7b-instruct-q4_K_M",
+      "license": null,
+      "added": "2026-10-11"
     },
     {
       "slug": "qwen-2-5-coder-32b-instruct",

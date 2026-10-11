@@ -69,6 +69,12 @@ const toc = [
       We query models through OpenRouter, preferring providers that serve full (BF16) or FP8 weights. Most people run 4- to 6-bit
       quantized files locally, which typically lose a little quality, so treat our scores as the model's ceiling.
     </p>
+    <p>
+      To measure that loss, we also run the Q4 downloads of some models with Ollama on our own Mac mini (M4, 16 GB), with the same
+      questions, a 40,960-token context and the same 32,768-token answer limit. Those results appear on the model's page next to the
+      full-precision score. A model no OpenRouter provider serves reliably may be ranked from its Q4 run alone; the leaderboard says so.
+      We still don't record speed.
+    </p>
 
     <h2 id="memory">Memory estimates</h2>
     <p>

@@ -17,6 +17,10 @@ export type Model = {
   active_params_b: number | null;
   ollama: string | null;
   license?: string | null;
+  /** "local": a quantized download we ran ourselves with Ollama on a Mac. */
+  status?: string;
+  quant?: string | null;
+  base?: string | null;
   added?: string | null;
   overall: number;
   rank: number;
@@ -28,6 +32,12 @@ export type DecisionRow = {
   slug: string; name: string; org: string | null; kind: "decision" | "local" | "reference";
   params_b: number | null; accuracy: number; calibration: number | null; rank: number; openrouter_id: string;
 };
+/** A quantized download (run on our Mac) next to the same model at full precision. */
+export type QuantRun = {
+  slug: string; name: string; base: string; quant: string | null; overall: number; hard: number | null;
+  suites: Record<string, SuiteScore>; base_overall: number; base_hard: number | null;
+  base_suites: Record<string, SuiteScore>; delta: number;
+};
 export type Tier = { id: string; label: string; kind: "gpu" | "mac"; gb: number; usable_gb: number };
 
 export const data = board as unknown as {
@@ -38,6 +48,7 @@ export const data = board as unknown as {
   models: Model[];
   pending: string[];
   references?: Model[];
+  quantized?: QuantRun[];
   decisions?: DecisionRow[];
   n_hard?: number;
   changelog: { date: string; slug: string; name: string; event: string; overall: number; rank: number; of: number }[];
@@ -80,6 +91,12 @@ export function minTiers(m: Model): { gpu: Tier | null; mac: Tier | null } {
   const fit = (kind: string) => tiers.find((t) => t.kind === kind && m.memory?.best_quant_by_tier[t.id]) ?? null;
   return { gpu: fit("gpu"), mac: fit("mac") };
 }
+
+export const isLocalRun = (m: Model) => m.status === "local";
+export const quantRunFor = (m: Model) => (data.quantized ?? []).find((q) => q.base === m.slug);
+
+/** The test machine for local runs. */
+export const TEST_MAC = "Mac mini (M4, 16 GB)";
 
 export function bySlug(slug: string): Model | undefined {
   return models.find((m) => m.slug === slug);

@@ -9,6 +9,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -35,7 +36,11 @@ def run_cases(cases: dict[str, str]) -> dict[str, dict]:
     """cases: case_id -> python source. Returns case_id -> {passed, error}."""
     if not cases:
         return {}
-    tmp = Path(tempfile.mkdtemp(prefix="sbx-"))
+    # On a Mac, Docker (Colima in particular) only sees the home directory, not /var/folders.
+    base = Path.home() / ".cache" / "modeltested-sandbox" if sys.platform == "darwin" else None
+    if base:
+        base.mkdir(parents=True, exist_ok=True)
+    tmp = Path(tempfile.mkdtemp(prefix="sbx-", dir=base))
     try:
         (tmp / "cases").mkdir()
         ids = {}

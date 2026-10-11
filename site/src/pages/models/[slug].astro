@@ -1,7 +1,7 @@
 ---
 import Article from "../../layouts/Article.astro";
 import PostCard from "../../components/PostCard.astro";
-import { data, models, tiers, size, whole, suiteLabel, quantLabel, questionTitle, orgName, solvedBy, codingTotal, nCodingTasks, ranked, type Model } from "../../lib/data";
+import { data, models, tiers, size, whole, suiteLabel, quantLabel, questionTitle, orgName, solvedBy, codingTotal, nCodingTasks, ranked, isLocalRun, quantRunFor, TEST_MAC, type Model } from "../../lib/data";
 import { allPosts, verdict, hardwareLine, slugTag, shortDate } from "../../lib/posts";
 import publicQs from "../../data/public-questions.json";
 
@@ -38,9 +38,12 @@ const neighbors = posts
   .slice(0, 3)
   .map(({ p }) => p);
 
+const qrun = quantRunFor(model);
+const qlabel = quantLabel(qrun?.quant) || "Q4";
 const toc = [
   { href: "#coding", label: "Coding" },
   { href: "#documents", label: "Reading documents" },
+  ...(qrun ? [{ href: "#download", label: `The ${qlabel} download` }] : []),
   ...(mem ? [{ href: "#hardware", label: "Can your computer run it?" }] : []),
   { href: "#try", label: "How to try it" },
   ...(samples.length ? [{ href: "#answers", label: "Its actual answers" }] : []),
@@ -107,7 +110,38 @@ const jsonLd = [{
   {data.suites.some((s) => gap(model.suites[s.id]) > 15) && (
     <p class="sub">This model did much better on our public questions than on the secret ones. Sometimes that's luck; it can also mean the model has seen the public questions before.</p>
   )}
-  <p class="sub">We tested the full-size version online. The smaller versions you download usually score a little lower.</p>
+  {isLocalRun(model)
+    ? <p class="sub">We tested the {quantLabel(model.quant)} download, the version most people run, with Ollama on our {TEST_MAC}.</p>
+    : !qrun && <p class="sub">We tested the full-size version online. The smaller versions you download usually score a little lower.</p>}
+
+  {qrun && (
+    <>
+      <div class="prose">
+        <h2 id="download">The {qlabel} download</h2>
+        <p>
+          Most people don't run the full-size model; they download a smaller {qlabel} version. We ran that version with Ollama on our
+          {" "}{TEST_MAC} and gave it the same questions.
+          {Math.abs(qrun.delta) < 2
+            ? ` It scored ${whole(qrun.overall)}, about the same as the full-size model (${whole(qrun.base_overall)}). You lose almost nothing by downloading it.`
+            : qrun.delta < 0
+              ? ` It scored ${whole(qrun.overall)}, ${whole(-qrun.delta)} points below the full-size model (${whole(qrun.base_overall)}).`
+              : ` It scored ${whole(qrun.overall)}, slightly above the full-size model (${whole(qrun.base_overall)}). That's within normal run-to-run variation.`}
+        </p>
+      </div>
+      <div class="table-box">
+        <table>
+          <thead><tr><th>Test</th><th class="num">Full size (online)</th><th class="num">{qlabel} (our Mac)</th></tr></thead>
+          <tbody>
+            {data.suites.filter((s) => qrun.suites[s.id]?.score != null && qrun.base_suites[s.id]?.score != null).map((s) => (
+              <tr><td>{suiteLabel(s.id).name}</td><td class="num">{whole(qrun.base_suites[s.id]?.score)}</td><td class="num"><b>{whole(qrun.suites[s.id]?.score)}</b></td></tr>
+            ))}
+            {qrun.hard != null && qrun.base_hard != null && <tr><td>Hardest tasks</td><td class="num">{whole(qrun.base_hard)}</td><td class="num"><b>{whole(qrun.hard)}</b></td></tr>}
+            <tr><td><b>Overall</b></td><td class="num">{whole(qrun.base_overall)}</td><td class="num"><b>{whole(qrun.overall)}</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </>
+  )}
 
   {mem && (
     <>

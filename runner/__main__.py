@@ -1,6 +1,6 @@
 import argparse
 
-from . import build_data, discover, run, selfcheck
+from . import build_data, discover, local, run, selfcheck
 
 
 def main() -> None:
@@ -19,6 +19,13 @@ def main() -> None:
     p.add_argument("--concurrency", type=int, default=16)
     p.add_argument("--rerun", action="store_true", help="ignore stored scores")
     p.set_defaults(fn=run.main)
+
+    p = sub.add_parser("local", help='run status "local" models through Ollama (Mac test machine)')
+    p.add_argument("--models", help="comma-separated local slugs (default: all local models)")
+    p.add_argument("--suites", help="comma-separated suites (default: all)")
+    p.add_argument("--max-minutes", type=float, default=24 * 60)
+    p.add_argument("--rerun", action="store_true", help="ignore stored scores")
+    p.set_defaults(fn=local.main)
 
     p = sub.add_parser("build-data", help="aggregate scores into site/src/data")
     p.add_argument("--include-test", action="store_true", help="include mock models (local testing)")

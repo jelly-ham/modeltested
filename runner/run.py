@@ -45,8 +45,10 @@ def _mock_answer(model: dict, q: Question) -> client.ChatResult:
 
 
 def _ask(model: dict, q: Question) -> client.ChatResult:
-    if model["openrouter_id"].startswith("mock:"):
+    if (model.get("openrouter_id") or "").startswith("mock:"):
         return _mock_answer(model, q)
+    if model.get("backend") == "ollama":
+        return client.ollama_chat(model, suites.build_prompt(q.suite, q.data))
     if q.suite == "decisions" and model.get("kind") == "decision":
         return client.decide(model, q.data["state"], q.data["questions"])
     return client.chat(model, suites.build_prompt(q.suite, q.data))
@@ -129,6 +131,8 @@ def _save_outputs(d, outputs: dict) -> None:
 def main(args) -> None:
     doc = load_models()
     models = runnable_models(doc)
+    if getattr(args, "local", False):
+        models = [m for m in doc["models"] if m.get("status") == "local"]
     if args.models:
         wanted = set(args.models.split(","))
         models = [m for m in doc["models"] if m["slug"] in wanted]
@@ -147,7 +151,7 @@ def main(args) -> None:
         allowed = model_suites(m)
         todo[m["slug"]] = [q for q in questions if q.suite in allowed and (args.rerun or items.get(q.key, {}).get("h") != q.hash
                            or items[q.key].get("provider") in client.BLOCKED_PROVIDERS
-                           or (items[q.key].get("truncated") and items[q.key].get("mt", 8192) < client.MAX_TOKENS))]
+                           or (items[q.key].get("truncated") and items[q.key].get("mt", 8192) < m.get("max_tokens", client.MAX_TOKENS)))]
     jobs = [(m, q) for m in models for q in todo[m["slug"]]]
     print(f"{len(jobs)} (model, question) pairs to run across {sum(bool(v) for v in todo.values())} models", flush=True)
 
@@ -181,7 +185,12 @@ def main(args) -> None:
                 # timeouts never fire; stop waiting rather than hit the CI job timeout.
                 abandoned = len(inflight)
                 break
-            done, _ = wait(inflight, timeout=30, return_when=FIRST_COMPLETED)
+            try:
+                done, _ = wait(inflight, timeout=30, return_when=FIRST_COMPLETED)
+            except KeyboardInterrupt:
+                # Ctrl-C on a local run: keep what's answered so far, drop what's in flight.
+                stop, abandoned = "interrupted", len(inflight)
+                break
             for f in done:
                 m, q = inflight.pop(f)
                 try:

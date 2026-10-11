@@ -15,7 +15,8 @@ on:
         default: "3"
   push:
     branches: [main]
-    paths: ["runner/**", "bench/**", "site/**", ".github/workflows/bench.yml"]
+    # results/scores: local (Mac) runs push their scores, and the site should pick them up.
+    paths: ["runner/**", "bench/**", "site/**", "results/scores/**", ".github/workflows/bench.yml"]
 
 permissions:
   contents: write

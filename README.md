@@ -48,6 +48,33 @@ cd site && npm install && npm run dev
 python3 -m runner run --models mock-reference,mock-broken && python3 -m runner build-data --include-test
 ```
 
+## Local runs on the Mac (quantized downloads)
+
+Models with `"status": "local"` in `bench/models.json` are run with Ollama on a Mac mini (M4, 16 GB), never in CI.
+They measure what a Q4 download loses against full precision (shown on the base model's page), or fill in for a
+model no OpenRouter provider serves reliably (ranked, with "(Q4, Mac)" in its name). Fields: `ollama_tag`, `quant`
+(checked against Ollama after pulling), `base` (the full-precision slug), optional `max_tokens` / `num_ctx` / `think`.
+
+One-time setup on the Mac:
+
+```bash
+brew install ollama age gh colima docker   # or Docker Desktop instead of colima + docker
+colima start --cpu 2 --memory 2            # skip with Docker Desktop
+gh auth login && gh repo clone jelly-ham/modeltested && cd modeltested
+mkdir -p .secrets && pbpaste > .secrets/age-key.txt   # copy the AGE-SECRET-KEY line first; never commit it
+OLLAMA_FLASH_ATTENTION=1 OLLAMA_KV_CACHE_TYPE=q8_0 ollama serve   # leave running (halves KV-cache memory)
+```
+
+Then, whenever there's something to test:
+
+```bash
+scripts/mac-run.sh                        # all local models; or: scripts/mac-run.sh gemma-3-4b-q4-mac
+```
+
+It pulls the model, answers every missing question one at a time (Ctrl-C keeps finished answers), grades them,
+commits only `results/scores`, `results/outputs` (public questions) and `bench/models.json`, and pushes; the push
+triggers the workflow, which rebuilds the site.
+
 ## Editing the hidden question set
 
 ```bash

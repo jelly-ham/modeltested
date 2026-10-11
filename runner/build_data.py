@@ -47,7 +47,8 @@ def model_summary(model: dict, by_suite: dict) -> dict:
                  for r in [items.get(q.key)] if r and r.get("h") == q.hash]
     n_hard = sum(q.data.get("difficulty") == "hard" for qs in by_suite.values() for q in qs)
     hard = round(100 * _mean(hard_rows), 1) if n_hard and len(hard_rows) == n_hard else None
-    keep = ("slug", "name", "org", "openrouter_id", "hf_id", "params_b", "active_params_b", "ollama", "license", "added", "kind", "status")
+    keep = ("slug", "name", "org", "openrouter_id", "hf_id", "params_b", "active_params_b", "ollama", "license", "added", "kind", "status",
+            "base", "quant")
     return {
         **{k: model.get(k) for k in keep},
         "overall": overall,
@@ -78,7 +79,8 @@ def decision_board(doc: dict, by_suite: dict, summaries: list[dict]) -> list[dic
 def main(args) -> None:
     doc = load_models()
     # "unavailable" models keep their place on the leaderboard if they were fully tested.
-    statuses = {"active", "auto", "unavailable"} | ({"test"} if args.include_test else set())
+    # "local" = a quantized download run with Ollama on the Mac test machine.
+    statuses = {"active", "auto", "unavailable", "local"} | ({"test"} if args.include_test else set())
     models = [m for m in doc["models"] if m.get("status") in statuses and m.get("kind") != "decision"]
     questions = load_questions()
     if os.environ.get("CI") and not any(q.private for q in questions):
@@ -109,11 +111,27 @@ def main(args) -> None:
     if not args.include_test:
         write_json(last_path, dict(sorted(last.items())))
 
+    # A local run of a model we also tested at full precision is a Q4-vs-full comparison, shown on
+    # that model's page. A local run of a model we couldn't test otherwise fills the gap on the leaderboard.
+    by_slug = {s["slug"]: s for s in summaries}
+    quantized = []
+    for s in [s for s in summaries if s.get("status") == "local"]:
+        base = by_slug.get(s.get("base") or "")
+        if not base or base["overall"] is None:
+            continue
+        summaries.remove(s)
+        # Only compare like with like: an "updating" base result predates the current questions.
+        if s["overall"] is not None and not base.get("updating"):
+            quantized.append({"slug": s["slug"], "name": s["name"], "base": base["slug"], "quant": s.get("quant"),
+                              "overall": s["overall"], "hard": s["hard"], "suites": s["suites"],
+                              "base_overall": base["overall"], "base_hard": base.get("hard"),
+                              "base_suites": base["suites"], "delta": round(s["overall"] - base["overall"], 1)})
+
     references = [model_summary(m, by_suite) for m in doc["models"] if m.get("status") == "reference"]
     ranked = sorted([s for s in summaries if s["overall"] is not None], key=lambda s: -s["overall"])
     for i, s in enumerate(ranked, 1):
         s["rank"] = i
-    unavailable = {m["slug"] for m in models if m.get("status") == "unavailable"}
+    unavailable = {m["slug"] for m in models if m.get("status") in ("unavailable", "local")}
     pending = [s["slug"] for s in summaries if s["overall"] is None and s["slug"] not in unavailable]
 
     history = json.loads(HISTORY.read_text()) if HISTORY.exists() else []
@@ -135,6 +153,7 @@ def main(args) -> None:
         "models": ranked,
         "pending": pending,
         "references": [r for r in references if r["overall"] is not None],
+        "quantized": quantized,
         "decisions": decision_board(doc, by_suite, summaries + references),
         "n_hard": sum(q.data.get("difficulty") == "hard" for q in questions),
         "changelog": sorted(history, key=lambda h: h["date"], reverse=True)[:50],

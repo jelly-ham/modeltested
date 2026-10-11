@@ -108,7 +108,7 @@ def check_availability(doc: dict) -> None:
 
 def main(args) -> None:
     doc = load_models()
-    known = {m["openrouter_id"] for m in doc["models"]} | set(doc.get("ignored", {}))
+    known = {m["openrouter_id"] for m in doc["models"] if m.get("openrouter_id")} | set(doc.get("ignored", {}))
     added = []
     for m in client.list_models():
         oid = m["id"]
