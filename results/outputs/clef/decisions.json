@@ -122,10 +122,10 @@
   }
  },
  "decide-review-mixed": {
-  "output": "{\"sentiment\": {\"type\": \"choice\", \"choice\": \"negative\", \"probabilities\": {\"positive\": 0.013, \"neutral\": 0.0427, \"negative\": 0.9443}, \"confidence\": 0.8407}, \"defect\": {\"type\": \"noul\", \"noul\": 0.9806}, \"recommend\": {\"type\": \"noul\", \"noul\": 0.0077}}",
+  "output": "{\"sentiment\": {\"type\": \"choice\", \"choice\": \"negative\", \"probabilities\": {\"positive\": 0.0111, \"neutral\": 0.0337, \"negative\": 0.9552}, \"confidence\": 0.9328}, \"defect\": {\"type\": \"noul\", \"noul\": 0.9804}, \"recommend\": {\"type\": \"noul\", \"noul\": 0.0081}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.002,
+   "brier": 0.0014,
    "picks": {
     "sentiment": "negative",
     "defect": "true",

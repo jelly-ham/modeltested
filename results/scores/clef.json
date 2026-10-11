@@ -140,8 +140,8 @@
    "h": "965c7970b711",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0005,
+   "provider": "PrimeIntellect",
+   "brier": 0.0004,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -194,8 +194,8 @@
    "h": "449ecb23cd0a",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0027,
+   "provider": "PrimeIntellect",
+   "brier": 0.0029,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -387,8 +387,8 @@
    "h": "9e41737cefd0",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.002,
+   "provider": "PrimeIntellect",
+   "brier": 0.0014,
    "tok": 0,
    "at": "2026-10-11"
   },
