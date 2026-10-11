@@ -29,7 +29,9 @@ const ma = data.memory_assumptions;
   </p>
   <h3>Structured extraction</h3>
   <p>
-    The model gets realistic text (invoices, résumés, statements, contracts…) and a list of fields, and must reply with JSON.
+    The model gets a realistic business document — an email thread, pay stub, lease, schedule, insurance statement… — and
+    a list of fields, and must reply with JSON. Most fields can't be copied: the document corrects itself halfway through,
+    contains items that must be excluded, or the answer has to be calculated (totals, taxes, dates, time zones).
     We compare every field with the answer key — case-insensitive for text, ±0.005 for numbers — and divide matched fields by
     all fields in either the answer key or the reply, so invented extra fields cost points too.
   </p>

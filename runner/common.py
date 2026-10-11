@@ -32,7 +32,7 @@ SUITES = {
     },
     "extract": {
         "name": "Structured extraction",
-        "description": "Turn messy real-world text into JSON with a given schema, graded field by field.",
+        "description": "Pull facts out of messy business documents — with corrections, distractors and calculations — into JSON, graded field by field.",
     },
 }
 
