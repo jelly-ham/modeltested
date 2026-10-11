@@ -3308,7 +3308,7 @@
    "kind": "decision",
    "params_b": 27.36,
    "accuracy": 87.5,
-   "calibration": 91.3,
+   "calibration": 91.2,
    "hard": 76.3,
    "openrouter_id": "cloudflare/clef",
    "rank": 24
