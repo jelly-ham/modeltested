@@ -96,7 +96,7 @@ export const whole = (x: number | null | undefined) => (x == null ? "?" : String
 
 /** "extract-expense-thread" -> "Expense thread" */
 export function questionTitle(id: string): string {
-  const t = id.replace(/^(code|extract)-/, "").replace(/-/g, " ");
+  const t = id.replace(/^(code|extract)-/, "").replace(/-/g, " ").replace(/\bsla\b/g, "SLA");
   return t.charAt(0).toUpperCase() + t.slice(1);
 }
 
@@ -106,3 +106,17 @@ const ORG_NAMES: Record<string, string> = {
   moonshotai: "Moonshot AI", liquid: "Liquid AI", tencent: "Tencent", allenai: "Ai2", baidu: "Baidu", cohere: "Cohere",
 };
 export const orgName = (org: string | null) => (org ? ORG_NAMES[org] ?? org : null);
+
+/** Model family, used as a topic tag. */
+const FAMILIES: Record<string, string> = {
+  qwen: "Qwen", google: "Gemma", openai: "gpt-oss", "meta-llama": "Llama", mistralai: "Mistral", microsoft: "Phi",
+  nvidia: "Nemotron", "z-ai": "GLM", "ibm-granite": "Granite", liquid: "LFM", deepseek: "DeepSeek",
+};
+export const family = (m: Model) => (m.org ? FAMILIES[m.org] ?? orgName(m.org) : null);
+
+export const nCodingTasks = () => {
+  const s = data.suites.find((x) => x.id === "coding");
+  return s ? s.n_public + s.n_private : 0;
+};
+/** Coding score (percent) -> jobs solved. */
+export const solved = (codingScore: number | null | undefined) => Math.round(((codingScore ?? 0) / 100) * nCodingTasks());

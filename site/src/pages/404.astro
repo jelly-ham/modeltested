@@ -1,7 +1,12 @@
 ---
 import Base from "../layouts/Base.astro";
 ---
-<Base title="Page not found" description="This page doesn't exist.">
-  <h1>Page not found</h1>
-  <p>Try the <a href="/">homepage</a> or the <a href="/best-local-llms/">local LLM leaderboard</a>.</p>
+<Base title="Page not found | Model Tested" description="This page doesn't exist.">
+  <div class="wrap">
+    <header class="article-head" style="padding-bottom: 80px">
+      <div class="kicker">404</div>
+      <h1>We couldn't find that page</h1>
+      <p class="dek">Try the <a href="/" style="color: var(--blue)">homepage</a> or the <a href="/best-local-llms/" style="color: var(--blue)">local LLM rankings</a>.</p>
+    </header>
+  </div>
 </Base>

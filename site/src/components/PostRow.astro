@@ -1,0 +1,14 @@
+---
+import { shortDate, type Post } from "../lib/posts";
+
+interface Props { post: Post }
+const { post } = Astro.props;
+---
+<article class="post-row">
+  <div class="date meta">{shortDate(post.date)}</div>
+  <div class="body">
+    <h3><a href={post.url}>{post.title}</a></h3>
+    <p>{post.dek}</p>
+    <div class="kicker">{post.category}</div>
+  </div>
+</article>

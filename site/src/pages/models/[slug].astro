@@ -1,7 +1,8 @@
 ---
-import Base from "../../layouts/Base.astro";
-import Score from "../../components/Score.astro";
-import { data, models, tiers, size, whole, fmtDate, suiteLabel, quantLabel, questionTitle, orgName, type Model } from "../../lib/data";
+import Article from "../../layouts/Article.astro";
+import PostCard from "../../components/PostCard.astro";
+import { data, models, tiers, size, whole, suiteLabel, quantLabel, questionTitle, orgName, solved, nCodingTasks, ranked, type Model } from "../../lib/data";
+import { allPosts, verdict, hardwareLine, slugTag, shortDate } from "../../lib/posts";
 import publicQs from "../../data/public-questions.json";
 
 export function getStaticPaths() {
@@ -9,141 +10,161 @@ export function getStaticPaths() {
 }
 
 const { model } = Astro.props as { model: Model };
+const posts = await allPosts();
+const post = posts.find((p) => p.url === `/models/${model.slug}/`)!;
 const outputsFiles = import.meta.glob("../../data/outputs/*.json", { eager: true, import: "default" }) as Record<string, Record<string, Record<string, { output: string; score: number; detail: any }>>>;
 const outputs = outputsFiles[`../../data/outputs/${model.slug}.json`] ?? {};
 
-const title = `${model.name} Review: How Good Is It, and Can Your Computer Run It?`;
-const description = `${model.name} came #${model.rank} of ${models.length} in our tests of local AI models, scoring ${whole(model.overall)}/100. See how much memory it needs and the answers it actually gave.`;
+const c = model.suites.coding?.score ?? 0;
+const d = model.suites.extract?.score ?? 0;
+const nTasks = nCodingTasks();
+const docLeader = ranked("extract")[0];
+const coder = ranked("coding")[0];
+const better = models.find((m) => m.rank === 1 && m.slug !== model.slug);
 
 const mem = model.memory;
-const quantNote: Record<string, string> = { Q4: "smallest, most popular", Q8: "biggest, best quality" };
-const quantRows = mem
-  ? Object.entries(mem.need_gb).map(([q, gb]) => ({ q: quantLabel(q), gb, fits: tiers.filter((t) => t.usable_gb >= gb) }))
-  : [];
-const smallest = quantRows[0];
-const neighbors = models.filter((m) => m.slug !== model.slug && Math.abs(m.rank - model.rank) <= 2);
+const quantRows = mem ? Object.entries(mem.need_gb).map(([q, gb]) => ({ q: quantLabel(q), gb })) : [];
+const fitRows = tiers.map((t) => {
+  const q = mem?.best_quant_by_tier[t.id];
+  return { label: t.kind === "gpu" ? `Graphics card, ${t.gb} GB` : `Mac, ${t.gb} GB`, ok: Boolean(q), ver: q ? quantLabel(q) : "–" };
+});
 const samples = publicQs.questions.map((q: any) => ({ q, out: outputs[q.suite]?.[q.id] })).filter((s: any) => s.out);
-const gap = (s: { public: number | null; private: number | null }) =>
-  s.public != null && s.private != null ? s.public - s.private : 0;
-const fitsList = (fits: typeof tiers) => {
-  const gpu = fits.filter((t) => t.kind === "gpu");
-  const mac = fits.filter((t) => t.kind === "mac");
-  const parts = [];
-  if (gpu.length) parts.push(`graphics cards with ${gpu[0].gb} GB or more`);
-  if (mac.length) parts.push(`Macs with ${mac[0].gb} GB or more`);
-  return parts.join(", ");
-};
----
-<Base title={title} description={description}>
-  <p class="meta"><a href="/best-local-llms/">Best Local LLMs</a> › {model.name}</p>
-  <h1>{model.name}</h1>
-  <p class="lede">
-    {model.name} is a free AI model{model.org && ` from ${orgName(model.org)}`} that you can download and run on your own computer.
-    In our tests it came <strong>#{model.rank} out of {models.length}</strong>, with a score of <strong>{whole(model.overall)} out of 100</strong>.
-  </p>
+const gap = (s: { public: number | null; private: number | null } | undefined) =>
+  s && s.public != null && s.private != null ? s.public - s.private : 0;
+const neighbors = posts
+  .filter((p) => p.category === "Reviews" && p.url !== post.url)
+  .map((p) => ({ p, m: models.find((m) => p.url === `/models/${m.slug}/`)! }))
+  .filter(({ m }) => Math.abs(m.rank - model.rank) <= 2)
+  .slice(0, 3)
+  .map(({ p }) => p);
 
-  <div class="cards">
-    <div class="card"><div class="label">Overall score</div><div class="pick">{whole(model.overall)}/100</div><div class="sub">#{model.rank} of {models.length}</div></div>
-    {data.suites.map((s) => (
-      <div class="card"><div class="label">{suiteLabel(s.id).name}</div><div class="pick">{whole(model.suites[s.id]?.score)}/100</div></div>
-    ))}
-    {smallest && <div class="card"><div class="label">Memory needed</div><div class="pick">from {smallest.gb} GB</div><div class="sub">for the {smallest.q} version</div></div>}
+const toc = [
+  { href: "#coding", label: "Coding" },
+  { href: "#documents", label: "Reading documents" },
+  ...(mem ? [{ href: "#hardware", label: "Can your computer run it?" }] : []),
+  { href: "#try", label: "How to try it" },
+  ...(samples.length ? [{ href: "#answers", label: "Its actual answers" }] : []),
+];
+const jsonLd = [{
+  "@context": "https://schema.org", "@type": "Review",
+  itemReviewed: { "@type": "SoftwareApplication", name: model.name, applicationCategory: "AI model" },
+  reviewRating: { "@type": "Rating", ratingValue: Math.round(model.overall), bestRating: 100, worstRating: 0 },
+  author: { "@type": "Organization", name: "Model Tested" }, datePublished: post.date,
+}];
+---
+<Article
+  seoTitle={`${model.name} Review: Scores, and Can Your Computer Run It? | Model Tested`}
+  description={post.dek}
+  heading={post.title}
+  dek={post.dek}
+  kicker={`Review · updated ${shortDate(data.generated)}`}
+  crumbs={[{ href: "/", label: "Home" }, { href: "/topics/reviews/", label: "Reviews" }]}
+  cover={post.cover}
+  toc={toc}
+  jsonLd={jsonLd}
+  nav="reviews"
+>
+  <div class="short">
+    <strong>The short version</strong>
+    <ul>
+      <li>{model.name} is a free model{model.org && ` from ${orgName(model.org)}`} that you can run on your own computer. In our tests it's {verdict(model)}: {whole(model.overall)} out of 100, #{model.rank} of {models.length}.</li>
+      <li>It solved {solved(c)} of {nTasks} coding jobs and scored {whole(d)} on reading documents.</li>
+      <li>{hardwareLine(model)}</li>
+    </ul>
   </div>
 
-  {mem && (
-    <>
-      <h2 id="memory">Can my computer run it?</h2>
-      {quantRows.length > 1 ? (
-        <p>
-          You can download {model.name} in a few sizes. Smaller versions fit on more computers and lose a little quality.
-          If more than one fits, pick the biggest.
-        </p>
-      ) : (
-        <p>{model.name} comes in one standard size.</p>
-      )}
-      <div class="table-scroll">
-        <table>
-          <thead><tr><th>Version</th><th class="num">Memory needed</th><th>Works on</th></tr></thead>
-          <tbody>
-            {quantRows.map((r) => (
-              <tr>
-                <td>{r.q}{quantNote[r.q] && <span class="sub"> ({quantNote[r.q]})</span>}</td>
-                <td class="num">{r.gb} GB</td>
-                <td style="white-space:normal">{r.fits.length ? fitsList(r.fits) : <span class="sub">too big for the computers we list</span>}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="meta">These numbers are for normal-length chats. Feeding it long documents takes more memory. <a href="/best-local-llms/methodology/#memory">How we worked this out</a></p>
-    </>
-  )}
+  <div class="prose">
+    <h2 id="coding">Coding</h2>
+    <p>
+      Our coding test is {nTasks} small programming jobs, like reading time durations, cleaning up messy data and building a simple
+      stock tracker. We run each answer against tests the model never sees, and a job only counts if everything passes.
+      {model.name} got {solved(c)} of them right.
+      {coder.slug === model.slug || coder.suites.coding?.score === c
+        ? " That's as good as any model we've tested."
+        : ` The best local coders solved ${solved(coder.suites.coding?.score)}.`}
+    </p>
 
-  <h2>How to try it</h2>
-  {model.ollama ? (
-    <>
-      <p>The easiest way is <a href="https://ollama.com" rel="nofollow">Ollama</a>. Install it, then run:</p>
-      <pre><code>ollama run {model.ollama}</code></pre>
-    </>
-  ) : (
-    <p>Search for "{model.name} GGUF" in <a href="https://lmstudio.ai" rel="nofollow">LM Studio</a> or on Hugging Face and pick the version that fits your computer.</p>
-  )}
+    <h2 id="documents">Reading documents</h2>
+    <p>
+      The second test hands the model things like an expense claim thread, a pay stub or an insurance statement, and asks for specific
+      numbers and dates. Many questions need a bit of math, or noticing a correction further down the email. {model.name} scored {whole(d)}{docLeader.slug === model.slug ? ", the best result we've seen." : `; the best model scored ${whole(docLeader.suites.extract?.score)}.`}
+    </p>
+  </div>
 
-  <h2>How it did in our tests</h2>
-  <div class="table-scroll">
+  <div class="table-box">
     <table>
       <thead><tr><th>Test</th><th class="num">Score</th><th class="num">Public questions</th><th class="num">Secret questions</th></tr></thead>
       <tbody>
         {data.suites.map((s) => {
           const sc = model.suites[s.id];
-          return (
-            <tr>
-              <td>{suiteLabel(s.id).name}<div class="sub" style="white-space:normal">{suiteLabel(s.id).blurb}</div></td>
-              <td class="num"><Score value={sc?.score} /></td>
-              <td class="num">{whole(sc?.public)}</td>
-              <td class="num">{whole(sc?.private)}</td>
-            </tr>
-          );
+          return <tr><td>{suiteLabel(s.id).name}</td><td class="num"><b>{whole(sc?.score)}</b></td><td class="num">{whole(sc?.public)}</td><td class="num">{whole(sc?.private)}</td></tr>;
         })}
       </tbody>
     </table>
   </div>
-  {data.suites.some((s) => model.suites[s.id] && gap(model.suites[s.id]) > 15) && (
-    <p class="note">
-      This model did much better on our public questions than on the secret ones. Sometimes that's just luck. It can also
-      mean the model has seen the public questions before.
-    </p>
+  {data.suites.some((s) => gap(model.suites[s.id]) > 15) && (
+    <p class="sub">This model did much better on our public questions than on the secret ones. Sometimes that's luck; it can also mean the model has seen the public questions before.</p>
   )}
-  <p class="meta">We tested the full-size version online. The smaller versions you download usually score a little lower.</p>
+  <p class="sub">We tested the full-size version online. The smaller versions you download usually score a little lower.</p>
 
-  {neighbors.length > 0 && (
+  {mem && (
     <>
-      <h2>Models that scored about the same</h2>
-      <ul>
-        {neighbors.map((m) => <li><a href={`/models/${m.slug}/`}>{m.name}</a>: #{m.rank}, {whole(m.overall)}/100</li>)}
-      </ul>
+      <div class="prose">
+        <h2 id="hardware">Can your computer run it?</h2>
+        <p>
+          {quantRows.length > 1
+            ? `You can download ${model.name} in several sizes. Smaller versions fit on more computers and lose a little quality, so pick the biggest one that fits.`
+            : `${model.name} comes in one standard size, which needs about ${quantRows[0]?.gb} GB of memory.`}
+        </p>
+      </div>
+      <div class="table-box">
+        <table>
+          <thead><tr><th>Your computer</th><th>Runs it?</th><th>Version to download</th></tr></thead>
+          <tbody>
+            {fitRows.map((r) => <tr><td>{r.label}</td><td class={r.ok ? "yes" : "no"}>{r.ok ? "Yes" : "No"}</td><td class="mono">{r.ver}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <p class="sub">For normal-length chats. Long documents need more memory. <a href="/posts/q4-vs-q8/" style="color: var(--blue)">Q4 or Q8?</a> · <a href="/best-local-llms/methodology/#memory" style="color: var(--blue)">How we worked this out</a></p>
     </>
   )}
 
+  <div class="prose">
+    <h2 id="try">How to try it</h2>
+    {model.ollama ? (
+      <>
+        <p>The easiest way is <a href="/posts/run-a-local-llm-with-ollama/">Ollama</a>. Install it, then run:</p>
+        <pre><code>ollama run {model.ollama}</code></pre>
+      </>
+    ) : (
+      <p>Search for "{model.name} GGUF" in LM Studio or on Hugging Face and pick the version that fits your computer. New to this? Start with <a href="/posts/run-a-local-llm-with-ollama/">our Ollama guide</a>.</p>
+    )}
+    {better && model.rank > 3 && <p>Want the strongest all-rounder instead? <a href={`/models/${better.slug}/`}>{better.name}</a> scored {whole(better.overall)}.</p>}
+  </div>
+
   {samples.length > 0 && (
     <>
-      <h2 id="answers">Its actual answers</h2>
-      <p>Here's what {model.name} wrote for our public questions, word for word.</p>
+      <div class="prose"><h2 id="answers">Its actual answers</h2><p>What {model.name} wrote for our public questions, word for word.</p></div>
       {samples.map(({ q, out }: any) => (
-        <details>
+        <details class="answer">
           <summary>
-            {suiteLabel(q.suite).short}: {questionTitle(q.id)}{" "}
-            <span class={out.score === 1 ? "pill" : "pill fail"}>
-              {q.suite === "coding" ? (out.score === 1 ? "worked" : "didn't work") : `${Math.round(out.score * 100)}% right`}
-            </span>
+            <span>{suiteLabel(q.suite).short}: {questionTitle(q.id)}</span>
+            <span class={out.score === 1 ? "tag-ok" : "tag-no"}>{q.suite === "coding" ? (out.score === 1 ? "Worked" : "Didn't work") : `${Math.round(out.score * 100)}% right`}</span>
           </summary>
           <pre><code>{out.output}</code></pre>
         </details>
       ))}
     </>
   )}
-  <p class="meta">
-    First tested {model.added ? fmtDate(model.added) : "recently"}. Size: {size(model)} parameters.
-    <a href="/best-local-llms/methodology/">Full technical details</a>
-  </p>
-</Base>
+  <p class="sub" style="margin-top: 24px">Size: {size(model)} parameters. First tested {shortDate(model.added ?? data.generated)}.</p>
+
+  <div slot="tags" class="chips">{post.tags.map((t) => <a class="chip" href={`/topics/${slugTag(t)}/`}>{t}</a>)}</div>
+  {neighbors.length > 0 && (
+    <section slot="after" style="margin-top: 48px">
+      <h2 class="section-title" style="margin-bottom: 22px">Models that scored about the same</h2>
+      <div class="featured" style="margin-top: 0; padding-top: 0; border-top: none">
+        {neighbors.map((p) => <PostCard post={p} heading="h3" />)}
+      </div>
+    </section>
+  )}
+</Article>

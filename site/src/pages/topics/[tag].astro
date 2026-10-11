@@ -1,0 +1,31 @@
+---
+import Base from "../../layouts/Base.astro";
+import PostRow from "../../components/PostRow.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import { allPosts, allTags, slugTag } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  return (await allTags()).map((t) => ({
+    params: { tag: t.slug },
+    props: { tag: t.tag, posts: posts.filter((p) => p.tags.some((x) => slugTag(x) === t.slug)) },
+  }));
+}
+const { tag, posts } = Astro.props;
+const nav = tag === "Reviews" ? "reviews" : tag === "Guides" ? "guides" : undefined;
+---
+<Base title={`${tag} | Model Tested`} description={`${posts.length} Model Tested posts about ${tag}.`} nav={nav}>
+  <div class="wrap">
+    <header class="article-head">
+      <div class="kicker">Topic</div>
+      <h1>{tag}</h1>
+      <p class="dek">{posts.length} {posts.length === 1 ? "post" : "posts"}, newest first.</p>
+    </header>
+    <div class="cols">
+      <main>
+        {posts.map((p) => <PostRow post={p} />)}
+      </main>
+      <Sidebar />
+    </div>
+  </div>
+</Base>

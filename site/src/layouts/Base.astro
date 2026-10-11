@@ -1,19 +1,22 @@
 ---
 import "../styles/global.css";
-import { SITE_NAME, REPO_URL, data, fmtDate } from "../lib/data";
+import { SITE_NAME, REPO_URL } from "../lib/data";
 
 interface Props {
   title: string;
   description: string;
   jsonLd?: object[];
+  nav?: string;
+  ogType?: string;
 }
-const { title, description, jsonLd = [] } = Astro.props;
+const { title, description, jsonLd = [], nav = "", ogType = "website" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const path = Astro.url.pathname;
-const nav = [
-  { href: "/best-local-llms/", label: "Local LLMs" },
-  { href: "/best-local-llms/coding/", label: "Coding" },
-  { href: "/best-local-llms/methodology/", label: "How we test" },
+const links = [
+  { href: "/posts/", label: "Latest", key: "latest" },
+  { href: "/best-local-llms/", label: "Rankings", key: "rankings" },
+  { href: "/topics/reviews/", label: "Reviews", key: "reviews" },
+  { href: "/topics/guides/", label: "Guides", key: "guides" },
+  { href: "/best-local-llms/methodology/", label: "How we test", key: "method" },
 ];
 ---
 <!doctype html>
@@ -25,7 +28,11 @@ const nav = [
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta property="og:type" content="website" />
+    <link rel="alternate" type="application/rss+xml" title={SITE_NAME} href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -33,21 +40,31 @@ const nav = [
     {jsonLd.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
   </head>
   <body>
-    <header class="site">
+    <header class="site-header">
       <div class="wrap">
-        <a class="brand" href="/">{SITE_NAME}</a>
-        <nav>
-          {nav.map((n) => <a href={n.href} aria-current={path === n.href ? "page" : undefined}>{n.label}</a>)}
+        <a class="brand" href="/">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="14" width="6" height="11" rx="1.5" fill="#9BBAE3"></rect><rect x="10" y="8" width="6" height="17" rx="1.5" fill="#3F78BF"></rect><rect x="19" y="1" width="6" height="24" rx="1.5" fill="#1D4E89"></rect></svg>
+          {SITE_NAME}
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          {links.map((l) => <a href={l.href} aria-current={nav === l.key ? "page" : undefined}>{l.label}</a>)}
         </nav>
+        <a class="btn btn-ink" href="/rss.xml" style="min-height: 40px; font-size: 14px">Follow</a>
       </div>
     </header>
-    <main class="wrap">
-      <slot />
-    </main>
-    <footer class="site">
+    <slot />
+    <footer class="site-footer">
       <div class="wrap">
-        {SITE_NAME} is an independent site. Our test code, sample questions and every
-        answer the models gave are <a href={REPO_URL}>on GitHub</a>. Last updated {fmtDate(data.generated)}.
+        <div>
+          <div style="font-weight: 700; font-size: 17px; letter-spacing: -0.02em">{SITE_NAME}</div>
+          <p>Independent, real-task tests of AI models. Our test code, sample questions and every answer are on GitHub.</p>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/posts/">All posts</a>
+          <a href="/best-local-llms/methodology/">How we test</a>
+          <a href={REPO_URL}>GitHub</a>
+          <a href="/rss.xml">RSS</a>
+        </nav>
       </div>
     </footer>
   </body>

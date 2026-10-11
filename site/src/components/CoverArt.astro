@@ -1,0 +1,104 @@
+---
+import type { Cover } from "../lib/posts";
+import { whole } from "../lib/data";
+
+interface Props { cover: Cover; size?: "hero" | "card" | "banner" }
+const { cover, size = "card" } = Astro.props;
+const shades = ["#1D4E89", "#2B62A6", "#3F78BF", "#6797D1", "#9BBAE3"];
+const cls = size === "card" ? "cover cover-card" : size === "banner" ? "cover banner" : "cover";
+
+function ariaLabel(c: Cover): string {
+  switch (c.kind) {
+    case "bars": return `Chart: ${c.rows.map((r) => `${r.name} ${whole(r.value)}`).join(", ")}`;
+    case "cells": return `Chart: ${c.solved} of ${c.total} jobs solved`;
+    case "model": return `Chart: ${c.label} scored ${whole(c.overall)} overall, coding ${whole(c.coding)}, documents ${whole(c.docs)}`;
+    case "compare": return `Chart: ${c.items.map((i) => `${i.label} ${i.value}`).join(", ")}`;
+    case "word": return c.label;
+  }
+}
+const big = size === "card" ? 44 : 84;
+---
+<div class={cls} role="img" aria-label={ariaLabel(cover)}>
+  {cover.kind === "bars" && (
+    <>
+      <div class="lbl"><span>{cover.label}</span><span>/100</span></div>
+      <div style={`display: flex; flex-direction: column; gap: ${size === "card" ? 8 : 16}px`}>
+        {cover.rows.slice(0, size === "card" ? 4 : 5).map((r, i) => (
+          <div class="bar-row">
+            {size !== "card" && <div class="bar-head"><span>{r.name}</span><b>{whole(r.value)}</b></div>}
+            <div class="bar-track" style={size === "card" ? "height: 10px" : ""}><div style={`width: ${r.value}%; background: ${shades[i]}`}></div></div>
+          </div>
+        ))}
+      </div>
+    </>
+  )}
+
+  {cover.kind === "cells" && (
+    <>
+      <div class="lbl"><span>{cover.label}</span></div>
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+        <div style={`display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: ${size === "card" ? 6 : 10}px; width: ${size === "card" ? 150 : 260}px`}>
+          {Array.from({ length: cover.total }, (_, i) => (
+            <div style={`aspect-ratio: 1; border-radius: 4px; background: ${i < cover.solved ? "#1D4E89" : "#C9D9EF"}`}></div>
+          ))}
+        </div>
+        <div class="big" style={`font-size: ${big}px`}>{cover.solved}<span style={`font-size: ${Math.round(big / 2.2)}px; color: #3F78BF`}>/{cover.total}</span></div>
+      </div>
+    </>
+  )}
+
+  {cover.kind === "model" && size === "card" && (
+    <>
+      <div class="lbl"><span>{cover.label}</span><span>#{cover.rank}</span></div>
+      <div style="display: flex; align-items: flex-end; gap: 18px; height: 100px">
+        {[["Coding", cover.coding, "#1D4E89"], ["Documents", cover.docs, "#6797D1"]].map(([name, v, col]) => (
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1">
+            <span class="mono" style="font-weight: 600; font-size: 14px">{whole(v as number)}</span>
+            <div style={`width: 100%; height: ${v}px; border-radius: 6px 6px 2px 2px; background: ${col}`}></div>
+            <span class="lbl" style="font-size: 10px">{name}</span>
+          </div>
+        ))}
+      </div>
+    </>
+  )}
+
+  {cover.kind === "model" && size !== "card" && (
+    <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end">
+      <div style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 6px">
+        <div class="lbl"><span>{cover.label} · overall</span></div>
+        <div class="big" style="font-size: 96px">{whole(cover.overall)}</div>
+        <div class="lbl"><span>#{cover.rank} of {cover.of} local models</span></div>
+      </div>
+      <div style="flex: 2 1 380px; display: flex; flex-direction: column; gap: 22px">
+        {[["Coding", cover.coding, "#1D4E89"], ["Reading documents", cover.docs, "#6797D1"]].map(([name, v, col]) => (
+          <div class="bar-row">
+            <div class="bar-head" style="font-size: 15px"><span>{name}</span><b>{whole(v as number)}</b></div>
+            <div class="bar-track" style="height: 22px; border-radius: 6px"><div style={`width: ${v}%; background: ${col}; border-radius: 6px`}></div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {cover.kind === "compare" && (
+    <>
+      <div class="lbl"><span>{cover.label}</span></div>
+      <div style={`display: flex; align-items: flex-end; gap: 18px; height: ${size === "card" ? 100 : 180}px`}>
+        {cover.items.map((it, i) => (
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1">
+            <span class="mono" style={`font-weight: 600; font-size: ${size === "card" ? 14 : 22}px`}>{it.value}</span>
+            <div style={`width: 100%; height: ${(it.value / 100) * (size === "card" ? 100 : 180)}px; border-radius: 6px 6px 2px 2px; background: ${i === 0 ? "#9BBAE3" : "#1D4E89"}`}></div>
+            <span class="lbl" style="font-size: 10px">{it.label}</span>
+          </div>
+        ))}
+      </div>
+    </>
+  )}
+
+  {cover.kind === "word" && (
+    <>
+      <div class="lbl"><span>{cover.label}</span></div>
+      <div class="big" style={`font-size: ${size === "card" ? 40 : 76}px`}>{cover.big}</div>
+    </>
+  )}
+</div>

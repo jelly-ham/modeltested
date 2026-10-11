@@ -1,15 +1,18 @@
 ---
-import Base from "../../layouts/Base.astro";
+import Article from "../../layouts/Article.astro";
 import Leaderboard from "../../components/Leaderboard.astro";
 import TierPicks from "../../components/TierPicks.astro";
-import { data, models, tiers, forTier, monthYear, fmtDate, whole, quantLabel } from "../../lib/data";
+import { data, models, tiers, forTier, monthYear, fmtDate, whole, quantLabel, solved, nCodingTasks } from "../../lib/data";
+import { rankingPosts, shortDate } from "../../lib/posts";
 
+const post = rankingPosts()[0];
 const when = monthYear();
 const title = `Best Local LLMs (${when}): Which One Should You Run?`;
 const description = `We tested ${models.length} AI models you can run on your own computer. See the best one for your graphics card or Mac, with real scores. Updated ${fmtDate(data.generated)}.`;
 const nQuestions = data.suites.reduce((n, s) => n + s.n_public + s.n_private, 0);
-
 const top = models[0];
+const second = models[1];
+
 const faqTiers = ["gpu-8", "gpu-12", "gpu-16", "gpu-24", "mac-16", "mac-32"];
 const faq = faqTiers
   .map((id) => {
@@ -24,92 +27,76 @@ const faq = faqTiers
   })
   .filter(Boolean) as { q: string; a: string }[];
 faq.push(
-  {
-    q: "What do Q4 and Q8 mean?",
-    a: "They're versions of the same model, squeezed down to different sizes. Q4 is smaller and runs on more computers. Q8 is bigger and a little more accurate. If both fit on your computer, pick the bigger one.",
-  },
-  {
-    q: "Why don't you say how fast each model runs?",
-    a: "Speed depends a lot on your exact computer and the app you use, so any number we gave would be wrong for most people. We tell you which models fit on your machine and how good their answers are.",
-  },
+  { q: "What do Q4 and Q8 mean?", a: "They're versions of the same model, squeezed down to different sizes. Q4 is smaller and runs on more computers. Q8 is bigger and a little more accurate. If both fit on your computer, pick the bigger one." },
+  { q: "Why don't you say how fast each model runs?", a: "Speed depends a lot on your exact computer and the app you use, so any number we gave would be wrong for most people. We tell you which models fit on your machine and how good their answers are." },
 );
 
 const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: title,
-    itemListElement: models.slice(0, 10).map((m, i) => ({ "@type": "ListItem", position: i + 1, name: m.name, url: new URL(`/models/${m.slug}/`, Astro.site).href })),
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-  },
+  { "@context": "https://schema.org", "@type": "ItemList", name: title,
+    itemListElement: models.slice(0, 10).map((m, i) => ({ "@type": "ListItem", position: i + 1, name: m.name, url: new URL(`/models/${m.slug}/`, Astro.site).href })) },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
+];
+const toc = [
+  { href: "#gpu", label: "Pick by graphics card" },
+  { href: "#mac", label: "Pick by Mac" },
+  { href: "#leaderboard", label: "All models we've tested" },
+  { href: "#how", label: "How we test" },
+  { href: "#faq", label: "Questions people ask" },
 ];
 ---
-<Base title={title} description={description} jsonLd={jsonLd}>
-  <h1>Best Local LLMs ({when})</h1>
-  <p class="lede">
-    A local LLM is an AI chatbot you download and run on your own computer. No subscription, and nothing you type leaves
-    your machine. There are dozens to choose from, so we test each one on the same real jobs and tell you which is best
-    for the computer you have.
-  </p>
-  <p class="meta">Updated {fmtDate(data.generated)} · {models.length} models tested{data.pending.length > 0 && ` · ${data.pending.length} more being tested`}</p>
+<Article
+  seoTitle={title}
+  description={description}
+  heading={`Best local LLMs: ${when}`}
+  dek="A local LLM is an AI chatbot you download and run on your own computer. No subscription, and nothing you type leaves your machine. Here's the best one for the computer you have."
+  kicker={`Rankings · updated ${shortDate(data.generated)} · ${models.length} models`}
+  crumbs={[{ href: "/", label: "Home" }, { href: "/topics/rankings/", label: "Rankings" }]}
+  cover={post.cover}
+  toc={toc}
+  jsonLd={jsonLd}
+  nav="rankings"
+>
+  <div class="short">
+    <strong>The short version</strong>
+    <ul>
+      <li>The best model we've tested is <a href={`/models/${top.slug}/`} style="color: var(--blue)">{top.name}</a>, with {whole(top.overall)} out of 100.</li>
+      <li>Close behind: <a href={`/models/${second.slug}/`} style="color: var(--blue)">{second.name}</a> ({whole(second.overall)}).</li>
+      <li>Less memory? Find your graphics card or Mac below. We list the best model that fits and which version to download.</li>
+    </ul>
+  </div>
 
-  {models.length === 0 ? (
-    <p class="note">We're running the first round of tests. Check back soon.</p>
-  ) : (
-    <>
-      <p class="note">
-        If your computer can handle it, <a href={`/models/${top.slug}/`}>{top.name}</a> is the best one we've tested so far.
-        It scored {whole(top.overall)} out of 100. Got less memory? Find your setup below.
-      </p>
+  <div class="prose">
+    <h2 id="gpu">Pick by graphics card</h2>
+    <p>Not sure how much memory your card has? On Windows, open Task Manager, go to Performance and click GPU. <a href="/posts/check-your-gpu-memory/">More help here</a>.</p>
+  </div>
+  <TierPicks by="overall" kind="gpu" />
 
-      <h2 id="gpu">Pick by graphics card</h2>
-      <p class="sub">
-        Not sure how much memory your card has? On Windows, open Task Manager, go to Performance and click GPU. Look for
-        "Dedicated GPU memory".
-      </p>
-      <TierPicks by="overall" kind="gpu" />
+  <div class="prose">
+    <h2 id="mac">Pick by Mac</h2>
+    <p>Click the Apple menu, then About This Mac. The number next to Memory is what you need.</p>
+  </div>
+  <TierPicks by="overall" kind="mac" />
 
-      <h2 id="mac">Pick by Mac</h2>
-      <p class="sub">Click the Apple menu, then About This Mac. The number next to Memory is what you need.</p>
-      <TierPicks by="overall" kind="mac" />
+  <div class="prose" style="max-width: none">
+    <h2 id="leaderboard">All models we've tested</h2>
+  </div>
+  <Leaderboard by="overall" />
 
-      <h2 id="leaderboard">All models we've tested</h2>
-      <Leaderboard by="overall" />
-    </>
-  )}
+  <div class="prose">
+    <h2 id="how">How we test</h2>
+    <p>
+      Every model gets the same {nQuestions} questions. {nCodingTasks()} are small coding jobs, and we run the code to check that it works.
+      The rest ask the model to read things like bills, pay stubs and email threads and pull out the right numbers. Many need a little
+      math, or catching a correction further down the page.
+    </p>
+    <p>
+      We keep most questions secret, so no model can memorize the answers. The rest are public, along with every answer each model gave.
+      <a href="/best-local-llms/methodology/">Full technical details</a>.
+    </p>
 
-  <h2 id="how">How we test</h2>
-  <p>
-    Every model gets the same {nQuestions} questions. Some are small coding jobs, and we run the code to check that it works.
-    The rest ask the model to read things like bills, pay stubs and email threads and pull out the right numbers. Many of
-    those need a little math, or catching a correction buried further down the page.
-  </p>
-  <p>
-    We keep most of the questions secret, so no model can memorize the answers. The rest are public, along with every
-    answer each model gave, so you can check our work.
-  </p>
-  <p><a href="/best-local-llms/methodology/">Read the full technical details</a></p>
-
-  {data.changelog.length > 0 && (
-    <>
-      <h2 id="changelog">Recent updates</h2>
-      <ul class="log">
-        {data.changelog.slice(0, 12).map((c) => (
-          <li><span class="meta">{fmtDate(c.date)}:</span> We tested <a href={`/models/${c.slug}/`}>{c.name}</a>. It scored {whole(c.overall)} and came in at #{c.rank}.</li>
-        ))}
-      </ul>
-    </>
-  )}
-
-  <h2 id="faq">Questions people ask</h2>
-  {faq.map((f) => (
-    <>
-      <h3>{f.q}</h3>
-      <p>{f.a}</p>
-    </>
-  ))}
-</Base>
+    <h2 id="faq">Questions people ask</h2>
+    {faq.map((f) => (<><h3>{f.q}</h3><p>{f.a}</p></>))}
+  </div>
+  <div slot="tags" class="chips"><a class="chip" href="/topics/rankings/">Rankings</a><a class="chip" href="/topics/local-llms/">Local LLMs</a></div>
+</Article>

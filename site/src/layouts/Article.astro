@@ -1,0 +1,51 @@
+---
+import Base from "./Base.astro";
+import CoverArt from "../components/CoverArt.astro";
+import Sidebar from "../components/Sidebar.astro";
+import type { Cover } from "../lib/posts";
+
+interface Props {
+  seoTitle: string;
+  description: string;
+  heading: string;
+  dek: string;
+  kicker: string;
+  crumbs?: { href: string; label: string }[];
+  cover?: Cover;
+  toc?: { href: string; label: string }[];
+  jsonLd?: object[];
+  nav?: string;
+}
+const { seoTitle, description, heading, dek, kicker, crumbs = [], cover, toc = [], jsonLd = [], nav } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const share = [
+  { label: "Share on X", href: `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(heading)}` },
+  { label: "Reddit", href: `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(heading)}` },
+];
+---
+<Base title={seoTitle} description={description} jsonLd={jsonLd} nav={nav} ogType="article">
+  <div class="wrap">
+    <header class="article-head">
+      {crumbs.length > 0 && (
+        <nav class="crumbs" aria-label="Breadcrumb">
+          {crumbs.map((c, i) => <>{i > 0 && " / "}<a href={c.href}>{c.label}</a></>)}
+        </nav>
+      )}
+      <div class="kicker">{kicker}</div>
+      <h1>{heading}</h1>
+      <p class="dek">{dek}</p>
+    </header>
+    {cover && <CoverArt cover={cover} size="banner" />}
+    <div class="cols">
+      <main>
+        <slot />
+        <div class="after-article">
+          <slot name="tags" />
+          <div class="share">{share.map((s) => <a href={s.href} rel="noopener" target="_blank">{s.label}</a>)}</div>
+        </div>
+        <slot name="after" />
+      </main>
+      <Sidebar toc={toc} />
+    </div>
+  </div>
+</Base>

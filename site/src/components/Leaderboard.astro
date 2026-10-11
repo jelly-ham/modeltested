@@ -1,19 +1,17 @@
 ---
-import Score from "./Score.astro";
-import { data, ranked, size, minTiers, suiteLabel, quantLabel } from "../lib/data";
+import { data, ranked, size, minTiers, suiteLabel, quantLabel, whole } from "../lib/data";
 
 interface Props { by: string }
 const { by } = Astro.props;
 const rows = ranked(by);
 const suiteCols = by === "overall" ? data.suites : data.suites.filter((s) => s.id === by);
 ---
-<div class="table-scroll">
-  <table>
+<div class="table-box" style="font-family: var(--sans)">
+  <table style="min-width: 760px">
     <thead>
       <tr>
         <th class="num">#</th>
         <th>Model</th>
-        <th>Size</th>
         {by === "overall" && <th class="num">Score</th>}
         {suiteCols.map((s) => <th class="num">{suiteLabel(s.id).short}</th>)}
         <th>Runs on (PC)</th>
@@ -23,25 +21,29 @@ const suiteCols = by === "overall" ? data.suites : data.suites.filter((s) => s.i
     <tbody>
       {rows.map((m, i) => {
         const t = minTiers(m);
+        const main = by === "overall" ? m.overall : m.suites[by]?.score ?? 0;
         return (
           <tr>
-            <td class="num">{i + 1}</td>
-            <td class="model">
-              <a href={`/models/${m.slug}/`}>{m.name}</a>
-              {m.ollama && <div class="sub"><code>{m.ollama}</code></div>}
-            </td>
-            <td>{size(m)}</td>
-            {by === "overall" && <td class="num"><Score value={m.overall} /></td>}
-            {suiteCols.map((s) => <td class="num"><Score value={m.suites[s.id]?.score} /></td>)}
-            <td>{t.gpu ? `${t.gpu.gb} GB card (${quantLabel(m.memory!.best_quant_by_tier[t.gpu.id])})` : <span class="sub">needs more than 32 GB</span>}</td>
-            <td>{t.mac ? `${t.mac.gb} GB Mac (${quantLabel(m.memory!.best_quant_by_tier[t.mac.id])})` : <span class="sub">needs more than 64 GB</span>}</td>
+            <td class="num" style="color: var(--faint)">{i + 1}</td>
+            <td><a href={`/models/${m.slug}/`} style="font-weight: 600">{m.name}</a><div class="sub" style="font-size: 13px">{size(m)}{m.ollama && <> · <code>{m.ollama}</code></>}</div></td>
+            {by === "overall" && (
+              <td class="num">
+                <span style="display: inline-flex; align-items: center; gap: 10px; justify-content: flex-end">
+                  <b>{whole(main)}</b>
+                  <span class="track" style="width: 80px"><span style={`width: ${main}%`}></span></span>
+                </span>
+              </td>
+            )}
+            {suiteCols.map((s) => <td class="num">{whole(m.suites[s.id]?.score)}</td>)}
+            <td style="white-space: nowrap">{t.gpu ? `${t.gpu.gb} GB card (${quantLabel(m.memory!.best_quant_by_tier[t.gpu.id])})` : <span class="sub">more than 32 GB</span>}</td>
+            <td style="white-space: nowrap">{t.mac ? `${t.mac.gb} GB Mac (${quantLabel(m.memory!.best_quant_by_tier[t.mac.id])})` : <span class="sub">more than 64 GB</span>}</td>
           </tr>
         );
       })}
     </tbody>
   </table>
 </div>
-<p class="meta">
-  Scores are out of 100. "Runs on" is the smallest graphics card or Mac that can hold the model, and which version to download
-  for it. <a href="/best-local-llms/methodology/#memory">How we worked this out</a>.
+<p class="sub" style="font-size: 14px">
+  Scores are out of 100. "Runs on" is the smallest graphics card or Mac that can hold the model, and which version to download for it.
+  <a href="/best-local-llms/methodology/#memory" style="color: var(--blue)">How we worked this out</a>
 </p>

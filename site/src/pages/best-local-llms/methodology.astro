@@ -1,78 +1,90 @@
 ---
-import Base from "../../layouts/Base.astro";
+import Article from "../../layouts/Article.astro";
 import { data, REPO_URL } from "../../lib/data";
 import publicQs from "../../data/public-questions.json";
 
 const title = "How We Test Local LLMs: Full Technical Details | Model Tested";
 const description = "How Model Tested picks models, writes and hides its test tasks, grades coding and extraction answers, and estimates VRAM and Mac memory requirements.";
 const ma = data.memory_assumptions;
+const toc = [
+  { href: "#models", label: "Which models" },
+  { href: "#tasks", label: "The tasks" },
+  { href: "#hidden", label: "Why most tasks are hidden" },
+  { href: "#precision", label: "Precision" },
+  { href: "#memory", label: "Memory estimates" },
+  { href: "#samples", label: "Public sample tasks" },
+];
 ---
-<Base title={title} description={description}>
-  <h1>How we test: the technical details</h1>
-  <p class="lede">
-    This page is for readers who want the specifics: how models are chosen and queried, how answers are graded, and how the
-    memory estimates are calculated. For plain-English rankings, see <a href="/best-local-llms/">Best Local LLMs</a>.
-  </p>
+<Article
+  seoTitle={title}
+  description={description}
+  heading="How we test: the technical details"
+  dek="How models are chosen and queried, how answers are graded, and how the memory estimates are calculated. For plain-English rankings, see Best Local LLMs."
+  kicker="Methodology"
+  crumbs={[{ href: "/", label: "Home" }, { href: "/best-local-llms/", label: "Best Local LLMs" }]}
+  toc={toc}
+  nav="method"
+>
+  <div class="prose">
+    <h2 id="models">Which models</h2>
+    <p>
+      Every day we check for new open-weight models (public weights on Hugging Face) from the major labs that are small enough to
+      run on a single consumer GPU or a Mac, currently up to about 40B total parameters. Safety classifiers and translation-only
+      or speech models are excluded.
+    </p>
 
-  <h2>Which models</h2>
-  <p>
-    Every day we check for new open-weight models (public weights on Hugging Face) from the major labs that are small enough to
-    run on a single consumer GPU or a Mac — currently up to about 40B total parameters. Safety classifiers and
-    translation-only or speech models are excluded.
-  </p>
+    <h2 id="tasks">The tasks</h2>
+    <ul>
+      {data.suites.map((s) => <li><strong>{s.name}</strong>: {s.description} {s.n_public + s.n_private} tasks, {s.n_public} of them public.</li>)}
+    </ul>
+    <h3>Coding</h3>
+    <p>
+      Each task is a precise spec for a Python function or class. We take the model's code, append our unit tests and run it in a
+      sandbox with no network access. A task scores 1 only if every assertion passes; otherwise 0.
+    </p>
+    <h3>Structured extraction</h3>
+    <p>
+      The model gets a realistic business document (an email thread, pay stub, lease, schedule, insurance statement) and a list of
+      fields, and must reply with JSON. Most fields can't be copied: the document corrects itself halfway through, contains items
+      that must be excluded, or the answer has to be calculated (totals, taxes, dates, time zones). We compare every field with the
+      answer key, case-insensitive for text and within ±0.005 for numbers, and divide matched fields by all fields in either the
+      answer key or the reply, so invented extra fields cost points too.
+    </p>
 
-  <h2>The tasks</h2>
-  <ul>
-    {data.suites.map((s) => <li><strong>{s.name}</strong>: {s.description} {s.n_public + s.n_private} tasks, {s.n_public} of them public.</li>)}
-  </ul>
-  <h3>Coding</h3>
-  <p>
-    Each task is a precise spec for a Python function or class. We take the model's code, append our unit tests and run it in
-    a sandbox with no network access. A task scores 1 only if every assertion passes; otherwise 0.
-  </p>
-  <h3>Structured extraction</h3>
-  <p>
-    The model gets a realistic business document — an email thread, pay stub, lease, schedule, insurance statement… — and
-    a list of fields, and must reply with JSON. Most fields can't be copied: the document corrects itself halfway through,
-    contains items that must be excluded, or the answer has to be calculated (totals, taxes, dates, time zones).
-    We compare every field with the answer key — case-insensitive for text, ±0.005 for numbers — and divide matched fields by
-    all fields in either the answer key or the reply, so invented extra fields cost points too.
-  </p>
+    <h2 id="hidden">Why most tasks are hidden</h2>
+    <p>
+      Public benchmarks end up in training data, and then scores measure memory instead of skill. So about three quarters of our
+      tasks are private. To keep us honest we publish a sample of tasks, every model's raw answers to them, the grading code, and
+      each model's public vs. hidden score side by side; a big gap is a red flag. Hidden tasks are rotated into the public set over time.
+    </p>
 
-  <h2>Why most tasks are hidden</h2>
-  <p>
-    Public benchmarks end up in training data, and then scores measure memory instead of skill. So about three quarters of our
-    tasks are private. To keep us honest we publish a sample of tasks, every model's raw answers to them, the grading code,
-    and each model's public vs. hidden score side by side — a big gap is a red flag. Hidden tasks are rotated into the
-    public set over time.
-  </p>
+    <h2 id="precision">Precision</h2>
+    <p>
+      We query models through OpenRouter, preferring providers that serve full (BF16) or FP8 weights. Most people run 4- to 6-bit
+      quantized files locally, which typically lose a little quality, so treat our scores as the model's ceiling.
+    </p>
 
-  <h2>Precision</h2>
-  <p>
-    We query models through OpenRouter, preferring providers that serve full (BF16) or FP8 weights. Most people run 4- to
-    6-bit quantized files locally, which typically lose a little quality, so treat our scores as the model's ceiling.
-  </p>
+    <h2 id="memory">Memory estimates</h2>
+    <p>
+      We don't measure speed: it depends too much on your exact hardware, runtime and settings. We do estimate whether a model fits:
+      <code>parameters × bits-per-weight ÷ 8</code> for the weights, plus an FP16 KV cache for a {ma.context.toLocaleString()}-token
+      context (from the model's layer and head counts), plus {ma.overhead_gb} GB of runtime overhead.
+    </p>
+    <ul>
+      {Object.entries(ma.quants).map(([q, bpw]) => <li>{q}: about {bpw} bits per weight</li>)}
+    </ul>
+    <p>
+      Usable memory: VRAM minus 0.5 GB on a GPU; on Apple Silicon, macOS lets the GPU use about two thirds of RAM up to 36 GB and
+      three quarters above that by default. Mixture-of-experts models need memory for all their parameters, even though only a few
+      are active per token.
+    </p>
 
-  <h2 id="memory">Memory estimates</h2>
-  <p>
-    We don't measure speed — it depends too much on your exact hardware, runtime and settings. We do estimate whether a model
-    fits: <code>parameters × bits-per-weight ÷ 8</code> for the weights, plus an FP16 KV cache for a {ma.context.toLocaleString()}-token
-    context (from the model's layer and head counts), plus {ma.overhead_gb} GB of runtime overhead.
-  </p>
-  <ul>
-    {Object.entries(ma.quants).map(([q, bpw]) => <li>{q}: ~{bpw} bits per weight</li>)}
-  </ul>
-  <p>
-    Usable memory: VRAM minus 0.5 GB on a GPU; on Apple Silicon, macOS lets the GPU use about two thirds of RAM up to 36 GB
-    and three quarters above that by default. Mixture-of-experts models need memory for all their parameters, even though
-    only a few are active per token.
-  </p>
-
-  <h2>Public sample tasks</h2>
-  <p class="meta">{publicQs.canary}</p>
+    <h2 id="samples">Public sample tasks</h2>
+    <p class="meta" style="text-transform: none">{publicQs.canary}</p>
+  </div>
   {publicQs.questions.map((q: any) => (
-    <details>
-      <summary>{q.suite} · {q.id}</summary>
+    <details class="answer">
+      <summary><span>{q.suite} · {q.id}</span></summary>
       {q.suite === "coding" ? (
         <>
           <pre><code>{q.prompt}</code></pre>
@@ -90,5 +102,5 @@ const ma = data.memory_assumptions;
       )}
     </details>
   ))}
-  {REPO_URL && <p>Harness source and raw outputs: <a href={REPO_URL}>{REPO_URL.replace("https://", "")}</a>.</p>}
-</Base>
+  <p class="sub" style="margin-top: 20px">Harness source and raw outputs: <a href={REPO_URL} style="color: var(--blue)">{REPO_URL.replace("https://", "")}</a>.</p>
+</Article>

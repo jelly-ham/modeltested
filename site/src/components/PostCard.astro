@@ -1,0 +1,13 @@
+---
+import CoverArt from "./CoverArt.astro";
+import type { Post } from "../lib/posts";
+
+interface Props { post: Post; heading?: "h2" | "h3" }
+const { post, heading = "h2" } = Astro.props;
+const H = heading;
+---
+<article class="card">
+  <a href={post.url} tabindex="-1" aria-hidden="true"><CoverArt cover={post.cover} size="card" /></a>
+  <div class="kicker">{post.category}</div>
+  <H class="title"><a href={post.url}>{post.title}</a></H>
+</article>

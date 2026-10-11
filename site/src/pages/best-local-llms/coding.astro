@@ -1,51 +1,62 @@
 ---
-import Base from "../../layouts/Base.astro";
+import Article from "../../layouts/Article.astro";
 import Leaderboard from "../../components/Leaderboard.astro";
 import TierPicks from "../../components/TierPicks.astro";
-import { data, ranked, monthYear, fmtDate, whole } from "../../lib/data";
+import { data, ranked, monthYear, fmtDate, solved, nCodingTasks } from "../../lib/data";
+import { rankingPosts, shortDate } from "../../lib/posts";
 
-const suite = data.suites.find((s) => s.id === "coding")!;
-const nTasks = suite.n_public + suite.n_private;
+const post = rankingPosts()[1];
 const rows = ranked("coding");
+const nTasks = nCodingTasks();
 const when = monthYear();
 const title = `Best Local LLM for Coding (${when}): We Ran the Code`;
 const description = `Which AI model you can run on your own computer writes code that actually works? We gave ${rows.length} models the same ${nTasks} programming jobs and ran their code. Updated ${fmtDate(data.generated)}.`;
 const top = rows[0];
-const solved = (score: number | null | undefined) => Math.round(((score ?? 0) / 100) * nTasks);
+const ties = rows.filter((m) => m.suites.coding?.score === top.suites.coding?.score);
+const toc = [
+  { href: "#gpu", label: "Pick by graphics card" },
+  { href: "#mac", label: "Pick by Mac" },
+  { href: "#leaderboard", label: "All models, ranked by coding" },
+  { href: "#limits", label: "What this test doesn't cover" },
+];
 ---
-<Base title={title} description={description}>
-  <h1>Best Local LLM for Coding ({when})</h1>
-  <p class="lede">
-    Want an AI to help you code without sending your code to the cloud? We gave {rows.length} local models the same {nTasks}
-    small programming jobs, like reading dates, cleaning up messy data and building a simple stock tracker. Then we ran
-    their code against tests they never saw. A job only counts if the code works completely.
-  </p>
-  <p class="meta">Updated {fmtDate(data.generated)}</p>
+<Article
+  seoTitle={title}
+  description={description}
+  heading={`Best local LLM for coding: ${when}`}
+  dek={`We gave ${rows.length} local models the same ${nTasks} small programming jobs, then ran their code against tests they never saw. A job only counts if the code works completely.`}
+  kicker={`Rankings · updated ${shortDate(data.generated)}`}
+  crumbs={[{ href: "/", label: "Home" }, { href: "/topics/coding/", label: "Coding" }]}
+  cover={post.cover}
+  toc={toc}
+  nav="rankings"
+>
+  <div class="short">
+    <strong>The short version</strong>
+    <ul>
+      <li>
+        The best coders solved {solved(top.suites.coding?.score)} of {nTasks} jobs:
+        {ties.slice(0, 4).map((m, i) => <>{i > 0 && ", "}<a href={`/models/${m.slug}/`} style="color: var(--blue)">{m.name}</a></>)}{ties.length > 4 && ` and ${ties.length - 4} more`}.
+      </li>
+      <li>The jobs are things like reading dates, cleaning up messy data and building a simple stock tracker.</li>
+      <li>Below: the best coder that fits each graphics card and Mac.</li>
+    </ul>
+  </div>
 
-  {rows.length === 0 ? (
-    <p class="note">We're running the first round of tests. Check back soon.</p>
-  ) : (
-    <>
-      <p class="note">
-        <a href={`/models/${top.slug}/`}>{top.name}</a> solved the most: {solved(top.suites.coding?.score)} of {nTasks} jobs.
-        If it's too big for your computer, here's the best coder for each setup.
-      </p>
-      <h2>Pick by graphics card</h2>
-      <TierPicks by="coding" kind="gpu" />
-      <h2>Pick by Mac</h2>
-      <TierPicks by="coding" kind="mac" />
-      <h2>All models, ranked by coding</h2>
-      <Leaderboard by="coding" />
-    </>
-  )}
+  <div class="prose"><h2 id="gpu">Pick by graphics card</h2></div>
+  <TierPicks by="coding" kind="gpu" />
+  <div class="prose"><h2 id="mac">Pick by Mac</h2></div>
+  <TierPicks by="coding" kind="mac" />
+  <div class="prose" style="max-width: none"><h2 id="leaderboard">All models, ranked by coding</h2></div>
+  <Leaderboard by="coding" />
 
-  <h2>What this test doesn't cover</h2>
-  <p>
-    These are short jobs that fit in one file, the kind of thing you'd ask a chatbot for. We don't test big projects spread
-    over many files, and we don't measure how fast a model runs on your machine.
-  </p>
-  <p>
-    You can see five of the jobs, and every model's answer to them, on each model's page.
-    <a href="/best-local-llms/methodology/">Full technical details</a>
-  </p>
-</Base>
+  <div class="prose">
+    <h2 id="limits">What this test doesn't cover</h2>
+    <p>
+      These are short jobs that fit in one file, the kind of thing you'd ask a chatbot for. We don't test big projects spread over many
+      files, and we don't measure how fast a model runs on your machine. You can see five of the jobs, and every model's answer, on each
+      model's review page. <a href="/best-local-llms/methodology/">Full technical details</a>.
+    </p>
+  </div>
+  <div slot="tags" class="chips"><a class="chip" href="/topics/coding/">Coding</a><a class="chip" href="/topics/rankings/">Rankings</a></div>
+</Article>

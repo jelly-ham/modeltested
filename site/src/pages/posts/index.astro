@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import PostRow from "../../components/PostRow.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import { allPosts } from "../../lib/posts";
+
+const posts = await allPosts();
+---
+<Base title="All posts | Model Tested" description={`Every ranking, review and guide on Model Tested: ${posts.length} posts.`} nav="latest">
+  <div class="wrap">
+    <header class="article-head">
+      <div class="kicker">Archive</div>
+      <h1>All posts</h1>
+      <p class="dek">Rankings, model reviews and plain-English guides, newest first.</p>
+    </header>
+    <div class="cols">
+      <main>
+        {posts.map((p) => <PostRow post={p} />)}
+      </main>
+      <Sidebar />
+    </div>
+  </div>
+</Base>

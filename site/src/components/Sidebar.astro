@@ -1,0 +1,59 @@
+---
+import { data, models, ranked, whole, fmtDate } from "../lib/data";
+import { allTags } from "../lib/posts";
+
+interface Props { toc?: { href: string; label: string }[] }
+const { toc = [] } = Astro.props;
+const top = ranked("overall").slice(0, 5);
+const tags = (await allTags()).slice(0, 14);
+const startHere = [
+  { href: "/best-local-llms/", label: "The best local LLMs right now" },
+  { href: "/posts/check-your-gpu-memory/", label: "How to check your graphics card or Mac memory" },
+  { href: "/posts/run-a-local-llm-with-ollama/", label: "How to run a local LLM with Ollama" },
+  { href: "/posts/q4-vs-q8/", label: "Q4 or Q8: which version should you download?" },
+  { href: "/best-local-llms/coding/", label: "Best local LLM for coding" },
+];
+---
+<aside aria-label="Sidebar">
+  {toc.length > 0 && (
+    <nav aria-label="On this page">
+      <h2 class="section-title">On this page</h2>
+      <div class="side-list">
+        {toc.map((t) => <a href={t.href}>{t.label}</a>)}
+      </div>
+    </nav>
+  )}
+
+  <section>
+    <h2 class="section-title">Leaderboard <a href="/best-local-llms/#leaderboard">All {models.length} →</a></h2>
+    <div class="board">
+      {top.map((m) => (
+        <a href={`/models/${m.slug}/`}>
+          <span class="row"><span><span class="rk">{m.rank}</span>{m.name}</span><span class="sc">{whole(m.overall)}</span></span>
+          <span class="track"><span style={`width: ${m.overall}%`}></span></span>
+        </a>
+      ))}
+    </div>
+    <p class="meta" style="margin: 10px 0 0">Updated {fmtDate(data.generated)}</p>
+  </section>
+
+  <section>
+    <h2 class="section-title">Start here</h2>
+    <ol class="side-list" style="margin: 0; padding: 0; list-style: none">
+      {startHere.map((s, i) => <li><a href={s.href}><span class="n">{i + 1}</span><span>{s.label}</span></a></li>)}
+    </ol>
+  </section>
+
+  <section>
+    <h2 class="section-title" style="margin-bottom: 16px">Topics</h2>
+    <div class="chips">
+      {tags.map((t) => <a class="chip" href={`/topics/${t.slug}/`}>{t.tag}</a>)}
+    </div>
+  </section>
+
+  <section class="callout">
+    <h2>New results as they land</h2>
+    <p>We re-test whenever a notable model comes out. Follow along with RSS, or watch the project on GitHub.</p>
+    <a class="btn btn-blue" href="/rss.xml">Subscribe via RSS</a>
+  </section>
+</aside>
