@@ -157,7 +157,8 @@ def main(args) -> None:
         "pending": pending,
         "references": [r for r in references if r["overall"] is not None],
         "quantized": quantized,
-        "decisions": decision_board(doc, by_suite, summaries + references),
+        # Reference (cloud) models get a write-up of their own, never a place on a board.
+        "decisions": decision_board(doc, by_suite, summaries),
         "n_hard": sum(q.data.get("difficulty") == "hard" and q.suite in RANKED_SUITES for q in questions),
         "n_hard_decisions": sum(q.data.get("difficulty") == "hard" and q.suite == "decisions" for q in questions),
         "changelog": sorted(history, key=lambda h: h["date"], reverse=True)[:50],

@@ -11,13 +11,13 @@ cover:
     - { label: "Never answered", value: 12 }
 ---
 
-Mistral released Mistral Large 4 this week, nicknamed "Le Chonk". It has about a trillion parameters, so you won't be running it at home: it needs hundreds of gigabytes of memory. We tested it anyway, as a yardstick for the free models you *can* run, using the same questions and the same grading as everything on our [leaderboard](/best-local-llms/).
+Mistral released Mistral Large 4 this week, nicknamed "Le Chonk". It has about a trillion parameters, so you won't be running it at home: it needs hundreds of gigabytes of memory. That's why it isn't on our [leaderboard](/best-local-llms/), which is only for models you can run yourself. We were curious anyway, so we gave it the same questions and the same grading. Here's what happened.
 
 ## The short version
 
 - **Reading documents: 99.7 out of 100.** No local model we've tested scores that high. It handled corrections buried in email threads, cancelled orders and the math on insurance claims almost perfectly.
 - **Coding: 18 of 30 jobs solved.** Every program it finished passed our tests. The other 12 were left blank.
-- **Overall: 79.8.** That would put it 8th among local models, behind [Qwen3.6 27B](/models/qwen3-6-27b/), a model about 40 times smaller that you can run on a 24 GB graphics card.
+- **Decisions: 99% right.** Routing tickets, spotting phishing, applying a refund policy: almost no mistakes.
 
 ## What went wrong with coding
 
@@ -34,4 +34,4 @@ This happened on easy jobs as well as hard ones, and it happened again when we r
 
 If you use Le Chonk through an app or an API, this is the kind of problem you'd notice as a request that hangs for minutes and then returns nothing, and you'd still pay for all of that thinking. For document work it's excellent. For coding, a local model like [Qwen3.6 27B](/models/qwen3-6-27b/) solved 29 of the same 30 jobs and runs on your own computer for free.
 
-We'll re-test when Mistral updates the model. Le Chonk also scored 99 on our [decision test](/best-decision-models/), near the top. For how we grade, see [how we test](/best-local-llms/methodology/).
+We'll re-test when Mistral updates the model. For how we grade, see [how we test](/best-local-llms/methodology/).
