@@ -186,3 +186,10 @@ details.answer pre { background: var(--surface); color: var(--ink); border: 1px 
   .hero .cover, .banner { padding: 22px; }
   .post-row .date { width: auto; }
 }
+
+/* hardware picker */
+.hw-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.hw-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; font-size: 14px; font-weight: 500; background: #fff; }
+.hw-chip:hover { border-color: var(--blue); color: var(--blue); }
+.hw-chip .n { font-family: var(--mono); font-size: 12px; color: var(--blue); background: var(--panel); border-radius: 4px; padding: 1px 6px; }
+.hw-chip.on { background: var(--blue); border-color: var(--blue); color: #fff; }

@@ -1,0 +1,26 @@
+---
+import { tiers } from "../lib/data";
+import { hardwareSlug, fitsTier } from "../lib/hardware";
+
+const groups = [
+  { label: "Graphics card (VRAM)", kind: "gpu" },
+  { label: "Mac (memory)", kind: "mac" },
+];
+---
+<section>
+  <h2 class="section-title">What can my computer run?</h2>
+  <p class="sub" style="margin: 12px 0 14px">Pick your memory size to see every model that fits.</p>
+  {groups.map((g) => (
+    <div style="margin-bottom: 14px">
+      <div class="meta" style="margin-bottom: 8px">{g.label}</div>
+      <div class="hw-chips">
+        {tiers.filter((t) => t.kind === g.kind).map((t) => (
+          <a class="hw-chip" href={`/hardware/${hardwareSlug(t)}/`}>
+            <span>{t.gb} GB</span><span class="n">{fitsTier(t).length}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  ))}
+  <a href="/posts/check-your-gpu-memory/" class="sub" style="color: var(--blue); font-size: 13px">Not sure how much you have?</a>
+</section>

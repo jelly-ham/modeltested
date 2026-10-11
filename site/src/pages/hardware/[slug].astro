@@ -1,0 +1,86 @@
+---
+import Base from "../../layouts/Base.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import { data, models, tiers, ranked, whole, quantLabel, fmtDate, type Tier } from "../../lib/data";
+import { hardwareSlug, hardwareName, fitsTier } from "../../lib/hardware";
+
+export function getStaticPaths() {
+  return tiers.map((t) => ({ params: { slug: hardwareSlug(t) }, props: { tier: t } }));
+}
+
+const { tier } = Astro.props as { tier: Tier };
+const fits = fitsTier(tier);
+const fitSlugs = new Set(fits.map((f) => f.model.slug));
+const tooBig = ranked("overall").filter((m) => !fitSlugs.has(m.slug)).slice(0, 5);
+const top = fits[0];
+const label = tier.kind === "gpu" ? `${tier.gb} GB graphics card` : `Mac with ${tier.gb} GB`;
+const title = `Best Local LLMs for ${tier.kind === "gpu" ? `a ${tier.gb}GB GPU` : `a ${tier.gb}GB Mac`}: ${fits.length} Models That Fit | Model Tested`;
+const description = `${fits.length} of the ${models.length} local AI models we tested run on ${hardwareName(tier)}. ${top ? `The best is ${top.model.name} (${whole(top.model.overall)}/100).` : ""} Updated ${fmtDate(data.generated)}.`;
+const others = tiers.filter((t) => t.kind === tier.kind);
+---
+<Base title={title} description={description} nav="rankings">
+  <div class="wrap">
+    <header class="article-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/best-local-llms/">Best Local LLMs</a></nav>
+      <div class="kicker">What can I run · updated {fmtDate(data.generated)}</div>
+      <h1>Local LLMs that run on {hardwareName(tier)}</h1>
+      <p class="dek">
+        {fits.length} of the {models.length} models we've tested fit, with room for a normal-length chat.
+        {top && <>The best one is <a href={`/models/${top.model.slug}/`} style="color: var(--blue)">{top.model.name}</a>, scoring {whole(top.model.overall)} out of 100.</>}
+      </p>
+      <div class="hw-chips" style="margin-top: 20px">
+        {others.map((t) => (
+          <a class={`hw-chip${t.id === tier.id ? " on" : ""}`} href={`/hardware/${hardwareSlug(t)}/`} aria-current={t.id === tier.id ? "page" : undefined}>
+            <span>{t.kind === "gpu" ? `${t.gb} GB GPU` : `Mac ${t.gb} GB`}</span>
+          </a>
+        ))}
+      </div>
+    </header>
+    <div class="cols">
+      <main>
+        {fits.length === 0 ? (
+          <p class="dek">None of the models we've tested fit in this much memory yet.</p>
+        ) : (
+          <div class="table-box">
+            <table style="min-width: 640px">
+              <thead>
+                <tr><th class="num">#</th><th>Model</th><th class="num">Score</th><th class="num">Coding</th><th class="num">Documents</th><th>Download</th><th class="num">Memory</th></tr>
+              </thead>
+              <tbody>
+                {fits.map(({ model: m, quant, gb }, i) => (
+                  <tr>
+                    <td class="num" style="color: var(--faint)">{i + 1}</td>
+                    <td><a href={`/models/${m.slug}/`} style="font-weight: 600">{m.name}</a>{m.ollama && <div class="sub" style="font-size: 13px"><code>ollama run {m.ollama}</code></div>}</td>
+                    <td class="num"><b>{whole(m.overall)}</b></td>
+                    <td class="num">{whole(m.suites.coding?.score)}</td>
+                    <td class="num">{whole(m.suites.extract?.score)}</td>
+                    <td class="mono">{quantLabel(quant)}</td>
+                    <td class="num">{gb} GB</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        <p class="sub">
+          "Download" is the biggest version that fits on {label}; "Memory" is roughly what that version needs.
+          Smaller versions also work and leave more room. <a href="/posts/q4-vs-q8/" style="color: var(--blue)">Q4 or Q8?</a>
+        </p>
+
+        {tooBig.length > 0 && (
+          <div class="prose" style="margin-top: 40px">
+            <h2>Top models that don't fit</h2>
+            <ul>
+              {tooBig.map((m) => {
+                const q4 = m.memory?.need_gb["Q4_K_M"] ?? (m.memory ? Object.values(m.memory.need_gb)[0] : null);
+                return <li><a href={`/models/${m.slug}/`}>{m.name}</a> ({whole(m.overall)}/100){q4 && ` needs about ${q4} GB even in its smallest version.`}</li>;
+              })}
+            </ul>
+            <p>Not sure how much memory you have? <a href="/posts/check-your-gpu-memory/">Here's how to check</a>.</p>
+          </div>
+        )}
+      </main>
+      <Sidebar />
+    </div>
+  </div>
+</Base>

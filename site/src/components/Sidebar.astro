@@ -1,6 +1,7 @@
 ---
 import { data, models, ranked, whole, fmtDate } from "../lib/data";
 import { allTags } from "../lib/posts";
+import HardwarePicker from "./HardwarePicker.astro";
 
 interface Props { toc?: { href: string; label: string }[] }
 const { toc = [] } = Astro.props;
@@ -23,6 +24,8 @@ const startHere = [
       </div>
     </nav>
   )}
+
+  <HardwarePicker />
 
   <section>
     <h2 class="section-title">Leaderboard <a href="/best-local-llms/#leaderboard">All {models.length} →</a></h2>
