@@ -38,6 +38,12 @@ const neighbors = posts
   .slice(0, 3)
   .map(({ p }) => p);
 
+/** Lead with the model name, the way people search it; stay within ~60 characters. */
+function reviewTitle(rawName: string): string {
+  const name = rawName.trim();
+  const options = [": Our Benchmarks, VRAM and Which Version to Get", ": Benchmarks, VRAM and Which Version to Get", ": Our Benchmarks and VRAM", " Benchmarks and VRAM"];
+  return options.map((o) => name + o).find((t) => t.length <= 60) ?? name + " Benchmarks";
+}
 const qrun = quantRunFor(model);
 const qlabel = quantLabel(qrun?.quant) || "Q4";
 const toc = [
@@ -56,7 +62,7 @@ const jsonLd = [{
 }];
 ---
 <Article
-  seoTitle={`${model.name} Review: Scores, and Can Your Computer Run It? | Model Tested`}
+  seoTitle={reviewTitle(model.name)}
   description={post.dek}
   heading={post.title}
   dek={post.dek}

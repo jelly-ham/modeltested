@@ -4,7 +4,8 @@ import { data, ranked, size, minTiers, suiteLabel, quantLabel, whole } from "../
 interface Props { by: string }
 const { by } = Astro.props;
 const rows = ranked(by);
-const suiteCols = by === "overall" ? data.suites : data.suites.filter((s) => s.id === by);
+// Only the suites that make up the overall score (decisions has its own page).
+const suiteCols = by === "overall" ? data.suites.filter((s) => s.ranked !== false) : data.suites.filter((s) => s.id === by);
 const showHard = by === "overall" && rows.some((m) => m.hard != null);
 ---
 <div class="table-box" style="font-family: var(--sans)">

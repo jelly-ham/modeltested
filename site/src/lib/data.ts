@@ -42,7 +42,7 @@ export type Tier = { id: string; label: string; kind: "gpu" | "mac"; gb: number;
 
 export const data = board as unknown as {
   generated: string;
-  suites: { id: string; name: string; description: string; n_public: number; n_private: number }[];
+  suites: { id: string; name: string; description: string; n_public: number; n_private: number; ranked?: boolean }[];
   tiers: Tier[];
   memory_assumptions: { context: number; overhead_gb: number; quants: Record<string, number> };
   models: Model[];
@@ -109,6 +109,7 @@ export const pct = (x: number | null | undefined) => (x == null ? "—" : x.toFi
 const SUITE_LABELS: Record<string, { name: string; short: string; blurb: string }> = {
   coding: { name: "Coding", short: "Coding", blurb: "Small programming jobs. We run the code to see if it really works." },
   extract: { name: "Reading documents", short: "Documents", blurb: "Pulling the right numbers, dates and names out of emails, bills and forms. Some need a bit of math." },
+  decisions: { name: "Decisions", short: "Decisions", blurb: "Routing tickets, spotting phishing and applying simple rules. Not part of the overall score." },
 };
 export const suiteLabel = (id: string) => SUITE_LABELS[id] ?? { name: id, short: id, blurb: "" };
 
