@@ -2,6 +2,7 @@
 import Base from "./Base.astro";
 import CoverArt from "../components/CoverArt.astro";
 import Sidebar from "../components/Sidebar.astro";
+import Comments from "../components/Comments.astro";
 import type { Cover } from "../lib/posts";
 
 interface Props {
@@ -44,6 +45,7 @@ const share = [
           <div class="share">{share.map((s) => <a href={s.href} rel="noopener" target="_blank">{s.label}</a>)}</div>
         </div>
         <slot name="after" />
+        <Comments />
       </main>
       <Sidebar toc={toc} />
     </div>

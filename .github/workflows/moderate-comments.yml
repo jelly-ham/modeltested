@@ -1,0 +1,46 @@
+name: moderate comments
+
+# Hides spam and abusive giscus comments. Triggered by anyone with a GitHub account,
+# so the comment text is passed only as an environment variable (never interpolated
+# into the script) and the token can do nothing but write to Discussions.
+
+on:
+  discussion_comment:
+    types: [created, edited]
+  workflow_dispatch:
+    inputs:
+      text:
+        description: "Test: classify this text (nothing is hidden)"
+        required: true
+
+permissions:
+  contents: read
+  discussions: write
+
+concurrency:
+  group: moderate-${{ github.event.comment.id || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  moderate:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.comment.user.type != 'Bot' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: |
+            runner
+            scripts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Classify and hide if needed
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          COMMENT_BODY: ${{ github.event.comment.body || inputs.text }}
+          COMMENT_NODE_ID: ${{ github.event.comment.node_id }}
+          AUTHOR_ASSOCIATION: ${{ github.event.comment.author_association }}
+        run: python scripts/moderate_comment.py
