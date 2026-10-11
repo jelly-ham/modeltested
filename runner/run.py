@@ -8,10 +8,13 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 
 from . import client, sandbox, suites
+HARD_GRACE_MIN = float(os.environ.get("BENCH_HARD_GRACE_MIN", 5))  # minutes after --max-minutes before in-flight requests are abandoned
+
 from .common import (OUTPUTS_DIR, PRIVATE_OUTPUTS_DIR, Question, load_models, load_questions, load_scores,
                      runnable_models, save_scores, today, write_json)
 
@@ -26,6 +29,9 @@ def _mock_answer(model: dict, q: Question) -> client.ChatResult:
     elif kind == "slow":
         time.sleep(2)
         text = "too slow"
+    elif kind == "hang":
+        time.sleep(3600)
+        text = ""
     else:
         text = "I'm not sure."
     return client.ChatResult(text=text, provider="mock")
@@ -111,7 +117,9 @@ def main(args) -> None:
     todo: dict[str, list[Question]] = {}
     for m in models:
         items = load_scores(m["slug"])["items"]
-        todo[m["slug"]] = [q for q in questions if args.rerun or items.get(q.key, {}).get("h") != q.hash]
+        todo[m["slug"]] = [q for q in questions
+                           if args.rerun or items.get(q.key, {}).get("h") != q.hash
+                           or items[q.key].get("provider") in client.BLOCKED_PROVIDERS]
     jobs = [(m, q) for m in models for q in todo[m["slug"]]]
     print(f"{len(jobs)} (model, question) pairs to run across {sum(bool(v) for v in todo.values())} models", flush=True)
 
@@ -122,8 +130,11 @@ def main(args) -> None:
     spent, stop = 0.0, None
     queue = iter(jobs)
 
-    with ThreadPoolExecutor(args.concurrency) as pool:
-        inflight = {}
+    hard_deadline = deadline + HARD_GRACE_MIN * 60
+    abandoned = 0
+    pool = ThreadPoolExecutor(args.concurrency)
+    inflight = {}
+    try:
         while True:
             while stop is None and len(inflight) < args.concurrency:
                 if spent >= args.budget_usd:
@@ -137,7 +148,12 @@ def main(args) -> None:
                     inflight[pool.submit(_ask, *job)] = job
             if not inflight:
                 break
-            done, _ = wait(inflight, return_when=FIRST_COMPLETED)
+            if time.monotonic() > hard_deadline:
+                # OpenRouter keeps slow requests alive with whitespace, so socket
+                # timeouts never fire; stop waiting rather than hit the CI job timeout.
+                abandoned = len(inflight)
+                break
+            done, _ = wait(inflight, timeout=30, return_when=FIRST_COMPLETED)
             for f in done:
                 m, q = inflight.pop(f)
                 res = f.result()
@@ -146,6 +162,8 @@ def main(args) -> None:
                 pending[m["slug"]] -= 1
                 if pending[m["slug"]] == 0:
                     finalize_model(m, todo[m["slug"]], answers.pop(m["slug"]))
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
 
     if stop:
         print(f"stopped submitting: {stop}", flush=True)
@@ -153,3 +171,8 @@ def main(args) -> None:
         if got:
             finalize_model(by_slug[slug], todo[slug], got)
     print(f"total spent: ${spent:.4f}", flush=True)
+    if abandoned:
+        print(f"abandoned {abandoned} requests still running after the hard deadline; they'll be retried next run",
+              flush=True)
+        sys.stdout.flush()
+        os._exit(0)  # don't let interpreter shutdown join the stuck worker threads

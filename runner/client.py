@@ -10,9 +10,14 @@ from dataclasses import dataclass, field
 
 API = "https://openrouter.ai/api/v1"
 
+# Providers whose output we can't trust. Cloudflare (Oct 2026) dropped tokens such
+# as `[]` and `""` from completions, turning valid code into syntax errors.
+# Answers they served are re-run (see run.py).
+BLOCKED_PROVIDERS = ["Cloudflare"]
+
 # Prefer endpoints serving full or FP8 precision so scores reflect the model,
 # not an aggressive server-side quantization. Overridable per model.
-DEFAULT_PROVIDER = {"quantizations": ["bf16", "fp16", "fp8"], "allow_fallbacks": True}
+DEFAULT_PROVIDER = {"quantizations": ["bf16", "fp16", "fp8"], "ignore": BLOCKED_PROVIDERS, "allow_fallbacks": True}
 
 
 @dataclass
@@ -63,9 +68,10 @@ def chat(model: dict, prompt: str, max_tokens: int = 8192, timeout: int = 180) -
         except urllib.error.HTTPError as e:
             detail = e.read().decode(errors="replace")[:300]
             last_err = f"HTTP {e.code}: {detail}"
-            if e.code == 404 and "provider" in body and model.get("provider") is None:
-                # No endpoint matches the precision filter: fall back to any provider.
-                body.pop("provider")
+            if e.code == 404 and model.get("provider") is None and "quantizations" in body["provider"]:
+                # No endpoint matches the precision filter: accept any precision,
+                # but still never a blocked provider.
+                body["provider"] = {"ignore": BLOCKED_PROVIDERS, "allow_fallbacks": True}
                 continue
             if e.code in (408, 429, 500, 502, 503, 504):
                 time.sleep(5 * 2 ** attempt)

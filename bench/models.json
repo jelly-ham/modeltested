@@ -326,6 +326,15 @@
       "arch": null
     },
     {
+      "slug": "mock-hang",
+      "name": "Mock (hangs)",
+      "status": "test",
+      "openrouter_id": "mock:hang",
+      "params_b": 8,
+      "active_params_b": null,
+      "arch": null
+    },
+    {
       "slug": "mock-reference",
       "name": "Mock (reference answers)",
       "status": "test",
