@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { SITE_NAME, TAGLINE, REPO_URL, data, fmtDate } from "../lib/data";
+import { SITE_NAME, REPO_URL, data, fmtDate } from "../lib/data";
 
 interface Props {
   title: string;
@@ -46,8 +46,8 @@ const nav = [
     </main>
     <footer class="site">
       <div class="wrap">
-        {SITE_NAME} — independent, task-based tests of AI models. {TAGLINE} Data updated {fmtDate(data.generated)}.
-        Test harness, public questions and raw outputs: <a href={REPO_URL}>GitHub</a>.
+        {SITE_NAME} is an independent site. Our test code, sample questions and every
+        answer the models gave are <a href={REPO_URL}>on GitHub</a>. Last updated {fmtDate(data.generated)}.
       </div>
     </footer>
   </body>

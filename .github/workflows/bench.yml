@@ -81,7 +81,8 @@ jobs:
             echo "no changes"
           else
             git commit -q -m "bench: update results $(date -u +%F)"
-            git push -q
+            # Code may have been pushed while we were benchmarking; results files don't overlap with it.
+            git pull -q --rebase && git push -q
           fi
 
       - name: Build site

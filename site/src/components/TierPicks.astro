@@ -1,5 +1,5 @@
 ---
-import { tiers, forTier, score, pct } from "../lib/data";
+import { tiers, forTier, score, whole, quantLabel, tierLabel } from "../lib/data";
 
 interface Props { by: string; kind: "gpu" | "mac" }
 const { by, kind } = Astro.props;
@@ -8,14 +8,14 @@ const picks = tiers.filter((t) => t.kind === kind).map((t) => ({ tier: t, list: 
 <div class="cards">
   {picks.map(({ tier, list }) => (
     <div class="card">
-      <div class="label">{tier.label}</div>
+      <div class="label">{tierLabel(tier)}</div>
       {list.length ? (
         <>
           <div class="pick"><a href={`/models/${list[0].model.slug}/`}>{list[0].model.name}</a></div>
-          <div class="sub">{list[0].quant} · score {pct(score(list[0].model, by))}</div>
-          {list[1] && <div class="sub">Runner-up: <a href={`/models/${list[1].model.slug}/`}>{list[1].model.name}</a> ({list[1].quant})</div>}
+          <div class="sub">Get the {quantLabel(list[0].quant)} version. Score {whole(score(list[0].model, by))}/100.</div>
+          {list[1] && <div class="sub">Also good: <a href={`/models/${list[1].model.slug}/`}>{list[1].model.name}</a></div>}
         </>
-      ) : <div class="sub">No tested model fits yet.</div>}
+      ) : <div class="sub">Nothing we've tested fits yet.</div>}
     </div>
   ))}
 </div>

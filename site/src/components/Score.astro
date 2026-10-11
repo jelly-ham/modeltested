@@ -4,7 +4,7 @@ const { value } = Astro.props;
 ---
 {value == null ? <span class="sub">—</span> : (
   <span class="score">
-    <span>{value.toFixed(1)}</span>
+    <span>{Math.round(value)}</span>
     <span class="bar" aria-hidden="true"><i style={`width:${Math.max(0, Math.min(100, value))}%`} /></span>
   </span>
 )}

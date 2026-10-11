@@ -1,6 +1,6 @@
 ---
 import Score from "./Score.astro";
-import { data, ranked, size, minTiers } from "../lib/data";
+import { data, ranked, size, minTiers, suiteLabel, quantLabel } from "../lib/data";
 
 interface Props { by: string }
 const { by } = Astro.props;
@@ -14,10 +14,10 @@ const suiteCols = by === "overall" ? data.suites : data.suites.filter((s) => s.i
         <th class="num">#</th>
         <th>Model</th>
         <th>Size</th>
-        {by === "overall" && <th class="num">Overall</th>}
-        {suiteCols.map((s) => <th class="num">{s.name}</th>)}
-        <th>Smallest GPU</th>
-        <th>Smallest Mac</th>
+        {by === "overall" && <th class="num">Score</th>}
+        {suiteCols.map((s) => <th class="num">{suiteLabel(s.id).short}</th>)}
+        <th>Runs on (PC)</th>
+        <th>Runs on (Mac)</th>
       </tr>
     </thead>
     <tbody>
@@ -33,12 +33,15 @@ const suiteCols = by === "overall" ? data.suites : data.suites.filter((s) => s.i
             <td>{size(m)}</td>
             {by === "overall" && <td class="num"><Score value={m.overall} /></td>}
             {suiteCols.map((s) => <td class="num"><Score value={m.suites[s.id]?.score} /></td>)}
-            <td>{t.gpu ? `${t.gpu.gb} GB · ${m.memory!.best_quant_by_tier[t.gpu.id]}` : <span class="sub">&gt; 32 GB</span>}</td>
-            <td>{t.mac ? `${t.mac.gb} GB · ${m.memory!.best_quant_by_tier[t.mac.id]}` : <span class="sub">&gt; 64 GB</span>}</td>
+            <td>{t.gpu ? `${t.gpu.gb} GB card (${quantLabel(m.memory!.best_quant_by_tier[t.gpu.id])})` : <span class="sub">needs more than 32 GB</span>}</td>
+            <td>{t.mac ? `${t.mac.gb} GB Mac (${quantLabel(m.memory!.best_quant_by_tier[t.mac.id])})` : <span class="sub">needs more than 64 GB</span>}</td>
           </tr>
         );
       })}
     </tbody>
   </table>
 </div>
-<p class="meta">Scores are 0–100. "Smallest GPU/Mac" is the least memory that fits the model at Q4_K_M or better with an {data.memory_assumptions.context.toLocaleString()}-token context, and the best quantization that fits there (<a href="/best-local-llms/methodology/#memory">how we estimate</a>).</p>
+<p class="meta">
+  Scores are out of 100. "Runs on" is the smallest graphics card or Mac that can hold the model, and which version to download
+  for it. <a href="/best-local-llms/methodology/#memory">How we worked this out</a>.
+</p>

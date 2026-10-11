@@ -3,13 +3,16 @@ import Base from "../../layouts/Base.astro";
 import { data, REPO_URL } from "../../lib/data";
 import publicQs from "../../data/public-questions.json";
 
-const title = "Methodology: How We Test Local LLMs | Model Tested";
+const title = "How We Test Local LLMs: Full Technical Details | Model Tested";
 const description = "How Model Tested picks models, writes and hides its test tasks, grades coding and extraction answers, and estimates VRAM and Mac memory requirements.";
 const ma = data.memory_assumptions;
 ---
 <Base title={title} description={description}>
-  <h1>How we test</h1>
-  <p class="lede">Everything here is automated, repeatable and as transparent as we can make it without giving models the answers.</p>
+  <h1>How we test: the technical details</h1>
+  <p class="lede">
+    This page is for readers who want the specifics: how models are chosen and queried, how answers are graded, and how the
+    memory estimates are calculated. For plain-English rankings, see <a href="/best-local-llms/">Best Local LLMs</a>.
+  </p>
 
   <h2>Which models</h2>
   <p>

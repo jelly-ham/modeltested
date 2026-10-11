@@ -2,31 +2,37 @@
 import Base from "../../layouts/Base.astro";
 import Leaderboard from "../../components/Leaderboard.astro";
 import TierPicks from "../../components/TierPicks.astro";
-import { data, models, forTier, monthYear, fmtDate, pct } from "../../lib/data";
+import { data, models, tiers, forTier, monthYear, fmtDate, whole, quantLabel } from "../../lib/data";
 
 const when = monthYear();
-const title = `Best Local LLMs (${when}): Tested & Ranked by Hardware`;
-const description = `Which open-weight model should you run locally? We test ${models.length} models on coding and data-extraction tasks and show the best pick for 8–32 GB GPUs and 16–64 GB Macs. Updated ${fmtDate(data.generated)}.`;
+const title = `Best Local LLMs (${when}): Which One Should You Run?`;
+const description = `We tested ${models.length} AI models you can run on your own computer. See the best one for your graphics card or Mac, with real scores. Updated ${fmtDate(data.generated)}.`;
+const nQuestions = data.suites.reduce((n, s) => n + s.n_public + s.n_private, 0);
 
 const top = models[0];
-const pick = (tier: string) => forTier(tier)[0];
-const faq = [
-  ["gpu-8", "What is the best local LLM for an 8 GB GPU?"],
-  ["gpu-12", "What is the best local LLM for 12 GB of VRAM?"],
-  ["gpu-16", "What is the best local LLM for 16 GB of VRAM?"],
-  ["gpu-24", "What is the best local LLM for a 24 GB GPU like the RTX 3090/4090?"],
-  ["mac-16", "What is the best local LLM for a 16 GB Mac?"],
-  ["mac-32", "What is the best local LLM for a 32 GB Mac?"],
-]
-  .map(([tier, q]) => {
-    const p = pick(tier);
-    return p && { q, a: `${p.model.name} at ${p.quant} scored highest (${pct(p.model.overall)}/100) among the models that fit, as of ${fmtDate(data.generated)}.` };
+const faqTiers = ["gpu-8", "gpu-12", "gpu-16", "gpu-24", "mac-16", "mac-32"];
+const faq = faqTiers
+  .map((id) => {
+    const tier = tiers.find((t) => t.id === id)!;
+    const p = forTier(id)[0];
+    return p && {
+      q: tier.kind === "gpu"
+        ? `What's the best local LLM for ${String(tier.gb).startsWith("8") ? "an" : "a"} ${tier.gb} GB graphics card?`
+        : `What's the best local LLM for a Mac with ${tier.gb} GB of memory?`,
+      a: `Right now it's ${p.model.name}. Download the ${quantLabel(p.quant)} version. It scored ${whole(p.model.overall)} out of 100 in our tests.`,
+    };
   })
   .filter(Boolean) as { q: string; a: string }[];
-faq.push({
-  q: "Why don't you publish tokens-per-second speed numbers?",
-  a: "Speed depends on your exact GPU, drivers, runtime (llama.cpp, Ollama, LM Studio, MLX), context length and settings, so a single number would mislead more than it helps. We focus on quality and on whether a model fits in your memory.",
-});
+faq.push(
+  {
+    q: "What do Q4 and Q8 mean?",
+    a: "They're versions of the same model, squeezed down to different sizes. Q4 is smaller and runs on more computers. Q8 is bigger and a little more accurate. If both fit on your computer, pick the bigger one.",
+  },
+  {
+    q: "Why don't you say how fast each model runs?",
+    a: "Speed depends a lot on your exact computer and the app you use, so any number we gave would be wrong for most people. We tell you which models fit on your machine and how good their answers are.",
+  },
+);
 
 const jsonLd = [
   {
@@ -45,53 +51,61 @@ const jsonLd = [
 <Base title={title} description={description} jsonLd={jsonLd}>
   <h1>Best Local LLMs ({when})</h1>
   <p class="lede">
-    We run every new open-weight model through the same hidden test set — real coding tasks checked by unit tests, and
-    messy-text-to-JSON extraction — then work out which ones fit on your GPU or Mac. Re-tested whenever a notable model ships.
+    A local LLM is an AI chatbot you download and run on your own computer. No subscription, and nothing you type leaves
+    your machine. There are dozens to choose from, so we test each one on the same real jobs and tell you which is best
+    for the computer you have.
   </p>
-  <p class="meta">Last updated {fmtDate(data.generated)} · {models.length} models tested{data.pending.length > 0 && ` · ${data.pending.length} in progress`}</p>
+  <p class="meta">Updated {fmtDate(data.generated)} · {models.length} models tested{data.pending.length > 0 && ` · ${data.pending.length} more being tested`}</p>
 
   {models.length === 0 ? (
-    <p class="note">The first round of results is being collected. Check back soon.</p>
+    <p class="note">We're running the first round of tests. Check back soon.</p>
   ) : (
     <>
       <p class="note">
-        <strong>Short answer:</strong> the strongest model we've tested is <a href={`/models/${top.slug}/`}>{top.name}</a> ({pct(top.overall)}/100).
-        If it doesn't fit your hardware, use the picks below.
+        If your computer can handle it, <a href={`/models/${top.slug}/`}>{top.name}</a> is the best one we've tested so far.
+        It scored {whole(top.overall)} out of 100. Got less memory? Find your setup below.
       </p>
 
-      <h2 id="gpu">Best pick for your GPU (VRAM)</h2>
+      <h2 id="gpu">Pick by graphics card</h2>
+      <p class="sub">
+        Not sure how much memory your card has? On Windows, open Task Manager, go to Performance and click GPU. Look for
+        "Dedicated GPU memory".
+      </p>
       <TierPicks by="overall" kind="gpu" />
 
-      <h2 id="mac">Best pick for your Mac (unified memory)</h2>
+      <h2 id="mac">Pick by Mac</h2>
+      <p class="sub">Click the Apple menu, then About This Mac. The number next to Memory is what you need.</p>
       <TierPicks by="overall" kind="mac" />
 
-      <h2 id="leaderboard">Full leaderboard</h2>
+      <h2 id="leaderboard">All models we've tested</h2>
       <Leaderboard by="overall" />
     </>
   )}
 
   <h2 id="how">How we test</h2>
-  <ul>
-    {data.suites.map((s) => <li><strong>{s.name}</strong> — {s.description} ({s.n_public + s.n_private} tasks)</li>)}
-  </ul>
   <p>
-    Most tasks are kept private so models can't be trained on them; a sample is public along with every model's raw answers.
-    Models are queried at full or FP8 precision through hosted APIs, so expect slightly lower quality from a Q4 download.
-    <a href="/best-local-llms/methodology/">Full methodology →</a>
+    Every model gets the same {nQuestions} questions. Some are small coding jobs, and we run the code to check that it works.
+    The rest ask the model to read things like bills, pay stubs and email threads and pull out the right numbers. Many of
+    those need a little math, or catching a correction buried further down the page.
   </p>
+  <p>
+    We keep most of the questions secret, so no model can memorize the answers. The rest are public, along with every
+    answer each model gave, so you can check our work.
+  </p>
+  <p><a href="/best-local-llms/methodology/">Read the full technical details</a></p>
 
   {data.changelog.length > 0 && (
     <>
-      <h2 id="changelog">Changelog</h2>
+      <h2 id="changelog">Recent updates</h2>
       <ul class="log">
         {data.changelog.slice(0, 12).map((c) => (
-          <li><span class="meta">{fmtDate(c.date)}</span> — Added <a href={`/models/${c.slug}/`}>{c.name}</a>: {pct(c.overall)}/100, ranked #{c.rank} of {c.of}.</li>
+          <li><span class="meta">{fmtDate(c.date)}:</span> We tested <a href={`/models/${c.slug}/`}>{c.name}</a>. It scored {whole(c.overall)} and came in at #{c.rank}.</li>
         ))}
       </ul>
     </>
   )}
 
-  <h2 id="faq">FAQ</h2>
+  <h2 id="faq">Questions people ask</h2>
   {faq.map((f) => (
     <>
       <h3>{f.q}</h3>

@@ -1,9 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
-import { SITE_NAME, TAGLINE, data, models, ranked, fmtDate, pct } from "../lib/data";
+import { SITE_NAME, TAGLINE, data, models, ranked, fmtDate, whole } from "../lib/data";
 
-const title = `${SITE_NAME} — Real-Task Tests of AI Models`;
-const description = `${TAGLINE} Independent rankings built from hidden, task-specific tests, re-run whenever a notable model ships. Updated ${fmtDate(data.generated)}.`;
+const title = `${SITE_NAME}: Which AI Model Should You Use?`;
+const description = `${TAGLINE} Rankings based on our own tests, updated whenever a new model comes out. Updated ${fmtDate(data.generated)}.`;
 
 const topOverall = ranked("overall")[0];
 const topCoding = ranked("coding")[0];
@@ -11,14 +11,14 @@ const sections = [
   {
     href: "/best-local-llms/",
     name: "Best Local LLMs",
-    blurb: "Open-weight models you can run on your own GPU or Mac, with the best pick for every memory size.",
-    stat: models.length ? `${models.length} models tested · top: ${topOverall.name}` : "First results coming soon",
+    blurb: "Free AI models you can run on your own computer. Find the best one for your PC or Mac.",
+    stat: models.length ? `${models.length} models tested. Top pick: ${topOverall.name}` : "First results coming soon",
   },
   {
     href: "/best-local-llms/coding/",
     name: "Best Local LLM for Coding",
-    blurb: "Python tasks graded by hidden unit tests — which local model writes code that actually works.",
-    stat: models.length ? `top: ${topCoding.name} (${pct(topCoding.suites.coding?.score)}%)` : "First results coming soon",
+    blurb: "Which local model writes code that actually works. We ran every answer to find out.",
+    stat: models.length ? `Top pick: ${topCoding.name}` : "First results coming soon",
   },
 ];
 
@@ -29,8 +29,8 @@ const jsonLd = [
 <Base title={title} description={description} jsonLd={jsonLd}>
   <h1>{TAGLINE}</h1>
   <p class="lede">
-    {SITE_NAME} tests AI models on the jobs people actually use them for — with hidden test sets, automatic grading and every
-    raw answer to our public tasks on display. When a notable model ships, we test it and update the rankings.
+    New AI models come out every week, and every one of them claims to be great. We give them all the same real jobs,
+    check the results and keep the rankings up to date.
   </p>
 
   <h2>Rankings</h2>
@@ -46,21 +46,20 @@ const jsonLd = [
 
   {data.changelog.length > 0 && (
     <>
-      <h2>Latest tests</h2>
+      <h2>Just tested</h2>
       <ul class="log">
         {data.changelog.slice(0, 8).map((c) => (
-          <li><span class="meta">{fmtDate(c.date)}</span> — <a href={`/models/${c.slug}/`}>{c.name}</a> tested: {pct(c.overall)}/100, #{c.rank} of {c.of} local LLMs.</li>
+          <li><span class="meta">{fmtDate(c.date)}:</span> <a href={`/models/${c.slug}/`}>{c.name}</a> scored {whole(c.overall)} and is #{c.rank} of {c.of} local models.</li>
         ))}
       </ul>
     </>
   )}
 
   <h2>How we test</h2>
-  <ul>
-    <li><strong>Real tasks, not trivia.</strong> Each category has its own task set modeled on everyday work.</li>
-    <li><strong>Mostly hidden.</strong> About three quarters of tasks are private so models can't be trained on them.</li>
-    <li><strong>Checkable.</strong> Public sample tasks, the grading code and every model's raw answers are published.</li>
-    <li><strong>Kept fresh.</strong> New models are picked up automatically and rankings are updated the same day.</li>
-  </ul>
-  <p><a href="/best-local-llms/methodology/">Read the full methodology →</a></p>
+  <p>
+    We don't copy scores from the companies that make these models. Every model answers the same questions from us, and we
+    grade the answers automatically: code has to run, and numbers have to match. Most questions stay secret so models
+    can't learn them ahead of time. A sample is public, along with every answer, so you can see exactly how each model did.
+  </p>
+  <p><a href="/best-local-llms/methodology/">Full technical details</a></p>
 </Base>
