@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 from collections import Counter
 
@@ -48,6 +49,9 @@ def main(args) -> None:
     statuses = {"active", "auto"} | ({"test"} if args.include_test else set())
     models = [m for m in doc["models"] if m.get("status") in statuses]
     questions = load_questions()
+    if os.environ.get("CI") and not any(q.private for q in questions):
+        # Publishing public-only scores would silently change every number on the site.
+        raise SystemExit("hidden test set missing — refusing to build site data")
     by_suite: dict[str, list] = {}
     for q in questions:
         by_suite.setdefault(q.suite, []).append(q)

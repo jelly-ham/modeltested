@@ -1,6 +1,7 @@
 """Minimal OpenRouter chat client (stdlib only)."""
 from __future__ import annotations
 
+import http.client
 import json
 import os
 import time
@@ -77,7 +78,9 @@ def chat(model: dict, prompt: str, max_tokens: int = 8192, timeout: int = 180) -
                 time.sleep(5 * 2 ** attempt)
                 continue
             break
-        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+        except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.HTTPException, ValueError) as e:
+            # ValueError: the body wasn't valid JSON — OpenRouter sends whitespace keep-alives
+            # on slow requests and the connection can drop before the real response arrives.
             # A request that timed out once (very long reasoning, stuck provider) is
             # retried once; the error is recorded and retried on the next daily run.
             last_err = f"network: {e}"

@@ -29,6 +29,10 @@ def _mock_answer(model: dict, q: Question) -> client.ChatResult:
     elif kind == "slow":
         time.sleep(2)
         text = "too slow"
+    elif kind == "explode":
+        if q.suite == "coding":
+            raise RuntimeError("simulated client crash")
+        text = "{}"
     elif kind == "hang":
         time.sleep(3600)
         text = ""
@@ -85,6 +89,14 @@ def finalize_model(model: dict, todo: list[Question], answers: dict[str, client.
     spent = sum(r.cost for r in answers.values())
     left = len(todo) - len(ok)
     print(f"[{slug}] saved: {len(ok)} scored, {len(errors)} errors, {left} still to do, ${spent:.4f}", flush=True)
+
+
+def _finalize_safely(model: dict, todo: list[Question], answers: dict[str, client.ChatResult]) -> None:
+    try:
+        finalize_model(model, todo, answers)
+    except Exception as e:
+        # e.g. the sandbox failed; this model's answers are retried next run.
+        print(f"[{model['slug']}] FAILED to grade: {type(e).__name__}: {str(e)[:300]}", flush=True)
 
 
 def _save_outputs(d, outputs: dict) -> None:
@@ -156,12 +168,15 @@ def main(args) -> None:
             done, _ = wait(inflight, timeout=30, return_when=FIRST_COMPLETED)
             for f in done:
                 m, q = inflight.pop(f)
-                res = f.result()
+                try:
+                    res = f.result()
+                except Exception as e:  # one bad request must never sink the whole run
+                    res = client.ChatResult(error=f"{type(e).__name__}: {e}"[:300])
                 spent += res.cost
                 answers[m["slug"]][q.key] = res
                 pending[m["slug"]] -= 1
                 if pending[m["slug"]] == 0:
-                    finalize_model(m, todo[m["slug"]], answers.pop(m["slug"]))
+                    _finalize_safely(m, todo[m["slug"]], answers.pop(m["slug"]))
     finally:
         pool.shutdown(wait=False, cancel_futures=True)
 
@@ -169,7 +184,7 @@ def main(args) -> None:
         print(f"stopped submitting: {stop}", flush=True)
     for slug, got in answers.items():  # models only partly answered when we stopped
         if got:
-            finalize_model(by_slug[slug], todo[slug], got)
+            _finalize_safely(by_slug[slug], todo[slug], got)
     print(f"total spent: ${spent:.4f}", flush=True)
     if abandoned:
         print(f"abandoned {abandoned} requests still running after the hard deadline; they'll be retried next run",

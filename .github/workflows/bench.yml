@@ -67,9 +67,11 @@ jobs:
         run: python -m runner run --budget-usd "${{ inputs.budget_usd || '3' }}" --max-minutes 50
 
       - name: Build site data
+        if: ${{ !cancelled() }}  # publish partial progress even if benchmarking failed
         run: python -m runner build-data
 
       - name: Commit results
+        if: ${{ !cancelled() }}
         run: |
           rm -rf bench/private
           git config user.name "bench-bot"
@@ -83,6 +85,7 @@ jobs:
           fi
 
       - name: Build site
+        if: ${{ !cancelled() }}
         working-directory: site
         env:
           SITE_URL: ${{ vars.SITE_URL }}
@@ -91,6 +94,7 @@ jobs:
           npm run build
 
       - name: Deploy to Cloudflare
+        if: ${{ !cancelled() }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

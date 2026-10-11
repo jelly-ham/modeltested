@@ -326,6 +326,15 @@
       "arch": null
     },
     {
+      "slug": "mock-explode",
+      "name": "Mock (client errors)",
+      "status": "test",
+      "openrouter_id": "mock:explode",
+      "params_b": 8,
+      "active_params_b": null,
+      "arch": null
+    },
+    {
       "slug": "mock-hang",
       "name": "Mock (hangs)",
       "status": "test",
