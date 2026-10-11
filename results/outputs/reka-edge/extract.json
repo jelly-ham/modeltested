@@ -1,0 +1,91 @@
+{
+ "extract-expense-thread": {
+  "output": "```json\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.6\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"taxi\",\n      \"amount_usd\": 38.0\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"client_dinner\",\n      \"amount_usd\": 212.4\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"hotel\",\n      \"amount_usd\": 447.0\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"taxi\",\n      \"amount_usd\": 41.5\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 5,\n  \"per_diem_usd\": 65.0,\n  \"total_reimbursable_usd\": 2599.6,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}\n```\n\n",
+  "score": 0.5417,
+  "detail": {
+   "matched": 13,
+   "total": 24,
+   "wrong": [
+    "$.approved_items[1].amount_usd",
+    "$.approved_items[1].category",
+    "$.approved_items[2].amount_usd",
+    "$.approved_items[2].category",
+    "$.approved_items[3].amount_usd",
+    "$.approved_items[3].category",
+    "$.approved_items[4].amount_usd",
+    "$.approved_items[4].category",
+    "$.per_diem_days",
+    "$.per_diem_usd",
+    "$.total_reimbursable_usd"
+   ],
+   "bare_json": false
+  }
+ },
+ "extract-hard-saas-escalator": {
+  "output": "```json\n{\n  \"year2_price_per_seat_month\": 45.00,\n  \"year3_price_per_seat_month\": 48.10,\n  \"year1_invoice\": 810.00,\n  \"year2_invoice\": 915.00,\n  \"addon_months_billed\": 12,\n  \"addon_invoice\": 750.00,\n  \"year3_invoice\": 885.00,\n  \"year3_discount_percent\": 0.00,\n  \"total_contract_value\": 256520.00,\n  \"contract_end_date\": \"2025-02-28\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "matched": 0,
+   "total": 10,
+   "wrong": [
+    "$.addon_invoice",
+    "$.addon_months_billed",
+    "$.contract_end_date",
+    "$.total_contract_value",
+    "$.year1_invoice",
+    "$.year2_invoice",
+    "$.year2_price_per_seat_month",
+    "$.year3_discount_percent",
+    "$.year3_invoice",
+    "$.year3_price_per_seat_month"
+   ],
+   "bare_json": false
+  }
+ },
+ "extract-lease-amendment": {
+  "output": "```json\n{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridendline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.0,\n  \"monthly_rent_from_2025_06_01\": 2150.0,\n  \"late_fee_from_2025_06_01\": 525.0,\n  \"security_deposit\": 700.0,\n  \"total_pet_deposits\": 800.0,\n  \"total_monthly_payment_july_2025\": 2295.0,\n  \"move_in_payment\": 2450.0\n}\n```\n\n",
+  "score": 0.5,
+  "detail": {
+   "matched": 6,
+   "total": 12,
+   "wrong": [
+    "$.landlord",
+    "$.late_fee_from_2025_06_01",
+    "$.monthly_rent_from_2025_06_01",
+    "$.move_in_payment",
+    "$.security_deposit",
+    "$.total_monthly_payment_july_2025"
+   ],
+   "bare_json": false
+  }
+ },
+ "extract-sales-footnotes": {
+  "output": "```json\n{\n  \"q3_total_usd\": 4902,\n  \"q2_total_usd\": 4585,\n  \"q2_central_originally_reported_usd\": 3205,\n  \"q2_to_q3_change_pct\": 3.0,\n  \"top_region_q3\": \"West\",\n  \"fastest_growing_region_q1_to_q3\": \"Mountain\",\n  \"regions_declining_q2_to_q3\": [\"West\", \"Central\"],\n  \"international_q3_organic_usd\": 1951,\n  \"west_excluding_mountain_q3_usd\": 4902\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "matched": 0,
+   "total": 10,
+   "wrong": [
+    "$.fastest_growing_region_q1_to_q3",
+    "$.international_q3_organic_usd",
+    "$.q2_central_originally_reported_usd",
+    "$.q2_to_q3_change_pct",
+    "$.q2_total_usd",
+    "$.q3_total_usd",
+    "$.regions_declining_q2_to_q3[0]",
+    "$.regions_declining_q2_to_q3[1]",
+    "$.top_region_q3",
+    "$.west_excluding_mountain_q3_usd"
+   ],
+   "bare_json": false
+  }
+ },
+ "extract-ticket-sla": {
+  "output": "```json\n{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [],Vue: \"other\",\n  \"affected_orders\": [\"SO-99812\", \"SO-99815\", \"SO-99827\"],\n  \"priority\": \"P1\",\n  \"sla_due_local\": \"2025-09-12T15:30:00\",\n  \"sla_due_utc\": \"2025-09-12T15:30:00:00\",\n  \"reissued_invoice\": null\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ }
+}

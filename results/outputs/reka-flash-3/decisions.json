@@ -1,0 +1,24 @@
+{
+ "decide-hard-legit-security-alert": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "phishing": null,
+    "action_needed": null
+   }
+  }
+ },
+ "decide-phishing-paypal": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "phishing": null,
+    "risk": null
+   }
+  }
+ }
+}

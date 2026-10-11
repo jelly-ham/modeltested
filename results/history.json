@@ -376,5 +376,32 @@
   "overall": 23.0,
   "rank": 31,
   "of": 38
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "muse-glimmer-30b",
+  "name": "Muse Glimmer 30B",
+  "event": "added",
+  "overall": 94.2,
+  "rank": 2,
+  "of": 41
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "laguna-xs-2-1",
+  "name": "Laguna XS 2.1",
+  "event": "added",
+  "overall": 82.2,
+  "rank": 8,
+  "of": 41
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "reka-edge",
+  "name": "Reka Edge",
+  "event": "added",
+  "overall": 7.8,
+  "rank": 39,
+  "of": 41
  }
 ]

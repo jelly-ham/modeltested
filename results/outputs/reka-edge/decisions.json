@@ -1,0 +1,159 @@
+{
+ "decide-doc-invoice-missing-due": {
+  "output": "```json\n{\n  \"doc_type\": \"invoice\",\n  \"missing_due_date\": \"false\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "doc_type": null,
+    "missing_due_date": null
+   }
+  }
+ },
+ "decide-hard-incident-matrix": {
+  "output": "```json\n{\n  \"0\": 0.9,\n  \"1\": 0.7,\n  \"2\": 0.4,\n  \"3\": 0.2,\n  \"page\": \"true\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "severity": null,
+    "page": null
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "```json\n{\n  \"phishing\": \"false\",\n  \"action_needed\": \"false\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "phishing": null,
+    "action_needed": null
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "```json\n{\n  \"A\": 0.6,\n  \"B\": 0.3,\n  \"C\": 0.1,\n  \"D\": 0.2,\n  \"raj_last\": \"false\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "slot": null,
+    "raj_last": null
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "```json\n{\n  \"outcome\": \"store_credit\",\n  \"defective\": \"false\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "outcome": null,
+    "defective": null
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "```json\n{\n  \"hardware\": false,\n  \"support\": false\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "hardware": null,
+    "support": null
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "```json\n{\n  \"tool\": \"calendar\",\n  \"confirm\": \"true\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "tool": null,
+    "confirm": null
+   }
+  }
+ },
+ "decide-moderation-doxxing": {
+  "output": "```json\n{\n  \"policy\": {\n    \"hate\": 0.5,\n    \"none\": 0.5,\n    \"self_harm\": 0,\n    \"spam\": 0,\n    \"harassment\": 0\n  },\n  \"personal_info\": {\n    \"true\": 0,\n    \"false\": 1\n  }\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 1.75,
+   "picks": {
+    "policy": "none",
+    "personal_info": "false"
+   }
+  }
+ },
+ "decide-phishing-paypal": {
+  "output": "```json\n{\n  \"phishing\": \"false\",\n  \"risk\": \"0\": 1.0,\n  \"ques1\": \" false\",\n  \"ques2\": \"0\": 1.0,\n  \"ques3\": \"0\": 1.0\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "phishing": null,
+    "risk": null
+   }
+  }
+ },
+ "decide-pii-ssn-email": {
+  "output": "```json\n{\n  \"data_kind\": \"contact\",\n  \"sensitive\": \"false\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "data_kind": null,
+    "sensitive": null
+   }
+  }
+ },
+ "decide-refund-wrong-plan": {
+  "output": "```json\n{\n  \"department\": \"billing\",\n  \"refund\": \"true\",\n  \"tone\": \"calm\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "department": null,
+    "refund": null,
+    "tone": null
+   }
+  }
+ },
+ "decide-review-mixed": {
+  "output": "```json\n{\n  \"sentiment\": \"negative\",\n  \"defect\": \"true\",\n  \"recommend\": \"false\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "sentiment": null,
+    "defect": null,
+    "recommend": null
+   }
+  }
+ },
+ "decide-route-calendar": {
+  "output": "```json\n{\n  \"tool\": {\n    \"web_search\": 0.8,\n    \"calculator\": 0.6,\n    \"calendar\": 0.2,\n    \"email\": 0.4,\n    \"none\": 0.2\n  },\n  \"confirm\": {\n    \"true\": 0.9,\n    \"false\": 0.1\n  }\n}\n```\n\n",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.5472,
+   "picks": {
+    "tool": "web_search",
+    "confirm": "true"
+   }
+  }
+ },
+ "decide-support-checkout-down": {
+  "output": "```json\n{\n  \"department\": \"technical\",\n  \"urgency\": \"2\",\n  \"outage\": \"true\"\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "department": null,
+    "urgency": null,
+    "outage": null
+   }
+  }
+ }
+}

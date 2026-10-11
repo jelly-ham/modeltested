@@ -1,0 +1,51 @@
+{
+ "code-hard-ini-parser": {
+  "output": "```python\nimport json\n\ndef parse Ini(text: str) -> dict[str, dict[str, str]]:\n    result = {}\n    current_section = \"\"\n    \n    for line in text.splitlines():\n        if line.startswith_es修正:\n            section = line[0].strip()\n            if section:\n                current_section = section\n                result[sinciple] = {}\n        elif line.startswith=\"?\"):\n            result[str(line[1])] = line[2:]\n        elif line.startswith(\"#\"):\n            result[str(line[2])] = line[2:]\n        elif line.strip():\n            key, value = line.split reconstruction\n            if not key or value.strip():\n                continue\n            section = current_section\n            result[key] = value\n            if type(result[key]) == dict:\n                result[key] = parse Ini(line[7:])\n    \n        if section == current_section:\n            result[section] = parse Ini(line[7:])\n            if result[section].getdefault() and section != \"DEFAULT\":\n                result[section].update(result[section].getdefault())\n    \n    return result\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: unmatched ')'"
+  }
+ },
+ "code-hard-ttl-lru": {
+  "output": "```python\nimport time\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock: str -> float):\n        self.cache = {}\n        self.ttl = ttl\n        self capacities = {0: 0, capacity: capacity}\n        selfclock = clock\n\n    def put(self, key, value):\n        now = time.time()\n        clock = selfclock(now)\n        if value is not None and now > value TTL:\n            old_key, old_value = self.cache.get(key)\n            if old_key:\n                self.cache Removing an expired entry remains accurate for TTL calculations.\n                self cache bois removed, add value to evict marketing = count.\n                values = {k: v for k, v in self.cache.items() if k != key and k in self.cache}\n                self cache = values\n                selfevictions = self Capacities[0]\n                selfevictions += 1\n                return\n        self cache[key] = (value, clock)\n        self Capacities[capacity] += 1\n        self Capacities[0] -= 1 if capacity == 0 else 1\n\n    def get(self, key, default: float = None):\n        now = time.time()\n        clock = selfclock(now)\n        count = sum(1 for (k, v) in selfcache.items() if k == key)\n        if not count and default is not None:\n            return default\n        else:\n            return selfcache.get(key, v) if key in selfcache else None\n\n    def __len__(self):\n        return len(selfcache) if self cache is not None else 0\n\n    def stats(self):\n        return {\n            \"hits\": 0,\n            \"misses\": 0,\n            \"evictions\": 0,\n            \"expirations\": sum(1 for k, v in selfcache.items() if now >= v TTL)\n        }\n\n# Example usage\ncache = TTLCache(capacity=5, ttl=10.0, clock=time)\nprint(cache.get('key1'))  # Should return value and clock 10.0\nprint(cache.stats())   # Should return { \"hits\": 0, \"misses\": 0, \"evictions\": 0, \"expirations\": 10 }\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: invalid syntax"
+  }
+ },
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    pattern = r'(\\d+\\,m{2}){2}(s{3})'\n    match = re.search(pattern, s)\n    if match is None:\n        raise ValueError('Invalid duration format')\n    parts = match.group()\n    total_seconds = 0\n    for part in parts:\n        duration = int(part)\n        total_seconds += duration * 60 if 'm' in part else duration * 60\n    return total_seconds\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: Invalid duration format"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport string\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    result = ''.join(\n        char\n        for char in title\n        if char in string.lettersOU and char !=gunakan préfix\n        else char in string.digits\n        or char == '-' and character.strip('-') == ''\n    )\n    return result[:max_len] if result else result[:max_len - len(result)-1].join(\"-\")\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: invalid syntax"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\nfrom typing import List\n\ndef summarize_ranges(nums: list[int]) -> str:\n    sorted_numbers = sorted(nums)\n    duplicates, ranges = [], \"\", []\n    for num in sorted_numbers:\n        if len(duplicates) == 0:\n            duplicates.append(num)\n        else:\n            if len(duplicates) == 1:\n                duplicates.pop(0)\n            else:\n                range_str = f\"{duplicates}..\"\n                duplicates = []\n                ranges.append(range_str)\n            else:\n                range_str = f\"{sum(duplicates):s}..\"\n                ranges.append(range_str)\n                duplicates.clear()\n\n    if not ranges:\n        return entities.join(\"\")\n\n    return entities.joinарам(\"\")\n\ndef entitiesjoinaram.drawString FORECAST:\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: invalid syntax"
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity=100, refill_per_sec=2, clock=-1):\n        self capacitor=capacity\n        self tokens=0\n        self allow=1\n        self clock=clock\n\n    def try_refill(self):\n        elapsed_time=timespan(self.clock)\n        refill=math.ceil Capacitor/refill_per_sec\n        self.tokens+=refill\n        if self.tokens>=self.allow:\n            if selfAllow(self_tokenscriptive) is True:\n                self.tokens-=self.allow\n                return True\n            else:\n                self.tokens-=self.allow\n                return False\n\n    def allow(self, cost: float = 1):\n        cost_vol=cost\n        elapsed_time=timespan(self.clock)\n        refill=math.ceil Kilowatt/cost_vol*refill_per_sec\n        if self.tokens>=cost_vol:\n            self.tokens-=cost_vol\n            return True\n        return False\n\n    def get_tokens(self) -> float:\n        return self.tokens\n\n# Example usage\nbucket=TokenBucket(capacity=100, refill_per_sec=2, clock=-1)\nprint(bucket.get_tokens())\nprint(bucket.IS Allow(2) and bucket.get_tokens()>=2)\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: invalid syntax"
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nimport re\n\ndef top_customers(rows, n=10):\n    result = []\n    for row in rows:\n        customer_name = re.sub(r'[a-zA-Z ]+', '', row['amount'][:30]).lower()\n        total = float(row['amount'].replace('$', ' '))\n        if customer_name and total >= 0:\n            result.append((customer_name, total))\n    result.sort(key=lambda x: x[1], reverse=True)\n    return result[:n]\n\n# Example usage\nrows = [\n    dict(customer='John', amount='$1,234.50'),\n    dict(customer='Jane', amount='1234.5'),\n    dict(customer='negative', amount='-$5.00'),\n    dict(customer='blank', amount='$1,000'),\n]\ntop_customers(rows)\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: could not convert string to float: ' 1,234.50'"
+  }
+ }
+}

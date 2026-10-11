@@ -1,0 +1,30 @@
+{
+ "code-parse-duration": {
+  "output": "\n\n```python\nimport re\n\n_DURATION_RE = re.compile(\n    r\"(?:\\s*([0-9]+)h)?(?:\\s*([0-9]+)m)?(?:\\s*([0-9]+)s)?\\s*\",\n    re.IGNORECASE | re.ASCII,\n)\n\ndef parse_duration(s: str) -> int:\n    if not s.strip():\n        raise ValueError(\"duration string must not be empty\")\n\n    match = _DURATION_RE.fullmatch(s)\n    if match is None:\n        raise ValueError(f\"invalid duration string: {s!r}\")\n\n    hours, minutes, seconds = match.groups()\n\n    return (\n        (int(hours) if hours is not None else 0) * 3600\n        + (int(minutes) if minutes is not None else 0) * 60\n        + (int(seconds) if seconds is not None else 0)\n    )\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-slugify": {
+  "output": "\n\n```python\nimport re\nimport unicodedata\n\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    normalized = unicodedata.normalize(\"NFD\", title)\n    ascii_text = \"\".join(ch for ch in normalized if ch.isascii())\n\n    slug = re.sub(r\"[^a-z0-9]+\", \"-\", ascii_text.lower()).strip(\"-\")\n\n    if not slug or max_len <= 0:\n        return \"\"\n\n    if len(slug) <= max_len:\n        return slug\n\n    words = slug.split(\"-\")\n\n    if len(words[0]) > max_len:\n        return words[0][:max_len]\n\n    kept = [words[0]]\n    current_len = len(words[0])\n\n    for word in words[1:]:\n        candidate_len = current_len + 1 + len(word)\n        if candidate_len <= max_len:\n            kept.append(word)\n            current_len = candidate_len\n        else:\n            break\n\n    return \"-\".join(kept)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "\n\n```python\ndef summarize_ranges(nums: list[int]) -> str:\n    unique = sorted(set(nums))\n    if not unique:\n        return \"\"\n\n    parts = []\n    i = 0\n    n = len(unique)\n\n    while i < n:\n        start = unique[i]\n        end = start\n        j = i + 1\n\n        while j < n and unique[j] == end + 1:\n            end = unique[j]\n            j += 1\n\n        length = end - start + 1\n\n        if length >= 3:\n            parts.append(f\"{start}..{end}\")\n        elif length == 2:\n            parts.append(f\"{start},{end}\")\n        else:\n            parts.append(f\"{start}\")\n\n        i = j\n\n    return \",\".join(parts)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "\n\n```python\nfrom collections.abc import Callable\n\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]) -> None:\n        self._capacity = float(capacity)\n        self._refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._tokens = self._capacity\n        self._last_time = self._clock()\n\n    def _refill(self) -> float:\n        now = self._clock()\n        elapsed = now - self._last_time\n\n        if elapsed > 0.0:\n            self._tokens = min(self._capacity, self._tokens + elapsed * self._refill_per_sec)\n            self._last_time = now\n\n        return self._tokens\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n\n        if cost <= 0.0:\n            return True\n\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ }
+}

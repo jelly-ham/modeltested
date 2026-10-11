@@ -522,6 +522,52 @@
    "CoreWeave"
   ]
  },
+ "laguna-xs-2-1": {
+  "slug": "laguna-xs-2-1",
+  "name": "Laguna XS 2.1",
+  "org": "poolside",
+  "openrouter_id": "poolside/laguna-xs-2.1",
+  "hf_id": "poolside/Laguna-XS-2.1",
+  "params_b": 33.44,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 82.2,
+  "hard": 56.1,
+  "suites": {
+   "coding": {
+    "score": 73.3,
+    "public": 85.7,
+    "private": 69.6,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 97.3,
+    "public": 100.0,
+    "private": 96.4,
+    "done": 56,
+    "total": 56,
+    "calibration": 98.4,
+    "hard": 100.0
+   },
+   "extract": {
+    "score": 91.0,
+    "public": 99.2,
+    "private": 88.9,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Poolside"
+  ]
+ },
  "llama-3-1-8b-instruct": {
   "slug": "llama-3-1-8b-instruct",
   "name": "Llama 3.1 8B Instruct",
@@ -1029,6 +1075,52 @@
    "Parasail",
    "DeepInfra",
    "Venice"
+  ]
+ },
+ "muse-glimmer-30b": {
+  "slug": "muse-glimmer-30b",
+  "name": "Muse Glimmer 30B",
+  "org": "meta",
+  "openrouter_id": "meta/muse-glimmer-30b",
+  "hf_id": "meta-models/Muse-Glimmer-30B",
+  "params_b": 29.78,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 94.2,
+  "hard": 88.9,
+  "suites": {
+   "coding": {
+    "score": 90.0,
+    "public": 85.7,
+    "private": 91.3,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 99.1,
+    "public": 100.0,
+    "private": 98.8,
+    "done": 56,
+    "total": 56,
+    "calibration": 99.0,
+    "hard": 100.0
+   },
+   "extract": {
+    "score": 98.4,
+    "public": 98.3,
+    "private": 98.4,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
   ]
  },
  "nemotron-3-5-lightning": {
@@ -1933,6 +2025,52 @@
   },
   "providers": [
    "Parasail"
+  ]
+ },
+ "reka-edge": {
+  "slug": "reka-edge",
+  "name": "Reka Edge",
+  "org": "rekaai",
+  "openrouter_id": "rekaai/reka-edge",
+  "hf_id": "RekaAI/reka-edge-2603",
+  "params_b": 7.13,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 7.8,
+  "hard": 3.1,
+  "suites": {
+   "coding": {
+    "score": 0.0,
+    "public": 0.0,
+    "private": 0.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 8.9,
+    "public": 3.6,
+    "private": 10.7,
+    "done": 56,
+    "total": 56,
+    "calibration": 14.0,
+    "hard": 7.9
+   },
+   "extract": {
+    "score": 15.5,
+    "public": 20.8,
+    "private": 14.1,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Reka"
   ]
  }
 }
