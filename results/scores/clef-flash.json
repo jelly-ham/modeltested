@@ -140,8 +140,8 @@
    "h": "965c7970b711",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0146,
+   "provider": "PrimeIntellect",
+   "brier": 0.0097,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -149,8 +149,8 @@
    "h": "96a270e00ef1",
    "v": "publ",
    "score": 0.0,
-   "provider": "Cloudflare",
-   "brier": 0.7354,
+   "provider": "PrimeIntellect",
+   "brier": 0.7793,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -230,8 +230,8 @@
    "h": "4bce67599f05",
    "v": "priv",
    "score": 0.0,
-   "provider": "Cloudflare",
-   "brier": 1.4531,
+   "provider": "PrimeIntellect",
+   "brier": 1.3705,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -239,8 +239,8 @@
    "h": "04ec9f2dab61",
    "v": "priv",
    "score": 0.5,
-   "provider": "Cloudflare",
-   "brier": 1.063,
+   "provider": "PrimeIntellect",
+   "brier": 1.021,
    "tok": 0,
    "at": "2026-10-11"
   },

@@ -1558,11 +1558,13 @@
      "total": 30
     },
     "decisions": {
-     "score": null,
-     "public": null,
-     "private": null,
-     "done": 55,
-     "total": 56
+     "score": 83.0,
+     "public": 82.1,
+     "private": 83.3,
+     "done": 56,
+     "total": 56,
+     "calibration": 84.5,
+     "hard": 60.5
     },
     "extract": {
      "score": 47.0,
@@ -2532,7 +2534,7 @@
      "score": null,
      "public": null,
      "private": null,
-     "done": 37,
+     "done": 54,
      "total": 56
     },
     "extract": {
@@ -2820,7 +2822,7 @@
      "score": null,
      "public": null,
      "private": null,
-     "done": 37,
+     "done": 54,
      "total": 56
     },
     "extract": {
@@ -3242,6 +3244,18 @@
    "rank": 24
   },
   {
+   "slug": "clef",
+   "name": "Clef",
+   "org": "cloudflare",
+   "kind": "decision",
+   "params_b": 27.36,
+   "accuracy": 86.6,
+   "calibration": 90.8,
+   "hard": 73.7,
+   "openrouter_id": "cloudflare/clef",
+   "rank": 25
+  },
+  {
    "slug": "d1",
    "name": "d1",
    "org": "liquid",
@@ -3251,18 +3265,6 @@
    "calibration": 90.7,
    "hard": 73.7,
    "openrouter_id": "liquid/d1",
-   "rank": 25
-  },
-  {
-   "slug": "clef",
-   "name": "Clef",
-   "org": "cloudflare",
-   "kind": "decision",
-   "params_b": 27.36,
-   "accuracy": 85.7,
-   "calibration": 90.7,
-   "hard": 71.1,
-   "openrouter_id": "cloudflare/clef",
    "rank": 26
   },
   {
@@ -3290,6 +3292,18 @@
    "rank": 28
   },
   {
+   "slug": "clef-flash",
+   "name": "Clef Flash",
+   "org": "cloudflare",
+   "kind": "decision",
+   "params_b": 9.41,
+   "accuracy": 84.8,
+   "calibration": 88.2,
+   "hard": 68.4,
+   "openrouter_id": "cloudflare/clef-flash",
+   "rank": 29
+  },
+  {
    "slug": "tev1-4b-experimental",
    "name": "Tev1 4B Experimental",
    "org": "togethercomputer",
@@ -3299,18 +3313,6 @@
    "calibration": 88.2,
    "hard": 73.7,
    "openrouter_id": "togethercomputer/tev1-4b-experimental",
-   "rank": 29
-  },
-  {
-   "slug": "clef-flash",
-   "name": "Clef Flash",
-   "org": "cloudflare",
-   "kind": "decision",
-   "params_b": 9.41,
-   "accuracy": 84.8,
-   "calibration": 88.1,
-   "hard": 68.4,
-   "openrouter_id": "cloudflare/clef-flash",
    "rank": 30
   },
   {
@@ -3398,6 +3400,18 @@
    "rank": 37
   },
   {
+   "slug": "mistral-small-3-2-24b-instruct",
+   "name": "Mistral Small 3.2 24B",
+   "org": "mistralai",
+   "kind": "local",
+   "params_b": 24.01,
+   "accuracy": 83.0,
+   "calibration": 84.5,
+   "hard": 60.5,
+   "openrouter_id": "mistralai/mistral-small-3.2-24b-instruct",
+   "rank": 38
+  },
+  {
    "slug": "qwen3-coder-30b-a3b-instruct",
    "name": "Qwen3 Coder 30B A3B Instruct",
    "org": "qwen",
@@ -3407,7 +3421,7 @@
    "calibration": 84.8,
    "hard": 63.2,
    "openrouter_id": "qwen/qwen3-coder-30b-a3b-instruct",
-   "rank": 38
+   "rank": 39
   },
   {
    "slug": "nemotron-3-5-lightning",
@@ -3419,7 +3433,7 @@
    "calibration": 82.9,
    "hard": 68.4,
    "openrouter_id": "nvidia/nemotron-3.5-lightning",
-   "rank": 39
+   "rank": 40
   },
   {
    "slug": "gemma-2-27b-it",
@@ -3431,7 +3445,7 @@
    "calibration": 82.8,
    "hard": 71.1,
    "openrouter_id": "google/gemma-2-27b-it",
-   "rank": 40
+   "rank": 41
   },
   {
    "slug": "qwen3-vl-8b-instruct",
@@ -3443,7 +3457,7 @@
    "calibration": 81.2,
    "hard": 63.2,
    "openrouter_id": "qwen/qwen3-vl-8b-instruct",
-   "rank": 41
+   "rank": 42
   },
   {
    "slug": "mistral-nemo",
@@ -3455,7 +3469,7 @@
    "calibration": 82.9,
    "hard": 71.1,
    "openrouter_id": "mistralai/mistral-nemo",
-   "rank": 42
+   "rank": 43
   },
   {
    "slug": "phi-4",
@@ -3467,7 +3481,7 @@
    "calibration": 77.8,
    "hard": 52.6,
    "openrouter_id": "microsoft/phi-4",
-   "rank": 43
+   "rank": 44
   },
   {
    "slug": "qwen3-vl-30b-a3b-instruct",
@@ -3479,7 +3493,7 @@
    "calibration": 76.2,
    "hard": 42.1,
    "openrouter_id": "qwen/qwen3-vl-30b-a3b-instruct",
-   "rank": 44
+   "rank": 45
   },
   {
    "slug": "ministral-3b-2512",
@@ -3491,7 +3505,7 @@
    "calibration": 74.9,
    "hard": 52.6,
    "openrouter_id": "mistralai/ministral-3b-2512",
-   "rank": 45
+   "rank": 46
   },
   {
    "slug": "qwen-2-5-7b-instruct",
@@ -3503,7 +3517,7 @@
    "calibration": 75.9,
    "hard": 63.2,
    "openrouter_id": "qwen/qwen-2.5-7b-instruct",
-   "rank": 46
+   "rank": 47
   },
   {
    "slug": "llama-3-1-8b-instruct",
@@ -3515,7 +3529,7 @@
    "calibration": 70.9,
    "hard": 52.6,
    "openrouter_id": "meta-llama/llama-3.1-8b-instruct",
-   "rank": 47
+   "rank": 48
   },
   {
    "slug": "llama-3-2-3b-instruct",
@@ -3527,7 +3541,7 @@
    "calibration": 54.3,
    "hard": 42.1,
    "openrouter_id": "meta-llama/llama-3.2-3b-instruct",
-   "rank": 48
+   "rank": 49
   }
  ],
  "n_hard": 18,

@@ -11,10 +11,10 @@
   }
  },
  "decide-hard-incident-matrix": {
-  "output": "{\"severity\": {\"type\": \"score\", \"score\": 1.823, \"legend\": {\"0\": \"SEV4\", \"1\": \"SEV3\", \"2\": \"SEV2\", \"3\": \"SEV1\"}, \"probabilities\": {\"0\": 0.0278, \"1\": 0.2899, \"2\": 0.5139, \"3\": 0.1684}, \"confidence\": 0.1697}, \"page\": {\"type\": \"noul\", \"noul\": 0.5802}}",
+  "output": "{\"severity\": {\"type\": \"score\", \"score\": 1.784, \"legend\": {\"0\": \"SEV4\", \"1\": \"SEV3\", \"2\": \"SEV2\", \"3\": \"SEV1\"}, \"probabilities\": {\"0\": 0.0219, \"1\": 0.3086, \"2\": 0.5331, \"3\": 0.1364}, \"confidence\": 0.5112}, \"page\": {\"type\": \"noul\", \"noul\": 0.6234}}",
   "score": 0.0,
   "detail": {
-   "brier": 0.7354,
+   "brier": 0.7793,
    "picks": {
     "severity": "2",
     "page": "true"

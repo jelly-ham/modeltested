@@ -54,6 +54,17 @@
    }
   }
  },
+ "decide-hard-review-mixed": {
+  "output": "```json\n{\n  \"hardware\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"support\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "hardware": "true",
+    "support": "true"
+   }
+  }
+ },
  "decide-hard-tool-followup": {
   "output": "```json\n{\n  \"tool\": {\n    \"calendar\": 1.0,\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
   "score": 1.0,

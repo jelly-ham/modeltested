@@ -95,8 +95,8 @@
    "h": "2032b702a0a5",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0042,
+   "provider": "PrimeIntellect",
+   "brier": 0.0027,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -149,8 +149,8 @@
    "h": "96a270e00ef1",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0483,
+   "provider": "PrimeIntellect",
+   "brier": 0.0322,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -167,8 +167,8 @@
    "h": "cc22949cde32",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0038,
+   "provider": "PrimeIntellect",
+   "brier": 0.0046,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -184,9 +184,9 @@
   "decisions/decide-hard-meeting-slot": {
    "h": "834e757cd044",
    "v": "publ",
-   "score": 0.0,
-   "provider": "Cloudflare",
-   "brier": 0.6186,
+   "score": 0.5,
+   "provider": "PrimeIntellect",
+   "brier": 0.4227,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -239,8 +239,8 @@
    "h": "04ec9f2dab61",
    "v": "priv",
    "score": 0.0,
-   "provider": "Cloudflare",
-   "brier": 1.3897,
+   "provider": "PrimeIntellect",
+   "brier": 1.43,
    "tok": 0,
    "at": "2026-10-11"
   },

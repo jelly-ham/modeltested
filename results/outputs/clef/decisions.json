@@ -11,10 +11,10 @@
   }
  },
  "decide-hard-incident-matrix": {
-  "output": "{\"severity\": {\"type\": \"score\", \"score\": 1.2632, \"legend\": {\"0\": \"SEV4\", \"1\": \"SEV3\", \"2\": \"SEV2\", \"3\": \"SEV1\"}, \"probabilities\": {\"0\": 0.0115, \"1\": 0.7917, \"2\": 0.119, \"3\": 0.0778}, \"confidence\": 0.5295}, \"page\": {\"type\": \"noul\", \"noul\": 0.1281}}",
+  "output": "{\"severity\": {\"type\": \"score\", \"score\": 1.2022, \"legend\": {\"0\": \"SEV4\", \"1\": \"SEV3\", \"2\": \"SEV2\", \"3\": \"SEV1\"}, \"probabilities\": {\"0\": 0.0081, \"1\": 0.8436, \"2\": 0.0862, \"3\": 0.0621}, \"confidence\": 0.7815}, \"page\": {\"type\": \"noul\", \"noul\": 0.1196}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0483,
+   "brier": 0.0322,
    "picks": {
     "severity": "1",
     "page": "false"
@@ -22,10 +22,10 @@
   }
  },
  "decide-hard-legit-security-alert": {
-  "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.0521}, \"action_needed\": {\"type\": \"noul\", \"noul\": 0.0329}}",
+  "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.0626}, \"action_needed\": {\"type\": \"noul\", \"noul\": 0.0259}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0038,
+   "brier": 0.0046,
    "picks": {
     "phishing": "false",
     "action_needed": "false"
@@ -33,13 +33,13 @@
   }
  },
  "decide-hard-meeting-slot": {
-  "output": "{\"slot\": {\"type\": \"choice\", \"choice\": \"C\", \"probabilities\": {\"A\": 0.1041, \"B\": 0.3087, \"C\": 0.4413, \"D\": 0.1459}, \"confidence\": 0.0962}, \"raj_last\": {\"type\": \"noul\", \"noul\": 0.484}}",
-  "score": 0.0,
+  "output": "{\"slot\": {\"type\": \"choice\", \"choice\": \"C\", \"probabilities\": {\"A\": 0.1135, \"B\": 0.3208, \"C\": 0.3664, \"D\": 0.1992}, \"confidence\": 0.1552}, \"raj_last\": {\"type\": \"noul\", \"noul\": 0.6859}}",
+  "score": 0.5,
   "detail": {
-   "brier": 0.6186,
+   "brier": 0.4227,
    "picks": {
     "slot": "C",
-    "raj_last": "false"
+    "raj_last": "true"
    }
   }
  },
