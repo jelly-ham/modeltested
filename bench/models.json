@@ -408,6 +408,29 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "llama-3-3-8b-q4-mac",
+      "name": "Llama 3.3 8B Instruct (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "hf.co/bartowski/allura-forge_Llama-3.3-8B-Instruct-GGUF:Q4_K_M",
+      "quant": "Q4_K_M",
+      "base": null,
+      "openrouter_id": null,
+      "hf_id": "allura-forge/Llama-3.3-8B-Instruct",
+      "org": "meta-llama",
+      "params_b": 8.03,
+      "active_params_b": null,
+      "arch": null,
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "hf.co/bartowski/allura-forge_Llama-3.3-8B-Instruct-GGUF:Q4_K_M",
+      "license": "llama3.3",
+      "added": "2026-10-11",
+      "note": "Never officially released by Meta: weights recovered by the community (allura-forge, Dec 2025) from Meta's Llama API fine-tuning download. Same architecture as Llama 3.1 8B (8k context config). Compare with llama-3-1-8b-q4-mac (same Mac, same Q4)."
+    },
+    {
       "slug": "mercury-decide",
       "name": "Mercury Decide",
       "status": "auto",
