@@ -177,6 +177,20 @@
    "provider": "DeepInfra",
    "at": "2026-10-10"
   },
+  "extract/extract-hard-family-deductible": {
+   "h": "81246a09d54a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "DeepInfra",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-payroll-holiday": {
+   "h": "16a2289e0d2e",
+   "v": "priv",
+   "score": 0.1111,
+   "provider": "DeepInfra",
+   "at": "2026-10-11"
+  },
   "extract/extract-insurance-eob": {
    "h": "e116049aa384",
    "v": "priv",

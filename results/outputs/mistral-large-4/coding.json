@@ -1,0 +1,51 @@
+{
+ "code-hard-ini-parser": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'parse_ini' is not defined"
+  }
+ },
+ "code-hard-ttl-lru": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'TTLCache' is not defined"
+  }
+ },
+ "code-parse-duration": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'parse_duration' is not defined"
+  }
+ },
+ "code-slugify": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'slugify' is not defined"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    values = sorted(set(nums))\n    parts = []\n    i = 0\n    n = len(values)\n\n    while i < n:\n        j = i\n        while j + 1 < n and values[j + 1] == values[j] + 1:\n            j += 1\n\n        if j - i >= 2:\n            parts.append(f\"{values[i]}..{values[j]}\")\n        else:\n            parts.extend(str(values[k]) for k in range(i, j + 1))\n\n        i = j + 1\n\n    return \",\".join(parts)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nimport threading\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self._capacity = float(capacity)\n        self._refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._tokens = float(capacity)\n        self._last_refill = clock()\n        self._lock = threading.Lock()\n\n    def _refill(self) -> None:\n        now = self._clock()\n        elapsed = now - self._last_refill\n        if elapsed > 0:\n            self._tokens = min(\n                self._capacity,\n                self._tokens + elapsed * self._refill_per_sec\n            )\n            self._last_refill = now\n\n    def allow(self, cost: float = 1) -> bool:\n        with self._lock:\n            self._refill()\n            if self._tokens >= cost:\n                self._tokens -= cost\n                return True\n            return False\n\n    @property\n    def tokens(self) -> float:\n        with self._lock:\n            self._refill()\n            return self._tokens\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-top-customers": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'top_customers' is not defined"
+  }
+ }
+}

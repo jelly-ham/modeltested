@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\nimport re\nfrom collections import defaultdict\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    result = defaultdict(lambda: defaultdict(lambda: ''))\n    current_section = 'DEFAULT'\n    current_value = ''\n\n    for line in text.splitlines():\n        line = line.strip()\n        if not line or line.startswith(';') or line.startswith('#'):\n            continue\n        if line.startswith('[') and line.endswith(']'):\n            current_section = line[1:-1]\n            continue\n        if line.endswith('\\\\\\n'):\n            line = line[:-2]\n        if '=' in line or ':' in line:\n            split_index = min(line.find('='), line.find(':')) + 1\n            key = line[:split_index].strip().lower()\n            value = line[split_index:].strip()\n            if value.startswith('\"') and value.endswith('\"'):\n                value = value[1:-1]\n            elif line.startswith('\"') and line.endswith('\"'):\n                value = line[1:-1]\n            else:\n                if line.startswith(' '):\n                    current_value += '\\n' + line.strip()\n                    continue\n                current_value = value\n            if key in result[current_section]:\n                result[current_section][key] = current_value\n            else:\n                result[current_section][key] = current_value\n            current_value = ''\n        elif line.startswith(' '):\n            if current_value:\n                current_value += '\\n' + line.strip()\n            else:\n                raise ValueError(\"Empty line after section header\")\n        else:\n            raise ValueError(\"Key line before section header\")\n\n    for section, keys in result.items():\n        for key in keys:\n            if key not in result['DEFAULT']:\n                continue\n            if section != 'DEFAULT':\n                result[section][key] = result['DEFAULT'][key]\n            current_value = result[section][key]\n            while True:\n                match = re.search(r'\\$\\{(\\w+):(\\w+)\\}', current_value)\n                if match:\n                    section_name, key_name = match.groups()\n                    if section_name == current_section:\n                        current_value = current_value.replace(f\"${{{section_name}:{key_name}}}\", result[section_name][key_name], 1)\n                    else:\n                        current_value = current_value.replace(f\"${{{section_name}:{key_name}}}\", result[section_name][key_name], 1)\n                else:\n                    break\n\n    return {section: dict(result[section]) for section in result if section != 'DEFAULT'}\n\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "ValueError: Key line before section header"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nimport time\nfrom collections import OrderedDict\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock=time.time):\n        self.clock = clock\n        self.capacity = capacity\n        self.ttl = ttl\n        self.hits = 0\n        self.misses = 0\n        self.evictions = 0\n        self.expirations = 0\n        self.cache = OrderedDict()\n\n    def put(self, key, value):\n        now = self.clock()\n        if key in self.cache:\n            self.cache[key] = (value, now + self.ttl)\n        else:\n            if len(self.cache) >= self.capacity:\n                self.cache.popitem(last=False)\n            self.cache[key] = (value, now + self.ttl)\n\n    def get(self, key, default=None):\n        now = self.clock()\n        if key in self.cache:\n            value, expiry = self.cache.pop(key)\n            if now >= expiry:\n                self.expirations += 1\n                return default\n            self.cache[key] = (value, expiry)\n            self.hits += 1\n            return value\n        self.misses += 1\n        return default\n\n    def __len__(self):\n        now = self.clock()\n        return sum(1 for (value, expiry) in self.cache.values() if now < expiry)\n\n    def stats(self):\n        return {\"hits\": self.hits, \"misses\": self.misses, \"evictions\": self.evictions, \"expirations\": self.expirations}\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  },
   "code-parse-duration": {
    "output": "```python\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Converts a duration string into a total number of seconds.\n    \n    Supported units: `h` (hours), `m` (minutes), `s` (seconds). Units are case-insensitive.\n    Each part is a non-negative integer followed by a unit, e.g. \"1h30m\", \"45s\", \"2H\", \"1h 5m 10s\", \"90m\".\n    Whitespace is allowed before, after and between parts.\n    Units must appear in the order h, m, s and each at most once.\n    Raises `ValueError` for empty/blank strings, numbers without a unit, unknown units, decimals, repeated units, or units out of order.\n    \"\"\"\n    \n    # Remove leading and trailing whitespace\n    s = s.strip()\n    \n    # If the string is empty, raise ValueError\n    if not s:\n        raise ValueError(\"Empty string\")\n    \n    # Split the string into parts\n    parts = s.split()\n    \n    # Initialize total seconds to 0\n    total_seconds = 0\n    \n    # Initialize a dictionary to map units to their corresponding seconds\n    unit_seconds = {'h': 3600, 'm': 60, 's': 1}\n    \n    # Iterate over each part\n    for part in parts:\n        # Check if the part is a number\n        if not part.isdigit():\n            raise ValueError(\"Part is not a number\")\n        \n        # Extract the number and the unit\n        number = int(part[:-1])\n        unit = part[-1].lower()\n        \n        # Check if the unit is valid\n        if unit not in unit_seconds:\n            raise ValueError(\"Unknown unit\")\n        \n        # Check if the number is non-negative\n        if number < 0:\n            raise ValueError(\"Number is negative\")\n        \n        # Check if the unit is repeated\n        if unit in [unit for i, u in enumerate(parts) if i < len(parts) - 1 and u == unit]:\n            raise ValueError(\"Repeated unit\")\n        \n        # Add the number of seconds for the current unit to the total\n        total_seconds += number * unit_seconds[unit]\n    \n    # Return the total number of seconds\n    return total_seconds\n```",
    "score": 0.0,
@@ -53,6 +67,28 @@
      "$.per_diem_usd",
      "$.rejected_item_count",
      "$.total_reimbursable_usd"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year1_price_per_seat_month\": 45.00,\n  \"year2_price_per_seat_month\": 47.32,\n  \"year3_price_per_seat_month\": 47.19,\n  \"year1_invoice\": 5400.00,\n  \"year2_invoice\": null,\n  \"addon_months_billed\": 12,\n  \"addon_invoice\": 4696.80,\n  \"year3_invoice\": null,\n  \"year3_discount_percent\": null,\n  \"total_contract_value\": 22496.80,\n  \"contract_end_date\": \"28 February 2029\"\n}",
+   "score": 0.0,
+   "detail": {
+    "matched": 0,
+    "total": 11,
+    "wrong": [
+     "$.addon_invoice",
+     "$.addon_months_billed",
+     "$.contract_end_date",
+     "$.total_contract_value",
+     "$.year1_invoice",
+     "$.year1_price_per_seat_month",
+     "$.year2_invoice",
+     "$.year2_price_per_seat_month",
+     "$.year3_discount_percent",
+     "$.year3_invoice",
+     "$.year3_price_per_seat_month"
     ],
     "bare_json": true
    }

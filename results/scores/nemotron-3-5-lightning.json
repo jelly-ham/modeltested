@@ -40,6 +40,84 @@
    "truncated": true,
    "at": "2026-10-10"
   },
+  "coding/code-hard-bool-expr": {
+   "h": "a84a25915d0e",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-csv-parser": {
+   "h": "78842db66786",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ini-parser": {
+   "h": "6a135218f939",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-json-path": {
+   "h": "4b7ca7bd11df",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ledger": {
+   "h": "a48727466d95",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-meeting-slots": {
+   "h": "0def4e647232",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "CoreWeave",
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-next-cron": {
+   "h": "dd8445a3ed3c",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-normalize-path": {
+   "h": "78e2f4f44780",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-rate-limiter-log": {
+   "h": "bf48840ef5f8",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "CoreWeave",
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ttl-lru": {
+   "h": "5dc6bf962b41",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
   "coding/code-inventory": {
    "h": "50c4fef1ef24",
    "v": "priv",
@@ -201,6 +279,68 @@
    "score": 1.0,
    "provider": "DeepInfra",
    "at": "2026-10-10"
+  },
+  "extract/extract-hard-family-deductible": {
+   "h": "81246a09d54a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-mortgage-extra": {
+   "h": "e93b750776b8",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-payroll-holiday": {
+   "h": "16a2289e0d2e",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-project-schedule": {
+   "h": "e41939ede116",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-quarterly-results": {
+   "h": "8d4ee12aa753",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "CoreWeave",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "h": "95f3efe03d45",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-three-way-match": {
+   "h": "1388e321b606",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "CoreWeave",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-travel-per-diem": {
+   "h": "155ca1fed4af",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "CoreWeave",
+   "truncated": true,
+   "at": "2026-10-11"
   },
   "extract/extract-insurance-eob": {
    "h": "e116049aa384",

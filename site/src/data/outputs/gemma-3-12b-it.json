@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\nimport re\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    \"\"\"Parses an INI dialect string and returns a dictionary.\"\"\"\n\n    result: dict[str, dict[str, str]] = {}\n    default_section: dict[str, str] = {}\n    current_section: str | None = None\n    previous_value: str | None = None\n\n    for line in text.splitlines():\n        line = line.strip()\n        if not line or line.startswith(';') or line.startswith('#'):\n            if previous_value is not None:\n                previous_value = None\n            continue\n\n        match = re.match(r\"^\\s*\\[(\\w+)\\]\\s*$\", line)\n        if match:\n            if current_section is not None:\n                result[current_section] = section\n            current_section = match.group(1)\n            if current_section == \"DEFAULT\":\n                section = default_section\n            else:\n                section = {}\n                result[current_section] = section\n            previous_value = None\n            continue\n\n        match = re.match(r\"^(\\w+)\\s*(=|:)\\s*(.*)$\", line)\n        if match:\n            key = match.group(1).strip().lower()\n            sep = match.group(2)\n            value = match.group(3).strip()\n\n            if current_section is None:\n                raise ValueError(\"Key line before section header\")\n\n            if value.startswith('\"') and value.endswith('\"'):\n                value = value[1:-1]\n            else:\n                value = interpolate(value, result, current_section)\n\n            section[key] = value\n            previous_value = value\n            continue\n\n        if previous_value is not None:\n            if line.startswith(\" \"):\n                previous_value += \"\\n\" + line.strip()\n            else:\n                previous_value = None\n        else:\n            raise ValueError(\"Malformed line\")\n\n    if current_section is not None:\n        result[current_section] = section\n\n    # Merge DEFAULT section into other sections\n    for key, value in default_section.items():\n        for section_name, section in result.items():\n            if section_name != \"DEFAULT\" and key not in section:\n                section[key] = value\n\n    return result\n\n\ndef interpolate(value: str, result: dict[str, dict[str, str]], current_section: str) -> str:\n    \"\"\"Interpolates variables in a value.\"\"\"\n\n    while True:\n        match = re.search(r\"\\${(\\w+)}\", value)\n        if not match:\n            break\n\n        key = match.group(1)\n        try:\n            if current_section == \"DEFAULT\":\n                replacement = result[\"DEFAULT\"].get(key)\n            else:\n                replacement = result[current_section].get(key)\n            if replacement is None:\n                raise KeyError(f\"Key '{key}' not found\")\n            value = value.replace(\"${\" + key + \"}\", replacement, 1)\n        except KeyError as e:\n            raise e\n        except ValueError as e:\n            raise e\n\n\n    match = re.search(r\"\\${(\\w+):(\\w+)}\", value)\n    if match:\n        section = match.group(1)\n        key = match.group(2)\n        try:\n            if section not in result:\n                raise KeyError(f\"Section '{section}' not found\")\n            replacement = result[section].get(key)\n            if replacement is None:\n                raise KeyError(f\"Key '{key}' not found in section '{section}'\")\n\n            value = value.replace(\"${\" + section + \":\" + key + \"}\", replacement, 1)\n        except KeyError as e:\n            raise e\n        except ValueError as e:\n            raise e\n\n    return value\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "KeyError: \"Key 'host' not found\""
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        if capacity < 0:\n            raise ValueError(\"Capacity must be non-negative\")\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = OrderedDict()\n        self.hits = 0\n        self.misses = 0\n        self.evictions = 0\n        self.expirations = 0\n\n    def put(self, key, value):\n        now = self.clock()\n        if self.capacity == 0:\n            return\n\n        if key in self.cache:\n            self.cache.move_to_end(key)\n            self.cache[key] = (value, now + self.ttl)\n        else:\n            while len(self.cache) >= self.capacity:\n                self._remove_expired()\n                if len(self.cache) >= self.capacity:\n                    self.evictions += 1\n                    self.cache.popitem(last=False)  # LRU eviction\n\n            self.cache[key] = (value, now + self.ttl)\n\n    def get(self, key, default=None):\n        now = self.clock()\n        if self.capacity == 0:\n            self.misses += 1\n            return default\n\n        if key in self.cache:\n            value, expiry = self.cache.pop(key)\n            if now >= expiry:\n                self.expirations += 1\n                self.misses += 1\n                return default\n            else:\n                self.cache[key] = (value, now + self.ttl)\n                self.cache.move_to_end(key)\n                self.hits += 1\n                return value\n        else:\n            self.misses += 1\n            return default\n\n    def __len__(self):\n        now = self.clock()\n        count = 0\n        temp_cache = OrderedDict()\n        for key, (value, expiry) in self.cache.items():\n            if now < expiry:\n                count += 1\n                temp_cache[key] = (value, expiry)\n        self.cache = temp_cache\n        return count\n\n    def stats(self):\n        return {\n            \"hits\": self.hits,\n            \"misses\": self.misses,\n            \"evictions\": self.evictions,\n            \"expirations\": self.expirations,\n        }\n\n    def _remove_expired(self):\n        now = self.clock()\n        keys_to_remove = []\n        for key, (value, expiry) in self.cache.items():\n            if now >= expiry:\n                keys_to_remove.append(key)\n\n        for key in keys_to_remove:\n            self.cache.pop(key)\n            self.expirations += 1\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  },
   "code-parse-duration": {
    "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    \"\"\"Converts a duration string into a total number of seconds.\n\n    - Supported units: `h` (hours), `m` (minutes), `s` (seconds). Units are case-insensitive.\n    - Each part is a non-negative integer followed by a unit, e.g. \"1h30m\", \"45s\", \"2H\", \"1h 5m 10s\", \"90m\".\n    - Whitespace is allowed before, after and between parts.\n    - Units must appear in the order h, m, s and each at most once.\n    - Raise `ValueError` for empty/blank strings, numbers without a unit, unknown units, decimals, repeated units, or units out of order.\n    \"\"\"\n    s = s.strip()\n    if not s:\n        raise ValueError(\"Empty string\")\n\n    total_seconds = 0\n    parts = re.findall(r\"(\\d+)\\s*([hms])\", s, re.IGNORECASE)\n\n    if not parts:\n        raise ValueError(\"No valid duration parts found\")\n\n    h_found, m_found, s_found = False, False, False\n\n    for num, unit in parts:\n        num = int(num)\n        unit = unit.lower()\n\n        if h_found or m_found or s_found:\n            raise ValueError(\"Units out of order\")\n\n        if unit == 'h':\n            total_seconds += num * 3600\n            h_found = True\n        elif unit == 'm':\n            total_seconds += num * 60\n            m_found = True\n        elif unit == 's':\n            total_seconds += num\n            s_found = True\n        else:\n            raise ValueError(f\"Unknown unit: {unit}\")\n\n    return total_seconds\n```",
    "score": 0.0,
@@ -49,6 +63,24 @@
      "$.per_diem_days",
      "$.per_diem_usd",
      "$.total_reimbursable_usd"
+    ],
+    "bare_json": false
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "```json\n{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 518400.00,\n  \"year2_invoice\": 566400.00,\n  \"addon_months_billed\": 10,\n  \"addon_invoice\": 76800.00,\n  \"year3_invoice\": 566400.00,\n  \"year3_discount_percent\": 0.0,\n  \"total_contract_value\": 1633600.00,\n  \"contract_end_date\": \"2027-02-28\"\n}\n```",
+   "score": 0.3,
+   "detail": {
+    "matched": 3,
+    "total": 10,
+    "wrong": [
+     "$.addon_invoice",
+     "$.addon_months_billed",
+     "$.total_contract_value",
+     "$.year1_invoice",
+     "$.year2_invoice",
+     "$.year3_discount_percent",
+     "$.year3_invoice"
     ],
     "bare_json": false
    }

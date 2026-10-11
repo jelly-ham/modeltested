@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'parse_ini' is not defined"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\nimport time\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self._cache = OrderedDict()\n        self.stats = {\n            'hits': 0,\n            'misses': 0,\n            'evictions': 0,\n            'expirations': 0,\n        }\n\n    def put(self, key, value):\n        if self.capacity == 0:\n            return\n        current_time = self.clock()\n        if key in self._cache:\n            self._cache[key] = (value, current_time + self.ttl)\n            self._cache.move_to_end(key, last=True)\n        else:\n            expired_keys = [k for k in self._cache if self._cache[k][1] <= current_time]\n            for k in expired_keys:\n                del self._cache[k]\n            if len(self._cache) >= self.capacity:\n                evicted_key, _ = self._cache.popitem(last=False)\n                self.stats['evictions'] += 1\n            self._cache[key] = (value, current_time + self.ttl)\n            self._cache.move_to_end(key, last=True)\n\n    def get(self, key, default=None):\n        current_time = self.clock()\n        if key not in self._cache:\n            self.stats['misses'] += 1\n            return default\n        expiry = self._cache[key][1]\n        if expiry <= current_time:\n            del self._cache[key]\n            self.stats['misses'] += 1\n            self.stats['expirations'] += 1\n            return default\n        else:\n            self._cache.move_to_end(key, last=True)\n            self.stats['hits'] += 1\n            return self._cache[key][0]\n\n    def __len__(self):\n        current_time = self.clock()\n        count = 0\n        for key in self._cache:\n            if self._cache[key][1] > current_time:\n                count += 1\n        return count\n\n    def stats(self):\n        return self.stats.copy()\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "TypeError: 'dict' object is not callable"
+   }
+  },
   "code-parse-duration": {
    "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    s_clean = s.replace(' ', '')\n    if not s_clean:\n        raise ValueError(\"Empty string\")\n    parts = re.findall(r'(\\d+)([hmsHMS])', s_clean)\n    parsed_str = ''.join([num + unit for num, unit in parts])\n    if parsed_str != s_clean:\n        raise ValueError(\"Invalid format\")\n    units = []\n    for num_str, unit in parts:\n        unit_lower = unit.lower()\n        if unit_lower not in {'h', 'm', 's'}:\n            raise ValueError(\"Unknown unit\")\n        if unit_lower in units:\n            raise ValueError(\"Repeated unit\")\n        units.append(unit_lower)\n    for i in range(1, len(units)):\n        if units[i] < units[i-1]:\n            raise ValueError(\"Units out of order\")\n    total = 0\n    for num_str, unit in parts:\n        num = int(num_str)\n        unit_lower = unit.lower()\n        if unit_lower == 'h':\n            total += num * 3600\n        elif unit_lower == 'm':\n            total += num * 60\n        elif unit_lower == 's':\n            total += num\n    return total\n```",
    "score": 1.0,
@@ -45,6 +59,14 @@
     "total": 24,
     "wrong": [],
     "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "no JSON object",
+    "bare_json": false
    }
   },
   "extract-invoice-email": {

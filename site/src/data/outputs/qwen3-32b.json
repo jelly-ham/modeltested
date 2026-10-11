@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'parse_ini' is not defined"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nimport collections\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self._cache = collections.OrderedDict()\n        self.hits = 0\n        self.misses = 0\n        self.evictions = 0\n        self.expirations = 0\n\n    def _remove_expired(self):\n        current_time = self.clock()\n        expired_keys = [\n            key for key, (value, expiry) in self._cache.items()\n            if expiry <= current_time\n        ]\n        for key in expired_keys:\n            del self._cache[key]\n            self.expirations += 1\n\n    def _evict(self):\n        if self._cache:\n            self._cache.popitem(last=False)\n            self.evictions += 1\n\n    def put(self, key, value):\n        if self.capacity <= 0:\n            return\n        self._remove_expired()\n        if key in self._cache:\n            self._cache.move_to_end(key, last=True)\n        else:\n            while len(self._cache) >= self.capacity:\n                self._evict()\n        current_time = self.clock()\n        expiry = current_time + self.ttl\n        self._cache[key] = (value, expiry)\n\n    def get(self, key, default=None):\n        if self.capacity <= 0:\n            self.misses += 1\n            return default\n        current_time = self.clock()\n        if key not in self._cache:\n            self.misses += 1\n            return default\n        value, expiry = self._cache[key]\n        if current_time >= expiry:\n            del self._cache[key]\n            self.expirations += 1\n            self.misses += 1\n            return default\n        else:\n            self._cache.move_to_end(key, last=True)\n            self.hits += 1\n            return value\n\n    def __len__(self):\n        current_time = self.clock()\n        return sum(1 for _, expiry in self._cache.values() if expiry > current_time)\n\n    def stats(self):\n        return {\n            'hits': self.hits,\n            'misses': self.misses,\n            'evictions': self.evictions,\n            'expirations': self.expirations\n        }\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
   "code-parse-duration": {
    "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    s_stripped = s.strip()\n    if not s_stripped:\n        raise ValueError\n    parts = s_stripped.split()\n    units_order = {'h': 0, 'm': 1, 's': 2}\n    units_seen = set()\n    prev_priority = -1\n    total_seconds = 0\n    for part in parts:\n        if not re.fullmatch(r'\\d+[hmsHMS]', part):\n            raise ValueError\n        unit_char = part[-1].lower()\n        num_str = part[:-1]\n        num = int(num_str)\n        if unit_char in units_seen:\n            raise ValueError\n        units_seen.add(unit_char)\n        current_priority = units_order[unit_char]\n        if current_priority < prev_priority:\n            raise ValueError\n        prev_priority = current_priority\n        if unit_char == 'h':\n            total_seconds += num * 3600\n        elif unit_char == 'm':\n            total_seconds += num * 60\n        else:\n            total_seconds += num\n    return total_seconds\n```",
    "score": 0.0,
@@ -43,6 +57,16 @@
    "detail": {
     "matched": 24,
     "total": 24,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 61236.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38556.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 293058.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
     "wrong": [],
     "bare_json": true
    }

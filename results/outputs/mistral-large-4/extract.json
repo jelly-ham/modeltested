@@ -1,0 +1,52 @@
+{
+ "extract-expense-thread": {
+  "output": "{\"employee_id\":\"EMP-20417\",\"destination_city\":\"Lisbon\",\"trip_start\":\"2025-02-24\",\"trip_end\":\"2025-02-27\",\"approved_items\":[{\"date\":\"2025-02-24\",\"category\":\"airfare\",\"amount_usd\":1184.60},{\"date\":\"2025-02-24\",\"category\":\"ground_transport\",\"amount_usd\":38.88},{\"date\":\"2025-02-25\",\"category\":\"meals\",\"amount_usd\":229.39},{\"date\":\"2025-02-26\",\"category\":\"lodging\",\"amount_usd\":466.56},{\"date\":\"2025-02-27\",\"category\":\"ground_transport\",\"amount_usd\":44.82}],\"rejected_item_count\":1,\"per_diem_days\":3,\"per_diem_usd\":195.00,\"total_reimbursable_usd\":2159.25,\"approver_email\":\"priya.raman@corvane.com\"}",
+  "score": 1.0,
+  "detail": {
+   "matched": 24,
+   "total": 24,
+   "wrong": [],
+   "bare_json": true
+  }
+ },
+ "extract-hard-saas-escalator": {
+  "output": "{\"year2_price_per_seat_month\":47.25,\"year3_price_per_seat_month\":47.25,\"year1_invoice\":58320.00,\"year2_invoice\":61236.00,\"addon_months_billed\":6,\"addon_invoice\":38556.00,\"year3_invoice\":134946.00,\"year3_discount_percent\":15,\"total_contract_value\":293058.00,\"contract_end_date\":\"2027-02-28\"}",
+  "score": 1.0,
+  "detail": {
+   "matched": 10,
+   "total": 10,
+   "wrong": [],
+   "bare_json": true
+  }
+ },
+ "extract-lease-amendment": {
+  "output": "{\"tenants\":[\"Marcus Lin\",\"Sofia Lin\"],\"landlord\":\"Ridgeline Property Group LLC\",\"zip\":\"97205\",\"lease_end\":\"2025-11-30\",\"original_monthly_rent\":2150.00,\"monthly_rent_from_2025_06_01\":2236.00,\"late_fee_from_2025_06_01\":111.80,\"security_deposit\":2150.00,\"total_pet_deposits\":800.00,\"total_monthly_payment_july_2025\":2306.00,\"move_in_payment\":4700.00}",
+  "score": 1.0,
+  "detail": {
+   "matched": 12,
+   "total": 12,
+   "wrong": [],
+   "bare_json": true
+  }
+ },
+ "extract-sales-footnotes": {
+  "output": "{\"q3_total_usd\":15346000,\"q2_total_usd\":14464000,\"q2_central_originally_reported_usd\":3047000,\"q2_to_q3_change_pct\":6.1,\"top_region_q3\":\"East\",\"fastest_growing_region_q1_to_q3\":\"International\",\"regions_declining_q2_to_q3\":[\"East\"],\"international_q3_organic_usd\":1731000,\"west_excluding_mountain_q3_usd\":4201000}",
+  "score": 1.0,
+  "detail": {
+   "matched": 9,
+   "total": 9,
+   "wrong": [],
+   "bare_json": true
+  }
+ },
+ "extract-ticket-sla": {
+  "output": "{\"ticket_id\":\"48213\",\"account_id\":\"ACC-7731\",\"open_issue\":\"inventory_sync\",\"resolved_issues\":[\"billing_address\"],\"affected_orders\":[\"SO-99812\",\"SO-99820\",\"SO-99827\"],\"priority\":\"P2\",\"sla_due_local\":\"2025-09-15T15:30\",\"sla_due_utc\":\"2025-09-15T20:30:00Z\",\"reissued_invoice\":\"INV-2025-0812\"}",
+  "score": 1.0,
+  "detail": {
+   "matched": 11,
+   "total": 11,
+   "wrong": [],
+   "bare_json": true
+  }
+ }
+}

@@ -1,4 +1,18 @@
 {
+ "code-hard-ini-parser": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'parse_ini' is not defined"
+  }
+ },
+ "code-hard-ttl-lru": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'TTLCache' is not defined"
+  }
+ },
  "code-parse-duration": {
   "output": "",
   "score": 0.0,

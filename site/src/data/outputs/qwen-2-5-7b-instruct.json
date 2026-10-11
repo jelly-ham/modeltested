@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\nimport re\nfrom collections import defaultdict\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    lines = text.splitlines()\n    sections = defaultdict(dict)\n    defaults = {}\n    current_section = 'DEFAULT'\n    \n    for line in lines:\n        line = line.strip()\n        if not line or line.startswith(';') or line.startswith('#'):\n            continue\n        \n        if line.startswith('[') and line.endswith(']'):\n            current_section = line[1:-1].strip()\n            if current_section == 'DEFAULT':\n                defaults = sections[current_section]\n                continue\n            sections[current_section] = {}\n        else:\n            key, value = line.split(maxsplit=1)\n            key = key.strip().lower()\n            value = value.strip()\n            \n            if value.startswith('\"') and value.endswith('\"'):\n                value = value[1:-1]\n            \n            while line.endswith('\\\\'):\n                next_line = next((l for l in lines[lines.index(line) + 1:] if l.strip()), '').strip()\n                value += '\\n' + next_line\n            \n            # Resolve interpolation\n            def resolve(key):\n                nonlocal sections, defaults\n                if key in defaults:\n                    return defaults[key]\n                elif key in sections[current_section]:\n                    return sections[current_section][key]\n                else:\n                    raise KeyError(f\"Key {key} not found\")\n            \n            value = re.sub(r'\\$\\{(\\w+)\\}', lambda m: resolve(m.group(1)), value)\n            value = re.sub(r'\\$\\{(\\w+):(\\w+)\\}', lambda m: resolve(f\"{m.group(1)}.{m.group(2)}\"), value)\n            \n            sections[current_section][key] = value\n    \n    return {k: v for k, v in sections.items() if k != 'DEFAULT'}\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "KeyError: 'Key web.host not found'"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\nfrom typing import Any, Callable\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock: Callable[[], float] = None):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock or (lambda: 0)\n        self.cache = OrderedDict()\n        self.stats = {\"hits\": 0, \"misses\": 0, \"evictions\": 0, \"expirations\": 0}\n\n    def put(self, key: Any, value: Any) -> None:\n        current_time = self.clock()\n        if key in self.cache:\n            self.cache.move_to_end(key)\n            self.cache[key] = value\n            self.cache[key][\"expiry\"] = current_time + self.ttl\n        else:\n            if len(self.cache) >= self.capacity:\n                while True:\n                    oldest_key = next(iter(self.cache))\n                    if self.cache[oldest_key][\"expiry\"] > current_time:\n                        break\n                    del self.cache[oldest_key]\n                    self.stats[\"expirations\"] += 1\n                    self.stats[\"misses\"] += 1\n            self.cache[key] = {\"value\": value, \"expiry\": current_time + self.ttl}\n\n    def get(self, key: Any, default: Any = None) -> Any:\n        current_time = self.clock()\n        if key not in self.cache:\n            self.stats[\"misses\"] += 1\n            return default\n        entry = self.cache[key]\n        if entry[\"expiry\"] <= current_time:\n            del self.cache[key]\n            self.stats[\"expirations\"] += 1\n            self.stats[\"misses\"] += 1\n            return default\n        self.cache.move_to_end(key)\n        entry[\"expiry\"] = current_time + self.ttl\n        self.stats[\"hits\"] += 1\n        return entry[\"value\"]\n\n    def __len__(self) -> int:\n        current_time = self.clock()\n        return sum(1 for k in self.cache if self.cache[k][\"expiry\"] > current_time)\n\n    def stats(self) -> dict:\n        return self.stats\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  },
   "code-parse-duration": {
    "output": "```python\ndef parse_duration(s: str) -> int:\n    import re\n    \n    if not s.strip():\n        raise ValueError(\"Duration string cannot be empty or blank\")\n    \n    pattern = r\"(\\d+)(h|m|s)\"\n    matches = re.findall(pattern, s.replace(\" \", \"\").lower())\n    \n    if not matches:\n        raise ValueError(\"Duration string must contain at least one valid unit with a number\")\n    \n    units = {\"h\": 3600, \"m\": 60, \"s\": 1}\n    total_seconds = 0\n    \n    for amount, unit in matches:\n        if unit not in units:\n            raise ValueError(f\"Unknown unit: {unit}\")\n        total_seconds += int(amount) * units[unit]\n    \n    return total_seconds\n```",
    "score": 0.0,
@@ -50,6 +64,24 @@
      "$.approved_items[4].amount_usd",
      "$.rejected_item_count",
      "$.total_reimbursable_usd"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 47.68,\n  \"year3_price_per_seat_month\": 49.91,\n  \"year1_invoice\": 54000.00,\n  \"year2_invoice\": null,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 23040.00,\n  \"year3_invoice\": null,\n  \"year3_discount_percent\": 15.00,\n  \"total_contract_value\": 133040.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 0.3,
+   "detail": {
+    "matched": 3,
+    "total": 10,
+    "wrong": [
+     "$.addon_invoice",
+     "$.total_contract_value",
+     "$.year1_invoice",
+     "$.year2_invoice",
+     "$.year2_price_per_seat_month",
+     "$.year3_invoice",
+     "$.year3_price_per_seat_month"
     ],
     "bare_json": true
    }

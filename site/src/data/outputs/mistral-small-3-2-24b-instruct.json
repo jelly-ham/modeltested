@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\nimport re\nfrom collections import defaultdict\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    sections = defaultdict(dict)\n    current_section = None\n    current_key = None\n    lines = text.splitlines()\n    default_section = {}\n\n    for line in lines:\n        stripped_line = line.strip()\n        if not stripped_line or stripped_line.startswith((';', '#')):\n            continue\n\n        # Check for section header\n        section_match = re.match(r'^\\s*\\[([^\\]]+)\\]\\s*$', line)\n        if section_match:\n            current_section = section_match.group(1).strip()\n            if current_section.lower() == 'default':\n                current_section = None\n            else:\n                sections[current_section] = {}\n            continue\n\n        # Check for key-value pair\n        if '=' in line and ':' in line:\n            sep = min(line.find('='), line.find(':'))\n        elif '=' in line:\n            sep = line.find('=')\n        elif ':' in line:\n            sep = line.find(':')\n        else:\n            raise ValueError(f\"Malformed line: {line}\")\n\n        key_part = line[:sep].strip().lower()\n        value_part = line[sep+1:].strip()\n\n        # Check for inline comment\n        inline_comment_match = re.search(r'(?<!\\\\)[\\s]*(;|#).*$', value_part)\n        if inline_comment_match:\n            value_part = value_part[:inline_comment_match.start()].strip()\n\n        # Check for quoted value\n        if value_part.startswith('\"') and value_part.endswith('\"'):\n            value_part = value_part[1:-1]\n        else:\n            value_part = value_part.strip()\n\n        # Handle continuation lines\n        if current_key is not None:\n            if line.startswith((' ', '\\t')):\n                value_part = sections[current_section][current_key] + '\\n' + value_part\n                sections[current_section][current_key] = value_part\n                continue\n            else:\n                current_key = None\n\n        current_key = key_part\n        sections[current_section][current_key] = value_part\n\n    # Process DEFAULT section\n    if None in sections:\n        default_section = sections.pop(None)\n\n    # Apply interpolation\n    for section_name, section in sections.items():\n        section.update(default_section)\n        for key in list(section.keys()):\n            section[key] = interpolate_value(section, key, sections)\n\n    return sections\n\ndef interpolate_value(section: dict[str, str], key: str, all_sections: dict[str, dict[str, str]]) -> str:\n    value = section[key]\n    pattern = re.compile(r'\\$\\{(?:([^:]+):)?([^}]+)\\}')\n    while True:\n        match = pattern.search(value)\n        if not match:\n            break\n        section_name, inner_key = match.groups()\n        if section_name is None:\n            if inner_key not in section:\n                raise KeyError(f\"Missing key: {inner_key}\")\n            replacement = section[inner_key]\n        else:\n            if section_name not in all_sections:\n                raise KeyError(f\"Missing section: {section_name}\")\n            if inner_key not in all_sections[section_name]:\n                raise KeyError(f\"Missing key: {inner_key} in section {section_name}\")\n            replacement = all_sections[section_name][inner_key]\n        value = value[:match.start()] + replacement + value[match.end():]\n\n    return value\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "ValueError: Malformed line:   second line"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = OrderedDict()\n        self.stats = {\n            \"hits\": 0,\n            \"misses\": 0,\n            \"evictions\": 0,\n            \"expirations\": 0\n        }\n\n    def _clean_expired(self):\n        now = self.clock()\n        expired_keys = []\n        for key, (value, expiry) in list(self.cache.items()):\n            if now >= expiry:\n                expired_keys.append(key)\n        for key in expired_keys:\n            del self.cache[key]\n            self.stats[\"expirations\"] += 1\n\n    def put(self, key, value):\n        if self.capacity == 0:\n            return\n\n        now = self.clock()\n        expiry = now + self.ttl\n\n        if key in self.cache:\n            # Update existing entry\n            del self.cache[key]\n            self.cache[key] = (value, expiry)\n            self.cache.move_to_end(key)\n        else:\n            # Insert new entry\n            if len(self.cache) >= self.capacity:\n                self._clean_expired()\n                if len(self.cache) >= self.capacity:\n                    evicted_key, _ = self.cache.popitem(last=False)\n                    self.stats[\"evictions\"] += 1\n            self.cache[key] = (value, expiry)\n            self.cache.move_to_end(key)\n\n    def get(self, key, default=None):\n        if self.capacity == 0:\n            self.stats[\"misses\"] += 1\n            return default\n\n        now = self.clock()\n        if key in self.cache:\n            value, expiry = self.cache[key]\n            if now >= expiry:\n                del self.cache[key]\n                self.stats[\"expirations\"] += 1\n                self.stats[\"misses\"] += 1\n                return default\n            else:\n                self.cache.move_to_end(key)\n                self.stats[\"hits\"] += 1\n                return value\n        else:\n            self.stats[\"misses\"] += 1\n            return default\n\n    def __len__(self):\n        now = self.clock()\n        return sum(1 for _, (_, expiry) in self.cache.items() if now < expiry)\n\n    def stats(self):\n        return self.stats.copy()\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "TypeError: 'dict' object is not callable"
+   }
+  },
   "code-parse-duration": {
    "output": "```python\ndef parse_duration(s: str) -> int:\n    if not s or s.isspace():\n        raise ValueError(\"Empty or blank string\")\n\n    parts = []\n    for part in s.split():\n        if not part:\n            continue\n        if 'h' in part:\n            if part.lower() != 'h':\n                raise ValueError(\"Invalid format for hours\")\n            parts.append(('h', 1))\n        elif 'm' in part:\n            if part.lower() != 'm':\n                raise ValueError(\"Invalid format for minutes\")\n            parts.append(('m', 2))\n        elif 's' in part:\n            if part.lower() != 's':\n                raise ValueError(\"Invalid format for seconds\")\n            parts.append(('s', 3))\n        else:\n            raise ValueError(\"Unknown unit\")\n\n    if not parts:\n        raise ValueError(\"No valid parts found\")\n\n    # Check for repeated units\n    units = [unit for unit, _ in parts]\n    if len(units) != len(set(units)):\n        raise ValueError(\"Repeated units\")\n\n    # Check order of units\n    expected_order = ['h', 'm', 's']\n    for i, (unit, _) in enumerate(parts):\n        if i < len(expected_order) and unit != expected_order[i]:\n            raise ValueError(\"Units out of order\")\n\n    # Parse numbers\n    total_seconds = 0\n    for i, (unit, multiplier) in enumerate(parts):\n        try:\n            num = int(part.split(unit)[0])\n        except ValueError:\n            raise ValueError(\"Invalid number format\")\n        if num < 0:\n            raise ValueError(\"Negative number\")\n        if unit == 'h':\n            total_seconds += num * 3600\n        elif unit == 'm':\n            total_seconds += num * 60\n        elif unit == 's':\n            total_seconds += num\n    return total_seconds\n```",
    "score": 0.0,
@@ -50,6 +64,24 @@
      "$.per_diem_days",
      "$.per_diem_usd",
      "$.total_reimbursable_usd"
+    ],
+    "bare_json": false
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "```json\n{\n  \"year2_price_per_seat_month\": 46.47,\n  \"year3_price_per_seat_month\": 46.47,\n  \"year1_invoice\": 64800.00,\n  \"year2_invoice\": 67764.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 11808.00,\n  \"year3_invoice\": 67764.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 211336.00,\n  \"contract_end_date\": \"2027-02-28\"\n}\n```",
+   "score": 0.3,
+   "detail": {
+    "matched": 3,
+    "total": 10,
+    "wrong": [
+     "$.addon_invoice",
+     "$.total_contract_value",
+     "$.year1_invoice",
+     "$.year2_invoice",
+     "$.year2_price_per_seat_month",
+     "$.year3_invoice",
+     "$.year3_price_per_seat_month"
     ],
     "bare_json": false
    }

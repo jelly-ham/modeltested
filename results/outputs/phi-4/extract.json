@@ -15,6 +15,25 @@
    "bare_json": false
   }
  },
+ "extract-hard-saas-escalator": {
+  "output": "```json\n{\n  \"year2_price_per_seat_month\": 46.53,\n  \"year3_price_per_seat_month\": 46.53,\n  \"year1_invoice\": 6480.00,\n  \"year2_invoice\": null,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 9783.60,\n  \"year3_invoice\": null,\n  \"year3_discount_percent\": null,\n  \"total_contract_value\": 22263.60,\n  \"contract_end_date\": \"2027-02-28\"\n}\n```\n\n**Calculations:**\n\n- **Year 1 Price per Seat per Month:** $45.00\n- **Year 1 Invoice:**\n  - Seats: 120\n  - Annual cost without discount: $45.00 * 120 seats * 12 months = $64,800\n  - Discount for 100–249 seats: 10%\n  - Year 1 Invoice: $64,800 * 0.90 = $58,320 (after rounding to 2 decimal places, it becomes $64,800 * 0.90 = $58,320)\n  - Corrected calculation: $58,320 / 12 = $4,860 per month, total $4,860 * 12 = $58,320\n\n- **Year 2 Price per Seat per Month:**\n  - CPI change for 2023: +3.4%\n  - New Price: $45.00 * 1.034 = $46.53\n\n- **Year 3 Price per Seat per Month:**\n  - CPI change for 2024: +5% (capped from +6.1%)\n  - New Price: $46.53 * 1.05 = $48.86 (adjusted to $46.53 due to the cap of +5%)\n\n- **Amendment 1 (1 September 2025):**\n  - Additional seats: 160\n  - New total seats: 280\n  - Remaining months in Year 3: 6 (September - February)\n  - Add-on Invoice:\n    - Price per seat per month: $46.53\n    - Total seats: 280\n    - Invoice before discount: $46.53 * 280 * 6 = $78,218.40\n    - Discount for 250+ seats: 15%\n    - Add-on Invoice: $78,218.40 * 0.85 = $66,485.64 (after rounding: $66,485.64 / 12 = $5,540.47, total $5,540.47 * 6 = $33,242.82, correct rounding: $66,485.64)\n\n- **Year 3 Invoice:**\n  - Not calculated due to lack of monthly breakdown and final discount application.\n\n- **Total Contract Value:**\n  - Year 1 Invoice: $58,320\n  - Add-on Invoice: $9,783.60 (corrected from above)\n  - Total: $58,320 + $9,783.60 = $68,103.60 (corrected to $22,263.60 due to initial error in Year 1 invoice calculation)\n\n- **Contract End Date:**\n  - 2 years and 2 months from March 2024: February 28, 2027",
+  "score": 0.2,
+  "detail": {
+   "matched": 2,
+   "total": 10,
+   "wrong": [
+    "$.addon_invoice",
+    "$.total_contract_value",
+    "$.year1_invoice",
+    "$.year2_invoice",
+    "$.year2_price_per_seat_month",
+    "$.year3_discount_percent",
+    "$.year3_invoice",
+    "$.year3_price_per_seat_month"
+   ],
+   "bare_json": false
+  }
+ },
  "extract-invoice-email": {
   "output": "```json\n{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310.00,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    { \"sku\": \"WEB-01\", \"quantity\": 1, \"unit_price\": 3500.00 },\n    { \"sku\": \"HST-12\", \"quantity\": 3, \"unit_price\": 270.00 }\n  ]\n}\n```",
   "score": 1.0,

@@ -1,0 +1,408 @@
+{
+ "model": "mistral-large-4",
+ "runner_version": 1,
+ "items": {
+  "coding/code-business-day": {
+   "h": "6edd0827fd3a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "coding/code-cron-matches": {
+   "h": "3d42429ae11d",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-dedupe-emails": {
+   "h": "286981be824d",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-diff-dicts": {
+   "h": "23e48c290b3c",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "coding/code-evaluate-expr": {
+   "h": "9645efdf07a9",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-bool-expr": {
+   "h": "a84a25915d0e",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-csv-parser": {
+   "h": "78842db66786",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ini-parser": {
+   "h": "6a135218f939",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-json-path": {
+   "h": "4b7ca7bd11df",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ledger": {
+   "h": "a48727466d95",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-meeting-slots": {
+   "h": "0def4e647232",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-next-cron": {
+   "h": "dd8445a3ed3c",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-normalize-path": {
+   "h": "78e2f4f44780",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-rate-limiter-log": {
+   "h": "bf48840ef5f8",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ttl-lru": {
+   "h": "5dc6bf962b41",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-inventory": {
+   "h": "50c4fef1ef24",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-mask-secrets": {
+   "h": "0b802cf0137a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-money-split": {
+   "h": "aa121a0efaa6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "coding/code-paginate": {
+   "h": "6d0e58ddd5b7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-parse-duration": {
+   "h": "7d2f96c9a827",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-parse-query": {
+   "h": "c758323f80cf",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-search-index": {
+   "h": "3fc4c534a420",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "coding/code-slugify": {
+   "h": "ff09da2f4a43",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-sort-versions": {
+   "h": "e34aa61843e7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-summarize-logs": {
+   "h": "712019075476",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-summarize-ranges": {
+   "h": "5fc14f626f2b",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "coding/code-token-bucket": {
+   "h": "d3602409587d",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "coding/code-top-customers": {
+   "h": "61620e14b107",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "coding/code-topo-sort": {
+   "h": "3abb90497cc4",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "coding/code-wrap-text": {
+   "h": "b079bee015b9",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "extract/extract-event-registrations": {
+   "h": "3199f1c4131a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-expense-thread": {
+   "h": "b5a830bf8bd2",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-family-deductible": {
+   "h": "81246a09d54a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-mortgage-extra": {
+   "h": "e93b750776b8",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-payroll-holiday": {
+   "h": "16a2289e0d2e",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-project-schedule": {
+   "h": "e41939ede116",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Mistral",
+   "truncated": true,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-quarterly-results": {
+   "h": "8d4ee12aa753",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "h": "95f3efe03d45",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-three-way-match": {
+   "h": "1388e321b606",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-travel-per-diem": {
+   "h": "155ca1fed4af",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-insurance-eob": {
+   "h": "e116049aa384",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-inventory-reorder": {
+   "h": "67392cb27d86",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-itinerary-timezones": {
+   "h": "805b94273c69",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-lease-amendment": {
+   "h": "9d0a9ed11a7c",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-meeting-actions": {
+   "h": "0d64413c903c",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-offer-comparison": {
+   "h": "3f8df5d67fa0",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-paystub": {
+   "h": "8080cef4eb78",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-recipe-scaling": {
+   "h": "45ef96b3f74a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-sales-footnotes": {
+   "h": "daec43e801f3",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-shift-schedule": {
+   "h": "2d7d94844072",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-subscription-renewal": {
+   "h": "dcb8138bce39",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-ticket-sla": {
+   "h": "cbe5fabaef6e",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-transcript-gpa": {
+   "h": "dec2498fa382",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  },
+  "extract/extract-utility-bill": {
+   "h": "fd3b2eebc5e2",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "at": "2026-10-11"
+  }
+ }
+}

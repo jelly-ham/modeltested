@@ -15,6 +15,24 @@
    "bare_json": false
   }
  },
+ "extract-hard-saas-escalator": {
+  "output": "```json\n{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 518400.00,\n  \"year2_invoice\": 566400.00,\n  \"addon_months_billed\": 10,\n  \"addon_invoice\": 76800.00,\n  \"year3_invoice\": 566400.00,\n  \"year3_discount_percent\": 0.0,\n  \"total_contract_value\": 1633600.00,\n  \"contract_end_date\": \"2027-02-28\"\n}\n```",
+  "score": 0.3,
+  "detail": {
+   "matched": 3,
+   "total": 10,
+   "wrong": [
+    "$.addon_invoice",
+    "$.addon_months_billed",
+    "$.total_contract_value",
+    "$.year1_invoice",
+    "$.year2_invoice",
+    "$.year3_discount_percent",
+    "$.year3_invoice"
+   ],
+   "bare_json": false
+  }
+ },
  "extract-invoice-email": {
   "output": "```json\n{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310.00,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    {\n      \"sku\": \"WEB-01\",\n      \"quantity\": 1,\n      \"unit_price\": 3500.00\n    },\n    {\n      \"sku\": \"HST-12\",\n      \"quantity\": 3,\n      \"unit_price\": 270.00\n    }\n  ]\n}\n```",
   "score": 1.0,

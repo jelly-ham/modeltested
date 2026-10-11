@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'parse_ini' is not defined"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'TTLCache' is not defined"
+   }
+  },
   "code-parse-duration": {
    "output": "",
    "score": 0.0,
@@ -44,6 +58,24 @@
     "matched": 24,
     "total": 24,
     "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 46.53,\n  \"year3_price_per_seat_month\": 48.86,\n  \"year1_invoice\": 64800.00,\n  \"year2_invoice\": 60302.88,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 37968.48,\n  \"year3_invoice\": 139544.16,\n  \"year3_discount_percent\": 15.0,\n  \"total_contract_value\": 302615.52,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 0.3,
+   "detail": {
+    "matched": 3,
+    "total": 10,
+    "wrong": [
+     "$.addon_invoice",
+     "$.total_contract_value",
+     "$.year1_invoice",
+     "$.year2_invoice",
+     "$.year2_price_per_seat_month",
+     "$.year3_invoice",
+     "$.year3_price_per_seat_month"
+    ],
     "bare_json": true
    }
   },
