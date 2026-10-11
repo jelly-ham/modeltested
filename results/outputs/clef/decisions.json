@@ -110,10 +110,10 @@
   }
  },
  "decide-refund-wrong-plan": {
-  "output": "{\"department\": {\"type\": \"choice\", \"choice\": \"billing\", \"probabilities\": {\"billing\": 0.9824, \"technical\": 0.0041, \"account\": 0.0043, \"shipping\": 0.002, \"sales\": 0.0072}, \"confidence\": 0.9563}, \"refund\": {\"type\": \"noul\", \"noul\": 0.9499}, \"tone\": {\"type\": \"choice\", \"choice\": \"calm\", \"probabilities\": {\"frustrated\": 0.0048, \"calm\": 0.9952}, \"confidence\": 0.9809}}",
+  "output": "{\"department\": {\"type\": \"choice\", \"choice\": \"billing\", \"probabilities\": {\"billing\": 0.9813, \"technical\": 0.0048, \"account\": 0.0047, \"shipping\": 0.0022, \"sales\": 0.0071}, \"confidence\": 0.9766}, \"refund\": {\"type\": \"noul\", \"noul\": 0.9665}, \"tone\": {\"type\": \"choice\", \"choice\": \"calm\", \"probabilities\": {\"frustrated\": 0.0053, \"calm\": 0.9947}, \"confidence\": 0.9894}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0018,
+   "brier": 0.0009,
    "picks": {
     "department": "billing",
     "refund": "true",

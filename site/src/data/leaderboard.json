@@ -2230,6 +2230,72 @@
    "rank": 30
   },
   {
+   "slug": "llama-3-3-8b-q4-mac",
+   "name": "Llama 3.3 8B Instruct (Q4, Mac)",
+   "org": "meta-llama",
+   "openrouter_id": null,
+   "hf_id": "allura-forge/Llama-3.3-8B-Instruct",
+   "params_b": 8.03,
+   "active_params_b": null,
+   "ollama": "hf.co/bartowski/allura-forge_Llama-3.3-8B-Instruct-GGUF:Q4_K_M",
+   "license": "llama3.3",
+   "added": "2026-10-11",
+   "kind": null,
+   "status": "local",
+   "base": null,
+   "quant": "Q4_K_M",
+   "overall": 23.0,
+   "hard": 9.5,
+   "suites": {
+    "coding": {
+     "score": 13.3,
+     "public": 14.3,
+     "private": 13.0,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 59.2,
+     "public": 72.6,
+     "private": 54.8,
+     "done": 56,
+     "total": 56,
+     "calibration": 61.4,
+     "hard": 55.3
+    },
+    "extract": {
+     "score": 32.7,
+     "public": 50.7,
+     "private": 28.0,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "providers": [
+    "ollama/Q4_K_M"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 0.5,
+    "need_gb": {
+     "Q4_K_M": 6.0
+    },
+    "best_quant_by_tier": {
+     "gpu-8": "Q4_K_M",
+     "gpu-12": "Q4_K_M",
+     "gpu-16": "Q4_K_M",
+     "gpu-24": "Q4_K_M",
+     "gpu-32": "Q4_K_M",
+     "mac-16": "Q4_K_M",
+     "mac-24": "Q4_K_M",
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q4_K_M",
+     "mac-64": "Q4_K_M"
+    }
+   },
+   "rank": 31
+  },
+  {
    "slug": "mistral-nemo",
    "name": "Mistral Nemo",
    "org": "mistralai",
@@ -2299,7 +2365,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 31
+   "rank": 32
   },
   {
    "slug": "granite-4-0-h-micro-mac",
@@ -2363,7 +2429,7 @@
      "mac-64": "Q4_K_M"
     }
    },
-   "rank": 32
+   "rank": 33
   },
   {
    "slug": "ministral-3b-2512",
@@ -2432,7 +2498,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 33
+   "rank": 34
   },
   {
    "slug": "llama-3-1-8b-instruct",
@@ -2503,7 +2569,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 34
+   "rank": 35
   },
   {
    "slug": "gemma-3-4b-it",
@@ -2572,7 +2638,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 35
+   "rank": 36
   },
   {
    "slug": "llama-3-2-3b-instruct",
@@ -2641,7 +2707,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 36
+   "rank": 37
   },
   {
    "slug": "llama-3-2-1b-q4-mac",
@@ -2705,7 +2771,7 @@
      "mac-64": "Q4_K_M"
     }
    },
-   "rank": 37
+   "rank": 38
   }
  ],
  "pending": [],
@@ -3536,6 +3602,18 @@
    "rank": 48
   },
   {
+   "slug": "llama-3-3-8b-q4-mac",
+   "name": "Llama 3.3 8B Instruct (Q4, Mac)",
+   "org": "meta-llama",
+   "kind": "local",
+   "params_b": 8.03,
+   "accuracy": 59.2,
+   "calibration": 61.4,
+   "hard": 55.3,
+   "openrouter_id": null,
+   "rank": 49
+  },
+  {
    "slug": "llama-3-2-3b-instruct",
    "name": "Llama 3.2 3B Instruct",
    "org": "meta-llama",
@@ -3545,7 +3623,7 @@
    "calibration": 54.3,
    "hard": 42.1,
    "openrouter_id": "meta-llama/llama-3.2-3b-instruct",
-   "rank": 49
+   "rank": 50
   }
  ],
  "n_hard": 18,
@@ -3640,6 +3718,15 @@
    "overall": 4.7,
    "rank": 37,
    "of": 37
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "llama-3-3-8b-q4-mac",
+   "name": "Llama 3.3 8B Instruct (Q4, Mac)",
+   "event": "added",
+   "overall": 23.0,
+   "rank": 31,
+   "of": 38
   },
   {
    "date": "2026-10-10",

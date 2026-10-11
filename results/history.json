@@ -367,5 +367,14 @@
   "overall": 4.7,
   "rank": 37,
   "of": 37
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "llama-3-3-8b-q4-mac",
+  "name": "Llama 3.3 8B Instruct (Q4, Mac)",
+  "event": "added",
+  "overall": 23.0,
+  "rank": 31,
+  "of": 38
  }
 ]

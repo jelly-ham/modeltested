@@ -704,6 +704,52 @@
    "Parasail"
   ]
  },
+ "llama-3-3-8b-q4-mac": {
+  "slug": "llama-3-3-8b-q4-mac",
+  "name": "Llama 3.3 8B Instruct (Q4, Mac)",
+  "org": "meta-llama",
+  "openrouter_id": null,
+  "hf_id": "allura-forge/Llama-3.3-8B-Instruct",
+  "params_b": 8.03,
+  "active_params_b": null,
+  "ollama": "hf.co/bartowski/allura-forge_Llama-3.3-8B-Instruct-GGUF:Q4_K_M",
+  "license": "llama3.3",
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "local",
+  "base": null,
+  "quant": "Q4_K_M",
+  "overall": 23.0,
+  "hard": 9.5,
+  "suites": {
+   "coding": {
+    "score": 13.3,
+    "public": 14.3,
+    "private": 13.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 59.2,
+    "public": 72.6,
+    "private": 54.8,
+    "done": 56,
+    "total": 56,
+    "calibration": 61.4,
+    "hard": 55.3
+   },
+   "extract": {
+    "score": 32.7,
+    "public": 50.7,
+    "private": 28.0,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "ollama/Q4_K_M"
+  ]
+ },
  "ministral-14b-2512": {
   "slug": "ministral-14b-2512",
   "name": "Ministral 3 14B 2512",
