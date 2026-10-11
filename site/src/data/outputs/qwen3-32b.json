@@ -1,10 +1,10 @@
 {
  "coding": {
   "code-hard-ini-parser": {
-   "output": "",
+   "output": "Okay, this is getting complex. Let me try to outline the code steps with more detail.\n\nLet's start by writing a helper function to process the line and remove inline comments. So:\n\ndef remove_inline_comment(line):\n\n    inside_quotes = False\n\n    main = []\n\n    i = 0\n\n    while i < len(line):\n\n        c = line[i]\n\n        if c == '\"':\n\n            inside_quotes = not inside_quotes\n\n            main.append(c)\n\n            i += 1\n\n        elif inside_quotes:\n\n            main.append(c)\n\n            i += 1\n\n        else:\n\n            if i < len(line) - 1:\n\n                next_c = line[i+1]\n\n                if c.isspace() and next_c in ';#':\n\n                    # found the start of a comment. return everything before this.\n\n                    return ''.join(main), True\n\n            main.append(c)\n\n            i += 1\n\n    # if no comment found, return entire line, False.\n\n    return ''.join(main), False\n\nWait, but once we find the space followed by # or ;, we should return the main part processed so far and ignore the rest. So in the above code, once we reach that point, we return the current main (before the space?), but in the code, the space and the next character are not added. Wait, no. Let's see.\n\nIn the example line \"key = value # comment\", after processing the main part until the space before the '#', the code would return the main part (before the space) as ''.join(main) is the part before the comment. So the code is scanning the line, and whenever it finds a space followed by # or ; and the code is not inside quotes, then the rest of the line is considered a comment.\n\nThis code may not capture all cases. For example, the line could have multiple spaces followed by #, but we need to find the first one. Anyway, for now, let's assume this function works as intended. So, for a given line, after stripping leading and trailing whitespace (if the line is not a continuation line?), no. For a key line, after processing, we need to remove the comment and then split into key and value.\n\nBut during the main code, for a line that is a key line or continuation line, we first determine whether it's a key line or continuation line. But the line may have a comment in the middle of the key line.\n\nBut the helper function is supposed to process the comment part. Let's proceed.\n\nSo, in the main loop:\n\ncurrent_section: str or None\n\nsections: dict[str, dict], mapping section names to their keys.\n\ndefault_section: dict[str, str]\n\ncurrent_key: either None, or the key being processed.\n\ncurrent_value_parts: For current key, the value is built from multiple lines. Each non-continuation line may have just one part, but continuation line appends their processed parts.\n\nBut for a quoted value, the value is the inner part. So the code must check whether the value_part is quoted. So for example, the code for processing the key line could be:\n\nfor a line that's not a section and not a comment:\n\n   if current_key is not None and the line is a continuation line:\n\n       process the line (without key), i.e., remove inline comments, then take the entire line and stripped.\n\n       add to current_value_parts.\n\n   else:\n\n       if current_key is not None: then this is a new line not a continuation, so need to finalize the current_key.\n\n       process the current line:\n\n           processed_line, has_comment = remove_inline_comment(line)\n\n           if no has_comment, processed_line is the entire main part.\n\n           else, processed_line is the main part.\n\n           split into key_part and value_part → find first = or :\n\n           if no key separator found → ValueError.\n\n           key_part is everything before the first separator, then stripped and lowercased.\n\n           value_part is everything after the separator.\n\n           process the value_part:\n\n              if value_part starts and ends with double quotes:\n\n                  value_processed = value_part[1:-1]\n\n              else:\n\n                  value_processed = value_part.strip()\n\n           if current_key is not None:\n\n               # this is after a key line, but current_key is set. So, the line is not continuation line. That's an error. Wait, no. Because when current_key is set, it's the previous line's key that was being processed, but this line is a new key line. So previous key's value was not closed.\n\n               # So, the code must append all value parts until a new line.\n\n               # So, need to collect all the value parts.\n\n               # Wait, but current_key can be None only if not in continuation.\n\n               # So, in this case, since current_key is not None and the line is not a continuation line, we need to add the previous key to the section and process the new line.\n\n               if current_key and line is not continuation:\n\n                   # finalize the previous key.\n\n                   value = '\\n'.join(value_parts)\n\n                   if current_section is 'DEFAULT':\n\n                       default_section[current_key] = value\n\n                   else:\n\n                       sections[current_section][current_key] = value\n\n                   current_key = None\n\n                   value_parts = []\n\n               # then process the current line.\n\n               line_main = processed_line.\n\n               split into key_part and value_part.\n\n               if no splitter → ValueError.\n\n               key = key_part.strip().lower()\n\n               current_key = key\n\n               value_parts = [value_processed]\n\nSo, this is getting a bit complicated.\n\nAlternatively, the code can manage for each current_key, the current value parts that are being collected.\n\nSo, the main variables are:\n\ncurrent_section: the name of the current section (could be 'DEFAULT')\n\ncurrent_key: the current key being collected (None if not in collection).\n\ncurrent_value_lines: a list of processed strings that make up the value for current_key, which are to be joined with newlines.\n\nSo, for each line that is a key line or continuation:\n\nIf the line is a continuation (starts with whitespace) and current_key is not None:\n\n   process it as a continuation, add to current_value_lines.\n\nBut wait, the line is a continuation line, so it is not a key line. How to get the value part for the continuation?\n\nFor a continuation line, the entire line is part of the value. So after processing the inline comments and stripping the line's leading and trailing whitespace (as per rule 6), the line's stripped text is added to current_value_lines.\n\nWait, rule 6 says the line's stripped text (when it's a continuation) is appended. So for example, the line is \"   more value here    # comment in continuation\" → after processing inline comment (using the helper), we get \"   more value here\", then we strip to \"more value here\".\n\nSo the code for the continuation line would be:\n\nprocessed_line, has_comment = remove_inline_comment(line)\n\nBut since the line is not a comment line (as earlier check), the helper returns the main part. Then, we take that line, strip leading and trailing whitespace, and add to current_value_lines.\n\nSo, for the continuation line, we strip leading and trailing whitespace and add to the current_key's value_parts, then join with '\\n'.\n\nBut for the quoted value, the line's value is the quote part. But if the line's value is not in quotes, the code strips the entire value_part (after the split) and adds any continuation lines.\n\nWait, here's an example:\n\nSection [Test]\n\nLine1: key = \"a\" ; Now, a continuation line would be processed but since it's not a quoted value, then the code in the current_key is set and the value_parts is [value_part (a, after stripping quotes)]? Or not.\n\nWait, the value_part is the part after the split. For the line key = \"a\", the value_part is \"a\", which starts and ends with quotes. So process_value_part: take the inner part. So the inner part is a. So, current_value_lines for key would be ['a'].\n\nIf the next line is ' more value', it's a continuation line. Stripped becomes 'more value' and added to current_value_line. The total value is 'a' + '\\n' + 'more value' → but that's not correct. Because the original value_part was quoted. So the rule is that the value in quotes is kept as is. So the initial value_part's inner part is the entire \"a\". The continuation line is processed as a new part. But the code is appending new parts to the initial. So the code is combining a quoted value with continuation lines, which might be wrong. But according to the rules, how should this be handled?\n\nThe problem says that for continuation lines, their stripped text is appended to the previous value. But how does the previous value look? For the initial key line, the processed value_part is either the inner part (if quoted) or the stripped part (if unquoted). So in the case of quoted value_part, the code appends to it. But according to rule 5, the quoted value is kept as-is, including newlines. So in the case of the quoted value_part, the code must not process continuation lines. But according to rule 6, the code does.\n\nThis suggests that there is an inconsistency in the rules. How to resolve this? The problem statement doesn't mention conflicting rules, so perhaps the code is to process the continuation regardless of whether the initial value was quoted. But perhaps that is an error.\n\nBut according to the rules as given, I must implement rule 6 regardless. So in the case of a quoted value and followed by a continuation line, the code would add the continuation's stripped text as a new line. But this is not what the user intended, but perhaps according to the rules, it's allowed. For example, if a line's value_part is in quotes and there's a continuation line, it is part of the same value, and the code appends the stripped text of the continuation line. Thus, the final value is the original quoted content plus the continuation lines. For example, if the quoted value is \"foo\" and the continuation line is \"bar\", the overall value is 'foo\\nbar'.\n\nBut according to rule 5, the quoted value is kept exactly (so if the initial line was the quoted value, then the code would have stored that and added the continuation as a new part.\n\nBut why? The initial value_part is in quotes, meaning it's a complete value. So the code should not allow continuation lines. But the problem statement says nothing about this, so perhaps the code just proceeds as per the rules. For example, the code that splits the line into key and value, and then for the value, adds the continuation.\n\nThus, the code would allow this, which may not be what the user intended. However, since the problem states these rules, the code must follow them.\n\nSo, the code proceeds as per the following steps:\n\nWhen processing a line (after checking for comments and sections):\n\nif it is a continuation line:\n\n   process the line's content.\n\n   add the stripped content to the current_value_lines.\n\nelse:\n\n   if current_key was active:\n\n       finalize the current_key (join value_parts with newlines), add to the section.\n\n       reset current_key.\n\n   split the line into key_part and value_part.\n\n   key is key_part.strip().lower()\n\n   process the value_part into a value_processed (quoted or unquoted).\n\n   set current_key to key, current_value_lines = [value_processed]\n\nNow, after processing all lines, if there's a current_key active, add it to the current section.\n\nNow, the code must also handle the interpolation, which is the third part of the problem.\n\nBut first, the parsing is done. Once parsed, the default_section is available, and each other section must have the default_section's keys merged in, with same keys being overridden.\n\nThen, interpolation: values can contain ${key} or ${section:key} references. The interpolation is recursive, and references to missing keys or cycles raise errors.\n\nSo, during parsing, the code must parse the value into a string, and then during the interpolation phase, substitute the references.\n\nBut the problem says that the parse_ini function must process interpolation as part of the parsing.\n\nSo, after parsing the INI file into the sections and default, then, for each key-value pair, process the value string for interpolation and replace the ${...} references.\n\nTherefore, after parsing, the code must go through all the key values and resolve them.\n\nBut the order of processing is important. For example, when processing a section, its keys could refer to keys in default, but those keys may have been processed in default, but may also have their own interpolation.\n\nBut according to the problem statement, the default keys are inherited. So during the interpolation, if a section has a key, it uses its own value, else the default's value. So, the code must first process the default section, then process other sections.\n\nBut the interpolation is recursive. So the code needs to process the values with a resolver function that can handle the interpolation.\n\nNow, the plan is:\n\nAfter parsing the ini into sections and the default_section, we need to resolve the values for each key, applying interpolation.\n\nBut how to handle this.\n\nEach value may contain variables like ${key} or ${section: key}. During the parsing phase, the resolver must look for these and replace them. The resolver knows which section the key is in, and uses the current section's values plus the default_section.\n\nBut the interpolation is recursive, so the code must handle possible loops.\n\nSo, perhaps after the parsing is done, perform a post-processing step for interpolation. For each section, and each key, run the interpolation.\n\nBut during the parsing, the code may have to collect the key lines (with interpolation in the value) and resolve them. However, since the interpolation could refer to keys that are not parsed yet, perhaps the code needs to resolve all the keys after parsing, and during the resolution, check for variables, then recursively resolve them.\n\nBut for the parse_ini function, the code must return a dict with interpolated values.\n\nNow, the problem says that the same key appearing twice in a section makes the later value wins. So during parsing, the code must store the last value for the key.\n\nBut during interpolation, the code must process the value string based on the section's own keys and the default_section.\n\nBut how to implement this.\n\nThe parse_ini function will:\n\nFirst, parse the ini into sections and default_section as per rules 1-8 and 10.\n\nThen, perform interpolation on all values in all sections.\n\nBut to do that, each section's keys can be merged with the default_section's keys, but without overwriting the existing keys in the section.\n\nSo for each section in sections, the merged dict is {**default_section, **section}, but the order is important. But in Python 3.11+, you can do {**a, **b} (b overwrites a), but since interpolation is to inherit from default, for a section, the code will first check the section's own keys, and if not present, check the default section.\n\nSo, for a section S, when interpolating a key's value, if the key is not present in S, the code checks the default_section.\n\nThus, for interpolation, we need a resolver function that, given a section name, and a key, can find its value. But during interpolation, a value may refer to other keys that may or may not be in the same section.\n\nNow, how to handle the interpolation.\n\nFor each value in the ini, during parsing, once the value is stored in the sections, we must process it. For example:\n\nvalue = \"abc ${key} xyz\"\n\nThe code must replace ${key} with the value of key in the same section (including default).\n\nBut the problem says that interpolation is recursive. So if key refers to another key, which may refer to another, etc.\n\nBut processing this in a way that handles cycles and missing keys.\n\nSo, for parsing, after the sections are parsed (without interpolation), then process each key's value.\n\nFor the interpolation step:\n\nFor each section and each key in that section, we process the value, replacing any ${...} as per the rules. However, for the interpolation to be able to refer to other sections and their keys.\n\nThe resolver function for interpolation would be a function that for a given section and a key, returns its value. For example, a function that, for a key in section S, returns the value of the key in S, falling back to the default section.\n\nSo, the resolver could be something like:\n\ndef resolver(section_name, key):\n\n    if key in sections[section_name]:\n\n        value = sections[section_name][key]\n\n    else:\n\n        value = default_section.get(key, None)\n\n    return value\n\nBut the resolver needs to return the raw value (before interpolation) so that interpolations are resolved correctly. However, during interpolation, the value being processed may refer to another value that also needs to be interpolated. This suggests that the interpolation must be done after all values are parsed, but during the step of processing interpolation.\n\nThus, the resolver for interpolation is not the final value, but the original value before interpolation. Because the interpolation step must be done in a way that allows recursive replacement.\n\nSo, the plan for interpolation is:\n\nCreate a merged structure where each section's keys are processed, and the interpolation is done on the value strings.\n\nBut how to build that.\n\nAnother approach is:\n\nFor each section, when processing its keys, do not process the value yet, but store the original string. Then, during the interpolation phase, for each key, perform substitutions.\n\nBut the parsing rules (steps 1-8) must first parse the values, so the parse_ini function will need to parse the INI file into sections where each value is the raw value string. Then, process interpolation.\n\nWait, but in the parsing step, the value is stored as a string. So, during the parsing, the code collects the key and value as a raw string, and then later during interpolation replaces variables.\n\nSo, for example, the code first parses all key values as raw strings. Then, for each key value in each section and for the default section, process the string to interpolate variables.\n\nBut the default section's keys may also contain variables, which refer to other keys in the default section or other sections.\n\nSo, after parsing (without interpolation), the code must process each stored value into their interpolated forms.\n\nBut how to do that.\n\nLet's think of an example.\n\ndefault_section:\n\nkey1 = \"value1\"\n\nsection1:\n\nkey2 = \"value2 ${key1}\"\n\nThe resolver for section1's key2 knows that key1 is in the default_section.\n\nSo, during the interpolation stage, when processing section1's key2, the code will substitute ${key1} with default_section's key1.\n\nBut during substitution, the code must be able to find the key in the current context (the same section or the default).\n\nSo, perhaps during the parsing step, the code collects all the values as raw strings. Then, for each key in each section and the default_section, interpolate the value.\n\nBut during the interpolation, it must have access to all resolved values (with the current section's keys and the default_section).\n\nTherefore, during the interpolation phase, we can process each section and each key in that section.\n\nFirst, process the default_section's keys, then process the other sections. However, a default_section can refer to other sections? No, per the interpolation rules. Because the interpolation in default_section can refer to other keys in the same default section (since for the current section (default), same-section keys are allowed.\n\nBut the default section is not a section in the output. So, when the code reads a section [A], and a key in [A] is ${key} (without section), then the resolver would look for 'key' in A, then in default.\n\nSo, the resolver for section 'A' when interpolating a key would first check the section, then check the default.\n\nTherefore, the code must, for each section, have a way to resolve keys in the section and in the default_section.\n\nBut how to handle the fact ",
    "score": 0.0,
    "detail": {
-    "error": "NameError: name 'parse_ini' is not defined"
+    "error": "SyntaxError: unterminated string literal (detected at line 3)"
    }
   },
   "code-hard-ttl-lru": {
@@ -22,10 +22,10 @@
    }
   },
   "code-slugify": {
-   "output": "",
-   "score": 0.0,
+   "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    slug = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii').lower()\n    slug = re.sub(r'[^a-z0-9]+', '-', slug).strip('-')\n    if len(slug) <= max_len:\n        return slug\n    parts = slug.split('-')\n    new_parts = []\n    current_len = 0\n    for part in parts:\n        if not new_parts:\n            if len(part) > max_len:\n                return part[:max_len]\n            new_parts.append(part)\n            current_len = len(part)\n        else:\n            add_len = current_len + 1 + len(part)\n            if add_len > max_len:\n                break\n            new_parts.append(part)\n            current_len = add_len\n    return '-'.join(new_parts)\n```",
+   "score": 1.0,
    "detail": {
-    "error": "NameError: name 'slugify' is not defined"
+    "error": null
    }
   },
   "code-summarize-ranges": {
@@ -47,6 +47,99 @@
    "score": 1.0,
    "detail": {
     "error": null
+   }
+  }
+ },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\n  \"doc_type\": {\n    \"invoice\": 0.99,\n    \"other\": 0.01\n  },\n  \"missing_due_date\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0026,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\"policy\": {\"none\": 0.0, \"harassment\": 0.9, \"hate\": 0.03, \"spam\": 0.0, \"self_harm\": 0.07}, \"personal_info\": {\"true\": 0.99, \"false\": 0.01}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.008,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\"phishing\": {\"true\": 0.98, \"false\": 0.02}, \"risk\": {\"3\": 0.95, \"2\": 0.03, \"1\": 0.01, \"0\": 0.01}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0022,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\"data_kind\": {\"government_id\": 1.0}, \"sensitive\": {\"true\": 1.0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\"department\": {\"billing\": 0.95, \"technical\": 0.03, \"account\": 0.01, \"shipping\": 0.01, \"sales\": 0}, \"refund\": {\"true\": 1, \"false\": 0}, \"tone\": {\"frustrated\": 0.05, \"calm\": 0.95}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0029,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\n    \"positive\": 0.1,\n    \"neutral\": 0.0,\n    \"negative\": 0.9\n  },\n  \"defect\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  },\n  \"recommend\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.01,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\"tool\": {\"calendar\": 1.0}, \"confirm\": {\"true\": 1.0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\"department\": {\"technical\": 0.85, \"billing\": 0.10, \"sales\": 0.05}, \"urgency\": {\"3\": 0.95, \"2\": 0.03, \"1\": 0.02}, \"outage\": {\"true\": 0.99, \"false\": 0.01}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.013,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
    }
   }
  },

@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'parse_ini' is not defined"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "\n\n```python\nfrom collections import OrderedDict\n\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock) -> None:\n        self._capacity = max(0, int(capacity))\n        self._ttl = ttl\n        self._clock = clock\n        self._data = OrderedDict()\n        self._hits = 0\n        self._misses = 0\n        self._evictions = 0\n        self._expirations = 0\n\n    def put(self, key, value) -> None:\n        if self._capacity <= 0:\n            return\n\n        now = self._clock()\n\n        if key in self._data:\n            self._data[key] = (value, now + self._ttl)\n            self._data.move_to_end(key)\n        else:\n            if len(self._data) >= self._capacity:\n                self._purge_expired(now)\n                if len(self._data) >= self._capacity:\n                    self._data.popitem(last=False)\n                    self._evictions += 1\n\n            self._data[key] = (value, now + self._ttl)\n\n    def get(self, key, default=None):\n        entry = self._data.get(key)\n\n        if entry is None:\n            self._misses += 1\n            return default\n\n        now = self._clock()\n        value, expiry = entry\n\n        if expiry <= now:\n            del self._data[key]\n            self._expirations += 1\n            self._misses += 1\n            return default\n\n        self._data.move_to_end(key)\n        self._hits += 1\n        return value\n\n    def __len__(self) -> int:\n        if not self._data:\n            return 0\n\n        now = self._clock()\n        return sum(1 for _, expiry in self._data.values() if expiry > now)\n\n    def stats(self) -> dict[str, int]:\n        return {\n            \"hits\": self._hits,\n            \"misses\": self._misses,\n            \"evictions\": self._evictions,\n            \"expirations\": self._expirations,\n        }\n\n    def _purge_expired(self, now) -> None:\n        expired_keys = [key for key, (_, expiry) in self._data.items() if expiry <= now]\n\n        for key in expired_keys:\n            del self._data[key]\n            self._expirations += 1\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
   "code-parse-duration": {
    "output": "import re\n\n_DURATION_RE = re.compile(r\"[0-9]+[hmsHMS](\\s+[0-9]+[hmsHMS])*\")\n_PART_RE = re.compile(r\"([0-9]+)([hmsHMS])\")\n_UNIT_SECONDS = {\"h\": 3600, \"m\": 60, \"s\": 1}\n_UNIT_ORDER = {\"h\": 0, \"m\": 1, \"s\": 2}\n\n\ndef parse_duration(s: str) -> int:\n    value = s.strip()\n    if not value:\n        raise ValueError(\"empty duration string\")\n    if _DURATION_RE.fullmatch(value) is None:\n        raise ValueError(\"invalid duration string\")\n\n    total = 0\n    last_order = -1\n\n    for match in _PART_RE.finditer(value):\n        amount = int(match.group(1))\n        unit = match.group(2).lower()\n        order = _UNIT_ORDER[unit]\n\n        if order <= last_order:\n            raise ValueError(\"units must be unique and appear in h, m, s order\")\n\n        last_order = order\n        total += amount * _UNIT_SECONDS[unit]\n\n    return total",
    "score": 0.0,
@@ -8,10 +22,10 @@
    }
   },
   "code-slugify": {
-   "output": "",
-   "score": 0.0,
+   "output": "\n\n```python\nimport re\nimport unicodedata\n\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    if max_len <= 0:\n        return \"\"\n\n    text = unicodedata.normalize(\"NFD\", title)\n    text = text.encode(\"ascii\", \"ignore\").decode(\"ascii\")\n    text = text.lower()\n\n    slug = re.sub(r\"[^a-z0-9]+\", \"-\", text).strip(\"-\")\n\n    if len(slug) <= max_len:\n        return slug\n\n    words = slug.split(\"-\")\n    if not words:\n        return \"\"\n\n    first_word = words[0]\n    if len(first_word) > max_len:\n        return first_word[:max_len]\n\n    result = first_word\n    for word in words[1:]:\n        candidate = f\"{result}-{word}\"\n        if len(candidate) <= max_len:\n            result = candidate\n        else:\n            break\n\n    return result\n```",
+   "score": 1.0,
    "detail": {
-    "error": "NameError: name 'slugify' is not defined"
+    "error": null
    }
   },
   "code-summarize-ranges": {
@@ -29,10 +43,103 @@
    }
   },
   "code-top-customers": {
-   "output": ") -> '5.'. normalize to '5'. Good.\n\nBut do we need regex import? yes.\n\nAlternative using Decimal directly after cleaning: Could remove $, commas, whitespace; then if re.fullmatch(r'[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)', t): Decimal(t). This handles sign in Decimal. But need sign after $; cleaning yields sign first. Could just:\nt = re.sub(r'[\\s,$]', '', value)\nif re.fullmatch(r'[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)', t): return Decimal(t)\nThis would accept \"+5\", \"-5\". It would accept \"--5\"? No, regex one optional sign then digits. Good. It would accept \"5-\"? No. It would accept \"1.2.3\"? No. It would accept \"1234.5\". It would accept \".5\", \"5.\" (maybe Decimal accepts? Decimal('5.') likely yes; if not, regex matches but Decimal fail. Could normalize before Decimal.\nBut re.sub(r'[\\s,$]', '', value) removes all $, commas, whitespace. This means \"1 $ 2\" -> \"12\" valid. Too permissive. But okay? Maybe tests might include invalid amount \"1 2\" and expect skip. If we remove spaces, we'd parse as 12 incorrectly. To be safer, don't remove all whitespace, only allow whitespace around sign/currency? But prompt says amount string such as, not that internal whitespace invalid. Typically amount may have leading/trailing spaces. Could strip only. If amount = \" $1,234.50 \" okay. If \" $ 1,234.50 \" maybe not. But maybe not tested.\n\nWe can write parser stricter:\n- s = value.strip()\n- If not s invalid.\n- Use regex pattern that allows optional spaces around sign and currency but not within number.\nPattern: ^\\s*(?P<sign>[-+])?\\s*\\$?\\s*(?P<number>[-+]?(\\d+(?:\\.\\d*)?|\\.\\d+))\\s*$\nBut this doesn't allow sign after $ with space? If original \"$-5.00\": after optional sign none, \\$, then number can have optional sign -> matches. If original \"-$5.00\": sign before, \\$, number no sign. If original \"$ -5.00\": sign none, \\$, \\s*, number with sign. Good. If original \" $1,234.50 \": after $ no comma? Need allow comma in number? Pattern could include commas in number: \\d{1,3}(?:,\\d{3})*(?:\\.\\d+)? or simply \\d+(?:\\.\\d+)? after removing commas. But regex with commas can be strict: number = [-+]?(?:\\d{1,3}(?:,\\d{3})*(?:\\.\\d+)?|\\d+(?:\\.\\d*)?|\\.\\d+). But if we just allow any commas in number: [\\d,]+? Could parse \"1,23\" valid. Might not matter.\n\nSimpler strict enough:\n- t = s.strip()\n- # remove currency symbol only if present? Use t = t.replace('$', '')\n- # remove leading/trailing spaces? Already.\n- # allow spaces between sign/currency and digits? We can remove spaces that are between sign/currency and digits? Maybe use regex.\nMaybe use regex full:\n_PATTERN = re.compile(r'''\n    ^\\s*\n    (?P<sign>[-+])?\\s*\n    \\$?\\s*\n    (?P<number>[-+]?(?:\\d{1,3}(?:,\\d{3})*(?:\\.\\d+)?|\\d+(?:\\.\\d+)?|\\.\\d+))\n    \\s*$\n''', re.VERBOSE)\nThis accepts comma thousands groups strictly, or plain digits. But if number has sign and sign before currency, e.g. \"-$-5\" -> sign before and number sign, pattern could match sign '-' then $ then number '-5', invalid? It would parse sign twice? Could disallow both signs. But not important. We can just use simple cleaning.\n\nGiven coding challenge, they likely test basic forms. A simple parse is enough. But need robust enough.\n\nPotential issue with float conversion from Decimal: float(Decimal('0.01')) = 0.01. Good.\n\nTop n: If n is not int? Could do try: n = int(n) except: return []? But signature n:int. Use if n <=0.\n\nCould implement:\nfrom decimal import Decimal, InvalidOperation, ROUND_HALF_UP\nimport re\n\n_AMOUNT_CLEAN_RE = re.compile(r'^[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)$')\n\ndef _parse_amount(value):\n    if value is None:\n        return None\n    if not isinstance(value, str):\n        try:\n            value = str(value)\n        except Exception:\n            return None\n    s = value.strip()\n    if not s:\n        return None\n    # Remove currency sign and commas. To be less permissive, only remove $ and , and maybe whitespace? \n    t = s.replace('$', '').replace(',', '').strip()\n    # Allow spaces between sign and number? If t contains spaces, maybe try remove all spaces? Could if t != t.replace(' ', '')? Hmm.\n    # If t has spaces, invalid unless between sign and number? Could remove spaces around sign:\n    # We can normalize by removing all whitespace? To handle \"$ 5\", but \"1 2\" invalid. Could check pattern with spaces allowed anywhere? Hard.\n    # Maybe if ' ' in t: return None except if t starts with sign then space? But not necessary.\n    # Let's not remove internal spaces, so \" $1,000 \" works, \"$ 1,000\" becomes \"$ 1000\" after replace? Actually t = \"$ 1000\".strip() = \"$ 1000\" (currency at start with space). Our regex fails. But we can handle by removing $ from anywhere then stripping; if t = \" 1000\" after replace? s.replace('$','') = \" 1000\", .strip() -> \"1000\". Ah because remove $ first: \" $ 1,000\".replace('$','') = \"  1,000\" -> replace comma -> \"  1000\" -> strip -> \"1000\". Good. If \"-$ 5\" -> \"- 5\" -> strip -> \"- 5\" internal space, regex fails. Could remove spaces between sign and number: if len(t)>=2 and t[0] in '+-' and t[1] == ' ': t = t[0]+t[2:].strip()? But not needed.\n    if not t: return None\n    # If there are spaces, maybe remove them only if no other letters? But to avoid \"1 2\" parsed, don't remove all. Could use t = t.replace(' ', '').replace('\\t','')? Too permissive.\n    # Let's just use t = ''.join(s.split())? Hmm.\n\nMaybe implement with regex directly on original allowing optional spaces around sign/currency and commas as thousands. That is clean and strict.\n\nLet's design strict regex:\n_PATTERN = re.compile(r'''\n    ^\\s*\n    (?P<sign>[-+])?\n    \\s*\n    \\$?\n    \\s*\n    (?P<number>\n        [-+]?\n        (?:\n            \\d{1,3}(?:,\\d{3})*(?:\\.\\d+)?  # strict thousands with optional decimals\n            | \\d+(?:\\.\\d*)?                 # simple integer/decimal, trailing dot\n            | \\.\\d+                         # leading decimal\n        )\n    )\n    \\s*$\n''', re.VERBOSE)\n\nBut this allows both leading sign and number sign (e.g. -+5?). We can validate not both signs. Or make number sign optional only if no leading sign. Simpler: after matching, get sign = match.group('sign'), number = match.group('number'), if number starts with sign and group sign also present and signs differ? Could just remove one sign and validate.\n\nAlternative: Normalize via regex: Remove optional currency $ and whitespace (but not all?); use pattern that permits sign either before or after currency. Maybe:\n_PATTERN = re.compile(r'^\\s*(?:(?P<sign>[-+])\\s*\\$?|\\$?\\s*(?P<sign2>[-+]))?\\s*(?P<number>\\d{1,3}(?:,\\d{3})*(?:\\.\\d*)?|\\d+(?:\\.\\d*)?|\\.\\d+)\\s*$')\nThis is messy.\n\nGiven simple requirements, a practical parser:\ndef _parse_amount(value):\n    if not isinstance(value, str): ...\n    s = value.strip()\n    if not s: return None\n    # Remove currency symbol, commas, and whitespace.\n    t = re.sub(r'[\\s,$]', '', s)\n    if not t: return None\n    if not re.fullmatch(r'[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)', t):\n        return None\n    try:\n        return Decimal(t)\n    except InvalidOperation:\n        return None\n\nThis is concise. It will accept internal spaces as separators, but likely fine. It will accept \"1 2\" as 12, which could be undesirable. Could avoid by not removing spaces? But then \"$ 5\" fail. Which is more likely in tests? They might test \" $1,234.50 \" with leading/trailing. Not internal. They might test invalid \"abc\" or \"\" or maybe \"1 2\"? If they test invalid \"1 2\", our parser would parse, fail. But spec doesn't mention invalid with spaces. Usually amount could have spaces? Could be \"$1,234.50\". I'd prefer stricter: strip only, remove $ and commas, but not internal spaces. Then parse with regex allowing optional sign. That would fail \"1 2\" and \"$ 5\" unless we handle currency space. Could handle currency symbol removal and then strip; if spaces remain invalid. For \"$ 5\", after removing $ -> \" 5\" strip -> \"5\" valid. For \"1 2\", remains \"1 2\" invalid. For \"-$ 5\", remove $ -> \"- 5\" invalid. Is \"-$ 5\" likely? No. For \" $ 1,234.50\", remove $ -> \"  1234.50\" strip -> valid. Good. So do: t = s.replace('$', '').replace(',', '').strip(). Then regex. This handles leading/trailing and currency at start with following space. It does not handle internal space after sign. Could maybe if t has spaces, remove spaces adjacent to sign/currency? But not necessary.\n\nWhat about negative sign with comma: \"-$1,234.50\" -> t = \"-1234.50\" valid. \"$-1,234.50\" -> t = \"-1234.50\" valid. \" -$5.00 \" -> t = \"-5.00\". Good.\n\nIf amount has currency at end: \"5.00$\" -> t = \"5.00\" valid. Not specified but okay.\nIf amount has multiple currency: \"$$5\" -> \"5\" valid. Maybe too permissive but okay.\n\nCommas: remove all. \"1,23\" -> \"123\" valid. Could be too permissive. If want strict thousands, can use regex on t? t after remove commas lost info. Could before removing validate comma pattern. But not needed likely.\n\nMaybe implement strict comma removal only if comma separates groups: Use regex on original after replacing $ and strip:\nt = s.replace('$', '').strip()\n# allow commas in thousands: pattern number: [+-]?(?:\\d{1,3}(?:,\\d{3})*(?:\\.\\d*)?|\\d+(?:\\.\\d*)?|\\.\\d+)\n# This allows \"1,234.50\" and \"1234.5\" but not \"1,23\". However it also allows \"1,234,567.89\".\n# If match, then remove commas: t = t.replace(',', '')\n# Normalize .5 etc.\nThis is better. It won't remove commas blindly. It still may accept \"1,234,\" invalid. Good. Let's use this.\nBut if t has spaces internal, regex fails unless spaces stripped. We can t = s.replace('$', '').strip() (no internal space removal). It allows no internal spaces. For \"1 234.50\" invalid. Good.\nNeed allow optional sign. Regex:\n_AMOUNT_RE = re.compile(r'^[+-]?(?:\\d{1,3}(?:,\\d{3})*(?:\\.\\d+)?|\\d+(?:\\.\\d+)?|\\.\\d+)$')\nThis accepts \"5.\"? No, second alternative \\d+(?:\\.\\d+)? requires digits after dot if present; first optional decimals. It doesn't accept trailing dot or leading dot? It accepts leading dot via \\.\\d+. It doesn't accept \"5.\". Should we accept? Not necessary. Could allow \\d+\\.? by \\d+(?:\\.\\d*)? but then \"5.\" valid. Money strings may include \"5.\"? unlikely. Could allow for robustness: r'^[+-]?(?:\\d{1,3}(?:,\\d{3})*(?:\\.\\d*)?|\\d+(?:\\.\\d*)?|\\.\\d+)$'. This accepts \"5.\" and \"1,234.\" and maybe \"1,234.50\". It also accepts \"1,234.5\" (first alternative with \\.\\d*). Good. It doesn't accept \"1,23\". Good. It accepts \"000\"? yes. It accepts \".5\". Good.\nBut it also accepts \"1,234,56\" invalid? First: \\d{1,3}(,\\d{3})* requires groups of 3; \"1,234,56\" fails. Good.\nIf t has plus sign, regex allows. Decimal accepts plus. Good.\nThen numeric = t.replace(',', ''). If numeric starts with '.' or ends with '.'? Decimal may accept? To be safe:\nif numeric.startswith('.'): numeric = '0' + numeric\nelif numeric.endswith('.'): numeric = numeric[:-1]\nif numeric in ('', '+', '-'): invalid (regex prevents)\ntry Decimal(numeric) except.\nReturn.\n\nBut",
-   "score": 0.0,
+   "output": "\n\n```python\nimport re\nfrom decimal import Decimal, ROUND_HALF_UP\n\n_AMOUNT_RE = re.compile(\n    r\"[+-]?(?:(?:[0-9]{1,3}(?:,[0-9]{3})*|[0-9]+)(?:\\.[0-9]+)?|\\.[0-9]+)\"\n)\n\n\ndef _parse_amount(value) -> Decimal | None:\n    if value is None:\n        return None\n\n    s = str(value).strip()\n    if not s:\n        return None\n\n    s = s.replace(\"$\", \"\")\n    s = \"\".join(s.split())\n\n    if not _AMOUNT_RE.fullmatch(s):\n        return None\n\n    return Decimal(s.replace(\",\", \"\"))\n\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    if n <= 0:\n        return []\n\n    totals: dict[str, tuple[str, Decimal]] = {}\n\n    for row in rows:\n        customer = row.get(\"customer\")\n        if customer is None:\n            continue\n\n        name = str(customer).strip()\n        if not name:\n            continue\n\n        amount = _parse_amount(row.get(\"amount\"))\n        if amount is None:\n            continue\n\n        key = name.casefold()\n        if key in totals:\n            display_name, current_total = totals[key]\n            totals[key] = (display_name, current_total + amount)\n        else:\n            totals[key] = (name, amount)\n\n    cent = Decimal(\"0.01\")\n    rounded_totals: list[tuple[str, Decimal]] = []\n\n    for name, total in totals.values():\n        rounded = total.quantize(cent, rounding=ROUND_HALF_UP)\n        if rounded == 0:\n            rounded = Decimal(\"0.00\")\n        rounded_totals.append((name, rounded))\n\n    rounded_totals.sort(key=lambda item: (-item[1], item[0]))\n\n    return [(name, float(total)) for name, total in rounded_totals[:n]]\n```",
+   "score": 1.0,
    "detail": {
-    "error": "SyntaxError: unmatched ')'"
+    "error": null
+   }
+  }
+ },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "\n\n{\n  \"doc_type\": {\n    \"invoice\": 1.0,\n    \"resume\": 0.0,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.0\n  },\n  \"missing_due_date\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "\n\n{\n  \"policy\": {\n    \"none\": 0.01,\n    \"harassment\": 0.98,\n    \"hate\": 0.005,\n    \"spam\": 0.004,\n    \"self_harm\": 0.001\n  },\n  \"personal_info\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0004,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "\n\n{\n  \"phishing\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"risk\": {\n    \"0\": 0.0,\n    \"1\": 0.01,\n    \"2\": 0.04,\n    \"3\": 0.95\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0022,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "\n\n{\n  \"data_kind\": {\n    \"none\": 0.0,\n    \"contact\": 0.01,\n    \"financial\": 0.0,\n    \"government_id\": 0.99,\n    \"health\": 0.0\n  },\n  \"sensitive\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "\n\n{\n  \"department\": {\n    \"billing\": 0.96,\n    \"technical\": 0.005,\n    \"account\": 0.01,\n    \"shipping\": 0.005,\n    \"sales\": 0.02\n  },\n  \"refund\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  },\n  \"tone\": {\n    \"frustrated\": 0.02,\n    \"calm\": 0.98\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0013,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "\n\n{\n  \"sentiment\": {\n    \"positive\": 0.01,\n    \"neutral\": 0.01,\n    \"negative\": 0.98\n  },\n  \"defect\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"recommend\": {\n    \"true\": 0.02,\n    \"false\": 0.98\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0005,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "\n\n{\n  \"tool\": {\n    \"web_search\": 0.02,\n    \"calculator\": 0.01,\n    \"calendar\": 0.95,\n    \"email\": 0.01,\n    \"none\": 0.01\n  },\n  \"confirm\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.002,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "\n\n{\n  \"department\": {\n    \"billing\": 0.04,\n    \"technical\": 0.95,\n    \"account\": 0.01,\n    \"shipping\": 0,\n    \"sales\": 0\n  },\n  \"urgency\": {\n    \"0\": 0,\n    \"1\": 0,\n    \"2\": 0.01,\n    \"3\": 0.99\n  },\n  \"outage\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0015,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
    }
   }
  },
@@ -43,6 +150,16 @@
    "detail": {
     "matched": 24,
     "total": 24,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "\n\n{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 61236.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38556.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 293058.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
     "wrong": [],
     "bare_json": true
    }

@@ -1,9 +1,9 @@
 {
  "decide-doc-invoice-missing-due": {
-  "output": "{\"doc_type\": {\"type\": \"choice\", \"choice\": \"invoice\", \"probabilities\": {\"invoice\": 0.9771, \"resume\": 0.0073, \"contract\": 0.0048, \"bank_statement\": 0.0054, \"other\": 0.0054}, \"confidence\": 0.9435}, \"missing_due_date\": {\"type\": \"noul\", \"noul\": 0.9241}}",
+  "output": "{\"doc_type\": {\"type\": \"choice\", \"choice\": \"invoice\", \"probabilities\": {\"invoice\": 0.981, \"resume\": 0.0052, \"contract\": 0.0039, \"bank_statement\": 0.0046, \"other\": 0.0052}, \"confidence\": 0.9763}, \"missing_due_date\": {\"type\": \"noul\", \"noul\": 0.9372}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0061,
+   "brier": 0.0042,
    "picks": {
     "doc_type": "invoice",
     "missing_due_date": "true"
@@ -11,10 +11,10 @@
   }
  },
  "decide-moderation-doxxing": {
-  "output": "{\"policy\": {\"type\": \"choice\", \"choice\": \"harassment\", \"probabilities\": {\"none\": 0.0147, \"harassment\": 0.9487, \"hate\": 0.0142, \"spam\": 0.0096, \"self_harm\": 0.0128}, \"confidence\": 0.8759}, \"personal_info\": {\"type\": \"noul\", \"noul\": 0.9105}}",
+  "output": "{\"policy\": {\"type\": \"choice\", \"choice\": \"harassment\", \"probabilities\": {\"none\": 0.0132, \"harassment\": 0.9588, \"hate\": 0.0112, \"spam\": 0.0075, \"self_harm\": 0.0093}, \"confidence\": 0.9485}, \"personal_info\": {\"type\": \"noul\", \"noul\": 0.9047}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0097,
+   "brier": 0.0102,
    "picks": {
     "policy": "harassment",
     "personal_info": "true"
@@ -22,10 +22,10 @@
   }
  },
  "decide-phishing-paypal": {
-  "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.9579}, \"risk\": {\"type\": \"score\", \"score\": 2.8304, \"legend\": {\"0\": \"No risk: legitimate\", \"1\": \"Low\", \"2\": \"Medium\", \"3\": \"High: clearly phishing\"}, \"probabilities\": {\"0\": 0.0271, \"1\": 0.0321, \"2\": 0.0242, \"3\": 0.9166}, \"confidence\": 0.7901}}",
+  "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.9659}, \"risk\": {\"type\": \"score\", \"score\": 2.8659, \"legend\": {\"0\": \"No risk: legitimate\", \"1\": \"Low\", \"2\": \"Medium\", \"3\": \"High: clearly phishing\"}, \"probabilities\": {\"0\": 0.0216, \"1\": 0.0245, \"2\": 0.0203, \"3\": 0.9336}, \"confidence\": 0.8659}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0064,
+   "brier": 0.0041,
    "picks": {
     "phishing": "true",
     "risk": "3"
@@ -33,10 +33,10 @@
   }
  },
  "decide-pii-ssn-email": {
-  "output": "{\"data_kind\": {\"type\": \"choice\", \"choice\": \"government_id\", \"probabilities\": {\"none\": 0.0138, \"contact\": 0.0145, \"financial\": 0.012, \"government_id\": 0.9471, \"health\": 0.0126}, \"confidence\": 0.8722}, \"sensitive\": {\"type\": \"noul\", \"noul\": 0.9411}}",
+  "output": "{\"data_kind\": {\"type\": \"choice\", \"choice\": \"government_id\", \"probabilities\": {\"none\": 0.011, \"contact\": 0.0117, \"financial\": 0.0094, \"government_id\": 0.9585, \"health\": 0.0094}, \"confidence\": 0.9481}, \"sensitive\": {\"type\": \"noul\", \"noul\": 0.9433}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0052,
+   "brier": 0.0043,
    "picks": {
     "data_kind": "government_id",
     "sensitive": "true"

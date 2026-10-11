@@ -11,10 +11,10 @@
   }
  },
  "decide-moderation-doxxing": {
-  "output": "{\"policy\": {\"type\": \"choice\", \"choice\": \"harassment\", \"probabilities\": {\"none\": 0.0241, \"harassment\": 0.9612, \"hate\": 0.0052, \"spam\": 0.0049, \"self_harm\": 0.0046}, \"confidence\": 0.9056}, \"personal_info\": {\"type\": \"noul\", \"noul\": 0.9743}}",
+  "output": "{\"policy\": {\"type\": \"choice\", \"choice\": \"harassment\", \"probabilities\": {\"none\": 0.0182, \"harassment\": 0.9702, \"hate\": 0.0041, \"spam\": 0.0037, \"self_harm\": 0.0038}, \"confidence\": 0.9627}, \"personal_info\": {\"type\": \"noul\", \"noul\": 0.9781}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0017,
+   "brier": 0.0011,
    "picks": {
     "policy": "harassment",
     "personal_info": "true"

@@ -50,6 +50,99 @@
    }
   }
  },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\n  \"doc_type\": {\n    \"invoice\": 0.99,\n    \"resume\": 0.0,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.01\n  },\n  \"missing_due_date\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\n  \"policy\": {\n    \"none\": 0.005,\n    \"harassment\": 0.99,\n    \"hate\": 0.002,\n    \"spam\": 0.002,\n    \"self_harm\": 0.001\n  },\n  \"personal_info\": {\n    \"true\": 0.995,\n    \"false\": 0.005\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 0.999,\n    \"false\": 0.001\n  },\n  \"risk\": {\n    \"0\": 0.001,\n    \"1\": 0.001,\n    \"2\": 0.001,\n    \"3\": 0.997\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\n  \"data_kind\": {\n    \"none\": 0.0,\n    \"contact\": 0.01,\n    \"financial\": 0.01,\n    \"government_id\": 0.98,\n    \"health\": 0.0\n  },\n  \"sensitive\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0004,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.99,\n    \"technical\": 0.0025,\n    \"account\": 0.0025,\n    \"shipping\": 0.0025,\n    \"sales\": 0.0025\n  },\n  \"refund\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"tone\": {\n    \"frustrated\": 0.01,\n    \"calm\": 0.99\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\n    \"positive\": 0.01,\n    \"neutral\": 0.01,\n    \"negative\": 0.98\n  },\n  \"defect\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"recommend\": {\n    \"true\": 0.01,\n    \"false\": 0.99\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0003,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.01,\n    \"calculator\": 0.00,\n    \"calendar\": 0.95,\n    \"email\": 0.03,\n    \"none\": 0.01\n  },\n  \"confirm\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0022,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.1,\n    \"technical\": 0.9,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.0\n  },\n  \"urgency\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.01,\n    \"3\": 0.99\n  },\n  \"outage\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0068,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
  "extract": {
   "extract-expense-thread": {
    "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 65.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",

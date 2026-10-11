@@ -29,9 +29,9 @@
   "decisions/decide-criticism-not-hate": {
    "h": "0a90865e89ae",
    "v": "priv",
-   "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.2486,
+   "score": 0.5,
+   "provider": "PrimeIntellect",
+   "brier": 0.2868,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-bank-overdrawn": {
@@ -62,7 +62,7 @@
    "h": "f02928ab84f6",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
+   "provider": "PrimeIntellect",
    "brier": 0.0004,
    "at": "2026-10-11"
   },
@@ -70,8 +70,8 @@
    "h": "c9625a8d1dfd",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0013,
+   "provider": "PrimeIntellect",
+   "brier": 0.0014,
    "at": "2026-10-11"
   },
   "decisions/decide-gdpr-erasure": {
@@ -86,8 +86,8 @@
    "h": "4c63e3a29e86",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0025,
+   "provider": "PrimeIntellect",
+   "brier": 0.0026,
    "at": "2026-10-11"
   },
   "decisions/decide-incident-payments": {
@@ -126,8 +126,8 @@
    "h": "5301594c3843",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0017,
+   "provider": "PrimeIntellect",
+   "brier": 0.0011,
    "at": "2026-10-11"
   },
   "decisions/decide-negated-billing": {
@@ -142,8 +142,8 @@
    "h": "41b8d2f2f1b3",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.1554,
+   "provider": "PrimeIntellect",
+   "brier": 0.1982,
    "at": "2026-10-11"
   },
   "decisions/decide-phishing-legit-newsletter": {
@@ -222,8 +222,8 @@
    "h": "c54f7879f164",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0509,
+   "provider": "PrimeIntellect",
+   "brier": 0.0542,
    "at": "2026-10-11"
   },
   "decisions/decide-route-calculator": {
@@ -270,7 +270,7 @@
    "h": "b2a2a46cb642",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
+   "provider": "PrimeIntellect",
    "brier": 0.0001,
    "at": "2026-10-11"
   },

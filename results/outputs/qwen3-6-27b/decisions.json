@@ -1,0 +1,93 @@
+{
+ "decide-doc-invoice-missing-due": {
+  "output": "{\"doc_type\":{\"invoice\":1.0,\"resume\":0.0,\"contract\":0.0,\"bank_statement\":0.0,\"other\":0.0},\"missing_due_date\":{\"true\":1.0,\"false\":0.0}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "doc_type": "invoice",
+    "missing_due_date": "true"
+   }
+  }
+ },
+ "decide-moderation-doxxing": {
+  "output": "{\n  \"policy\": {\n    \"none\": 0.0,\n    \"harassment\": 1.0,\n    \"hate\": 0.0,\n    \"spam\": 0.0,\n    \"self_harm\": 0.0\n  },\n  \"personal_info\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "policy": "harassment",
+    "personal_info": "true"
+   }
+  }
+ },
+ "decide-phishing-paypal": {
+  "output": "{ \"phishing\": { \"true\": 0.99, \"false\": 0.01 }, \"risk\": { \"0\": 0.0, \"1\": 0.0, \"2\": 0.01, \"3\": 0.99 } }",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0002,
+   "picks": {
+    "phishing": "true",
+    "risk": "3"
+   }
+  }
+ },
+ "decide-pii-ssn-email": {
+  "output": "{\"data_kind\":{\"none\":0.0,\"contact\":0.01,\"financial\":0.0,\"government_id\":0.99,\"health\":0.0},\"sensitive\":{\"true\":1.0,\"false\":0.0}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0001,
+   "picks": {
+    "data_kind": "government_id",
+    "sensitive": "true"
+   }
+  }
+ },
+ "decide-refund-wrong-plan": {
+  "output": "{\"department\":{\"billing\":0.96,\"technical\":0.01,\"account\":0.01,\"shipping\":0.01,\"sales\":0.01},\"refund\":{\"true\":0.99,\"false\":0.01},\"tone\":{\"calm\":0.98,\"frustrated\":0.02}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.001,
+   "picks": {
+    "department": "billing",
+    "refund": "true",
+    "tone": "calm"
+   }
+  }
+ },
+ "decide-review-mixed": {
+  "output": "{\n  \"sentiment\": {\n    \"positive\": 0.05,\n    \"neutral\": 0.05,\n    \"negative\": 0.90\n  },\n  \"defect\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  },\n  \"recommend\": {\n    \"true\": 0.02,\n    \"false\": 0.98\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0055,
+   "picks": {
+    "sentiment": "negative",
+    "defect": "true",
+    "recommend": "false"
+   }
+  }
+ },
+ "decide-route-calendar": {
+  "output": "{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 1.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "true"
+   }
+  }
+ },
+ "decide-support-checkout-down": {
+  "output": "{\n  \"department\": {\n    \"billing\": 0.03,\n    \"technical\": 0.96,\n    \"account\": 0.003,\n    \"shipping\": 0.004,\n    \"sales\": 0.003\n  },\n  \"urgency\": {\n    \"0\": 0.001,\n    \"1\": 0.001,\n    \"2\": 0.008,\n    \"3\": 0.99\n  },\n  \"outage\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.001,
+   "picks": {
+    "department": "technical",
+    "urgency": "3",
+    "outage": "true"
+   }
+  }
+ }
+}

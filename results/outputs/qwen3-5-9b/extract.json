@@ -1,10 +1,27 @@
 {
  "extract-expense-thread": {
-  "output": "",
-  "score": 0.0,
+  "output": "\n\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.6\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.0,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+  "score": 1.0,
   "detail": {
-   "error": "no JSON object",
-   "bare_json": false
+   "matched": 24,
+   "total": 24,
+   "wrong": [],
+   "bare_json": true
+  }
+ },
+ "extract-hard-saas-escalator": {
+  "output": "\n\n{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.0,\n  \"year2_invoice\": 61074.0,\n  \"addon_months_billed\": 4,\n  \"addon_invoice\": 25704.0,\n  \"year3_invoice\": 134946.0,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 280044.0,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+  "score": 0.6,
+  "detail": {
+   "matched": 6,
+   "total": 10,
+   "wrong": [
+    "$.addon_invoice",
+    "$.addon_months_billed",
+    "$.total_contract_value",
+    "$.year2_invoice"
+   ],
+   "bare_json": true
   }
  },
  "extract-invoice-email": {

@@ -15,7 +15,8 @@
    "score": 0.0,
    "provider": "DeepInfra",
    "truncated": true,
-   "at": "2026-10-10"
+   "mt": 32768,
+   "at": "2026-10-11"
   },
   "coding/code-dedupe-emails": {
    "h": "286981be824d",
@@ -34,17 +35,17 @@
   "coding/code-evaluate-expr": {
    "h": "9645efdf07a9",
    "v": "priv",
-   "score": 0.0,
+   "score": 1.0,
    "provider": "DeepInfra",
-   "truncated": true,
-   "at": "2026-10-10"
+   "mt": 32768,
+   "at": "2026-10-11"
   },
   "coding/code-hard-bool-expr": {
    "h": "a84a25915d0e",
    "v": "priv",
    "score": 0.0,
    "provider": "DeepInfra",
-   "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-csv-parser": {
@@ -53,6 +54,7 @@
    "score": 0.0,
    "provider": "DeepInfra",
    "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-ini-parser": {
@@ -61,6 +63,7 @@
    "score": 0.0,
    "provider": "DeepInfra",
    "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-json-path": {
@@ -88,9 +91,9 @@
   "coding/code-hard-next-cron": {
    "h": "dd8445a3ed3c",
    "v": "priv",
-   "score": 0.0,
+   "score": 1.0,
    "provider": "DeepInfra",
-   "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-normalize-path": {
@@ -113,7 +116,7 @@
    "v": "publ",
    "score": 0.0,
    "provider": "DeepInfra",
-   "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-inventory": {
@@ -150,8 +153,8 @@
    "v": "publ",
    "score": 0.0,
    "provider": "DeepInfra",
-   "truncated": true,
-   "at": "2026-10-10"
+   "mt": 32768,
+   "at": "2026-10-11"
   },
   "coding/code-parse-query": {
    "h": "c758323f80cf",

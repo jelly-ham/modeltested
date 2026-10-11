@@ -14,6 +14,24 @@
    "bare_json": true
   }
  },
+ "extract-hard-saas-escalator": {
+  "output": "{\n  \"year2_price_per_seat_month\": 47.37,\n  \"year3_price_per_seat_month\": 49.82,\n  \"year1_invoice\": 64800.0,\n  \"year2_invoice\": 66820.8,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 39856.0,\n  \"year3_invoice\": 127577.6,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 299254.4,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+  "score": 0.3,
+  "detail": {
+   "matched": 3,
+   "total": 10,
+   "wrong": [
+    "$.addon_invoice",
+    "$.total_contract_value",
+    "$.year1_invoice",
+    "$.year2_invoice",
+    "$.year2_price_per_seat_month",
+    "$.year3_invoice",
+    "$.year3_price_per_seat_month"
+   ],
+   "bare_json": true
+  }
+ },
  "extract-lease-amendment": {
   "output": "{\"tenants\": [\"Marcus Lin\", \"Sofia Lin\"], \"landlord\": \"Ridgeline Property Group LLC\", \"zip\": \"97205\", \"lease_end\": \"2025-11-30\", \"original_monthly_rent\": 2150.0, \"monthly_rent_from_2025_06_01\": 2236.0, \"late_fee_from_2025_06_01\": 111.8, \"security_deposit\": 2150.0, \"total_pet_deposits\": 800.0, \"total_monthly_payment_july_2025\": 2306.0, \"move_in_payment\": 5700.0}",
   "score": 0.9167,

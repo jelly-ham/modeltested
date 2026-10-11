@@ -38,8 +38,8 @@
    "h": "8603b122a7d1",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0077,
+   "provider": "PrimeIntellect",
+   "brier": 0.0043,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-contract-autorenew": {
@@ -54,8 +54,8 @@
    "h": "caa2741573fc",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0061,
+   "provider": "PrimeIntellect",
+   "brier": 0.0042,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-resume": {
@@ -78,8 +78,8 @@
    "h": "71059f428f66",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0045,
+   "provider": "PrimeIntellect",
+   "brier": 0.0022,
    "at": "2026-10-11"
   },
   "decisions/decide-incident-docs": {
@@ -94,8 +94,8 @@
    "h": "2536c0ad4a10",
    "v": "priv",
    "score": 0.5,
-   "provider": "Cloudflare",
-   "brier": 0.7442,
+   "provider": "PrimeIntellect",
+   "brier": 0.8001,
    "at": "2026-10-11"
   },
   "decisions/decide-intent-upgrade": {
@@ -126,16 +126,16 @@
    "h": "5301594c3843",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0097,
+   "provider": "PrimeIntellect",
+   "brier": 0.0102,
    "at": "2026-10-11"
   },
   "decisions/decide-negated-billing": {
    "h": "07fe2078d376",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0032,
+   "provider": "PrimeIntellect",
+   "brier": 0.0018,
    "at": "2026-10-11"
   },
   "decisions/decide-password-reset-no-rush": {
@@ -166,8 +166,8 @@
    "h": "3483ab984a02",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0064,
+   "provider": "PrimeIntellect",
+   "brier": 0.0041,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-card": {
@@ -198,8 +198,8 @@
    "h": "2285b10e744d",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0052,
+   "provider": "PrimeIntellect",
+   "brier": 0.0043,
    "at": "2026-10-11"
   },
   "decisions/decide-refund-wrong-plan": {
@@ -222,8 +222,8 @@
    "h": "c54f7879f164",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.1928,
+   "provider": "PrimeIntellect",
+   "brier": 0.1308,
    "at": "2026-10-11"
   },
   "decisions/decide-route-calculator": {
@@ -262,8 +262,8 @@
    "h": "c4689a70b581",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0069,
+   "provider": "PrimeIntellect",
+   "brier": 0.0046,
    "at": "2026-10-11"
   },
   "decisions/decide-screening-work-auth": {
@@ -278,8 +278,8 @@
    "h": "6dedfd528895",
    "v": "priv",
    "score": 0.0,
-   "provider": "Cloudflare",
-   "brier": 1.9158,
+   "provider": "PrimeIntellect",
+   "brier": 1.9063,
    "at": "2026-10-11"
   },
   "decisions/decide-spam-followers": {

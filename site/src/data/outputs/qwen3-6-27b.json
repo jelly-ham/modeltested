@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\nimport re\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    sections: dict[str, dict[str, str]] = {}\n    current_section = None\n    last_key = None\n\n    for line in text.splitlines():\n        stripped = line.strip()\n\n        # Rule 3: Ignore empty or comment lines\n        if not stripped or stripped[0] in (';', '#'):\n            last_key = None\n            continue\n\n        # Rule 6: Continuation lines\n        if line[0] in (' ', '\\t'):\n            if last_key is not None and current_section is not None:\n                sections[current_section][last_key] += '\\n' + stripped\n                continue\n            raise ValueError(\"Malformed continuation line without preceding key\")\n\n        # Rule 1: Section headers\n        section_match = re.match(r'^\\s*\\[\\s*([^\\]]+)\\s*\\]\\s*$', line)\n        if section_match:\n            current_section = section_match.group(1)\n            if current_section not in sections:\n                sections[current_section] = {}\n            last_key = None\n            continue\n\n        # Rule 10: Key before any section\n        if current_section is None:\n            raise ValueError(\"Key line before any section header\")\n\n        # Rule 2: Key-value splitting\n        eq_pos = line.find('=')\n        colon_pos = line.find(':')\n        if eq_pos == -1 and colon_pos == -1:\n            raise ValueError(f\"Malformed line: {line!r}\")\n\n        split_pos = eq_pos if eq_pos != -1 and (colon_pos == -1 or eq_pos < colon_pos) else colon_pos\n        key = line[:split_pos].strip().lower()\n        if not key:\n            raise ValueError(f\"Empty key in line: {line!r}\")\n\n        raw_val = line[split_pos + 1:]\n\n        # Rule 4 & 5: Quotes and inline comments\n        lstrip_val = raw_val.lstrip()\n        if lstrip_val.startswith('\"'):\n            close_idx = lstrip_val.find('\"', 1)\n            if close_idx == -1:\n                raise ValueError(f\"Unclosed quote in: {line!r}\")\n            value = lstrip_val[1:close_idx]\n        else:\n            cm = re.search(r'[ \\t]+[;#]', raw_val)\n            c_pos = cm.start() if cm else -1\n            value = raw_val[:c_pos] if c_pos != -1 else raw_val\n            value = value.strip()\n\n        sections[current_section][key] = value\n        last_key = key\n\n    # Rule 8: DEFAULT section inheritance\n    if 'DEFAULT' in sections:\n        defaults = sections['DEFAULT']\n        for sec in sections:\n            if sec == 'DEFAULT':\n                continue\n            for k, v in defaults.items():\n                if k not in sections[sec]:\n                    sections[sec][k] = v\n\n    # Rule 9: Interpolation resolution\n    _RE_INTERP = re.compile(r'\\$\\{([^}]+)\\}')\n\n    def resolve(val: str, sec: str, visiting: set[tuple[str, str]]) -> str:\n        def replacer(m: re.Match) -> str:\n            ref = m.group(1)\n            if ':' in ref:\n                ref_sec, ref_key = ref.split(':', 1)\n                ref_key = ref_key.strip().lower()\n                ref_sec = ref_sec.strip()\n            else:\n                ref_sec = sec\n                ref_key = ref.strip().lower()\n\n            if ref_sec not in sections or ref_key not in sections[ref_sec]:\n                raise KeyError(f\"Missing reference: {ref_sec}:{ref_key}\")\n            if (ref_sec, ref_key) in visiting:\n                raise ValueError(\"Interpolation cycle detected\")\n\n            visiting.add((ref_sec, ref_key))\n            try:\n                return resolve(sections[ref_sec][ref_key], ref_sec, visiting)\n            finally:\n                visiting.remove((ref_sec, ref_key))\n\n        return _RE_INTERP.sub(replacer, val)\n\n    resolved_sections: dict[str, dict[str, str]] = {}\n    for sec in sections:\n        resolved_sections[sec] = {}\n        for k in sections[sec]:\n            resolved_sections[sec][k] = resolve(sections[sec][k], sec, set())\n\n    # Rule 8: DEFAULT is not returned\n    resolved_sections.pop('DEFAULT', None)\n    return resolved_sections\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = OrderedDict()\n        self.hits = 0\n        self.misses = 0\n        self.evictions = 0\n        self.expirations = 0\n\n    def _remove_expired(self):\n        now = self.clock()\n        expired_keys = [k for k, (_, exp) in self.cache.items() if now >= exp]\n        for k in expired_keys:\n            self.cache.pop(k)\n            self.expirations += 1\n\n    def put(self, key, value):\n        if self.capacity == 0:\n            return\n\n        now = self.clock()\n        if key in self.cache:\n            self.cache[key] = (value, now + self.ttl)\n            self.cache.move_to_end(key)\n        else:\n            if len(self.cache) >= self.capacity:\n                self._remove_expired()\n                if len(self.cache) >= self.capacity:\n                    self.cache.popitem(last=False)\n                    self.evictions += 1\n            \n            self.cache[key] = (value, now + self.ttl)\n            self.cache.move_to_end(key)\n\n    def get(self, key, default=None):\n        if self.capacity == 0:\n            self.misses += 1\n            return default\n\n        now = self.clock()\n        if key in self.cache:\n            value, expiry = self.cache[key]\n            if now >= expiry:\n                del self.cache[key]\n                self.expirations += 1\n                self.misses += 1\n                return default\n            \n            self.cache.move_to_end(key)\n            self.hits += 1\n            return value\n        else:\n            self.misses += 1\n            return default\n\n    def __len__(self):\n        if self.capacity == 0:\n            return 0\n        now = self.clock()\n        return sum(1 for _, (_, exp) in self.cache.items() if now < exp)\n\n    def stats(self):\n        return {\n            \"hits\": self.hits,\n            \"misses\": self.misses,\n            \"evictions\": self.evictions,\n            \"expirations\": self.expirations\n        }\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
   "code-parse-duration": {
    "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    pattern = r'\\s*(?:([0-9]+)\\s*h)?\\s*(?:([0-9]+)\\s*m)?\\s*(?:([0-9]+)\\s*s)?\\s*'\n    match = re.fullmatch(pattern, s, re.IGNORECASE)\n    if not match:\n        raise ValueError(\"Invalid duration string\")\n    h, m, sec = match.groups()\n    if h is None and m is None and sec is None:\n        raise ValueError(\"Empty or blank string\")\n    total = 0\n    if h is not None:\n        total += int(h) * 3600\n    if m is not None:\n        total += int(m) * 60\n    if sec is not None:\n        total += int(sec)\n    return total\n```",
    "score": 1.0,
@@ -36,6 +50,99 @@
    }
   }
  },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\"doc_type\":{\"invoice\":1.0,\"resume\":0.0,\"contract\":0.0,\"bank_statement\":0.0,\"other\":0.0},\"missing_due_date\":{\"true\":1.0,\"false\":0.0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\n  \"policy\": {\n    \"none\": 0.0,\n    \"harassment\": 1.0,\n    \"hate\": 0.0,\n    \"spam\": 0.0,\n    \"self_harm\": 0.0\n  },\n  \"personal_info\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{ \"phishing\": { \"true\": 0.99, \"false\": 0.01 }, \"risk\": { \"0\": 0.0, \"1\": 0.0, \"2\": 0.01, \"3\": 0.99 } }",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\"data_kind\":{\"none\":0.0,\"contact\":0.01,\"financial\":0.0,\"government_id\":0.99,\"health\":0.0},\"sensitive\":{\"true\":1.0,\"false\":0.0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\"department\":{\"billing\":0.96,\"technical\":0.01,\"account\":0.01,\"shipping\":0.01,\"sales\":0.01},\"refund\":{\"true\":0.99,\"false\":0.01},\"tone\":{\"calm\":0.98,\"frustrated\":0.02}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.001,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\n    \"positive\": 0.05,\n    \"neutral\": 0.05,\n    \"negative\": 0.90\n  },\n  \"defect\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  },\n  \"recommend\": {\n    \"true\": 0.02,\n    \"false\": 0.98\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0055,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 1.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.03,\n    \"technical\": 0.96,\n    \"account\": 0.003,\n    \"shipping\": 0.004,\n    \"sales\": 0.003\n  },\n  \"urgency\": {\n    \"0\": 0.001,\n    \"1\": 0.001,\n    \"2\": 0.008,\n    \"3\": 0.99\n  },\n  \"outage\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.001,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
  "extract": {
   "extract-expense-thread": {
    "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    { \"date\": \"2025-02-24\", \"category\": \"airfare\", \"amount_usd\": 1184.60 },\n    { \"date\": \"2025-02-24\", \"category\": \"ground_transport\", \"amount_usd\": 38.88 },\n    { \"date\": \"2025-02-25\", \"category\": \"meals\", \"amount_usd\": 229.39 },\n    { \"date\": \"2025-02-26\", \"category\": \"lodging\", \"amount_usd\": 466.56 },\n    { \"date\": \"2025-02-27\", \"category\": \"ground_transport\", \"amount_usd\": 44.82 }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
@@ -44,6 +151,20 @@
     "matched": 24,
     "total": 24,
     "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 99996.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38760.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 293262.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 0.7,
+   "detail": {
+    "matched": 7,
+    "total": 10,
+    "wrong": [
+     "$.addon_invoice",
+     "$.total_contract_value",
+     "$.year2_invoice"
+    ],
     "bare_json": true
    }
   },

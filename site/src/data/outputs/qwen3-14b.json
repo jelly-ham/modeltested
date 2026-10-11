@@ -8,17 +8,17 @@
    }
   },
   "code-hard-ttl-lru": {
-   "output": "",
+   "output": "```python\nfrom collections import OrderedDict\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = OrderedDict()\n        self.stats = {\n            'hits': 0,\n            'misses': 0,\n            'evictions': 0,\n            'expirations': 0\n        }\n\n    def put(self, key, value):\n        if self.capacity == 0:\n            return\n        current_time = self.clock()\n        if key in self.cache:\n            self.cache[key] = (value, current_time + self.ttl)\n            self.cache.move_to_end(key)\n            return\n        self._remove_expired()\n        if len(self.cache) >= self.capacity:\n            self._evict_lru()\n        self.cache[key] = (value, current_time + self.ttl)\n\n    def get(self, key, default=None):\n        if self.capacity == 0:\n            self.stats['misses'] += 1\n            return default\n        current_time = self.clock()\n        if key not in self.cache:\n            self.stats['misses'] += 1\n            return default\n        value, expiry = self.cache[key]\n        if current_time >= expiry:\n            del self.cache[key]\n            self.stats['expirations'] += 1\n            return default\n        self.cache.move_to_end(key)\n        self.stats['hits'] += 1\n        return value\n\n    def __len__(self):\n        if self.capacity == 0:\n            return 0\n        current_time = self.clock()\n        count = 0\n        for key in self.cache:\n            _, expiry = self.cache[key]\n            if current_time < expiry:\n                count += 1\n        return count\n\n    def stats(self):\n        return self.stats.copy()\n\n    def _remove_expired(self):\n        current_time = self.clock()\n        expired_keys = []\n        for key in list(self.cache.keys()):\n            _, expiry = self.cache[key]\n            if current_time >= expiry:\n                expired_keys.append(key)\n        for key in expired_keys:\n            del self.cache[key]\n            self.stats['expirations'] += 1\n\n    def _evict_lru(self):\n        if self.cache:\n            key_to_evict, _ = self.cache.popitem(last=False)\n            self.stats['evictions'] += 1\n```",
    "score": 0.0,
    "detail": {
-    "error": "NameError: name 'TTLCache' is not defined"
+    "error": "TypeError: 'dict' object is not callable"
    }
   },
   "code-parse-duration": {
-   "output": "",
+   "output": "```python\ndef parse_duration(s: str) -> int:\n    s = s.strip()\n    if not s:\n        raise ValueError(\"Empty string\")\n    tokens = s.split()\n    units = []\n    total_seconds = 0\n\n    for token in tokens:\n        if len(token) < 2:\n            raise ValueError(\"Invalid token\")\n        unit_char = token[-1].lower()\n        if unit_char not in {'h', 'm', 's'}:\n            raise ValueError(\"Unknown unit\")\n        number_part = token[:-1]\n        try:\n            num = int(number_part)\n        except ValueError:\n            raise ValueError(\"Invalid number part\")\n        if num < 0:\n            raise ValueError(\"Negative number\")\n        units.append(unit_char)\n        if unit_char == 'h':\n            total_seconds += num * 3600\n        elif unit_char == 'm':\n            total_seconds += num * 60\n        elif unit_char == 's':\n            total_seconds += num\n\n    ordered_units = ['h', 'm', 's']\n    for i in range(len(units)):\n        if i >= len(ordered_units):\n            raise ValueError(\"Units out of order\")\n        if units[i] != ordered_units[i]:\n            raise ValueError(\"Units out of order\")\n\n    return total_seconds\n```",
    "score": 0.0,
    "detail": {
-    "error": "NameError: name 'parse_duration' is not defined"
+    "error": "ValueError: Invalid number part"
    }
   },
   "code-slugify": {

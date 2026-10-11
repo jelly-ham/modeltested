@@ -12,6 +12,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 23.4,
   "hard": 11.9,
   "suites": {
@@ -55,6 +57,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 34.9,
   "hard": 23.8,
   "suites": {
@@ -98,6 +102,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 39.8,
   "hard": 29.1,
   "suites": {
@@ -143,21 +149,34 @@
   "ollama": "gemma3:4b",
   "license": null,
   "added": "2026-10-10",
-  "overall": 17.8,
+  "kind": null,
+  "status": "active",
+  "base": null,
+  "quant": null,
+  "overall": 14.2,
+  "hard": 6.3,
   "suites": {
    "coding": {
-    "score": 5.0,
+    "score": 3.3,
     "public": 0.0,
-    "private": 6.7,
-    "done": 20,
-    "total": 20
+    "private": 4.3,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 71.6,
+    "public": 68.8,
+    "private": 72.4,
+    "done": 37,
+    "total": 37,
+    "calibration": 77.0
    },
    "extract": {
-    "score": 30.6,
-    "public": 47.8,
-    "private": 24.9,
-    "done": 16,
-    "total": 16
+    "score": 25.1,
+    "public": 40.3,
+    "private": 21.1,
+    "done": 24,
+    "total": 24
    }
   },
   "providers": [
@@ -177,6 +196,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 70.4,
   "hard": 50.3,
   "suites": {
@@ -228,6 +249,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 79.2,
   "hard": 72.6,
   "suites": {
@@ -275,6 +298,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 71.8,
   "hard": 43.4,
   "suites": {
@@ -319,6 +344,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 88.4,
   "hard": 68.9,
   "suites": {
@@ -365,6 +392,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 77.2,
   "hard": 54.7,
   "suites": {
@@ -409,6 +438,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 14.8,
   "hard": 3.4,
   "suites": {
@@ -454,6 +485,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 6.2,
   "hard": 1.9,
   "suites": {
@@ -497,6 +530,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 44.1,
   "hard": 23.8,
   "suites": {
@@ -540,6 +575,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 20.9,
   "hard": 15.3,
   "suites": {
@@ -583,6 +620,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 36.6,
   "hard": 18.3,
   "suites": {
@@ -626,6 +665,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 22.9,
   "hard": 13.0,
   "suites": {
@@ -672,6 +713,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 41.0,
   "hard": 23.9,
   "suites": {
@@ -714,6 +757,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 43.5,
   "hard": 20.9,
   "suites": {
@@ -725,11 +770,12 @@
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 31,
-    "total": 37
+    "score": 94.6,
+    "public": 100.0,
+    "private": 93.1,
+    "done": 37,
+    "total": 37,
+    "calibration": 94.4
    },
    "extract": {
     "score": 47.0,
@@ -758,6 +804,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 57.4,
   "hard": 43.1,
   "suites": {
@@ -802,6 +850,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 80.3,
   "hard": 68.6,
   "suites": {
@@ -845,6 +895,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 24.8,
   "hard": 19.2,
   "suites": {
@@ -887,6 +939,8 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
+  "base": null,
+  "quant": null,
   "overall": 23.7,
   "hard": 11.4,
   "suites": {
@@ -929,13 +983,15 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
-  "overall": 68.9,
-  "hard": 36.8,
+  "base": null,
+  "quant": null,
+  "overall": 72.2,
+  "hard": 42.4,
   "suites": {
    "coding": {
-    "score": 56.7,
+    "score": 63.3,
     "public": 57.1,
-    "private": 56.5,
+    "private": 65.2,
     "done": 30,
     "total": 30
    },
@@ -972,27 +1028,30 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
-  "overall": 71.4,
-  "hard": 48.3,
+  "base": null,
+  "quant": null,
+  "overall": 76.8,
+  "hard": 49.5,
   "suites": {
    "coding": {
-    "score": 56.7,
+    "score": 66.7,
     "public": 71.4,
-    "private": 52.2,
+    "private": 65.2,
     "done": 30,
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 8,
-    "total": 37
+    "score": 94.6,
+    "public": 100.0,
+    "private": 93.1,
+    "done": 37,
+    "total": 37,
+    "calibration": 94.7
    },
    "extract": {
-    "score": 86.1,
+    "score": 87.0,
     "public": 92.3,
-    "private": 84.5,
+    "private": 85.6,
     "done": 24,
     "total": 24
    }
@@ -1014,7 +1073,9 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
-  "overall": 39.2,
+  "base": null,
+  "quant": null,
+  "overall": 39.5,
   "hard": 25.2,
   "suites": {
    "coding": {
@@ -1025,16 +1086,17 @@
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 0,
-    "total": 37
+    "score": 91.9,
+    "public": 100.0,
+    "private": 89.7,
+    "done": 37,
+    "total": 37,
+    "calibration": 92.5
    },
    "extract": {
-    "score": 45.2,
+    "score": 45.7,
     "public": 55.9,
-    "private": 42.4,
+    "private": 43.0,
     "done": 24,
     "total": 24
    }
@@ -1057,22 +1119,25 @@
   "added": "2026-10-10",
   "kind": null,
   "status": "active",
-  "overall": 62.6,
+  "base": null,
+  "quant": null,
+  "overall": 64.3,
   "hard": 50.1,
   "suites": {
    "coding": {
-    "score": 46.7,
-    "public": 57.1,
+    "score": 50.0,
+    "public": 71.4,
     "private": 43.5,
     "done": 30,
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 0,
-    "total": 37
+    "score": 95.9,
+    "public": 100.0,
+    "private": 94.8,
+    "done": 37,
+    "total": 37,
+    "calibration": 97.2
    },
    "extract": {
     "score": 78.6,
@@ -1083,9 +1148,9 @@
    }
   },
   "providers": [
+   "SiliconFlow",
    "DeepInfra",
-   "Tenstorrent",
-   "SiliconFlow"
+   "Tenstorrent"
   ]
  },
  "qwen3-5-27b": {
@@ -1099,27 +1164,40 @@
   "ollama": null,
   "license": null,
   "added": "2026-10-10",
-  "overall": 92.1,
+  "kind": null,
+  "status": "active",
+  "base": null,
+  "quant": null,
+  "overall": 88.1,
+  "hard": 77.8,
   "suites": {
    "coding": {
-    "score": 85.0,
+    "score": 76.7,
+    "public": 85.7,
+    "private": 73.9,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 100.0,
     "public": 100.0,
-    "private": 80.0,
-    "done": 20,
-    "total": 20
+    "private": 100.0,
+    "done": 37,
+    "total": 37,
+    "calibration": 99.9
    },
    "extract": {
-    "score": 99.2,
-    "public": 96.9,
+    "score": 99.5,
+    "public": 97.5,
     "private": 100.0,
-    "done": 16,
-    "total": 16
+    "done": 24,
+    "total": 24
    }
   },
   "providers": [
-   "SiliconFlow",
    "DeepInfra",
    "AtlasCloud",
+   "SiliconFlow",
    "Novita"
   ]
  },
@@ -1169,21 +1247,34 @@
   "ollama": null,
   "license": null,
   "added": "2026-10-10",
-  "overall": 61.8,
+  "kind": null,
+  "status": "active",
+  "base": null,
+  "quant": null,
+  "overall": 71.7,
+  "hard": 57.9,
   "suites": {
    "coding": {
-    "score": 50.0,
-    "public": 40.0,
-    "private": 53.3,
-    "done": 20,
-    "total": 20
+    "score": 46.7,
+    "public": 42.9,
+    "private": 47.8,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 95.9,
+    "public": 100.0,
+    "private": 94.8,
+    "done": 37,
+    "total": 37,
+    "calibration": 95.9
    },
    "extract": {
-    "score": 73.6,
-    "public": 72.9,
-    "private": 73.8,
-    "done": 16,
-    "total": 16
+    "score": 96.7,
+    "public": 90.3,
+    "private": 98.3,
+    "done": 24,
+    "total": 24
    }
   },
   "providers": [
@@ -1204,21 +1295,34 @@
   "ollama": null,
   "license": null,
   "added": "2026-10-10",
-  "overall": 97.2,
+  "kind": null,
+  "status": "active",
+  "base": null,
+  "quant": null,
+  "overall": 96.7,
+  "hard": 90.6,
   "suites": {
    "coding": {
-    "score": 95.0,
+    "score": 96.7,
     "public": 100.0,
-    "private": 93.3,
-    "done": 20,
-    "total": 20
+    "private": 95.7,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 98.6,
+    "public": 100.0,
+    "private": 98.3,
+    "done": 37,
+    "total": 37,
+    "calibration": 98.8
    },
    "extract": {
-    "score": 99.5,
-    "public": 97.9,
-    "private": 100.0,
-    "done": 16,
-    "total": 16
+    "score": 96.7,
+    "public": 92.3,
+    "private": 97.9,
+    "done": 24,
+    "total": 24
    }
   },
   "providers": [
@@ -1239,30 +1343,43 @@
   "ollama": null,
   "license": null,
   "added": "2026-10-10",
-  "overall": 67.2,
+  "kind": null,
+  "status": "active",
+  "base": null,
+  "quant": null,
+  "overall": 86.3,
+  "hard": 72.9,
   "suites": {
    "coding": {
-    "score": 40.0,
-    "public": 40.0,
-    "private": 40.0,
-    "done": 20,
-    "total": 20
+    "score": 80.0,
+    "public": 85.7,
+    "private": 78.3,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 98.6,
+    "public": 100.0,
+    "private": 98.3,
+    "done": 37,
+    "total": 37,
+    "calibration": 98.7
    },
    "extract": {
-    "score": 94.5,
-    "public": 100.0,
-    "private": 92.7,
-    "done": 16,
-    "total": 16
+    "score": 92.7,
+    "public": 94.0,
+    "private": 92.4,
+    "done": 24,
+    "total": 24
    }
   },
   "providers": [
    "Venice",
-   "Parasail",
    "AkashML",
-   "AtlasCloud",
+   "Parasail",
    "SiliconFlow",
-   "CoreWeave"
+   "CoreWeave",
+   "AtlasCloud"
   ]
  },
  "qwen3-8-27b": {
@@ -1276,31 +1393,46 @@
   "ollama": null,
   "license": null,
   "added": "2026-10-10",
-  "overall": 72.5,
+  "kind": null,
+  "status": "active",
+  "base": null,
+  "quant": null,
+  "overall": 86.3,
+  "hard": 82.5,
   "suites": {
    "coding": {
-    "score": 45.0,
-    "public": 40.0,
-    "private": 46.7,
-    "done": 20,
-    "total": 20
+    "score": 73.3,
+    "public": 71.4,
+    "private": 73.9,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 97.3,
+    "public": 100.0,
+    "private": 96.6,
+    "done": 37,
+    "total": 37,
+    "calibration": 97.5
    },
    "extract": {
-    "score": 100.0,
+    "score": 99.4,
     "public": 100.0,
-    "private": 100.0,
-    "done": 16,
-    "total": 16
+    "private": 99.2,
+    "done": 24,
+    "total": 24
    }
   },
   "providers": [
    "Near AI",
+   "Ionstream",
    "DeepInfra",
    "Reka",
-   "Ionstream",
-   "Venice",
    "Chutes",
-   "AkashML"
+   "Mancer 2",
+   "AkashML",
+   "Venice",
+   "Parasail"
   ]
  },
  "qwen3-coder-30b-a3b-instruct": {
@@ -1314,21 +1446,34 @@
   "ollama": "qwen3-coder:30b",
   "license": null,
   "added": "2026-10-10",
-  "overall": 56.7,
+  "kind": null,
+  "status": "active",
+  "base": null,
+  "quant": null,
+  "overall": 51.4,
+  "hard": 41.6,
   "suites": {
    "coding": {
-    "score": 60.0,
-    "public": 40.0,
-    "private": 66.7,
-    "done": 20,
-    "total": 20
+    "score": 56.7,
+    "public": 42.9,
+    "private": 60.9,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 90.5,
+    "public": 100.0,
+    "private": 87.9,
+    "done": 37,
+    "total": 37,
+    "calibration": 91.8
    },
    "extract": {
-    "score": 53.4,
-    "public": 75.3,
-    "private": 46.1,
-    "done": 16,
-    "total": 16
+    "score": 46.0,
+    "public": 62.3,
+    "private": 41.7,
+    "done": 24,
+    "total": 24
    }
   },
   "providers": [

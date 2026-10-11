@@ -37,6 +37,86 @@
    "provider": "DeepInfra",
    "at": "2026-10-11"
   },
+  "coding/code-hard-bool-expr": {
+   "h": "a84a25915d0e",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-csv-parser": {
+   "h": "78842db66786",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ini-parser": {
+   "h": "6a135218f939",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-json-path": {
+   "h": "4b7ca7bd11df",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ledger": {
+   "h": "a48727466d95",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-meeting-slots": {
+   "h": "0def4e647232",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-next-cron": {
+   "h": "dd8445a3ed3c",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-normalize-path": {
+   "h": "78e2f4f44780",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-rate-limiter-log": {
+   "h": "bf48840ef5f8",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ttl-lru": {
+   "h": "5dc6bf962b41",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Novita",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "coding/code-inventory": {
    "h": "50c4fef1ef24",
    "v": "priv",
@@ -142,6 +222,78 @@
    "provider": "DeepInfra",
    "at": "2026-10-11"
   },
+  "decisions/decide-doc-invoice-missing-due": {
+   "h": "caa2741573fc",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.002,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "h": "5301594c3843",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0022,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-paypal": {
+   "h": "3483ab984a02",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0015,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "h": "2285b10e744d",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0125,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "h": "655c40f0c349",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0081,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-review-mixed": {
+   "h": "9e41737cefd0",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.015,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-calendar": {
+   "h": "cb843c555d6c",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0118,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-support-checkout-down": {
+   "h": "5d379850ce99",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0015,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "extract/extract-event-registrations": {
    "h": "3199f1c4131a",
    "v": "priv",
@@ -154,6 +306,14 @@
    "v": "publ",
    "score": 0.8333,
    "provider": "DeepInfra",
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "h": "95f3efe03d45",
+   "v": "publ",
+   "score": 0.3,
+   "provider": "Novita",
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-insurance-eob": {
