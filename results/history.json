@@ -277,5 +277,77 @@
   "overall": 27.9,
   "rank": 31,
   "of": 31
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "qwen3-6-27b",
+  "name": "Qwen3.6 27B",
+  "event": "added",
+  "overall": 97.2,
+  "rank": 1,
+  "of": 35
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "qwen3-vl-30b-a3b-thinking",
+  "name": "Qwen3 VL 30B A3B Thinking",
+  "event": "added",
+  "overall": 87.5,
+  "rank": 4,
+  "of": 35
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "qwen3-8-27b",
+  "name": "Qwen3.8 27B",
+  "event": "added",
+  "overall": 72.5,
+  "rank": 12,
+  "of": 35
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "qwen3-6-35b-a3b",
+  "name": "Qwen3.6 35B A3B",
+  "event": "added",
+  "overall": 67.2,
+  "rank": 14,
+  "of": 35
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "qwen3-coder-30b-a3b-instruct",
+  "name": "Qwen3 Coder 30B A3B Instruct",
+  "event": "added",
+  "overall": 56.7,
+  "rank": 16,
+  "of": 35
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "qwen3-vl-30b-a3b-instruct",
+  "name": "Qwen3 VL 30B A3B Instruct",
+  "event": "added",
+  "overall": 52.2,
+  "rank": 19,
+  "of": 35
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "qwen3-vl-8b-instruct",
+  "name": "Qwen3 VL 8B Instruct",
+  "event": "added",
+  "overall": 45.9,
+  "rank": 22,
+  "of": 35
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "gemma-3-4b-it",
+  "name": "Gemma 3 4B",
+  "event": "added",
+  "overall": 17.8,
+  "rank": 34,
+  "of": 35
  }
 ]

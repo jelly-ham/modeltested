@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10",
+ "generated": "2026-10-11",
  "suites": [
   {
    "id": "coding",
@@ -11,7 +11,7 @@
   {
    "id": "extract",
    "name": "Structured extraction",
-   "description": "Turn messy real-world text into JSON with a given schema, graded field by field.",
+   "description": "Pull facts out of messy business documents — with corrections, distractors and calculations — into JSON, graded field by field.",
    "n_public": 4,
    "n_private": 12
   }
@@ -100,17 +100,17 @@
  },
  "models": [
   {
-   "slug": "gemma-4-31b-it",
-   "name": "Gemma 4 31B",
-   "org": "google",
-   "openrouter_id": "google/gemma-4-31b-it",
-   "hf_id": "google/gemma-4-31B-it",
-   "params_b": 31.27,
+   "slug": "qwen3-6-27b",
+   "name": "Qwen3.6 27B",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3.6-27b",
+   "hf_id": "Qwen/Qwen3.6-27B",
+   "params_b": 27.78,
    "active_params_b": null,
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 97.0,
+   "overall": 97.2,
    "suites": {
     "coding": {
      "score": 95.0,
@@ -120,38 +120,38 @@
      "total": 20
     },
     "extract": {
-     "score": 99.0,
-     "public": 100.0,
-     "private": 98.7,
+     "score": 99.5,
+     "public": 97.9,
+     "private": 100.0,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
+    "Chutes",
     "DeepInfra",
     "SiliconFlow",
-    "Parasail",
-    "Novita"
+    "Venice"
    ],
    "memory": {
     "context": 8192,
-    "kv_cache_gb": 8.05,
+    "kv_cache_gb": 2.15,
     "need_gb": {
-     "Q4_K_M": 27.6,
-     "Q5_K_M": 30.9,
-     "Q6_K": 34.4,
-     "Q8_0": 41.9
+     "Q4_K_M": 19.6,
+     "Q5_K_M": 22.5,
+     "Q6_K": 25.6,
+     "Q8_0": 32.3
     },
     "best_quant_by_tier": {
      "gpu-8": null,
      "gpu-12": null,
      "gpu-16": null,
-     "gpu-24": null,
-     "gpu-32": "Q5_K_M",
+     "gpu-24": "Q5_K_M",
+     "gpu-32": "Q6_K",
      "mac-16": null,
      "mac-24": null,
-     "mac-32": null,
-     "mac-48": "Q6_K",
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q8_0",
      "mac-64": "Q8_0"
     }
    },
@@ -168,7 +168,7 @@
    "ollama": "gpt-oss:20b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 96.9,
+   "overall": 95.7,
    "suites": {
     "coding": {
      "score": 95.0,
@@ -178,17 +178,17 @@
      "total": 20
     },
     "extract": {
-     "score": 98.8,
-     "public": 100.0,
-     "private": 98.4,
+     "score": 96.4,
+     "public": 95.8,
+     "private": 96.6,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
     "Darkbloom",
-    "SiliconFlow",
-    "DekaLLM"
+    "DekaLLM",
+    "SiliconFlow"
    ],
    "memory": {
     "context": 8192,
@@ -212,64 +212,117 @@
    "rank": 2
   },
   {
-   "slug": "gemma-4-26b-a4b-it",
-   "name": "Gemma 4 26B A4B ",
-   "org": "google",
-   "openrouter_id": "google/gemma-4-26b-a4b-it",
-   "hf_id": "google/gemma-4-26B-A4B-it",
-   "params_b": 25.81,
-   "active_params_b": 4.0,
+   "slug": "qwen3-5-27b",
+   "name": "Qwen3.5-27B",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3.5-27b",
+   "hf_id": "Qwen/Qwen3.5-27B",
+   "params_b": 27.78,
+   "active_params_b": null,
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 96.8,
+   "overall": 92.1,
    "suites": {
     "coding": {
-     "score": 95.0,
-     "public": 80.0,
-     "private": 100.0,
+     "score": 85.0,
+     "public": 100.0,
+     "private": 80.0,
      "done": 20,
      "total": 20
     },
     "extract": {
-     "score": 98.6,
-     "public": 100.0,
-     "private": 98.1,
+     "score": 99.2,
+     "public": 96.9,
+     "private": 100.0,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
-    "Io Net",
-    "DekaLLM",
+    "SiliconFlow",
     "DeepInfra",
-    "NextBit",
-    "Novita",
-    "CoreWeave"
+    "AtlasCloud",
+    "Novita"
    ],
    "memory": {
     "context": 8192,
-    "kv_cache_gb": 2.01,
+    "kv_cache_gb": 2.15,
     "need_gb": {
-     "Q4_K_M": 18.3,
-     "Q5_K_M": 21.0,
-     "Q6_K": 23.9,
-     "Q8_0": 30.0
+     "Q4_K_M": 19.6,
+     "Q5_K_M": 22.5,
+     "Q6_K": 25.6,
+     "Q8_0": 32.3
     },
     "best_quant_by_tier": {
      "gpu-8": null,
      "gpu-12": null,
      "gpu-16": null,
      "gpu-24": "Q5_K_M",
-     "gpu-32": "Q8_0",
+     "gpu-32": "Q6_K",
      "mac-16": null,
      "mac-24": null,
-     "mac-32": "Q5_K_M",
+     "mac-32": "Q4_K_M",
      "mac-48": "Q8_0",
      "mac-64": "Q8_0"
     }
    },
    "rank": 3
+  },
+  {
+   "slug": "qwen3-vl-30b-a3b-thinking",
+   "name": "Qwen3 VL 30B A3B Thinking",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3-vl-30b-a3b-thinking",
+   "hf_id": "Qwen/Qwen3-VL-30B-A3B-Thinking",
+   "params_b": 31.07,
+   "active_params_b": 3.0,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 87.5,
+   "suites": {
+    "coding": {
+     "score": 80.0,
+     "public": 80.0,
+     "private": 80.0,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 94.9,
+     "public": 97.9,
+     "private": 93.9,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "SiliconFlow"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 0.81,
+    "need_gb": {
+     "Q4_K_M": 20.2,
+     "Q5_K_M": 23.5,
+     "Q6_K": 27.0,
+     "Q8_0": 34.4
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q5_K_M",
+     "gpu-32": "Q6_K",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q8_0",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 4
   },
   {
    "slug": "glm-4-7-flash",
@@ -282,7 +335,7 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 94.7,
+   "overall": 85.9,
    "suites": {
     "coding": {
      "score": 90.0,
@@ -292,9 +345,9 @@
      "total": 20
     },
     "extract": {
-     "score": 99.4,
-     "public": 97.5,
-     "private": 100.0,
+     "score": 81.8,
+     "public": 97.7,
+     "private": 76.4,
      "done": 16,
      "total": 16
     }
@@ -325,64 +378,6 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 4
-  },
-  {
-   "slug": "qwen3-5-27b",
-   "name": "Qwen3.5-27B",
-   "org": "qwen",
-   "openrouter_id": "qwen/qwen3.5-27b",
-   "hf_id": "Qwen/Qwen3.5-27B",
-   "params_b": 27.78,
-   "active_params_b": null,
-   "ollama": null,
-   "license": null,
-   "added": "2026-10-10",
-   "overall": 92.2,
-   "suites": {
-    "coding": {
-     "score": 85.0,
-     "public": 100.0,
-     "private": 80.0,
-     "done": 20,
-     "total": 20
-    },
-    "extract": {
-     "score": 99.4,
-     "public": 100.0,
-     "private": 99.2,
-     "done": 16,
-     "total": 16
-    }
-   },
-   "providers": [
-    "Novita",
-    "SiliconFlow",
-    "DeepInfra",
-    "AtlasCloud"
-   ],
-   "memory": {
-    "context": 8192,
-    "kv_cache_gb": 2.15,
-    "need_gb": {
-     "Q4_K_M": 19.6,
-     "Q5_K_M": 22.5,
-     "Q6_K": 25.6,
-     "Q8_0": 32.3
-    },
-    "best_quant_by_tier": {
-     "gpu-8": null,
-     "gpu-12": null,
-     "gpu-16": null,
-     "gpu-24": "Q5_K_M",
-     "gpu-32": "Q6_K",
-     "mac-16": null,
-     "mac-24": null,
-     "mac-32": "Q4_K_M",
-     "mac-48": "Q8_0",
-     "mac-64": "Q8_0"
-    }
-   },
    "rank": 5
   },
   {
@@ -396,7 +391,7 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 89.0,
+   "overall": 85.0,
    "suites": {
     "coding": {
      "score": 80.0,
@@ -406,9 +401,9 @@
      "total": 20
     },
     "extract": {
-     "score": 98.1,
-     "public": 97.5,
-     "private": 98.3,
+     "score": 90.1,
+     "public": 89.6,
+     "private": 90.3,
      "done": 16,
      "total": 16
     }
@@ -441,6 +436,122 @@
    "rank": 6
   },
   {
+   "slug": "gemma-4-31b-it",
+   "name": "Gemma 4 31B",
+   "org": "google",
+   "openrouter_id": "google/gemma-4-31b-it",
+   "hf_id": "google/gemma-4-31B-it",
+   "params_b": 31.27,
+   "active_params_b": null,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 83.5,
+   "suites": {
+    "coding": {
+     "score": 95.0,
+     "public": 100.0,
+     "private": 93.3,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 72.0,
+     "public": 88.9,
+     "private": 66.4,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "DeepInfra",
+    "Parasail",
+    "Crusoe",
+    "Novita"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 8.05,
+    "need_gb": {
+     "Q4_K_M": 27.6,
+     "Q5_K_M": 30.9,
+     "Q6_K": 34.4,
+     "Q8_0": 41.9
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": null,
+     "gpu-32": "Q5_K_M",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": null,
+     "mac-48": "Q6_K",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 7
+  },
+  {
+   "slug": "qwen3-5-35b-a3b",
+   "name": "Qwen3.5-35B-A3B",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3.5-35b-a3b",
+   "hf_id": "Qwen/Qwen3.5-35B-A3B",
+   "params_b": 35.95,
+   "active_params_b": 3.0,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 81.8,
+   "suites": {
+    "coding": {
+     "score": 65.0,
+     "public": 100.0,
+     "private": 53.3,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 98.6,
+     "public": 97.9,
+     "private": 98.8,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "Parasail",
+    "DeepInfra",
+    "AtlasCloud",
+    "SiliconFlow"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 0.67,
+    "need_gb": {
+     "Q4_K_M": 23.1,
+     "Q5_K_M": 26.8,
+     "Q6_K": 30.9,
+     "Q8_0": 39.5
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q4_K_M",
+     "gpu-32": "Q6_K",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": null,
+     "mac-48": "Q6_K",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 8
+  },
+  {
    "slug": "qwen3-14b",
    "name": "Qwen3 14B",
    "org": "qwen",
@@ -451,7 +562,7 @@
    "ollama": "qwen3:14b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 83.7,
+   "overall": 81.4,
    "suites": {
     "coding": {
      "score": 70.0,
@@ -461,9 +572,9 @@
      "total": 20
     },
     "extract": {
-     "score": 97.3,
-     "public": 95.0,
-     "private": 98.1,
+     "score": 92.8,
+     "public": 95.1,
+     "private": 92.0,
      "done": 16,
      "total": 16
     }
@@ -493,65 +604,70 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 7
+   "rank": 9
   },
   {
-   "slug": "qwen3-5-35b-a3b",
-   "name": "Qwen3.5-35B-A3B",
-   "org": "qwen",
-   "openrouter_id": "qwen/qwen3.5-35b-a3b",
-   "hf_id": "Qwen/Qwen3.5-35B-A3B",
-   "params_b": 35.95,
-   "active_params_b": 3.0,
+   "slug": "gemma-4-26b-a4b-it",
+   "name": "Gemma 4 26B A4B ",
+   "org": "google",
+   "openrouter_id": "google/gemma-4-26b-a4b-it",
+   "hf_id": "google/gemma-4-26B-A4B-it",
+   "params_b": 25.81,
+   "active_params_b": 4.0,
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 82.0,
+   "overall": 81.0,
    "suites": {
     "coding": {
-     "score": 65.0,
-     "public": 100.0,
-     "private": 53.3,
+     "score": 95.0,
+     "public": 80.0,
+     "private": 100.0,
      "done": 20,
      "total": 20
     },
     "extract": {
-     "score": 98.9,
-     "public": 100.0,
-     "private": 98.5,
+     "score": 67.1,
+     "public": 94.1,
+     "private": 58.1,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
-    "Parasail",
+    "DekaLLM",
+    "NextBit",
+    "Io Net",
     "DeepInfra",
-    "SiliconFlow",
-    "AtlasCloud"
+    "Novita",
+    "CoreWeave",
+    "Parasail",
+    "Venice",
+    "SiliconFlow"
    ],
    "memory": {
     "context": 8192,
-    "kv_cache_gb": 0.67,
+    "kv_cache_gb": 2.01,
     "need_gb": {
-     "Q4_K_M": 23.1,
-     "Q5_K_M": 26.8,
-     "Q6_K": 30.9,
-     "Q8_0": 39.5
+     "Q4_K_M": 18.3,
+     "Q5_K_M": 21.0,
+     "Q6_K": 23.9,
+     "Q8_0": 30.0
     },
     "best_quant_by_tier": {
      "gpu-8": null,
      "gpu-12": null,
      "gpu-16": null,
-     "gpu-24": "Q4_K_M",
-     "gpu-32": "Q6_K",
+     "gpu-24": "Q5_K_M",
+     "gpu-32": "Q8_0",
      "mac-16": null,
      "mac-24": null,
-     "mac-32": null,
-     "mac-48": "Q6_K",
+     "mac-32": "Q5_K_M",
+     "mac-48": "Q8_0",
      "mac-64": "Q8_0"
     }
    },
-   "rank": 8
+   "rank": 10
   },
   {
    "slug": "qwen3-30b-a3b",
@@ -564,7 +680,7 @@
    "ollama": "qwen3:30b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 76.8,
+   "overall": 74.3,
    "suites": {
     "coding": {
      "score": 55.0,
@@ -574,9 +690,9 @@
      "total": 20
     },
     "extract": {
-     "score": 98.5,
-     "public": 100.0,
-     "private": 98.0,
+     "score": 93.6,
+     "public": 97.9,
+     "private": 92.1,
      "done": 16,
      "total": 16
     }
@@ -606,7 +722,68 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 9
+   "rank": 11
+  },
+  {
+   "slug": "qwen3-8-27b",
+   "name": "Qwen3.8 27B",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3.8-27b",
+   "hf_id": "Qwen/Qwen3.8-27B",
+   "params_b": 27.78,
+   "active_params_b": null,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 72.5,
+   "suites": {
+    "coding": {
+     "score": 45.0,
+     "public": 40.0,
+     "private": 46.7,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 100.0,
+     "public": 100.0,
+     "private": 100.0,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "Near AI",
+    "DeepInfra",
+    "Reka",
+    "Ionstream",
+    "Venice",
+    "Chutes",
+    "AkashML"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 2.15,
+    "need_gb": {
+     "Q4_K_M": 19.6,
+     "Q5_K_M": 22.5,
+     "Q6_K": 25.6,
+     "Q8_0": 32.3
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q5_K_M",
+     "gpu-32": "Q6_K",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q8_0",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 12
   },
   {
    "slug": "qwen3-32b",
@@ -619,7 +796,7 @@
    "ollama": "qwen3:32b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 76.8,
+   "overall": 67.7,
    "suites": {
     "coding": {
      "score": 55.0,
@@ -629,9 +806,9 @@
      "total": 20
     },
     "extract": {
-     "score": 98.5,
-     "public": 100.0,
-     "private": 98.1,
+     "score": 80.4,
+     "public": 87.5,
+     "private": 78.0,
      "done": 16,
      "total": 16
     }
@@ -663,62 +840,180 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 10
+   "rank": 13
   },
   {
-   "slug": "ministral-14b-2512",
-   "name": "Ministral 3 14B 2512",
-   "org": "mistralai",
-   "openrouter_id": "mistralai/ministral-14b-2512",
-   "hf_id": "mistralai/Ministral-3-14B-Instruct-2512",
-   "params_b": 13.95,
-   "active_params_b": null,
+   "slug": "qwen3-6-35b-a3b",
+   "name": "Qwen3.6 35B A3B",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3.6-35b-a3b",
+   "hf_id": "Qwen/Qwen3.6-35B-A3B",
+   "params_b": 35.95,
+   "active_params_b": 3.0,
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 76.5,
+   "overall": 67.2,
    "suites": {
     "coding": {
-     "score": 55.0,
-     "public": 80.0,
-     "private": 46.7,
+     "score": 40.0,
+     "public": 40.0,
+     "private": 40.0,
      "done": 20,
      "total": 20
     },
     "extract": {
-     "score": 98.1,
-     "public": 98.1,
-     "private": 98.1,
+     "score": 94.5,
+     "public": 100.0,
+     "private": 92.7,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
-    "Mistral"
+    "Venice",
+    "Parasail",
+    "AkashML",
+    "AtlasCloud",
+    "SiliconFlow",
+    "CoreWeave"
    ],
    "memory": {
     "context": 8192,
-    "kv_cache_gb": 1.34,
+    "kv_cache_gb": 0.67,
     "need_gb": {
-     "Q4_K_M": 10.4,
-     "Q5_K_M": 11.9,
-     "Q6_K": 13.4,
-     "Q8_0": 16.8
+     "Q4_K_M": 23.1,
+     "Q5_K_M": 26.8,
+     "Q6_K": 30.9,
+     "Q8_0": 39.5
     },
     "best_quant_by_tier": {
      "gpu-8": null,
-     "gpu-12": "Q4_K_M",
-     "gpu-16": "Q6_K",
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q4_K_M",
+     "gpu-32": "Q6_K",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": null,
+     "mac-48": "Q6_K",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 14
+  },
+  {
+   "slug": "qwen3-5-9b",
+   "name": "Qwen3.5-9B",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3.5-9b",
+   "hf_id": "Qwen/Qwen3.5-9B",
+   "params_b": 9.65,
+   "active_params_b": null,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 61.8,
+   "suites": {
+    "coding": {
+     "score": 50.0,
+     "public": 40.0,
+     "private": 53.3,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 73.6,
+     "public": 72.9,
+     "private": 73.8,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "SiliconFlow",
+    "Parasail",
+    "Venice",
+    "DeepInfra"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 1.07,
+    "need_gb": {
+     "Q4_K_M": 7.5,
+     "Q5_K_M": 8.5,
+     "Q6_K": 9.6,
+     "Q8_0": 11.9
+    },
+    "best_quant_by_tier": {
+     "gpu-8": "Q4_K_M",
+     "gpu-12": "Q6_K",
+     "gpu-16": "Q8_0",
      "gpu-24": "Q8_0",
      "gpu-32": "Q8_0",
-     "mac-16": "Q4_K_M",
-     "mac-24": "Q6_K",
+     "mac-16": "Q6_K",
+     "mac-24": "Q8_0",
      "mac-32": "Q8_0",
      "mac-48": "Q8_0",
      "mac-64": "Q8_0"
     }
    },
-   "rank": 11
+   "rank": 15
+  },
+  {
+   "slug": "qwen3-coder-30b-a3b-instruct",
+   "name": "Qwen3 Coder 30B A3B Instruct",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3-coder-30b-a3b-instruct",
+   "hf_id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+   "params_b": 30.53,
+   "active_params_b": 3.0,
+   "ollama": "qwen3-coder:30b",
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 56.7,
+   "suites": {
+    "coding": {
+     "score": 60.0,
+     "public": 40.0,
+     "private": 66.7,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 53.4,
+     "public": 75.3,
+     "private": 46.1,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "SiliconFlow"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 0.81,
+    "need_gb": {
+     "Q4_K_M": 19.9,
+     "Q5_K_M": 23.1,
+     "Q6_K": 26.6,
+     "Q8_0": 33.8
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q5_K_M",
+     "gpu-32": "Q6_K",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q8_0",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 16
   },
   {
    "slug": "mistral-small-3-2-24b-instruct",
@@ -731,7 +1026,7 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 76.3,
+   "overall": 54.1,
    "suites": {
     "coding": {
      "score": 55.0,
@@ -741,9 +1036,9 @@
      "total": 20
     },
     "extract": {
-     "score": 97.7,
-     "public": 100.0,
-     "private": 96.9,
+     "score": 53.2,
+     "public": 67.7,
+     "private": 48.4,
      "done": 16,
      "total": 16
     }
@@ -775,20 +1070,75 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 12
+   "rank": 17
   },
   {
-   "slug": "qwen3-5-9b",
-   "name": "Qwen3.5-9B",
-   "org": "qwen",
-   "openrouter_id": "qwen/qwen3.5-9b",
-   "hf_id": "Qwen/Qwen3.5-9B",
-   "params_b": 9.65,
+   "slug": "ministral-14b-2512",
+   "name": "Ministral 3 14B 2512",
+   "org": "mistralai",
+   "openrouter_id": "mistralai/ministral-14b-2512",
+   "hf_id": "mistralai/Ministral-3-14B-Instruct-2512",
+   "params_b": 13.95,
    "active_params_b": null,
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 74.1,
+   "overall": 54.0,
+   "suites": {
+    "coding": {
+     "score": 55.0,
+     "public": 80.0,
+     "private": 46.7,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 53.1,
+     "public": 69.4,
+     "private": 47.6,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "Mistral"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 1.34,
+    "need_gb": {
+     "Q4_K_M": 10.4,
+     "Q5_K_M": 11.9,
+     "Q6_K": 13.4,
+     "Q8_0": 16.8
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": "Q4_K_M",
+     "gpu-16": "Q6_K",
+     "gpu-24": "Q8_0",
+     "gpu-32": "Q8_0",
+     "mac-16": "Q4_K_M",
+     "mac-24": "Q6_K",
+     "mac-32": "Q8_0",
+     "mac-48": "Q8_0",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 18
+  },
+  {
+   "slug": "qwen3-vl-30b-a3b-instruct",
+   "name": "Qwen3 VL 30B A3B Instruct",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3-vl-30b-a3b-instruct",
+   "hf_id": "Qwen/Qwen3-VL-30B-A3B-Instruct",
+   "params_b": 31.07,
+   "active_params_b": 3.0,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 52.2,
    "suites": {
     "coding": {
      "score": 50.0,
@@ -798,41 +1148,41 @@
      "total": 20
     },
     "extract": {
-     "score": 98.2,
-     "public": 96.9,
-     "private": 98.6,
+     "score": 54.4,
+     "public": 75.3,
+     "private": 47.4,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
-    "SiliconFlow",
-    "Parasail",
-    "Venice"
+    "DeepInfra",
+    "Novita",
+    "SiliconFlow"
    ],
    "memory": {
     "context": 8192,
-    "kv_cache_gb": 1.07,
+    "kv_cache_gb": 0.81,
     "need_gb": {
-     "Q4_K_M": 7.5,
-     "Q5_K_M": 8.5,
-     "Q6_K": 9.6,
-     "Q8_0": 11.9
+     "Q4_K_M": 20.2,
+     "Q5_K_M": 23.5,
+     "Q6_K": 27.0,
+     "Q8_0": 34.4
     },
     "best_quant_by_tier": {
-     "gpu-8": "Q4_K_M",
-     "gpu-12": "Q6_K",
-     "gpu-16": "Q8_0",
-     "gpu-24": "Q8_0",
-     "gpu-32": "Q8_0",
-     "mac-16": "Q6_K",
-     "mac-24": "Q8_0",
-     "mac-32": "Q8_0",
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q5_K_M",
+     "gpu-32": "Q6_K",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": "Q4_K_M",
      "mac-48": "Q8_0",
      "mac-64": "Q8_0"
     }
    },
-   "rank": 13
+   "rank": 19
   },
   {
    "slug": "mistral-small-24b-instruct-2501",
@@ -845,7 +1195,7 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 69.5,
+   "overall": 49.2,
    "suites": {
     "coding": {
      "score": 45.0,
@@ -855,9 +1205,9 @@
      "total": 20
     },
     "extract": {
-     "score": 94.0,
-     "public": 95.6,
-     "private": 93.4,
+     "score": 53.4,
+     "public": 64.6,
+     "private": 49.7,
      "done": 16,
      "total": 16
     }
@@ -887,7 +1237,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 14
+   "rank": 20
   },
   {
    "slug": "qwen3-30b-a3b-instruct-2507",
@@ -900,7 +1250,7 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 68.5,
+   "overall": 46.0,
    "suites": {
     "coding": {
      "score": 40.0,
@@ -910,15 +1260,16 @@
      "total": 20
     },
     "extract": {
-     "score": 97.0,
-     "public": 98.1,
-     "private": 96.7,
+     "score": 52.0,
+     "public": 64.9,
+     "private": 47.6,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
-    "SiliconFlow"
+    "SiliconFlow",
+    "Nebius"
    ],
    "memory": {
     "context": 8192,
@@ -942,7 +1293,118 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 15
+   "rank": 21
+  },
+  {
+   "slug": "qwen3-vl-8b-instruct",
+   "name": "Qwen3 VL 8B Instruct",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen3-vl-8b-instruct",
+   "hf_id": "Qwen/Qwen3-VL-8B-Instruct",
+   "params_b": 8.77,
+   "active_params_b": null,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 45.9,
+   "suites": {
+    "coding": {
+     "score": 45.0,
+     "public": 40.0,
+     "private": 46.7,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 46.8,
+     "public": 56.3,
+     "private": 43.6,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "Parasail"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 1.21,
+    "need_gb": {
+     "Q4_K_M": 7.1,
+     "Q5_K_M": 8.0,
+     "Q6_K": 9.0,
+     "Q8_0": 11.1
+    },
+    "best_quant_by_tier": {
+     "gpu-8": "Q4_K_M",
+     "gpu-12": "Q8_0",
+     "gpu-16": "Q8_0",
+     "gpu-24": "Q8_0",
+     "gpu-32": "Q8_0",
+     "mac-16": "Q6_K",
+     "mac-24": "Q8_0",
+     "mac-32": "Q8_0",
+     "mac-48": "Q8_0",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 22
+  },
+  {
+   "slug": "nemotron-3-5-lightning",
+   "name": "Nemotron 3.5 Lightning",
+   "org": "nvidia",
+   "openrouter_id": "nvidia/nemotron-3.5-lightning",
+   "hf_id": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+   "params_b": 31.58,
+   "active_params_b": 3.0,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 45.7,
+   "suites": {
+    "coding": {
+     "score": 20.0,
+     "public": 40.0,
+     "private": 13.3,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 71.4,
+     "public": 90.6,
+     "private": 65.0,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "CoreWeave",
+    "DeepInfra"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 0.44,
+    "need_gb": {
+     "Q4_K_M": 20.2,
+     "Q5_K_M": 23.5,
+     "Q6_K": 27.1,
+     "Q8_0": 34.6
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q5_K_M",
+     "gpu-32": "Q6_K",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q8_0",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 23
   },
   {
    "slug": "ministral-8b-2512",
@@ -955,7 +1417,7 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 67.5,
+   "overall": 45.2,
    "suites": {
     "coding": {
      "score": 40.0,
@@ -965,9 +1427,9 @@
      "total": 20
     },
     "extract": {
-     "score": 95.0,
-     "public": 91.2,
-     "private": 96.2,
+     "score": 50.4,
+     "public": 71.8,
+     "private": 43.3,
      "done": 16,
      "total": 16
     }
@@ -997,7 +1459,66 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 16
+   "rank": 24
+  },
+  {
+   "slug": "gemma-3-27b-it",
+   "name": "Gemma 3 27B",
+   "org": "google",
+   "openrouter_id": "google/gemma-3-27b-it",
+   "hf_id": "google/gemma-3-27b-it",
+   "params_b": 27.43,
+   "active_params_b": null,
+   "ollama": "gemma3:27b",
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 45.1,
+   "suites": {
+    "coding": {
+     "score": 35.0,
+     "public": 20.0,
+     "private": 40.0,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 55.3,
+     "public": 78.1,
+     "private": 47.7,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "NextBit",
+    "Parasail",
+    "Nebius",
+    "DeepInfra",
+    "Novita"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 1.5,
+    "need_gb": {
+     "Q4_K_M": 18.7,
+     "Q5_K_M": 21.6,
+     "Q6_K": 24.7,
+     "Q8_0": 31.2
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q5_K_M",
+     "gpu-32": "Q8_0",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q8_0",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 25
   },
   {
    "slug": "gemma-3-12b-it",
@@ -1010,7 +1531,7 @@
    "ollama": "gemma3:12b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 65.7,
+   "overall": 40.2,
    "suites": {
     "coding": {
      "score": 35.0,
@@ -1020,9 +1541,9 @@
      "total": 20
     },
     "extract": {
-     "score": 96.3,
-     "public": 100.0,
-     "private": 95.1,
+     "score": 45.5,
+     "public": 62.5,
+     "private": 39.9,
      "done": 16,
      "total": 16
     }
@@ -1052,289 +1573,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 17
-  },
-  {
-   "slug": "gemma-3-27b-it",
-   "name": "Gemma 3 27B",
-   "org": "google",
-   "openrouter_id": "google/gemma-3-27b-it",
-   "hf_id": "google/gemma-3-27b-it",
-   "params_b": 27.43,
-   "active_params_b": null,
-   "ollama": "gemma3:27b",
-   "license": null,
-   "added": "2026-10-10",
-   "overall": 65.5,
-   "suites": {
-    "coding": {
-     "score": 35.0,
-     "public": 20.0,
-     "private": 40.0,
-     "done": 20,
-     "total": 20
-    },
-    "extract": {
-     "score": 96.1,
-     "public": 100.0,
-     "private": 94.8,
-     "done": 16,
-     "total": 16
-    }
-   },
-   "providers": [
-    "NextBit",
-    "Novita",
-    "Parasail",
-    "DeepInfra"
-   ],
-   "memory": {
-    "context": 8192,
-    "kv_cache_gb": 1.5,
-    "need_gb": {
-     "Q4_K_M": 18.7,
-     "Q5_K_M": 21.6,
-     "Q6_K": 24.7,
-     "Q8_0": 31.2
-    },
-    "best_quant_by_tier": {
-     "gpu-8": null,
-     "gpu-12": null,
-     "gpu-16": null,
-     "gpu-24": "Q5_K_M",
-     "gpu-32": "Q8_0",
-     "mac-16": null,
-     "mac-24": null,
-     "mac-32": "Q4_K_M",
-     "mac-48": "Q8_0",
-     "mac-64": "Q8_0"
-    }
-   },
-   "rank": 18
-  },
-  {
-   "slug": "phi-4",
-   "name": "Phi 4",
-   "org": "microsoft",
-   "openrouter_id": "microsoft/phi-4",
-   "hf_id": "microsoft/phi-4",
-   "params_b": 14.66,
-   "active_params_b": null,
-   "ollama": "phi4",
-   "license": null,
-   "added": "2026-10-10",
-   "overall": 63.9,
-   "suites": {
-    "coding": {
-     "score": 30.0,
-     "public": 60.0,
-     "private": 20.0,
-     "done": 20,
-     "total": 20
-    },
-    "extract": {
-     "score": 97.7,
-     "public": 97.5,
-     "private": 97.7,
-     "done": 16,
-     "total": 16
-    }
-   },
-   "providers": [
-    "DeepInfra"
-   ],
-   "memory": {
-    "context": 8192,
-    "kv_cache_gb": 1.68,
-    "need_gb": {
-     "Q4_K_M": 11.2,
-     "Q5_K_M": 12.7,
-     "Q6_K": 14.4,
-     "Q8_0": 17.9
-    },
-    "best_quant_by_tier": {
-     "gpu-8": null,
-     "gpu-12": "Q4_K_M",
-     "gpu-16": "Q6_K",
-     "gpu-24": "Q8_0",
-     "gpu-32": "Q8_0",
-     "mac-16": null,
-     "mac-24": "Q6_K",
-     "mac-32": "Q8_0",
-     "mac-48": "Q8_0",
-     "mac-64": "Q8_0"
-    }
-   },
-   "rank": 19
-  },
-  {
-   "slug": "nemotron-3-5-lightning",
-   "name": "Nemotron 3.5 Lightning",
-   "org": "nvidia",
-   "openrouter_id": "nvidia/nemotron-3.5-lightning",
-   "hf_id": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
-   "params_b": 31.58,
-   "active_params_b": 3.0,
-   "ollama": null,
-   "license": null,
-   "added": "2026-10-10",
-   "overall": 58.6,
-   "suites": {
-    "coding": {
-     "score": 20.0,
-     "public": 40.0,
-     "private": 13.3,
-     "done": 20,
-     "total": 20
-    },
-    "extract": {
-     "score": 97.3,
-     "public": 100.0,
-     "private": 96.4,
-     "done": 16,
-     "total": 16
-    }
-   },
-   "providers": [
-    "DeepInfra",
-    "CoreWeave"
-   ],
-   "memory": {
-    "context": 8192,
-    "kv_cache_gb": 0.44,
-    "need_gb": {
-     "Q4_K_M": 20.2,
-     "Q5_K_M": 23.5,
-     "Q6_K": 27.1,
-     "Q8_0": 34.6
-    },
-    "best_quant_by_tier": {
-     "gpu-8": null,
-     "gpu-12": null,
-     "gpu-16": null,
-     "gpu-24": "Q5_K_M",
-     "gpu-32": "Q6_K",
-     "mac-16": null,
-     "mac-24": null,
-     "mac-32": "Q4_K_M",
-     "mac-48": "Q8_0",
-     "mac-64": "Q8_0"
-    }
-   },
-   "rank": 20
-  },
-  {
-   "slug": "gemma-2-27b-it",
-   "name": "Gemma 2 27B",
-   "org": "google",
-   "openrouter_id": "google/gemma-2-27b-it",
-   "hf_id": "google/gemma-2-27b-it",
-   "params_b": 27.23,
-   "active_params_b": null,
-   "ollama": "gemma2:27b",
-   "license": null,
-   "added": "2026-10-10",
-   "overall": 58.5,
-   "suites": {
-    "coding": {
-     "score": 20.0,
-     "public": 20.0,
-     "private": 20.0,
-     "done": 20,
-     "total": 20
-    },
-    "extract": {
-     "score": 96.9,
-     "public": 97.5,
-     "private": 96.8,
-     "done": 16,
-     "total": 16
-    }
-   },
-   "providers": [
-    "NextBit"
-   ],
-   "memory": {
-    "context": 8192,
-    "kv_cache_gb": 1.5,
-    "need_gb": {
-     "Q4_K_M": 18.6,
-     "Q5_K_M": 21.5,
-     "Q6_K": 24.5,
-     "Q8_0": 31.0
-    },
-    "best_quant_by_tier": {
-     "gpu-8": null,
-     "gpu-12": null,
-     "gpu-16": null,
-     "gpu-24": "Q5_K_M",
-     "gpu-32": "Q8_0",
-     "mac-16": null,
-     "mac-24": null,
-     "mac-32": "Q4_K_M",
-     "mac-48": "Q8_0",
-     "mac-64": "Q8_0"
-    }
-   },
-   "rank": 21
-  },
-  {
-   "slug": "mistral-nemo",
-   "name": "Mistral Nemo",
-   "org": "mistralai",
-   "openrouter_id": "mistralai/mistral-nemo",
-   "hf_id": "mistralai/Mistral-Nemo-Instruct-2407",
-   "params_b": 12.25,
-   "active_params_b": null,
-   "ollama": "mistral-nemo",
-   "license": null,
-   "added": "2026-10-10",
-   "overall": 54.5,
-   "suites": {
-    "coding": {
-     "score": 15.0,
-     "public": 20.0,
-     "private": 13.3,
-     "done": 20,
-     "total": 20
-    },
-    "extract": {
-     "score": 93.9,
-     "public": 95.6,
-     "private": 93.4,
-     "done": 16,
-     "total": 16
-    }
-   },
-   "providers": [
-    "DeepInfra",
-    "DekaLLM",
-    "Parasail",
-    "Io Net"
-   ],
-   "memory": {
-    "context": 8192,
-    "kv_cache_gb": 1.34,
-    "need_gb": {
-     "Q4_K_M": 9.4,
-     "Q5_K_M": 10.7,
-     "Q6_K": 12.0,
-     "Q8_0": 15.0
-    },
-    "best_quant_by_tier": {
-     "gpu-8": null,
-     "gpu-12": "Q5_K_M",
-     "gpu-16": "Q8_0",
-     "gpu-24": "Q8_0",
-     "gpu-32": "Q8_0",
-     "mac-16": "Q4_K_M",
-     "mac-24": "Q8_0",
-     "mac-32": "Q8_0",
-     "mac-48": "Q8_0",
-     "mac-64": "Q8_0"
-    }
-   },
-   "rank": 22
+   "rank": 26
   },
   {
    "slug": "qwen-2-5-7b-instruct",
@@ -1347,7 +1586,7 @@
    "ollama": "qwen2.5:7b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 54.3,
+   "overall": 29.1,
    "suites": {
     "coding": {
      "score": 15.0,
@@ -1357,9 +1596,9 @@
      "total": 20
     },
     "extract": {
-     "score": 93.6,
-     "public": 95.0,
-     "private": 93.1,
+     "score": 43.3,
+     "public": 64.2,
+     "private": 36.3,
      "done": 16,
      "total": 16
     }
@@ -1389,20 +1628,75 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 23
+   "rank": 27
   },
   {
-   "slug": "granite-4-0-h-micro",
-   "name": "Granite 4.0 Micro",
-   "org": "ibm-granite",
-   "openrouter_id": "ibm-granite/granite-4.0-h-micro",
-   "hf_id": "ibm-granite/granite-4.0-h-micro",
-   "params_b": 3.19,
+   "slug": "gemma-2-27b-it",
+   "name": "Gemma 2 27B",
+   "org": "google",
+   "openrouter_id": "google/gemma-2-27b-it",
+   "hf_id": "google/gemma-2-27b-it",
+   "params_b": 27.23,
    "active_params_b": null,
-   "ollama": null,
+   "ollama": "gemma2:27b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 52.0,
+   "overall": 28.5,
+   "suites": {
+    "coding": {
+     "score": 20.0,
+     "public": 20.0,
+     "private": 20.0,
+     "done": 20,
+     "total": 20
+    },
+    "extract": {
+     "score": 37.0,
+     "public": 42.4,
+     "private": 35.2,
+     "done": 16,
+     "total": 16
+    }
+   },
+   "providers": [
+    "NextBit"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 1.5,
+    "need_gb": {
+     "Q4_K_M": 18.6,
+     "Q5_K_M": 21.5,
+     "Q6_K": 24.5,
+     "Q8_0": 31.0
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q5_K_M",
+     "gpu-32": "Q8_0",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q8_0",
+     "mac-64": "Q8_0"
+    }
+   },
+   "rank": 28
+  },
+  {
+   "slug": "mistral-nemo",
+   "name": "Mistral Nemo",
+   "org": "mistralai",
+   "openrouter_id": "mistralai/mistral-nemo",
+   "hf_id": "mistralai/Mistral-Nemo-Instruct-2407",
+   "params_b": 12.25,
+   "active_params_b": null,
+   "ollama": "mistral-nemo",
+   "license": null,
+   "added": "2026-10-10",
+   "overall": 27.1,
    "suites": {
     "coding": {
      "score": 15.0,
@@ -1412,94 +1706,97 @@
      "total": 20
     },
     "extract": {
-     "score": 88.9,
-     "public": 97.5,
-     "private": 86.1,
+     "score": 39.2,
+     "public": 58.4,
+     "private": 32.8,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
-    "Cloudflare"
+    "DeepInfra",
+    "DekaLLM",
+    "Io Net",
+    "Parasail"
    ],
    "memory": {
     "context": 8192,
-    "kv_cache_gb": 0.67,
+    "kv_cache_gb": 1.34,
     "need_gb": {
-     "Q4_K_M": 3.2,
-     "Q5_K_M": 3.5,
-     "Q6_K": 3.9,
-     "Q8_0": 4.7
+     "Q4_K_M": 9.4,
+     "Q5_K_M": 10.7,
+     "Q6_K": 12.0,
+     "Q8_0": 15.0
     },
     "best_quant_by_tier": {
-     "gpu-8": "Q8_0",
-     "gpu-12": "Q8_0",
+     "gpu-8": null,
+     "gpu-12": "Q5_K_M",
      "gpu-16": "Q8_0",
      "gpu-24": "Q8_0",
      "gpu-32": "Q8_0",
-     "mac-16": "Q8_0",
+     "mac-16": "Q4_K_M",
      "mac-24": "Q8_0",
      "mac-32": "Q8_0",
      "mac-48": "Q8_0",
      "mac-64": "Q8_0"
     }
    },
-   "rank": 24
+   "rank": 29
   },
   {
-   "slug": "ministral-3b-2512",
-   "name": "Ministral 3 3B 2512",
-   "org": "mistralai",
-   "openrouter_id": "mistralai/ministral-3b-2512",
-   "hf_id": "mistralai/Ministral-3-3B-Instruct-2512",
-   "params_b": 3.85,
+   "slug": "phi-4",
+   "name": "Phi 4",
+   "org": "microsoft",
+   "openrouter_id": "microsoft/phi-4",
+   "hf_id": "microsoft/phi-4",
+   "params_b": 14.66,
    "active_params_b": null,
-   "ollama": null,
+   "ollama": "phi4",
    "license": null,
    "added": "2026-10-10",
-   "overall": 49.5,
+   "overall": 27.0,
    "suites": {
     "coding": {
-     "score": 10.0,
-     "public": 20.0,
-     "private": 6.7,
+     "score": 30.0,
+     "public": 60.0,
+     "private": 20.0,
      "done": 20,
      "total": 20
     },
     "extract": {
-     "score": 89.0,
-     "public": 85.4,
-     "private": 90.3,
+     "score": 24.0,
+     "public": 60.8,
+     "private": 11.7,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
-    "Mistral"
+    "DeepInfra"
    ],
    "memory": {
     "context": 8192,
-    "kv_cache_gb": 0.87,
+    "kv_cache_gb": 1.68,
     "need_gb": {
-     "Q4_K_M": 3.8,
-     "Q5_K_M": 4.2,
-     "Q6_K": 4.6,
-     "Q8_0": 5.6
+     "Q4_K_M": 11.2,
+     "Q5_K_M": 12.7,
+     "Q6_K": 14.4,
+     "Q8_0": 17.9
     },
     "best_quant_by_tier": {
-     "gpu-8": "Q8_0",
-     "gpu-12": "Q8_0",
-     "gpu-16": "Q8_0",
+     "gpu-8": null,
+     "gpu-12": "Q4_K_M",
+     "gpu-16": "Q6_K",
      "gpu-24": "Q8_0",
      "gpu-32": "Q8_0",
-     "mac-16": "Q8_0",
-     "mac-24": "Q8_0",
+     "mac-16": null,
+     "mac-24": "Q6_K",
      "mac-32": "Q8_0",
      "mac-48": "Q8_0",
      "mac-64": "Q8_0"
     }
    },
-   "rank": 25
+   "rank": 30
   },
   {
    "slug": "granite-4-2-8b",
@@ -1512,7 +1809,7 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 49.1,
+   "overall": 23.9,
    "suites": {
     "coding": {
      "score": 20.0,
@@ -1522,9 +1819,9 @@
      "total": 20
     },
     "extract": {
-     "score": 78.3,
-     "public": 70.0,
-     "private": 81.1,
+     "score": 27.8,
+     "public": 22.9,
+     "private": 29.5,
      "done": 16,
      "total": 16
     }
@@ -1555,62 +1852,62 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 26
+   "rank": 31
   },
   {
-   "slug": "qwen-2-5-coder-32b-instruct",
-   "name": "Qwen2.5 Coder 32B Instruct",
-   "org": "qwen",
-   "openrouter_id": "qwen/qwen-2.5-coder-32b-instruct",
-   "hf_id": "Qwen/Qwen2.5-Coder-32B-Instruct",
-   "params_b": 32.76,
+   "slug": "ministral-3b-2512",
+   "name": "Ministral 3 3B 2512",
+   "org": "mistralai",
+   "openrouter_id": "mistralai/ministral-3b-2512",
+   "hf_id": "mistralai/Ministral-3-3B-Instruct-2512",
+   "params_b": 3.85,
    "active_params_b": null,
-   "ollama": "qwen2.5-coder:32b",
+   "ollama": null,
    "license": null,
    "added": "2026-10-10",
-   "overall": 47.4,
+   "overall": 23.3,
    "suites": {
     "coding": {
-     "score": 20.0,
+     "score": 10.0,
      "public": 20.0,
-     "private": 20.0,
+     "private": 6.7,
      "done": 20,
      "total": 20
     },
     "extract": {
-     "score": 74.7,
-     "public": 97.1,
-     "private": 67.3,
+     "score": 36.6,
+     "public": 60.4,
+     "private": 28.7,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
-    "Cloudflare"
+    "Mistral"
    ],
    "memory": {
     "context": 8192,
-    "kv_cache_gb": 2.15,
+    "kv_cache_gb": 0.87,
     "need_gb": {
-     "Q4_K_M": 22.6,
-     "Q5_K_M": 26.0,
-     "Q6_K": 29.7,
-     "Q8_0": 37.6
+     "Q4_K_M": 3.8,
+     "Q5_K_M": 4.2,
+     "Q6_K": 4.6,
+     "Q8_0": 5.6
     },
     "best_quant_by_tier": {
-     "gpu-8": null,
-     "gpu-12": null,
-     "gpu-16": null,
-     "gpu-24": "Q4_K_M",
-     "gpu-32": "Q6_K",
-     "mac-16": null,
-     "mac-24": null,
-     "mac-32": null,
-     "mac-48": "Q6_K",
+     "gpu-8": "Q8_0",
+     "gpu-12": "Q8_0",
+     "gpu-16": "Q8_0",
+     "gpu-24": "Q8_0",
+     "gpu-32": "Q8_0",
+     "mac-16": "Q8_0",
+     "mac-24": "Q8_0",
+     "mac-32": "Q8_0",
+     "mac-48": "Q8_0",
      "mac-64": "Q8_0"
     }
    },
-   "rank": 27
+   "rank": 32
   },
   {
    "slug": "llama-3-1-8b-instruct",
@@ -1623,27 +1920,26 @@
    "ollama": "llama3.1:8b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 43.5,
+   "overall": 20.2,
    "suites": {
     "coding": {
-     "score": 10.0,
+     "score": 5.0,
      "public": 0.0,
-     "private": 13.3,
+     "private": 6.7,
      "done": 20,
      "total": 20
     },
     "extract": {
-     "score": 77.0,
-     "public": 91.9,
-     "private": 72.0,
+     "score": 35.4,
+     "public": 53.3,
+     "private": 29.5,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
     "DeepInfra",
-    "Novita",
-    "Cloudflare"
+    "Novita"
    ],
    "memory": {
     "context": 8192,
@@ -1667,20 +1963,20 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 28
+   "rank": 33
   },
   {
-   "slug": "mistral-small-3-1-24b-instruct",
-   "name": "Mistral Small 3.1 24B",
-   "org": "mistralai",
-   "openrouter_id": "mistralai/mistral-small-3.1-24b-instruct",
-   "hf_id": "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
-   "params_b": 24.01,
+   "slug": "gemma-3-4b-it",
+   "name": "Gemma 3 4B",
+   "org": "google",
+   "openrouter_id": "google/gemma-3-4b-it",
+   "hf_id": "google/gemma-3-4b-it",
+   "params_b": 4.3,
    "active_params_b": null,
-   "ollama": null,
+   "ollama": "gemma3:4b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 32.9,
+   "overall": 17.8,
    "suites": {
     "coding": {
      "score": 5.0,
@@ -1690,79 +1986,24 @@
      "total": 20
     },
     "extract": {
-     "score": 60.7,
-     "public": 75.0,
-     "private": 56.0,
+     "score": 30.6,
+     "public": 47.8,
+     "private": 24.9,
      "done": 16,
      "total": 16
     }
    },
    "providers": [
-    "Cloudflare"
-   ],
-   "memory": {
-    "context": 8192,
-    "kv_cache_gb": 1.34,
-    "need_gb": {
-     "Q4_K_M": 16.5,
-     "Q5_K_M": 19.0,
-     "Q6_K": 21.7,
-     "Q8_0": 27.5
-    },
-    "best_quant_by_tier": {
-     "gpu-8": null,
-     "gpu-12": null,
-     "gpu-16": null,
-     "gpu-24": "Q6_K",
-     "gpu-32": "Q8_0",
-     "mac-16": null,
-     "mac-24": null,
-     "mac-32": "Q5_K_M",
-     "mac-48": "Q8_0",
-     "mac-64": "Q8_0"
-    }
-   },
-   "rank": 29
-  },
-  {
-   "slug": "llama-3-2-1b-instruct",
-   "name": "Llama 3.2 1B Instruct",
-   "org": "meta-llama",
-   "openrouter_id": "meta-llama/llama-3.2-1b-instruct",
-   "hf_id": "meta-llama/Llama-3.2-1B-Instruct",
-   "params_b": 1.24,
-   "active_params_b": null,
-   "ollama": "llama3.2:1b",
-   "license": null,
-   "added": "2026-10-10",
-   "overall": 30.6,
-   "suites": {
-    "coding": {
-     "score": 0.0,
-     "public": 0.0,
-     "private": 0.0,
-     "done": 20,
-     "total": 20
-    },
-    "extract": {
-     "score": 61.1,
-     "public": 58.5,
-     "private": 61.9,
-     "done": 16,
-     "total": 16
-    }
-   },
-   "providers": [
-    "Cloudflare"
+    "DeepInfra"
    ],
    "memory": {
     "context": 8192,
     "kv_cache_gb": 0.5,
     "need_gb": {
-     "Q4_K_M": 1.9,
-     "Q5_K_M": 2.0,
-     "Q6_K": 2.1,
-     "Q8_0": 2.4
+     "Q4_K_M": 3.7,
+     "Q5_K_M": 4.2,
+     "Q6_K": 4.6,
+     "Q8_0": 5.7
     },
     "best_quant_by_tier": {
      "gpu-8": "Q8_0",
@@ -1777,7 +2018,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 30
+   "rank": 34
   },
   {
    "slug": "llama-3-2-3b-instruct",
@@ -1790,7 +2031,7 @@
    "ollama": "llama3.2:3b",
    "license": null,
    "added": "2026-10-10",
-   "overall": 27.9,
+   "overall": 8.3,
    "suites": {
     "coding": {
      "score": 0.0,
@@ -1800,9 +2041,9 @@
      "total": 20
     },
     "extract": {
-     "score": 55.7,
-     "public": 69.6,
-     "private": 51.1,
+     "score": 16.7,
+     "public": 30.1,
+     "private": 12.2,
      "done": 16,
      "total": 16
     }
@@ -1832,20 +2073,88 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 31
+   "rank": 35
   }
  ],
  "pending": [
-  "gemma-3-4b-it",
-  "qwen3-6-27b",
-  "qwen3-6-35b-a3b",
-  "qwen3-8-27b",
-  "qwen3-coder-30b-a3b-instruct",
-  "qwen3-vl-30b-a3b-instruct",
-  "qwen3-vl-30b-a3b-thinking",
-  "qwen3-vl-8b-instruct"
+  "granite-4-0-h-micro",
+  "llama-3-2-1b-instruct",
+  "mistral-small-3-1-24b-instruct",
+  "qwen-2-5-coder-32b-instruct"
  ],
  "changelog": [
+  {
+   "date": "2026-10-11",
+   "slug": "qwen3-6-27b",
+   "name": "Qwen3.6 27B",
+   "event": "added",
+   "overall": 97.2,
+   "rank": 1,
+   "of": 35
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "qwen3-vl-30b-a3b-thinking",
+   "name": "Qwen3 VL 30B A3B Thinking",
+   "event": "added",
+   "overall": 87.5,
+   "rank": 4,
+   "of": 35
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "qwen3-8-27b",
+   "name": "Qwen3.8 27B",
+   "event": "added",
+   "overall": 72.5,
+   "rank": 12,
+   "of": 35
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "qwen3-6-35b-a3b",
+   "name": "Qwen3.6 35B A3B",
+   "event": "added",
+   "overall": 67.2,
+   "rank": 14,
+   "of": 35
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "qwen3-coder-30b-a3b-instruct",
+   "name": "Qwen3 Coder 30B A3B Instruct",
+   "event": "added",
+   "overall": 56.7,
+   "rank": 16,
+   "of": 35
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "qwen3-vl-30b-a3b-instruct",
+   "name": "Qwen3 VL 30B A3B Instruct",
+   "event": "added",
+   "overall": 52.2,
+   "rank": 19,
+   "of": 35
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "qwen3-vl-8b-instruct",
+   "name": "Qwen3 VL 8B Instruct",
+   "event": "added",
+   "overall": 45.9,
+   "rank": 22,
+   "of": 35
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "gemma-3-4b-it",
+   "name": "Gemma 3 4B",
+   "event": "added",
+   "overall": 17.8,
+   "rank": 34,
+   "of": 35
+  },
   {
    "date": "2026-10-10",
    "slug": "gemma-4-31b-it",

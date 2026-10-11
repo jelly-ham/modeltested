@@ -1,4 +1,12 @@
 {
+ "extract-expense-thread": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
  "extract-invoice-email": {
   "output": "{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": null,\n  \"line_items\": [\n    {\n      \"sku\": \"WEB-01\",\n      \"quantity\": 1,\n      \"unit_price\": 3500\n    },\n    {\n      \"sku\": \"HST-12\",\n      \"quantity\": 3,\n      \"unit_price\": 270\n    }\n  ]\n}",
   "score": 0.9231,
@@ -9,6 +17,14 @@
     "$.due_date"
    ],
    "bare_json": true
+  }
+ },
+ "extract-lease-amendment": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
   }
  },
  "extract-meeting": {
@@ -29,6 +45,14 @@
    "bare_json": true
   }
  },
+ "extract-sales-footnotes": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
  "extract-support-ticket": {
   "output": "{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"plan\": \"Pro plan\",\n  \"order_ids\": [\"A-55821\", \"A-55822\"],\n  \"refund_requested\": true,\n  \"sentiment\": \"negative\",\n  \"customer_name\": \"Priya\"\n}",
   "score": 0.875,
@@ -37,6 +61,18 @@
    "total": 8,
    "wrong": [
     "$.plan"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-ticket-sla": {
+  "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\"billing_address\", \"invoice_pdf\"],\n  \"affected_orders\": [\"SO-99812\", \"SO-99820\", \"SO-99827\"],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+  "score": 0.9167,
+  "detail": {
+   "matched": 11,
+   "total": 12,
+   "wrong": [
+    "$.resolved_issues[1]"
    ],
    "bare_json": true
   }

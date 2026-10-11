@@ -37,12 +37,35 @@
   }
  },
  "extract": {
+  "extract-expense-thread": {
+   "output": "{\"employee_id\":\"EMP-20417\",\"destination_city\":\"Lisbon\",\"trip_start\":\"2025-02-24\",\"trip_end\":\"2025-02-27\",\"approved_items\":[{\"date\":\"2025-02-24\",\"category\":\"airfare\",\"amount_usd\":1184.60},{\"date\":\"2025-02-24\",\"category\":\"ground_transport\",\"amount_usd\":38.88},{\"date\":\"2025-02-25\",\"category\":\"meals\",\"amount_usd\":229.43},{\"date\":\"2025-02-26\",\"category\":\"lodging\",\"amount_usd\":466.56},{\"date\":\"2025-02-27\",\"category\":\"ground_transport\",\"amount_usd\":44.82}],\"rejected_item_count\":1,\"per_diem_days\":3,\"per_diem_usd\":195.00,\"total_reimbursable_usd\":2159.29,\"approver_email\":\"priya.raman@corvane.com\"}",
+   "score": 0.9167,
+   "detail": {
+    "matched": 22,
+    "total": 24,
+    "wrong": [
+     "$.approved_items[2].amount_usd",
+     "$.total_reimbursable_usd"
+    ],
+    "bare_json": true
+   }
+  },
   "extract-invoice-email": {
    "output": "{\"invoice_number\":\"INV-2024-0193\",\"vendor\":\"BrightPixel Studio LLC\",\"contact_name\":\"Maria Gonzalez\",\"currency\":\"USD\",\"total\":4310,\"invoice_date\":\"2024-09-15\",\"due_date\":\"2024-10-15\",\"line_items\":[{\"sku\":\"WEB-01\",\"quantity\":1,\"unit_price\":3500},{\"sku\":\"HST-12\",\"quantity\":3,\"unit_price\":270}]}",
    "score": 1.0,
    "detail": {
     "matched": 13,
     "total": 13,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "{\"tenants\":[\"Marcus Lin\",\"Sofia Lin\"],\"landlord\":\"Ridgeline Property Group LLC\",\"zip\":\"97205\",\"lease_end\":\"2025-11-30\",\"original_monthly_rent\":2150,\"monthly_rent_from_2025_06_01\":2236,\"late_fee_from_2025_06_01\":111.8,\"security_deposit\":2150,\"total_pet_deposits\":800,\"total_monthly_payment_july_2025\":2306,\"move_in_payment\":4700}",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
     "wrong": [],
     "bare_json": true
    }
@@ -67,6 +90,16 @@
     "bare_json": true
    }
   },
+  "extract-sales-footnotes": {
+   "output": "{\"q3_total_usd\":15346000,\"q2_total_usd\":14464000,\"q2_central_originally_reported_usd\":3047000,\"q2_to_q3_change_pct\":6.1,\"top_region_q3\":\"East\",\"fastest_growing_region_q1_to_q3\":\"International\",\"regions_declining_q2_to_q3\":[\"East\"],\"international_q3_organic_usd\":1731000,\"west_excluding_mountain_q3_usd\":4201000}",
+   "score": 1.0,
+   "detail": {
+    "matched": 9,
+    "total": 9,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
   "extract-support-ticket": {
    "output": "{\"category\":\"billing\",\"priority\":\"high\",\"plan\":\"Pro\",\"order_ids\":[\"A-55821\",\"A-55822\"],\"refund_requested\":true,\"sentiment\":\"negative\",\"customer_name\":\"Priya\"}",
    "score": 1.0,
@@ -74,6 +107,18 @@
     "matched": 8,
     "total": 8,
     "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "{\"ticket_id\":\"48213\",\"account_id\":\"ACC-7731\",\"open_issue\":\"inventory_sync\",\"resolved_issues\":[\"billing_address\",\"invoice_pdf\"],\"affected_orders\":[\"SO-99812\",\"SO-99820\",\"SO-99827\"],\"priority\":\"P2\",\"sla_due_local\":\"2025-09-15T15:30\",\"sla_due_utc\":\"2025-09-15T20:30:00Z\",\"reissued_invoice\":\"INV-2025-0812\"}",
+   "score": 0.9167,
+   "detail": {
+    "matched": 11,
+    "total": 12,
+    "wrong": [
+     "$.resolved_issues[1]"
+    ],
     "bare_json": true
    }
   }

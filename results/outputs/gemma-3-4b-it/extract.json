@@ -1,4 +1,22 @@
 {
+ "extract-expense-thread": {
+  "output": "```json\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 36.00\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 212.40\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 432.00\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 41.50\n    }\n  ],\n  \"rejected_item_count\": 2,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 205.00,\n  \"total_reimbursable_usd\": 2002.50,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}\n```",
+  "score": 0.7083,
+  "detail": {
+   "matched": 17,
+   "total": 24,
+   "wrong": [
+    "$.approved_items[1].amount_usd",
+    "$.approved_items[2].amount_usd",
+    "$.approved_items[3].amount_usd",
+    "$.approved_items[4].amount_usd",
+    "$.per_diem_usd",
+    "$.rejected_item_count",
+    "$.total_reimbursable_usd"
+   ],
+   "bare_json": false
+  }
+ },
  "extract-invoice-email": {
   "output": "```json\n{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310.00,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    {\n      \"sku\": \"WEB-01\",\n      \"quantity\": 1,\n      \"unit_price\": 3500.00\n    },\n    {\n      \"sku\": \"HST-12\",\n      \"quantity\": 3,\n      \"unit_price\": 270.00\n    }\n  ]\n}\n```",
   "score": 1.0,
@@ -9,6 +27,21 @@
    "bare_json": false
   }
  },
+ "extract-lease-amendment": {
+  "output": "```json\n{\n  \"tenants\": [\n    \"Marcus Lin\",\n    \"Sofia Lin\"\n  ],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2295.00,\n  \"late_fee_from_2025_06_01\": 111.75,\n  \"security_deposit\": 2150.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2406.75,\n  \"move_in_payment\": 6400.00\n}\n```",
+  "score": 0.6667,
+  "detail": {
+   "matched": 8,
+   "total": 12,
+   "wrong": [
+    "$.late_fee_from_2025_06_01",
+    "$.monthly_rent_from_2025_06_01",
+    "$.move_in_payment",
+    "$.total_monthly_payment_july_2025"
+   ],
+   "bare_json": false
+  }
+ },
  "extract-meeting": {
   "output": "```json\n{\n  \"title\": \"Q3 planning sync\",\n  \"date\": \"2024-07-18\",\n  \"start_time\": \"14:30\",\n  \"timezone\": \"America/Los_Angeles\",\n  \"duration_minutes\": 90,\n  \"attendees\": [\n    \"dana@acme.io\",\n    \"li.wei@acme.io\",\n    \"raj@outsource.dev\"\n  ],\n  \"zoom_meeting_id\": \"89122345501\",\n  \"first_presenter\": \"Dana\"\n}\n```",
   "score": 1.0,
@@ -16,6 +49,31 @@
    "matched": 10,
    "total": 10,
    "wrong": [],
+   "bare_json": false
+  }
+ },
+ "extract-sales-footnotes": {
+  "output": "```json\n{\n  \"q3_total_usd\": 14,763,\n  \"q2_total_usd\": 11,962,\n  \"q2_central_originally_reported_usd\": 3047,\n  \"q2_to_q3_change_pct\": 23.7,\n  \"top_region_q3\": \"West\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"Central\"],\n  \"international_q3_organic_usd\": 1951,\n  \"west_excluding_mountain_q3_usd\": 4201\n}\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
+ "extract-ticket-sla": {
+  "output": "```json\n{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\n    \"billing_address\",\n    \"invoice_pdf\"\n  ],\n  \"affected_orders\": [\n    \"SO-99812\",\n    \"SO-99815\",\n    \"SO-99820\",\n    \"SO-99827\"\n  ],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-13T09:00\",\n  \"sla_due_utc\": \"2025-09-13T09:00:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}\n```",
+  "score": 0.5385,
+  "detail": {
+   "matched": 7,
+   "total": 13,
+   "wrong": [
+    "$.affected_orders[1]",
+    "$.affected_orders[2]",
+    "$.affected_orders[3]",
+    "$.resolved_issues[1]",
+    "$.sla_due_local",
+    "$.sla_due_utc"
+   ],
    "bare_json": false
   }
  }

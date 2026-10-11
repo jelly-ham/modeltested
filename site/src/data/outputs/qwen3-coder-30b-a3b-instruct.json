@@ -1,0 +1,97 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    if not s or not s.strip():\n        raise ValueError(\"Empty or blank string\")\n    \n    # Remove whitespace and split by unit\n    s = s.strip()\n    parts = re.split(r'([hms])', s)\n    \n    # Remove empty strings from the split\n    parts = [p for p in parts if p]\n    \n    # Check if we have an even number of parts (number + unit)\n    if len(parts) % 2 != 0:\n        raise ValueError(\"Invalid format: numbers must be followed by units\")\n    \n    # Build a dictionary of units we've seen\n    seen_units = set()\n    total_seconds = 0\n    unit_order = ['h', 'm', 's']\n    unit_map = {'h': 3600, 'm': 60, 's': 1}\n    \n    # Process pairs of [number, unit]\n    for i in range(0, len(parts), 2):\n        number_str = parts[i]\n        unit = parts[i+1].lower()\n        \n        # Check if the number is valid (non-negative integer)\n        if not re.match(r'^\\d+$', number_str):\n            raise ValueError(\"Invalid number format\")\n        \n        # Convert number to int\n        num = int(number_str)\n        \n        # Check if unit is valid\n        if unit not in unit_map:\n            raise ValueError(\"Unknown unit\")\n            \n        # Check if unit is already used\n        if unit in seen_units:\n            raise ValueError(\"Repeated unit\")\n            \n        # Check if unit is in correct order\n        if unit_order.index(unit) < unit_order.index(unit_order[0]) or \\\n           (unit_order.index(unit) > 0 and unit_order.index(unit) - unit_order.index(unit_order[unit_order.index(unit)-1]) > 1):\n            # This is a simplified check that units appear in order            \n            # We'll use a more direct approach - check if the unit is in the right position relative to previously seen units\n            pass\n        \n        # More precise ordering check\n        if seen_units:\n            last_unit = None\n            for u in unit_order:\n                if u in seen_units:\n                    last_unit = u\n                if u == unit:\n                    break\n            # If there's a unit that should come before this one and we've already seen it, that's wrong\n            # But manually track this using sequence\n            if last_unit:\n                last_unit_idx = unit_order.index(last_unit)\n                current_unit_idx = unit_order.index(unit)\n                if current_unit_idx <= last_unit_idx:\n                    raise ValueError(\"Units out of order\")\n        \n        # Add to seen units\n        seen_units.add(unit)\n        \n        # Add to total seconds\n        total_seconds += num * unit_map[unit]\n    \n    return total_seconds\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "ValueError: Invalid format: numbers must be followed by units"
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters to ASCII and drop non-ASCII\n    normalized = unicodedata.normalize('NFKD', title)\n    ascii_title = normalized.encode('ascii', 'ignore').decode('ascii')\n    \n    # Step 2: Lowercase\n    ascii_title = ascii_title.lower()\n    \n    # Step 3: Replace runs of non-alphanumeric characters with \"-\"\n    slug = re.sub(r'[^a-z0-9]+', '-', ascii_title)\n    \n    # Strip leading/trailing \"-\"\n    slug = slug.strip('-')\n    \n    # Step 4: Truncate if longer than max_len\n    if len(slug) > max_len:\n        # If even the first word is too long, hard-cut it\n        if '-' not in slug or len(slug.split('-')[0]) > max_len:\n            slug = slug[:max_len]\n        else:\n            # Keep longest prefix of whole words within max_len\n            words = slug.split('-')\n            result = []\n            length = 0\n            for word in words:\n                if length + len(word) + (1 if result else 0) > max_len:\n                    break\n                result.append(word)\n                length += len(word) + (1 if result else 0)\n            slug = '-'.join(result)\n    \n    # Step 5: Ensure it doesn't end with \"-\"\n    slug = slug.rstrip('-')\n    \n    return slug\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    # Sort and remove duplicates\n    unique_sorted = sorted(set(nums))\n    \n    if not unique_sorted:\n        return \"\"\n    \n    result = []\n    start = unique_sorted[0]\n    end = unique_sorted[0]\n    \n    for i in range(1, len(unique_sorted)):\n        if unique_sorted[i] == end + 1:\n            # Consecutive number, extend the current range\n            end = unique_sorted[i]\n        else:\n            # Non-consecutive number, finalize the previous range\n            if start == end:\n                result.append(str(start))\n            elif end - start >= 2:\n                result.append(f\"{start}..{end}\")\n            else:\n                result.append(str(start))\n                result.append(str(end))\n            # Start a new range\n            start = unique_sorted[i]\n            end = unique_sorted[i]\n    \n    # Handle the last range\n    if start == end:\n        result.append(str(start))\n    elif end - start >= 2:\n        result.append(f\"{start}..{end}\")\n    else:\n        result.append(str(start))\n        result.append(str(end))\n    \n    return \",\".join(result)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nfrom typing import Callable\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self._tokens = capacity\n        self._last_refill = clock()\n    \n    def _refill(self) -> None:\n        now = self.clock()\n        elapsed = now - self._last_refill\n        self._tokens += elapsed * self.refill_per_sec\n        self._tokens = min(self._tokens, self.capacity)\n        self._last_refill = now\n    \n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n    \n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nimport re\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    customer_totals = {}\n    customer_names = {}\n    \n    for row in rows:\n        customer = row.get(\"customer\", \"\").strip()\n        amount_str = row.get(\"amount\", \"\")\n        \n        # Skip empty customer names\n        if not customer:\n            continue\n            \n        # Parse amount\n        # Remove non-numeric characters except decimal point and minus sign\n        clean_amount = re.sub(r'[^\\d.-]', '', amount_str)\n        if not clean_amount or (clean_amount[0] == '-' and len(clean_amount) == 1):\n            continue\n            \n        # Handle negative amounts properly by looking for minus sign not at start\n        if clean_amount.count('-') > 1:\n            # More than one minus sign, invalid format\n            continue\n            \n        try:\n            amount = float(clean_amount)\n        except ValueError:\n            continue\n            \n        # Normalize customer name (case-insensitive)\n        customer_lower = customer.lower()\n        \n        # Store first occurrence of customer name (trimmed)\n        if customer_lower not in customer_names:\n            customer_names[customer_lower] = customer\n            \n        # Add to total\n        if customer_lower in customer_totals:\n            customer_totals[customer_lower] += amount\n        else:\n            customer_totals[customer_lower] = amount\n    \n    # Round totals to 2 decimal places\n    rounded_totals = [(name, round(total, 2)) for name, total in customer_totals.items()]\n    \n    # Sort by total descending, then name ascending\n    sorted_totals = sorted(rounded_totals, key=lambda x: (-x[1], x[0].lower()))\n    \n    # Return top n\n    return sorted_totals[:n]\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 39.36\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 432.00\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 1935.17,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+   "score": 0.875,
+   "detail": {
+    "matched": 21,
+    "total": 24,
+    "wrong": [
+     "$.approved_items[1].amount_usd",
+     "$.approved_items[3].amount_usd",
+     "$.total_reimbursable_usd"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150,\n  \"monthly_rent_from_2025_06_01\": 2236,\n  \"late_fee_from_2025_06_01\": 111.8,\n  \"security_deposit\": 2150,\n  \"total_pet_deposits\": 800,\n  \"total_monthly_payment_july_2025\": 2551,\n  \"move_in_payment\": 2550\n}",
+   "score": 0.8333,
+   "detail": {
+    "matched": 10,
+    "total": 12,
+    "wrong": [
+     "$.move_in_payment",
+     "$.total_monthly_payment_july_2025"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "{\n  \"q3_total_usd\": 16456000,\n  \"q2_total_usd\": 12454000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 8.6,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"Central\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}",
+   "score": 0.5556,
+   "detail": {
+    "matched": 5,
+    "total": 9,
+    "wrong": [
+     "$.fastest_growing_region_q1_to_q3",
+     "$.q2_to_q3_change_pct",
+     "$.q2_total_usd",
+     "$.q3_total_usd"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\n    \"billing_address\",\n    \"invoice_pdf\"\n  ],\n  \"affected_orders\": [\n    \"SO-99812\",\n    \"SO-99820\",\n    \"SO-99827\"\n  ],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-12T16:05\",\n  \"sla_due_utc\": \"2025-09-12T21:05:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+   "score": 0.75,
+   "detail": {
+    "matched": 9,
+    "total": 12,
+    "wrong": [
+     "$.resolved_issues[1]",
+     "$.sla_due_local",
+     "$.sla_due_utc"
+    ],
+    "bare_json": true
+   }
+  }
+ }
+}

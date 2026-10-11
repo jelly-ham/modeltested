@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    pattern = r'^\\s*(?:(\\d+)h)?\\s*(?:(\\d+)m)?\\s*(?:(\\d+)s)?\\s*$'\n    match = re.fullmatch(pattern, s, re.IGNORECASE)\n    \n    if not match:\n        raise ValueError(\"Invalid duration format\")\n        \n    h_str, m_str, s_str = match.groups()\n    \n    if not any([h_str, m_str, s_str]):\n        raise ValueError(\"Duration must contain at least one valid unit\")\n        \n    h = int(h_str) if h_str else 0\n    m = int(m_str) if m",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: invalid syntax"
+  }
+ },
+ "code-slugify": {
+  "output": "\n\n```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # 1 & 2: Transliterate accented characters to ASCII and lowercase\n    text = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii').lower()\n    \n    # 3: Replace every run of characters other than a-z and 0-9 with a single '-', strip leading/trailing '-'\n    text = re.sub(r'[^a-z0-9]+', '-', text).strip('-')\n    \n    if not text:\n        return ''\n        \n    # 4: Shorten without cutting a word\n    words = text.split('-')\n    parts = []\n    current_len = 0\n    \n    for word in words:\n        if len(word) > max_len:\n            # Hard-cut if even the first word exceeds max_len\n            parts.append(word[:max_len])\n            break\n        sep_len = 1 if current_len > 0 else 0\n        if current_len + len(word) + sep_len <= max_len:\n            parts.append(word)\n            current_len += len(word) + sep_len\n        else:\n            break\n            \n    # 5: Result never ends with '-'\n    return '-'.join(parts)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "\n\n```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    sorted_nums = sorted(set(nums))\n    runs = []\n    i = 0\n    n = len(sorted_nums)\n    \n    while i < n:\n        j = i\n        while j + 1 < n and sorted_nums[j+1] == sorted_nums[j] + 1:\n            j += 1\n        runs.append((sorted_nums[i], sorted_nums[j]))\n        i = j + 1\n        \n    parts = []\n    for start, end in runs:\n        if end - start >= 2:\n            parts.append(f\"{start}..{end}\")\n        else:\n            parts.extend(str(x) for x in range(start, end + 1))\n            \n    return \",\".join(parts)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'TokenBucket' is not defined"
+  }
+ },
+ "code-top-customers": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'top_customers' is not defined"
+  }
+ }
+}

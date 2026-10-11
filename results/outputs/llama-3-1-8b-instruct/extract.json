@@ -1,4 +1,24 @@
 {
+ "extract-expense-thread": {
+  "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\"date\": \"2025-02-24\", \"category\": \"airfare\", \"amount_usd\": \"1280.08\"},\n    {\"date\": \"2025-02-24\", \"category\": \"ground_transport\", \"amount_usd\": 36.0},\n    {\"date\": \"2025-02-25\", \"category\": \"meals\", \"amount_usd\": 9952},\n    {\"date\": \"2025-02-26\", \"category\": \"lodging\", \"amount_usd\": 3740.08},\n    {\"date\": \"2025-02-27\", \"category\": \"ground_transport\", \"amount_usd\": 44.55}\n  ],\n  \"rejected_item_count\": 2,\n  \"per_diem_days\": 2,\n  \"per_diem_usd\": 130,\n  \"total_reimbursable_usd\": 9914.71,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+  "score": 0.625,
+  "detail": {
+   "matched": 15,
+   "total": 24,
+   "wrong": [
+    "$.approved_items[0].amount_usd",
+    "$.approved_items[1].amount_usd",
+    "$.approved_items[2].amount_usd",
+    "$.approved_items[3].amount_usd",
+    "$.approved_items[4].amount_usd",
+    "$.per_diem_days",
+    "$.per_diem_usd",
+    "$.rejected_item_count",
+    "$.total_reimbursable_usd"
+   ],
+   "bare_json": true
+  }
+ },
  "extract-invoice-email": {
   "output": "{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    {\"sku\": \"WEB-01\", \"quantity\": 1, \"unit_price\": 3500},\n    {\"sku\": \"HST-12\", \"quantity\": 3, \"unit_price\": 270}\n  ]\n}",
   "score": 1.0,
@@ -6,6 +26,21 @@
    "matched": 13,
    "total": 13,
    "wrong": [],
+   "bare_json": true
+  }
+ },
+ "extract-lease-amendment": {
+  "output": "{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2239.80,\n  \"late_fee_from_2025_06_01\": 111.995,\n  \"security_deposit\": 2150.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2929.80,\n  \"move_in_payment\": 4300.00\n}",
+  "score": 0.6667,
+  "detail": {
+   "matched": 8,
+   "total": 12,
+   "wrong": [
+    "$.late_fee_from_2025_06_01",
+    "$.monthly_rent_from_2025_06_01",
+    "$.move_in_payment",
+    "$.total_monthly_payment_july_2025"
+   ],
    "bare_json": true
   }
  },
@@ -32,6 +67,25 @@
    "bare_json": true
   }
  },
+ "extract-sales-footnotes": {
+  "output": "{\n  \"q3_total_usd\": 4902,\n  \"q2_total_usd\": 4628,\n  \"q2_central_originally_reported_usd\": 3047,\n  \"q2_to_q3_change_pct\": 6.4,\n  \"top_region_q3\": \"West\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"Central\"],\n  \"international_q3_organic_usd\": 1731,\n  \"west_excluding_mountain_q3_usd\": 4290\n}",
+  "score": 0.1111,
+  "detail": {
+   "matched": 1,
+   "total": 9,
+   "wrong": [
+    "$.international_q3_organic_usd",
+    "$.q2_central_originally_reported_usd",
+    "$.q2_to_q3_change_pct",
+    "$.q2_total_usd",
+    "$.q3_total_usd",
+    "$.regions_declining_q2_to_q3[0]",
+    "$.top_region_q3",
+    "$.west_excluding_mountain_q3_usd"
+   ],
+   "bare_json": true
+  }
+ },
  "extract-support-ticket": {
   "output": "{\n  \"category\": \"billing\",\n  \"priority\": \"medium\",\n  \"plan\": \"Pro\",\n  \"order_ids\": [\"A-55821\", \"A-55822\"],\n  \"refund_requested\": true,\n  \"sentiment\": \"negative\",\n  \"customer_name\": \"Priya\"\n}",
   "score": 0.875,
@@ -40,6 +94,20 @@
    "total": 8,
    "wrong": [
     "$.priority"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-ticket-sla": {
+  "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\"billing_address\"],\n  \"affected_orders\": [\"SO-99812\", \"SO-99820\"],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-12T19:00\",\n  \"sla_due_utc\": \"2025-09-12T01:00:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+  "score": 0.7273,
+  "detail": {
+   "matched": 8,
+   "total": 11,
+   "wrong": [
+    "$.affected_orders[2]",
+    "$.sla_due_local",
+    "$.sla_due_utc"
    ],
    "bare_json": true
   }

@@ -1,0 +1,83 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\ndef parse_duration(s: str) -> int:\n    s_clean = s.strip().replace(' ', '')\n    if not s_clean:\n        raise ValueError(\"Empty string\")\n    \n    tokens = []\n    current_num = ''\n    for char in s_clean:\n        if char.isdigit():\n            current_num += char\n        else:\n            if current_num == '':\n                raise ValueError(\"Non-digit character without preceding number\")\n            unit = char.lower()\n            if unit not in ['h', 'm', 's']:\n                raise ValueError(f\"Unknown unit: {char}\")\n            tokens.append((current_num, unit))\n            current_num = ''\n    \n    if current_num != '':\n        raise ValueError(\"Number without unit at the end\")\n    \n    units = [unit for _, unit in tokens]\n    if len(units) != len(set(units)):\n        raise ValueError(\"Repeated unit\")\n    \n    index_map = {'h': 0, 'm': 1, 's': 2}\n    indices = [index_map[unit] for unit in units]\n    if indices != sorted(indices):\n        raise ValueError(\"Units out of order\")\n    \n    total_seconds = 0\n    for num_str, unit in tokens:\n        num = int(num_str)\n        if unit == 'h':\n            total_seconds += num * 3600\n        elif unit == 'm':\n            total_seconds += num * 60\n        else:\n            total_seconds += num\n    \n    return total_seconds\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    normalized = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii')\n    normalized = normalized.lower()\n    s = ''.join(['-' if not c.isalnum() else c for c in normalized])\n    while '--' in s:\n        s = s.replace('--', '-')\n    s = s.strip('-')\n    if len(s) <= max_len:\n        return s\n    words = s.split('-')\n    if len(words[0]) > max_len:\n        return words[0][:max_len]\n    current_length = 0\n    selected = []\n    for word in words:\n        if current_length == 0:\n            selected.append(word)\n            current_length = len(word)\n        else:\n            if current_length + 1 + len(word) <= max_len:\n                selected.append(word)\n                current_length += 1 + len(word)\n            else:\n                break\n    return '-'.join(selected)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "To solve this problem, we need to process a list of integers by sorting them, removing duplicates, and then collapsing consecutive sequences of three or more numbers into a range representation (e.g., \"a..b\"). Shorter sequences (1 or 2 numbers) should be listed individually. The final result should be a string where all elements are joined by commas without any spaces.\n\n### Approach\n1. **Handle Empty List**: If the input list is empty, return an empty string.\n2. **Sort and Remove Duplicates**: Convert the list to a set to remove duplicates, then sort the resulting list in ascending order.\n3. **Traverse the Sorted List**: Iterate through the sorted list to identify consecutive sequences:\n   - For each starting index, extend the sequence as long as the next number is consecutive (i.e., current number + 1 equals the next number).\n   - If the sequence length is 3 or more, represent it as \"start..end\".\n   - If the sequence length is 1 or 2, add each number individually to the result list.\n4. **Join Results**: Combine all parts (either ranges or individual numbers) into a single string separated by commas.\n\n### Solution Code\n```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    sorted_nums = sorted(set(nums))\n    n = len(sorted_nums)\n    parts = []\n    i = 0\n    while i < n:\n        j = i\n        while j < n - 1 and sorted_nums[j] + 1 == sorted_nums[j + 1]:\n            j += 1\n        length = j - i + 1\n        if length >= 3:\n            parts.append(f\"{sorted_nums[i]}..{sorted_nums[j]}\")\n        else:\n            for k in range(i, j + 1):\n                parts.append(str(sorted_nums[k]))\n        i = j + 1\n    return \",\".join(parts)\n```\n\n### Explanation\n1. **Initial Check**: The function first checks if the input list is empty and returns an empty string immediately if true.\n2. **Sorting and Deduplication**: The list is converted to a set to remove duplicates, then sorted in ascending order.\n3. **Sequence Identification**: Using a while loop, the algorithm processes each number in the sorted list:\n   - For each starting index `i`, it finds the longest consecutive sequence by checking if the next number is exactly one more than the current number.\n   - If the sequence length is 3 or more, it appends the range \"start..end\" to the result list.\n   - If the sequence length is 1 or 2, it appends each number in the sequence as a string to the result list.\n4. **Result Construction**: The individual parts (either ranges or single numbers) are joined into a single string separated by commas, which is then returned.\n\nThis approach efficiently processes the input list in linear time relative to the number of unique elements, ensuring optimal performance while meeting the problem requirements. The solution handles edge cases such as empty lists and single-element lists gracefully.",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nfrom typing import Callable\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = capacity\n        self.last_refill_time = clock()\n\n    def _refill(self):\n        now = self.clock()\n        elapsed = now - self.last_refill_time\n        self.tokens += elapsed * self.refill_per_sec\n        if self.tokens > self.capacity:\n            self.tokens = self.capacity\n        self.last_refill_time = now\n\n    @property\n    def tokens(self):\n        self._refill()\n        return self.tokens\n\n    def allow(self, cost: float = 1.0) -> bool:\n        self._refill()\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        return False\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AttributeError: property 'tokens' of 'TokenBucket' object has no setter"
+   }
+  },
+  "code-top-customers": {
+   "output": "To solve this problem, we need to process a list of customer transactions, aggregate the amounts per customer (case-insensitively), round the totals to two decimal places, and return the top `n` customers sorted by their total amounts in descending order. If two customers have the same total, they should be sorted by their names in ascending order.\n\n### Approach\n1. **Initialization**: We use two dictionaries:\n   - `first_occurrence` to store the first valid customer name (trimmed and case-insensitive) for each customer.\n   - `total_dict` to accumulate the total amounts for each customer.\n2. **Processing Rows**: For each row in the input list:\n   - Skip rows with empty customer names.\n   - Parse the amount string by removing commas and dollar signs, then converting it to a float. Skip rows with invalid amounts.\n   - For valid entries, use the customer name in lowercase as a key to track the first occurrence of the customer and accumulate the amount in `total_dict`.\n3. **Aggregation**: After processing all rows, convert each customer's total in `total_dict` to a rounded value (to two decimal places).\n4. **Sorting and Selection**: Create a list of tuples (customer name, rounded total), sort this list primarily by the total in descending order and secondarily by the customer name in ascending order, then return the top `n` entries.\n\n### Solution Code\n```python\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    first_occurrence = {}\n    total_dict = {}\n    \n    for row in rows:\n        customer = row['customer'].strip()\n        if customer == '':\n            continue\n        amount_str = row['amount'].strip()\n        try:\n            clean = amount_str.replace(',', '').replace('$', '')\n            amount = float(clean)\n        except:\n            continue\n        \n        key = customer.lower()\n        if key not in first_occurrence:\n            first_occurrence[key] = customer\n        total_dict[key] = total_dict.get(key, 0.0) + amount\n    \n    results = []\n    for key, total in total_dict.items():\n        rounded_total = round(total, 2)\n        results.append((first_occurrence[key], rounded_total))\n    \n    results.sort(key=lambda x: (-x[1], x[0]))\n    return results[:n]\n```\n\n### Explanation\n1. **Initialization**: The dictionaries `first_occurrence` and `total_dict` are initialized to keep track of the first valid customer name (for reporting) and the cumulative amounts per customer, respectively.\n2. **Row Processing**:\n   - **Customer Name Check**: The customer name is stripped of leading/trailing whitespace. Rows with empty names are skipped.\n   - **Amount Parsing**: The amount string is cleaned by removing commas and dollar signs. If conversion to a float fails, the row is skipped.\n   - **Tracking First Occurrence**: The lowercase version of the customer name is used as a key. The first valid occurrence of this key is stored in `first_occurrence`.\n   - **Accumulating Amounts**: The parsed amount is added to `total_dict` for the corresponding customer key.\n3. **Result Preparation**:\n   - **Rounding Totals**: Each customer's total from `total_dict` is rounded to two decimal places.\n   - **Building Results**: A list of tuples (customer name, rounded total) is created using the first occurrence names from `first_occurrence`.\n4. **Sorting and Selection**:\n   - **Sorting**: The list is sorted by total in descending order (achieved by sorting on the negative of the total) and by customer name in ascending order.\n   - **Slicing**: The top `n` entries from the sorted list are returned.\n\nThis approach efficiently processes the input data, aggregates customer amounts accurately, and delivers the required sorted results with minimal computational overhead.",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 24,
+    "total": 24,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2236.00,\n  \"late_fee_from_2025_06_01\": 111.80,\n  \"security_deposit\": 2150.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2306.00,\n  \"move_in_payment\": 4700.00\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "{\n  \"q3_total_usd\": 15346000,\n  \"q2_total_usd\": 14464000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 9,
+    "total": 9,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\"billing_address\", \"invoice_pdf\"],\n  \"affected_orders\": [\"SO-99812\", \"SO-99820\", \"SO-99827\"],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+   "score": 0.9167,
+   "detail": {
+    "matched": 11,
+    "total": 12,
+    "wrong": [
+     "$.resolved_issues[1]"
+    ],
+    "bare_json": true
+   }
+  }
+ }
+}

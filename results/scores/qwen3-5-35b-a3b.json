@@ -175,12 +175,40 @@
    "provider": "DeepInfra",
    "at": "2026-10-10"
   },
+  "extract/extract-event-registrations": {
+   "h": "3199f1c4131a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "at": "2026-10-11"
+  },
+  "extract/extract-expense-thread": {
+   "h": "b5a830bf8bd2",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "at": "2026-10-11"
+  },
   "extract/extract-flight": {
    "h": "fadcd5e28c48",
    "v": "priv",
    "score": 1.0,
    "provider": "DeepInfra",
    "at": "2026-10-10"
+  },
+  "extract/extract-insurance-eob": {
+   "h": "e116049aa384",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Parasail",
+   "at": "2026-10-11"
+  },
+  "extract/extract-inventory-reorder": {
+   "h": "67392cb27d86",
+   "v": "priv",
+   "score": 0.8571,
+   "provider": "DeepInfra",
+   "at": "2026-10-11"
   },
   "extract/extract-invoice-email": {
    "h": "7479db623f41",
@@ -189,12 +217,26 @@
    "provider": "DeepInfra",
    "at": "2026-10-10"
   },
+  "extract/extract-itinerary-timezones": {
+   "h": "805b94273c69",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "at": "2026-10-11"
+  },
   "extract/extract-job-posting": {
    "h": "74f4bf47cd8c",
    "v": "priv",
    "score": 1.0,
    "provider": "Parasail",
    "at": "2026-10-10"
+  },
+  "extract/extract-lease-amendment": {
+   "h": "9d0a9ed11a7c",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Parasail",
+   "at": "2026-10-11"
   },
   "extract/extract-meeting": {
    "h": "774de3c4d357",
@@ -203,12 +245,34 @@
    "provider": "SiliconFlow",
    "at": "2026-10-10"
   },
+  "extract/extract-meeting-actions": {
+   "h": "0d64413c903c",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Parasail",
+   "at": "2026-10-11"
+  },
   "extract/extract-nutrition": {
    "h": "2ace5302ada6",
    "v": "priv",
    "score": 0.9167,
    "provider": "Parasail",
    "at": "2026-10-10"
+  },
+  "extract/extract-offer-comparison": {
+   "h": "3f8df5d67fa0",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Parasail",
+   "at": "2026-10-11"
+  },
+  "extract/extract-paystub": {
+   "h": "8080cef4eb78",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "truncated": true,
+   "at": "2026-10-11"
   },
   "extract/extract-press-release": {
    "h": "43f9b77add71",
@@ -238,12 +302,33 @@
    "provider": "SiliconFlow",
    "at": "2026-10-10"
   },
+  "extract/extract-recipe-scaling": {
+   "h": "45ef96b3f74a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Parasail",
+   "at": "2026-10-11"
+  },
   "extract/extract-resume": {
    "h": "e6e7077b4ff9",
    "v": "publ",
    "score": 1.0,
    "provider": "DeepInfra",
    "at": "2026-10-10"
+  },
+  "extract/extract-sales-footnotes": {
+   "h": "daec43e801f3",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "at": "2026-10-11"
+  },
+  "extract/extract-shift-schedule": {
+   "h": "2d7d94844072",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "AtlasCloud",
+   "at": "2026-10-11"
   },
   "extract/extract-shipping": {
    "h": "ff5c42167fdf",
@@ -252,12 +337,40 @@
    "provider": "DeepInfra",
    "at": "2026-10-10"
   },
+  "extract/extract-subscription-renewal": {
+   "h": "dcb8138bce39",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "at": "2026-10-11"
+  },
   "extract/extract-support-ticket": {
    "h": "e36bc282659b",
    "v": "publ",
    "score": 1.0,
    "provider": "Parasail",
    "at": "2026-10-10"
+  },
+  "extract/extract-ticket-sla": {
+   "h": "cbe5fabaef6e",
+   "v": "publ",
+   "score": 0.9167,
+   "provider": "AtlasCloud",
+   "at": "2026-10-11"
+  },
+  "extract/extract-transcript-gpa": {
+   "h": "dec2498fa382",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "at": "2026-10-11"
+  },
+  "extract/extract-utility-bill": {
+   "h": "fd3b2eebc5e2",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Parasail",
+   "at": "2026-10-11"
   }
  }
 }

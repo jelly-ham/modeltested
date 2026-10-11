@@ -1,0 +1,81 @@
+{
+ "coding": {
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    pattern = r'^\\s*(?:(\\d+)h)?\\s*(?:(\\d+)m)?\\s*(?:(\\d+)s)?\\s*$'\n    match = re.fullmatch(pattern, s, re.IGNORECASE)\n    \n    if not match:\n        raise ValueError(\"Invalid duration format\")\n        \n    h_str, m_str, s_str = match.groups()\n    \n    if not any([h_str, m_str, s_str]):\n        raise ValueError(\"Duration must contain at least one valid unit\")\n        \n    h = int(h_str) if h_str else 0\n    m = int(m_str) if m",
+   "score": 0.0,
+   "detail": {
+    "error": "SyntaxError: invalid syntax"
+   }
+  },
+  "code-slugify": {
+   "output": "\n\n```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # 1 & 2: Transliterate accented characters to ASCII and lowercase\n    text = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii').lower()\n    \n    # 3: Replace every run of characters other than a-z and 0-9 with a single '-', strip leading/trailing '-'\n    text = re.sub(r'[^a-z0-9]+', '-', text).strip('-')\n    \n    if not text:\n        return ''\n        \n    # 4: Shorten without cutting a word\n    words = text.split('-')\n    parts = []\n    current_len = 0\n    \n    for word in words:\n        if len(word) > max_len:\n            # Hard-cut if even the first word exceeds max_len\n            parts.append(word[:max_len])\n            break\n        sep_len = 1 if current_len > 0 else 0\n        if current_len + len(word) + sep_len <= max_len:\n            parts.append(word)\n            current_len += len(word) + sep_len\n        else:\n            break\n            \n    # 5: Result never ends with '-'\n    return '-'.join(parts)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "\n\n```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    sorted_nums = sorted(set(nums))\n    runs = []\n    i = 0\n    n = len(sorted_nums)\n    \n    while i < n:\n        j = i\n        while j + 1 < n and sorted_nums[j+1] == sorted_nums[j] + 1:\n            j += 1\n        runs.append((sorted_nums[i], sorted_nums[j]))\n        i = j + 1\n        \n    parts = []\n    for start, end in runs:\n        if end - start >= 2:\n            parts.append(f\"{start}..{end}\")\n        else:\n            parts.extend(str(x) for x in range(start, end + 1))\n            \n    return \",\".join(parts)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'TokenBucket' is not defined"
+   }
+  },
+  "code-top-customers": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'top_customers' is not defined"
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "\n\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.6\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 24,
+    "total": 24,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "\n\n{\"tenants\":[\"Marcus Lin\",\"Sofia Lin\"],\"landlord\":\"Ridgeline Property Group LLC\",\"zip\":\"97205\",\"lease_end\":\"2025-11-30\",\"original_monthly_rent\":2150,\"monthly_rent_from_2025_06_01\":2236,\"late_fee_from_2025_06_01\":111.8,\"security_deposit\":2150,\"total_pet_deposits\":800,\"total_monthly_payment_july_2025\":2306,\"move_in_payment\":4700}",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "{\n  \"q3_total_usd\": 15346000,\n  \"q2_total_usd\": 14464000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 9,
+    "total": 9,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "\n\n{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\"billing_address\"],\n  \"affected_orders\": [\"SO-99812\", \"SO-99820\", \"SO-99827\"],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 11,
+    "total": 11,
+    "wrong": [],
+    "bare_json": true
+   }
+  }
+ }
+}

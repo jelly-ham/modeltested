@@ -37,6 +37,22 @@
   }
  },
  "extract": {
+  "extract-expense-thread": {
+   "output": "```json\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 228.67\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 42.27\n    }\n  ],\n  \"rejected_item_count\": 2,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 130.00,\n  \"total_reimbursable_usd\": 2110.98,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}\n```",
+   "score": 0.7917,
+   "detail": {
+    "matched": 19,
+    "total": 24,
+    "wrong": [
+     "$.approved_items[2].amount_usd",
+     "$.approved_items[4].amount_usd",
+     "$.per_diem_usd",
+     "$.rejected_item_count",
+     "$.total_reimbursable_usd"
+    ],
+    "bare_json": false
+   }
+  },
   "extract-invoice-email": {
    "output": "```json\n{\n  \"invoice_number\": \"INV-2024-0193\",\n  \"vendor\": \"BrightPixel Studio LLC\",\n  \"contact_name\": \"Maria Gonzalez\",\n  \"currency\": \"USD\",\n  \"total\": 4310.00,\n  \"invoice_date\": \"2024-09-15\",\n  \"due_date\": \"2024-10-15\",\n  \"line_items\": [\n    { \"sku\": \"WEB-01\", \"quantity\": 1, \"unit_price\": 3500.00 },\n    { \"sku\": \"HST-12\", \"quantity\": 3, \"unit_price\": 270.00 }\n  ]\n}\n```",
    "score": 1.0,
@@ -44,6 +60,20 @@
     "matched": 13,
     "total": 13,
     "wrong": [],
+    "bare_json": false
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "```json\n{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2236.00,\n  \"late_fee_from_2025_06_01\": 111.80,\n  \"security_deposit\": 2670.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2528.20,\n  \"move_in_payment\": 4720.00\n}\n```\n\n### Explanation:\n\n- **Tenants**: Listed as Marcus Lin and Sofia Lin.\n- **Landlord**: Ridgeline Property Group LLC.\n- **Zip Code**: 97205 for the property.\n- **Lease End Date**: Extended to November 30, 2025.\n- **Original Monthly Rent**: $2,150.00.\n- **Monthly Rent from June 1, 2025**: Increased by 4% from the original rent (2150.00 * 1.04 = 2236.00).\n- **Late Fee from June 1, 2025**: 5% of the new rent (2236.00 * 0.05 = 111.80).\n- **Security Deposit**: One month's original rent (2150.00).\n- **Total Pet Deposits**: $400 per pet, with two pets (400.00 * 2 = 800.00).\n- **Total Monthly Payment July 2025**: New rent plus pet rent for two pets (2236.00 + 2 * 35.00 = 2528.20).\n- **Move-In Payment**: First month's rent, security deposit, and pet deposits (2236.00 + 2150.00 + 400.00 * 1 = 4720.00).",
+   "score": 0.75,
+   "detail": {
+    "matched": 9,
+    "total": 12,
+    "wrong": [
+     "$.move_in_payment",
+     "$.security_deposit",
+     "$.total_monthly_payment_july_2025"
+    ],
     "bare_json": false
    }
   },
@@ -69,6 +99,18 @@
     "bare_json": false
    }
   },
+  "extract-sales-footnotes": {
+   "output": "To solve this requirement analysis by evaluating the provided text, I will extract and calculate the necessary values, taking into account any adjustments mentioned.\n\n### Step-by-step Analysis and Calculations:\n\n1. **q3_total_usd**:\n   - Total Q3 sales in original millions: 4,902 (West) + 3,305 (Central) + 5,188 (East) + 1,951 (International) = 15,346 (in thousands of usd)\n   - Converting to usd: 15,346,000\n\n2. **q2_total_usd** (using restated figures for Central):\n   - Given Central restated for Q2 is 2,947 (not 3,047)\n   - Total Q2 sales: 4,585 (West) + 2,947 (Central*) + 5,310 (East) + 1,622 (International) = 14,464 (thousands of usd)\n   - Converting to usd: 14,464,000\n  \n3. **q2_central_originally_reported_usd**:\n   - Originally reported Central sale for Q2 was 3,047 (thousands of usd)\n   - Converting to usd: 3,047,000\n\n4. **q2_to_q3_change_pct** (total sales):\n   - Change = (Q3 total - Q2 total): 15,346,000 - 14,464,000 = 882,000\n   - Percent Change = (882,000 / 14,464,000) * 100 = 6.1%\n\n5. **top_region_q3**:\n   - Top region based on Q3 sales is East with 5,188 (in thousands of usd).\n\n6. **fastest_growing_region_q1_to_q3** (by reported sales, not ‘organic’):\n    - Calculate increase for each region from Q1 to Q3:\n      - West: 4,902 - 4,210 = 692\n      - Central: 3,305 - 3,118 = 187\n      - East: 5,188 - 5,026 = 162\n      - International: 1,951 - 1,404 = 547\n    - West has the greatest increase, thus the fastest-growing.\n\n7. **regions_declining_q2_to_q3**:\n    - Calculate sales change from Q2 to Q3:\n      - West: 4,902 - 4,585 = +317\n      - Central: 3,305 - 2,947 = +358\n      - East: 5,188 - 5,310 = -122\n      - International: 1,951 - 1,622 = +329\n    - The only declining region from Q2 to Q3 is East.\n\n8. **international_q3_organic_usd** (subtracting bulk order):\n    - Q3 international (including bulk): 1,951\n    - Bulk order: 220\n    - Organic: 1,951 - 220 = 1,731 (thousands of usd)\n    - Converting to usd: 1,731,000\n\n9. **west_excluding_mountain_q3_usd**:\n    - West excluding mountain: 4,902 (West total) - 701 (mountain) = 4,201 (thousands of usd)\n    - Converting to usd: 4,201,000\n\n### JSON Output:\n```json\n{\n  \"q3_total_usd\": 15346000,\n  \"q2_total_usd\": 14464000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"West\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}\n```\n\nThis structure includes all the calculated values as derived from the specified sections of the text. Additional notes and restatements have been implemented where necessary.",
+   "score": 0.8889,
+   "detail": {
+    "matched": 8,
+    "total": 9,
+    "wrong": [
+     "$.fastest_growing_region_q1_to_q3"
+    ],
+    "bare_json": false
+   }
+  },
   "extract-support-ticket": {
    "output": "```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"plan\": \"Pro\",\n  \"order_ids\": [\"A-55821\", \"A-55822\"],\n  \"refund_requested\": true,\n  \"sentiment\": \"negative\",\n  \"customer_name\": \"Priya\"\n}\n```",
    "score": 1.0,
@@ -76,6 +118,14 @@
     "matched": 8,
     "total": 8,
     "wrong": [],
+    "bare_json": false
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "```json\n{\n  \"ticket_id\": 48213,\n  \"responder_id\": null,\n  \"accompany_name\": \"Halvorsen Outdoor Co.\",\n  \"account_id\": \"ACC-7731\",\n  \"missing_features\": \"inventory sync\",\n  \"flightPrice\": null,\n  \"related_issues\": null,\n  \"status\": \"open\",\n  \"spouse\": \"Invoice PDF issue\",\n  \"title\": \"Inventory sync failure and incorrect billing address on invoice PDF\",\n  \"org[email protected]\",\n  \"card_address\": {\n    \"address_1\": null,\n    \"suite\": null,\n    \"city_local\": null,\n    \"address_code\": null,\n    \"country\": null\n  },\n  \"currency\": null,\n  \"item_id\": \"SO-99812; SO-99820; SO-99827\",\n  \"phone\": null,\n  \"priority\": \"P2\",\n  \"p_created\": \"2025-09-12T23:30:00-05:00\",\n  \"ptoal\": null,\n  \"pepon_issue\": \"inventory sync\",\n  \"id\": \"INV-2025-0812\",\n  \"resolved_issues\": [\"invoice PDF\"],\n  \"aRequired_orders\": [\"SO-99812\", \"SO-99820\", \"SO-99827\"],\n  \"sla_due_local\": \"2025-09-13T15:30:00\",\n  \"sla_due_utc\": \"2025-09-13T20:30:00\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}\n``` \n\n### Explanation:\n- **ticket_id**: Derived from the ticket number (#48213).\n- **responder_id**: Not provided in the text, so set to `null`.\n- **account_id**: Derived as \"ACC-7731\".\n- **title**: Summarizes the issues mentioned.\n- **opened**: Based on the timestamp with the \"America/Chicago\" timezone and converted to UTC.\n- **devices**: Specific orders, extracted in the text.\n- **open_issue**: For unresolved inventory sync.\n- **invoice_created**: Issue and correction mentioned on Aug invoice.\n- **resolved_issues**: Indicates August invoice PDF addressed but other sync issues are still open.\n- **resolved_products**: Lists specific order numbers with issues indirectly.\n- **status**: Open, since not fully resolved.\n- **sla_due_local**: Calculated as 8 business hours forward from creation (husband Chan Cox year, Friday).\n- **sla_due_utc**: Converted from \"sla_due_local\" to UTC timezone. \n\nThe rules and priorities are used according to the description within the problem's text and documentation.",
+   "score": 0.0,
+   "detail": {
+    "error": "no JSON object",
     "bare_json": false
    }
   }

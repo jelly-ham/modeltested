@@ -1,0 +1,37 @@
+{
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    s = s.strip()\n    if not s:\n        raise ValueError(\"Empty or blank string\")\n    \n    # Split by whitespace and filter out empty strings\n    parts = [p for p in s.split() if p]\n    \n    # Define allowed units (case-insensitive)\n    units = {'h': 3600, 'm': 60, 's': 1}\n    \n    # Track which units we've already seen\n    used_units = set()\n    total_seconds = 0\n    \n    for part in parts:\n        # Check if part ends with a valid unit\n        if not part or not part[-1].isalpha():\n            raise ValueError(\"Number without a unit\")\n        \n        unit_char = part[-1].lower()\n        if unit_char not in units:\n            raise ValueError(f\"Unknown unit: {unit_char}\")\n        \n        # Extract the numeric part\n        num_str = part[:-1]\n        if not num_str.isdigit():\n            raise ValueError(\"Decimal numbers not allowed\")\n        \n        num = int(num_str)\n        if num < 0:\n            raise ValueError(\"Negative numbers not allowed\")\n        \n        # Check if unit is already used\n        if unit_char in used_units:\n            raise ValueError(f\"Repeated unit: {unit_char}\")\n        \n        # Check order: h, then m, then s\n        if used_units and not (used_units == {'h'} and unit_char == 'm' or \n                              used_units == {'h', 'm'} and unit_char == 's'):\n            raise ValueError(\"Units must appear in order: h, m, s\")\n        \n        # Add to total\n        total_seconds += num * units[unit_char]\n        used_units.add(unit_char)\n    \n    # Check if we have all required units in correct order\n    # We don't require all units to be present, but if present, they must be in order\n    # The order check above ensures this\n    \n    return total_seconds\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: Decimal numbers not allowed"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport re\nfrom unicodedata import normalize\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Normalize to NFD to separate accents, then remove non-ASCII characters\n    normalized = normalize('NFD', title)\n    ascii_only = ''.join(c for c in normalized if c.isascii() and (c.isalpha() or c.isdigit() or c.isspace()))\n    \n    # Lowercase\n    lowercase = ascii_only.lower()\n    \n    # Replace non-alphanumeric (except spaces) with hyphens, then collapse multiple hyphens\n    slug = re.sub(r'[^a-z0-9\\s]+', '-', lowercase)\n    slug = re.sub(r'\\s+', ' ', slug)  # Replace multiple spaces with single space\n    slug = re.sub(r'[^a-z0-9]+', '-', slug)  # Replace non-alphanumeric (except spaces) with hyphens\n    slug = slug.strip('-')\n    \n    # If slug is longer than max_len, shorten without cutting words\n    if len(slug) > max_len:\n        # Split into words (separated by hyphens)\n        words = slug.split('-')\n        result_words = []\n        current_length = 0\n        \n        for word in words:\n            if current_length + len(word) + (1 if result_words else 0) <= max_len:\n                result_words.append(word)\n                current_length += len(word) + (1 if result_words else 0)\n            else:\n                break\n        \n        slug = '-'.join(result_words)\n        \n        # If first word is too long, hard-cut it\n        if len(slug) > max_len:\n            slug = slug[:max_len]\n    \n    # Ensure it doesn't end with a hyphen\n    slug = slug.rstrip('-')\n    \n    return slug\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    # Remove duplicates and sort\n    sorted_unique = sorted(set(nums))\n    \n    # Group consecutive numbers\n    ranges = []\n    start = sorted_unique[0]\n    current = start\n    \n    for i in range(1, len(sorted_unique)):\n        if sorted_unique[i] == current + 1:\n            current = sorted_unique[i]\n        else:\n            # End of current run\n            if current - start >= 2:  # 3 or more consecutive numbers\n                ranges.append(f\"{start}..{current}\")\n            else:\n                # 1 or 2 numbers\n                for j in range(start, current + 1):\n                    ranges.append(str(j))\n            start = sorted_unique[i]\n            current = start\n    \n    # Handle the last run\n    if current - start >= 2:\n        ranges.append(f\"{start}..{current}\")\n    else:\n        for j in range(start, current + 1):\n            ranges.append(str(j))\n    \n    return \",\".join(ranges)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self._tokens = capacity\n        self._last_refill_time = clock()\n\n    def _refill(self):\n        now = self.clock()\n        elapsed = now - self._last_refill_time\n        if elapsed > 0:\n            refill_amount = elapsed * self.refill_per_sec\n            self._tokens = min(self.capacity, self._tokens + refill_amount)\n            self._last_refill_time = now\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nimport re\nfrom typing import List, Dict, Tuple\n\ndef top_customers(rows: List[Dict], n: int) -> List[Tuple[str, float]]:\n    customer_totals = {}\n    \n    for row in rows:\n        customer = row.get(\"customer\")\n        amount_str = row.get(\"amount\")\n        \n        # Skip if customer name is empty or cannot be parsed\n        if not customer or not isinstance(customer, str):\n            continue\n        \n        customer = customer.strip()\n        if not customer:\n            continue\n        \n        # Skip if amount is not a string or cannot be parsed\n        if not isinstance(amount_str, str):\n            continue\n        \n        # Clean amount string\n        amount_str = amount_str.strip()\n        if not amount_str:\n            continue\n        \n        # Remove currency symbols and commas, handle negative amounts\n        clean_amount = re.sub(r'[^\\d.-]', '', amount_str)\n        if not clean_amount or not re.match(r'^-?\\d+(\\.\\d+)?$', clean_amount):\n            continue\n        \n        try:\n            amount = float(clean_amount)\n        except ValueError:\n            continue\n        \n        # Use the first valid customer name (trimmed) as the key\n        if customer not in customer_totals:\n            customer_totals[customer] = 0.0\n        \n        customer_totals[customer] += amount\n    \n    # Sort by total descending, then by name ascending\n    result = sorted(customer_totals.items(), key=lambda x: (-x[1], x[0]))\n    \n    # Return top n customers\n    return result[:n]\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ }
+}
