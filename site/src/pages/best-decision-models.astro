@@ -11,6 +11,12 @@ const kindLabel = { decision: "Decision model", local: "Local LLM", reference: "
 const bestDecision = rows.find((r) => r.kind === "decision");
 const bestLocal = rows.find((r) => r.kind === "local");
 const showHard = rows.some((r) => r.hard != null);
+const decisionRows = rows.filter((r) => r.kind === "decision");
+// Regular models you can run at home that beat the best dedicated decision model.
+const beaters = bestDecision ? rows.filter((r) => r.kind === "local" && r.accuracy > bestDecision.accuracy) : [];
+const smallestBeater = [...beaters].filter((r) => r.params_b).sort((a, b) => a.params_b! - b.params_b!)[0];
+const decHard = decisionRows.map((r) => r.hard).filter((h): h is number => h != null);
+const bestLocalHard = Math.max(...rows.filter((r) => r.kind === "local").map((r) => r.hard ?? 0));
 const title = "Best Decision Models (Clef, Jev, Microsoft-Decision-1…) vs. Regular LLMs | Model Tested";
 const description = post?.dek ?? "Decision models tested on real classification, routing and triage tasks.";
 ---
@@ -31,6 +37,10 @@ const description = post?.dek ?? "Decision models tested on real classification,
         <ul>
           {bestDecision && <li>Best dedicated decision model: <b>{bestDecision.name}</b>, right on {whole(bestDecision.accuracy)}% of calls.</li>}
           {bestLocal && <li>Best regular model you can run at home: <a href={`/models/${bestLocal.slug}/`} style="color: var(--blue)">{bestLocal.name}</a>, {whole(bestLocal.accuracy)}%.</li>}
+          {beaters.length > 0 && <li>
+            {beaters.length} free models you can run yourself beat every dedicated decision model{smallestBeater && <>, including the small <a href={`/models/${smallestBeater.slug}/`} style="color: var(--blue)">{smallestBeater.name}</a></>}.
+          </li>}
+          {decHard.length > 0 && <li>The gap shows on the hard cases: decision models got {whole(Math.min(...decHard))}–{whole(Math.max(...decHard))}% of them right; the best regular models got {whole(bestLocalHard)}%.</li>}
           <li>"Calibration" shows how honest a model's confidence is: 100 means it is always right and always sure; low numbers mean it is often confidently wrong.</li>
         </ul>
       </div>
@@ -52,6 +62,21 @@ const description = post?.dek ?? "Decision models tested on real classification,
         </table>
       </div>
     </>
+  )}
+  {beaters.length > 0 && bestDecision && (
+    <div class="prose">
+      <h2>What this means</h2>
+      <p>
+        Decision models promise fast, cheap, well-calibrated answers to multiple-choice questions, and on the easy cases they deliver:
+        most of them get the obvious calls right. Where they fall behind is when the answer depends on reading a rule carefully and doing a
+        small calculation, like counting days in a refund window or converting a time zone. The best regular models handle those much better.
+      </p>
+      <p>
+        If you're choosing one for real work, test it on your own hardest cases, not your typical ones. And if you can run a model
+        yourself, {smallestBeater ? <a href={`/models/${smallestBeater.slug}/`}>{smallestBeater.name}</a> : "a mid-size local model"} is
+        a strong, free baseline to beat.
+      </p>
+    </div>
   )}
   <div class="prose">
     <h2>What we test</h2>

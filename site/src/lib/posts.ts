@@ -59,12 +59,20 @@ function reviewPost(m: Model): Post {
   };
 }
 
+/** Local models that beat the best dedicated decision model on accuracy. */
+const beatsBest = (rows: NonNullable<typeof data.decisions>) => {
+  const best = rows.find((r) => r.kind === "decision");
+  return best ? rows.filter((r) => r.kind === "local" && r.accuracy > best.accuracy).length : 0;
+};
+
 export function decisionPost(): Post | null {
   const rows = data.decisions ?? [];
   if (!rows.length) return null;
   return {
     url: "/best-decision-models/",
-    title: "Decision models vs. regular LLMs: who makes the right call?",
+    title: beatsBest(rows) > 0
+      ? `Decision models vs. regular LLMs: ${beatsBest(rows)} free models beat the best one`
+      : "Decision models vs. regular LLMs: who makes the right call?",
     dek: `${rows.length} models, ${(data.suites.find((s) => s.id === "decisions")?.n_public ?? 0) + (data.suites.find((s) => s.id === "decisions")?.n_private ?? 0)} real decisions: routing tickets, spotting phishing, flagging risky code. Accuracy and how honest their confidence is.`,
     date: data.generated,
     category: "Rankings",
