@@ -54,8 +54,8 @@
    "h": "caa2741573fc",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0004,
+   "provider": "PrimeIntellect",
+   "brier": 0.0005,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-resume": {
@@ -94,8 +94,8 @@
    "h": "2536c0ad4a10",
    "v": "priv",
    "score": 0.5,
-   "provider": "Cloudflare",
-   "brier": 0.6046,
+   "provider": "PrimeIntellect",
+   "brier": 0.5437,
    "at": "2026-10-11"
   },
   "decisions/decide-intent-upgrade": {
@@ -150,8 +150,8 @@
    "h": "5f9846221479",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.1115,
+   "provider": "PrimeIntellect",
+   "brier": 0.1358,
    "at": "2026-10-11"
   },
   "decisions/decide-phishing-mailbox-full": {
@@ -166,8 +166,8 @@
    "h": "3483ab984a02",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0014,
+   "provider": "PrimeIntellect",
+   "brier": 0.001,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-card": {
@@ -190,8 +190,8 @@
    "h": "2202c616180c",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0003,
+   "provider": "PrimeIntellect",
+   "brier": 0.0002,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-ssn-email": {

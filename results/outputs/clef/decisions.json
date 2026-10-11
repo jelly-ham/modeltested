@@ -1,9 +1,9 @@
 {
  "decide-doc-invoice-missing-due": {
-  "output": "{\"doc_type\": {\"type\": \"choice\", \"choice\": \"invoice\", \"probabilities\": {\"invoice\": 0.9854, \"resume\": 0.0036, \"contract\": 0.0036, \"bank_statement\": 0.0032, \"other\": 0.0042}, \"confidence\": 0.9637}, \"missing_due_date\": {\"type\": \"noul\", \"noul\": 0.9843}}",
+  "output": "{\"doc_type\": {\"type\": \"choice\", \"choice\": \"invoice\", \"probabilities\": {\"invoice\": 0.9849, \"resume\": 0.0035, \"contract\": 0.0038, \"bank_statement\": 0.0035, \"other\": 0.0043}, \"confidence\": 0.9811}, \"missing_due_date\": {\"type\": \"noul\", \"noul\": 0.9814}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0004,
+   "brier": 0.0005,
    "picks": {
     "doc_type": "invoice",
     "missing_due_date": "true"
@@ -22,10 +22,10 @@
   }
  },
  "decide-phishing-paypal": {
-  "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.9906}, \"risk\": {\"type\": \"score\", \"score\": 2.9187, \"legend\": {\"0\": \"No risk: legitimate\", \"1\": \"Low\", \"2\": \"Medium\", \"3\": \"High: clearly phishing\"}, \"probabilities\": {\"0\": 0.0124, \"1\": 0.013, \"2\": 0.018, \"3\": 0.9566}, \"confidence\": 0.8875}}",
+  "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.9901}, \"risk\": {\"type\": \"score\", \"score\": 2.93, \"legend\": {\"0\": \"No risk: legitimate\", \"1\": \"Low\", \"2\": \"Medium\", \"3\": \"High: clearly phishing\"}, \"probabilities\": {\"0\": 0.0107, \"1\": 0.0112, \"2\": 0.0157, \"3\": 0.9624}, \"confidence\": 0.9298}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0014,
+   "brier": 0.001,
    "picks": {
     "phishing": "true",
     "risk": "3"

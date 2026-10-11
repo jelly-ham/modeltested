@@ -12,9 +12,9 @@
   "coding/code-cron-matches": {
    "h": "3d42429ae11d",
    "v": "priv",
-   "score": 0.0,
-   "provider": "Ionstream",
-   "truncated": true,
+   "score": 1.0,
+   "provider": "Near AI",
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-dedupe-emails": {

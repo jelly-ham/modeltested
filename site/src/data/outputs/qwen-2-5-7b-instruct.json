@@ -50,6 +50,99 @@
    }
   }
  },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\n  \"doc_type\": {\n    \"invoice\": 1.0\n  },\n  \"missing_due_date\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+   "score": 0.5,
+   "detail": {
+    "brier": 1.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "false"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\n  \"policy\": {\n    \"none\": 0.9,\n    \"harassment\": 0.1\n  },\n  \"personal_info\": {\n    \"true\": 1\n  }\n}",
+   "score": 0.5,
+   "detail": {
+    "brier": 0.81,
+    "picks": {
+     "policy": "none",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 1,\n    \"false\": 0\n  },\n  \"risk\": {\n    \"0\": 0,\n    \"1\": 0,\n    \"2\": 0,\n    \"3\": 1\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\n  \"data_kind\": {\n    \"none\": 0,\n    \"contact\": 0,\n    \"financial\": 0.1,\n    \"government_id\": 1,\n    \"health\": 0\n  },\n  \"sensitive\": {\n    \"true\": 1,\n    \"false\": 0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0083,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\n  \"department\": {\n    \"billing\": 1.0\n  },\n  \"refund\": {\n    \"true\": 1.0\n  },\n  \"tone\": {\n    \"calm\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\n    \"negative\": 1\n  },\n  \"defect\": {\n    \"true\": 1\n  },\n  \"recommend\": {\n    \"false\": 1\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\n  \"tool\": {\n    \"calendar\": 1.0\n  },\n  \"confirm\": {\n    \"true\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0,\n    \"technical\": 1,\n    \"account\": 0,\n    \"shipping\": 0,\n    \"sales\": 0\n  },\n  \"urgency\": {\n    \"0\": 0,\n    \"1\": 0,\n    \"2\": 0,\n    \"3\": 1\n  },\n  \"outage\": {\n    \"true\": 1,\n    \"false\": 0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
  "extract": {
   "extract-expense-thread": {
    "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\"date\": \"2025-02-24\", \"category\": \"airfare\", \"amount_usd\": 1184.60},\n    {\"date\": \"2025-02-24\", \"category\": \"ground_transport\", \"amount_usd\": 39.72},\n    {\"date\": \"2025-02-25\", \"category\": \"meals\", \"amount_usd\": 230.44},\n    {\"date\": \"2025-02-26\", \"category\": \"lodging\", \"amount_usd\": 469.08},\n    {\"date\": \"2025-02-27\", \"category\": \"ground_transport\", \"amount_usd\": 44.84}\n  ],\n  \"rejected_item_count\": 2,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 1883.84,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",

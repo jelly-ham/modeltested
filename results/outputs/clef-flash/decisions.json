@@ -56,10 +56,10 @@
   }
  },
  "decide-review-mixed": {
-  "output": "{\"sentiment\": {\"type\": \"choice\", \"choice\": \"negative\", \"probabilities\": {\"positive\": 0.0216, \"neutral\": 0.0814, \"negative\": 0.897}, \"confidence\": 0.7177}, \"defect\": {\"type\": \"noul\", \"noul\": 0.9238}, \"recommend\": {\"type\": \"noul\", \"noul\": 0.0072}}",
+  "output": "{\"sentiment\": {\"type\": \"choice\", \"choice\": \"negative\", \"probabilities\": {\"positive\": 0.0156, \"neutral\": 0.0695, \"negative\": 0.9149}, \"confidence\": 0.8723}, \"defect\": {\"type\": \"noul\", \"noul\": 0.945}, \"recommend\": {\"type\": \"noul\", \"noul\": 0.0045}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0098,
+   "brier": 0.0061,
    "picks": {
     "sentiment": "negative",
     "defect": "true",

@@ -40,6 +40,14 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-hard-bool-expr": {
+   "h": "a84a25915d0e",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "DeepInfra",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "coding/code-hard-csv-parser": {
    "h": "78842db66786",
    "v": "priv",

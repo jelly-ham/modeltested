@@ -70,8 +70,8 @@
    "h": "c9625a8d1dfd",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0094,
+   "provider": "PrimeIntellect",
+   "brier": 0.0066,
    "at": "2026-10-11"
   },
   "decisions/decide-gdpr-erasure": {
@@ -214,8 +214,8 @@
    "h": "9e41737cefd0",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0098,
+   "provider": "PrimeIntellect",
+   "brier": 0.0061,
    "at": "2026-10-11"
   },
   "decisions/decide-review-sarcasm": {
@@ -230,8 +230,8 @@
    "h": "fecbfc72964a",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0007,
+   "provider": "PrimeIntellect",
+   "brier": 0.0004,
    "at": "2026-10-11"
   },
   "decisions/decide-route-calendar": {
@@ -253,9 +253,9 @@
   "decisions/decide-route-none": {
    "h": "83d5627c2104",
    "v": "priv",
-   "score": 0.0,
-   "provider": "Cloudflare",
-   "brier": 0.9109,
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0607,
    "at": "2026-10-11"
   },
   "decisions/decide-route-search": {

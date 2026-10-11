@@ -1,5 +1,19 @@
 {
  "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\nimport re\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    sections = {}\n    default_section = {}\n    current_section = None\n    current_key = None\n    current_value = None\n\n    def split_key_value(line):\n        index_eq = line.find('=')\n        index_colon = line.find(':')\n        if index_eq == -1 and index_colon == -1:\n            raise ValueError(\"Invalid key-value line: no '=' or ':' found\")\n        if index_eq == -1:\n            split_index = index_colon\n        elif index_colon == -1:\n            split_index = index_eq\n        else:\n            split_index = min(index_eq, index_colon)\n        key = line[:split_index].strip()\n        value = line[split_index+1:].strip()\n        return key, value\n\n    def process_value(value):\n        value = value.strip()\n        if len(value) >= 2 and value[0] == '\"' and value[-1] == '\"':\n            value = value[1:-1]\n        else:\n            match = re.search(r'\\s+;|\\s+#', value)\n            if match:\n                value = value[:match.start()].strip()\n        return value\n\n    def resolve_references(value, section, sections, visited):\n        pattern = r'\\$\\{([^}]+)\\}'\n        matches = re.findall(pattern, value)\n        if not matches:\n            return value\n        def replace_match(match):\n            ref = match.group(1)\n            if ':' in ref:\n                sec_name, key_name = ref.split(':', 1)\n            else:\n                sec_name = section\n                key_name = ref\n            if sec_name not in sections:\n                raise KeyError(f\"Section {sec_name} not found\")\n            if key_name not in sections[sec_name]:\n                raise KeyError(f\"Key {key_name} not found in section {sec_name}\")\n            if (sec_name, key_name) in visited:\n                raise ValueError(\"Cyclic reference\")\n            visited.add((sec_name, key_name))\n            resolved_val = resolve_references(sections[sec_name][key_name], sec_name, sections, visited)\n            visited.remove((sec_name, key_name))\n            return resolved_val\n        return re.sub(pattern, replace_match, value)\n\n    lines = text.splitlines()\n    for line in lines:\n        line = line.strip()\n        if not line:\n            continue\n        if line[0] in ';#':\n            continue\n        if line[0] == '[' and line[-1] == ']':\n            section_name = line[1:-1].strip()\n            current_section = section_name\n            if current_section == 'DEFAULT':\n                default_section = {}\n            else:\n                sections[current_section] = {}\n        elif line[0] in ' \\t':\n            if current_key is None:\n                raise ValueError(\"Continuation line without key\")\n            current_value += '\\n' + line.strip()\n        else:\n            if current_section is None:\n                raise ValueError(\"Key line before section header\")\n            key, value = split_key_value(line)\n            key = key.strip().lower()\n            value = process_value(value)\n            if current_section == 'DEFAULT':\n                default_section[key] = value\n            else:\n                sections[current_section][key] = value\n            current_key = key\n            current_value = value\n\n    sections['DEFAULT'] = default_section\n    for section in sections:\n        for key in list(sections[section].keys()):\n            sections[section][key] = resolve_references(sections[section][key], section, sections, set())\n\n    result = {}\n    for section in sections:\n        if section == 'DEFAULT':\n            continue\n        merged = sections['DEFAULT'].copy()\n        merged.update(sections[section])\n        result[section] = merged\n\n    return result\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "ValueError: Invalid key-value line: no '=' or ':' found"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "To solve this problem, we need to implement a TTL (Time-To-Live) cache that combines the Least Recently Used (LRU) eviction policy with expiration of entries based on a specified time-to-live value. The cache must efficiently handle insertions, lookups, and evictions while maintaining accurate statistics on operations.\n\n### Approach\n1. **Data Structures**:\n   - **Dictionary (`cache`)**: Maps keys to tuples containing the value, expiry time, and a node reference for the LRU list.\n   - **Doubly Linked List**: Maintains the order of entries based on recency (most recently used at the head, least recently used at the tail). This allows O(1) operations for moving nodes to the head (for updates) and removing the tail (for eviction).\n   - **Node Class**: Represents elements in the doubly linked list, storing the key and pointers to the previous and next nodes.\n\n2. **Key Operations**:\n   - **`put(key, value)`**:\n     - If the key exists, update its value, expiry time (current time + TTL), and move it to the head of the LRU list.\n     - If the key is new and the cache is full (non-expired entries ≥ capacity), first remove all expired entries (counting as expirations), then evict the least recently used entry (counting as eviction) until there is space.\n     - Add the new entry to the head of the LRU list.\n   - **`get(key, default=None)`**:\n     - If the key exists and is not expired, return the value and move it to the head of the LRU list (counting as a hit).\n     - If the key exists but is expired, remove it (counting as expiration and miss).\n     - If the key does not exist, return the default (counting as a miss).\n   - **`__len__()`**: Returns the count of non-expired entries (size of the cache).\n   - **`stats()`**: Returns a dictionary with counts of hits, misses, evictions, and expirations.\n\n3. **Handling Expired Entries**:\n   - During `put` operations when the cache is full, expired entries are removed proactively (scanning the entire cache) to free space.\n   - During `get` operations, expired entries are removed immediately upon discovery.\n   - Each expiration (whether during `put` or `get`) increments the expiration count.\n\n4. **Special Case for Capacity 0**:\n   - If capacity is 0, all operations (put, get) are ignored, and `get` always returns the default (counting as a miss).\n\n### Solution Code\n```python\nclass Node:\n    __slots__ = ('key', 'prev', 'next')\n    def __init__(self, key):\n        self.key = key\n        self.prev = None\n        self.next = None\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock: callable):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = {}\n        self.head = None\n        self.tail = None\n        self.size = 0\n        self.stats = {\n            'hits': 0,\n            'misses': 0,\n            'evictions': 0,\n            'expirations': 0\n        }\n    \n    def _remove_node(self, node):\n        if node == self.head:\n            self.head = node.next\n        if node == self.tail:\n            self.tail = node.prev\n        if node.prev:\n            node.prev.next = node.next\n        if node.next:\n            node.next.prev = node.prev\n        node.prev = None\n        node.next = None\n    \n    def _add_node(self, node):\n        if self.head is None:\n            self.head = node\n            self.tail = node\n        else:\n            node.next = self.head\n            self.head.prev = node\n            self.head = node\n\n    def put(self, key, value):\n        if self.capacity == 0:\n            return\n            \n        if key in self.cache:\n            current_time = self.clock()\n            new_expiry = current_time + self.ttl\n            node = self.cache[key][2]\n            self._remove_node(node)\n            self.cache[key] = (value, new_expiry, node)\n            self._add_node(node)\n            return\n            \n        if self.size >= self.capacity:\n            expired_entries = []\n            for k, (v, exp, node) in list(self.cache.items()):\n                if self.clock() >= exp:\n                    expired_entries.append((k, node))\n            for k, node in expired_entries:\n                del self.cache[k]\n                self._remove_node(node)\n                self.size -= 1\n                self.stats['expirations'] += 1\n            while self.size >= self.capacity:\n                key_to_evict = self.tail.key\n                node_to_evict = self.cache[key_to_evict][2]\n                del self.cache[key_to_evict]\n                self._remove_node(node_to_evict)\n                self.size -= 1\n                self.stats['evictions'] += 1\n                \n        current_time = self.clock()\n        new_expiry = current_time + self.ttl\n        node = Node(key)\n        self.cache[key] = (value, new_expiry, node)\n        self._add_node(node)\n        self.size += 1\n\n    def get(self, key, default=None):\n        if self.capacity == 0:\n            self.stats['misses'] += 1\n            return default\n            \n        if key in self.cache:\n            value, expiry, node = self.cache[key]\n            current_time = self.clock()\n            if current_time < expiry:\n                self.stats['hits'] += 1\n                self._remove_node(node)\n                self._add_node(node)\n                return value\n            else:\n                del self.cache[key]\n                self._remove_node(node)\n                self.size -= 1\n                self.stats['expirations'] += 1\n                self.stats['misses'] += 1\n                return default\n        else:\n            self.stats['misses'] += 1\n            return default\n\n    def __len__(self):\n        return self.size\n\n    def stats(self):\n        return self.stats\n```\n\n### Explanation\n- **Initialization**: The cache initializes with a given capacity, TTL, and a clock function to get the current time. It sets up the cache dictionary, linked list (head and tail pointers), size counter, and stats dictionary.\n- **`put` Method**:\n  - For existing keys, updates the value and expiry time, then moves the node to the head of the LRU list.\n  - For new keys, if the cache is full, it first removes all expired entries (scanning the entire cache) and then evicts the least recently used entries until space is available. It then adds the new entry to the head of the list.\n- **`get` Method**:\n  - If the key exists and is not expired, it moves the node to the head and returns the value (counting as a hit).\n  - If the key exists but is expired, it removes the entry (counting as expiration and miss).\n  - If the key is not found, it returns the default (counting as a miss).\n- **`__len__` and `stats`**: Provide the current size of the cache and the operation statistics without side effects.\n- **Special Case Handling**: When capacity is 0, all operations are ignored, and `get` operations count as misses.\n\nThis implementation efficiently manages the TTL cache with LRU eviction, handling both expiration and recency constraints while accurately tracking operational statistics.",
+   "score": 0.0,
+   "detail": {
+    "error": "TypeError: 'dict' object is not callable"
+   }
+  },
   "code-parse-duration": {
    "output": "```python\ndef parse_duration(s: str) -> int:\n    s_clean = s.strip().replace(' ', '')\n    if not s_clean:\n        raise ValueError(\"Empty string\")\n    \n    tokens = []\n    current_num = ''\n    for char in s_clean:\n        if char.isdigit():\n            current_num += char\n        else:\n            if current_num == '':\n                raise ValueError(\"Non-digit character without preceding number\")\n            unit = char.lower()\n            if unit not in ['h', 'm', 's']:\n                raise ValueError(f\"Unknown unit: {char}\")\n            tokens.append((current_num, unit))\n            current_num = ''\n    \n    if current_num != '':\n        raise ValueError(\"Number without unit at the end\")\n    \n    units = [unit for _, unit in tokens]\n    if len(units) != len(set(units)):\n        raise ValueError(\"Repeated unit\")\n    \n    index_map = {'h': 0, 'm': 1, 's': 2}\n    indices = [index_map[unit] for unit in units]\n    if indices != sorted(indices):\n        raise ValueError(\"Units out of order\")\n    \n    total_seconds = 0\n    for num_str, unit in tokens:\n        num = int(num_str)\n        if unit == 'h':\n            total_seconds += num * 3600\n        elif unit == 'm':\n            total_seconds += num * 60\n        else:\n            total_seconds += num\n    \n    return total_seconds\n```",
    "score": 1.0,
@@ -36,6 +50,99 @@
    }
   }
  },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\n  \"doc_type\": {\n    \"invoice\": 1.0,\n    \"resume\": 0.0,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.0\n  },\n  \"missing_due_date\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\n  \"policy\": {\n    \"none\": 0.0,\n    \"harassment\": 1.0,\n    \"hate\": 0.0,\n    \"spam\": 0.0,\n    \"self_harm\": 0.0\n  },\n  \"personal_info\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\"phishing\": {\"true\": 1.0, \"false\": 0.0}, \"risk\": {\"0\": 0.0, \"1\": 0.0, \"2\": 0.0, \"3\": 1.0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\n  \"data_kind\": {\n    \"none\": 0.0,\n    \"contact\": 0.0,\n    \"financial\": 0.0,\n    \"government_id\": 1.0,\n    \"health\": 0.0\n  },\n  \"sensitive\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\n  \"department\": {\n    \"billing\": 1.0,\n    \"technical\": 0.0,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.0\n  },\n  \"refund\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"tone\": {\n    \"frustrated\": 0.0,\n    \"calm\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\n    \"positive\": 0.1,\n    \"neutral\": 0.0,\n    \"negative\": 0.9\n  },\n  \"defect\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"recommend\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0067,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.05,\n    \"calculator\": 0.02,\n    \"calendar\": 0.9,\n    \"email\": 0.01,\n    \"none\": 0.02\n  },\n  \"confirm\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0092,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.1,\n    \"technical\": 0.9,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.0\n  },\n  \"urgency\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.0,\n    \"3\": 1.0\n  },\n  \"outage\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0067,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
  "extract": {
   "extract-expense-thread": {
    "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
@@ -43,6 +150,16 @@
    "detail": {
     "matched": 24,
     "total": 24,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 61236.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38556.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15.00,\n  \"total_contract_value\": 293058.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
     "wrong": [],
     "bare_json": true
    }
