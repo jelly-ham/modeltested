@@ -1,0 +1,264 @@
+{
+ "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\nimport re\n\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    \"\"\"\n    Parse INI-formatted text according to the specified dialect rules.\n    \n    Returns a dictionary mapping section names to dictionaries of key-value pairs.\n    The DEFAULT section is not included in the result but its values are inherited.\n    \"\"\"\n    sections: dict[str, dict[str, str]] = {}\n    current_section: str | None = None\n    current_key: str | None = None\n\n    for line in text.split('\n'):\n        left_stripped = line.lstrip()\n\n        # Rule 3: Ignore empty lines and comment lines (; or # as first non-space char)\n        if not left_stripped or left_stripped[0] in (';', '#'):\n            current_key = None\n            continue\n\n        # Rule 1: Section headers [name] with optional surrounding whitespace\n        sec_match = re.match(r'\\s*\\[\\s*(.*?)\\s*\\]\\s*$', line)\n        if sec_match:\n            section_name = sec_match.group(1)\n            current_section = '__DEFAULT__' if section_name == 'DEFAULT' else section_name\n            sections.setdefault(current_section, {})\n            current_key = None\n            continue\n\n        # Rule 10: Key-value pair before any section header is an error\n        if current_section is None:\n            raise ValueError(\"Key-value pair encountered before any section header\")\n\n        # Rule 6: Continuation line (starts with whitespace, follows a key line)\n        if line and line[0].isspace() and current_key is not None:\n            sections[current_section][current_key] += '\n' + line.strip()\n            continue\n\n        # Rule 2: Parse key = value or key : value (split on first = or :)\n        eq_pos = line.find('=')\n        colon_pos = line.find(':')\n\n        if eq_pos == -1 and colon_pos == -1:\n            raise ValueError(f\"Malformed line (no '=' or ':' found): {line!r}\")\n\n        if eq_pos == -1:\n            split_at = colon_pos\n        elif colon_pos == -1:\n            split_at = eq_pos\n        else:\n            split_at = min(eq_pos, colon_pos)\n\n        key = line[:split_at].strip().lower()\n        if not key:\n            raise ValueError(f\"Malformed line (empty key): {line!r}\")\n\n        raw_value = line[split_at + 1:]\n        value = _parse_value(raw_value)\n\n        # Rule 7: Later values overwrite earlier ones\n        sections[current_section][key] = value\n        current_key = key\n\n    # Rule 8: Handle DEFAULT section inheritance\n    default_keys = sections.pop('__DEFAULT__', {})\n\n    result: dict[str, dict[str, str]] = {}\n    for section_name, section_data in sections.items():\n        merged = dict(default_keys)\n        merged.update(section_data)\n        result[section_name] = merged\n\n    # Rule 9: Perform interpolation\n    final_result: dict[str, dict[str, str]] = {}\n    for section_name, section_data in result.items():\n        final_result[section_name] = {}\n        for key, value in section_data.items():\n            final_result[section_name][key] = _interpolate(\n                result, section_name, value, frozenset()\n            )\n\n    return final_result\n\n\ndef _parse_value(value_str: str) -> str:\n    \"\"\"\n    Parse a value string handling quotes and inline comments.\n    \n    Rule 5: Double-quoted values keep contents exactly (quotes removed).\n    Rule 4: Inline comments start at ' ;' or ' #' (not inside quotes).\n    \"\"\"\n    value_str = value_str.lstrip()\n\n    if not value_str:\n        return ''\n\n    # Rule 5: Quoted value - keep everything inside exactly\n    if value_str[0] == '\"':\n        close_quote = value_str.find('\"', 1)\n        if close_quote == -1:\n            return value_str[1:]\n        return value_str[1:close_quote]\n\n    # Rule 4: Unquoted value - look for inline comment (whitespace + ; or #)\n    for i, ch in enumerate(value_str):\n        if ch in (' ', '\\t') and i + 1 < len(value_str) and value_str[i + 1] in (';', '#'):\n            return value_str[:i].rstrip()\n\n    return value_str.rstrip()\n\n\ndef _interpolate(\n    sections: dict[str, dict[str, str]],\n    current_section: str,\n    value: str,\n    visiting: frozenset\n) -> str:\n    \"\"\"\n    Recursively resolve ${...} interpolations.\n    \n    Rule 9: ${key} for same section, ${section:key} for cross-section.\n    Raises KeyError for missing references, ValueError for cycles.\n    \"\"\"\n    def replace_ref(match: re.Match) -> str:\n        ref = match.group(1)\n\n        if ':' in ref:\n            target_section, target_key = ref.split(':', 1)\n        else:\n            target_section = current_section\n            target_key = ref\n\n        if target_section not in sections:\n            raise KeyError(f\"Referenced section '{target_section}' does not exist\")\n        if target_key not in sections[target_section]:\n            raise KeyError(\n                f\"Referenced key '{target_key}' does not exist in section '{target_section}'\"\n            )\n\n        ref_node = (target_section, target_key)\n        if ref_node in visiting:\n            raise ValueError(f\"Circular interpolation reference detected: {ref_node}\")\n\n        return _interpolate(\n            sections,\n            target_section,\n            sections[target_section][target_key],\n            visiting | {ref_node}\n        )\n\n    return re.sub(r'\\$\\{([^}]+)\\}', replace_ref, value)\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "SyntaxError: unterminated string literal (detected at line 15)"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\n\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self._cache = OrderedDict()  # key -> (value, expiry_time)\n        self._hits = 0\n        self._misses = 0\n        self._evictions = 0\n        self._expirations = 0\n\n    def _purge_expired(self):\n        \"\"\"Remove all expired entries, incrementing expiration count.\"\"\"\n        now = self.clock()\n        expired_keys = [\n            k for k, (_, exp) in self._cache.items() if now >= exp\n        ]\n        for k in expired_keys:\n            del self._cache[k]\n            self._expirations += 1\n\n    def put(self, key, value):\n        if self.capacity == 0:\n            return\n\n        now = self.clock()\n\n        if key in self._cache:\n            # Replace existing: refresh expiry and move to most-recent end\n            self._cache.move_to_end(key)\n            self._cache[key] = (value, now + self.ttl)\n        else:\n            # New key: first drop any expired entries\n            self._purge_expired()\n\n            # If still at capacity, evict LRU (first item)\n            if len(self._cache) >= self.capacity:\n                lru_key = next(iter(self._cache))\n                del self._cache[lru_key]\n                self._evictions += 1\n\n            # Insert the new entry at the most-recent end\n            self._cache[key] = (value, now + self.ttl)\n\n    def get(self, key, default=None):\n        if self.capacity == 0:\n            self._misses += 1\n            return default\n\n        if key not in self._cache:\n            self._misses += 1\n            return default\n\n        value, expiry = self._cache[key]\n        now = self.clock()\n\n        if now >= expiry:\n            # Entry has expired – remove and report as expiration + miss\n            del self._cache[key]\n            self._expirations += 1\n            self._misses += 1\n            return default\n\n        # Cache hit – promote to most-recently-used\n        self._cache.move_to_end(key)\n        self._hits += 1\n        return value\n\n    def __len__(self):\n        now = self.clock()\n        return sum(1 for _, exp in self._cache.values() if now < exp)\n\n    def stats(self):\n        return {\n            \"hits\": self._hits,\n            \"misses\": self._misses,\n            \"evictions\": self._evictions,\n            \"expirations\": self._expirations,\n        }\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    \"\"\"Convert a duration string to total seconds.\"\"\"\n    s = s.strip()\n    if not s:\n        raise ValueError(\"empty or blank duration string\")\n\n    pattern = re.compile(r'(\\d+)\\s*([hHmMsS])')\n    matches = list(pattern.finditer(s))\n    if not matches:\n        raise ValueError(\"no valid duration parts found\")\n\n    total = 0\n    last_order = -1\n    order_map = {'h': 0, 'm': 1, 's': 2}\n\n    for m in matches:\n        num_str = m.group(1)\n        unit = m.group(2).lower()\n        num = int(num_str)\n        order = order_map[unit]\n\n        if order <= last_order:\n            raise ValueError(f\"invalid unit order or duplicate unit: {unit}\")\n\n        last_order = order\n\n        if unit == 'h':\n            total += num * 3600\n        elif unit == 'm':\n            total += num * 60\n        else:  # 's'\n            total += num\n\n    # Verify that the entire string consists only of the matched parts and whitespace\n    matched_text = ''.join(m.group(0) for m in matches)\n    if re.sub(r'\\s+', '', s) != re.sub(r'\\s+', '', matched_text):\n        raise ValueError(\"invalid characters in duration string\")\n\n    return total\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport unicodedata\nimport re\n\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters to ASCII and drop non-ASCII\n    normalized = unicodedata.normalize('NFKD', title)\n    ascii_str = ''.join(\n        c for c in normalized\n        if not unicodedata.combining(c) and ord(c) < 128\n    )\n\n    # Step 2: Lowercase\n    ascii_str = ascii_str.lower()\n\n    # Step 3: Replace runs of non-alphanumeric chars with \"-\" and strip\n    slug = re.sub(r'[^a-z0-9]+', '-', ascii_str).strip('-')\n\n    # Step 4 & 5: Handle length constraint\n    if len(slug) > max_len:\n        words = slug.split('-')\n        result_words = []\n        current_length = 0\n\n        for word in words:\n            if result_words:\n                potential_length = current_length + 1 + len(word)\n            else:\n                potential_length = len(word)\n\n            if potential_length <= max_len:\n                result_words.append(word)\n                current_length = potential_length\n            else:\n                break\n\n        if not result_words:\n            # First word exceeds max_len, hard-cut it\n            slug = words[0][:max_len]\n        else:\n            slug = '-'.join(result_words)\n\n    return slug\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    # Sort and remove duplicates\n    sorted_nums = sorted(set(nums))\n    \n    result = []\n    i = 0\n    n = len(sorted_nums)\n    \n    while i < n:\n        start = sorted_nums[i]\n        # Find the end of the current run of consecutive numbers\n        j = i\n        while j + 1 < n and sorted_nums[j + 1] == sorted_nums[j] + 1:\n            j += 1\n        \n        run_length = j - i + 1\n        \n        if run_length >= 3:\n            result.append(f\"{start}..{sorted_nums[j]}\")\n        elif run_length == 2:\n            result.append(f\"{start},{sorted_nums[j]}\")\n        else:  # run_length == 1\n            result.append(f\"{start}\")\n        \n        i = j + 1\n    \n    return \",\".join(result)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nfrom typing import Callable\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]) -> None:\n        self._capacity = capacity\n        self._refill_rate = refill_per_sec\n        self._clock = clock\n        self._tokens = capacity          # start full\n        self._last_time = self._clock()  # initial timestamp\n\n    def _refill(self) -> None:\n        \"\"\"Refill tokens based on elapsed time.\"\"\"\n        now = self._clock()\n        elapsed = now - self._last_time\n        if elapsed > 0:\n            # add tokens, but never exceed capacity\n            self._tokens = min(self._capacity,\n                               self._tokens + elapsed * self._refill_rate)\n            self._last_time = now\n\n    def allow(self, cost: float = 1) -> bool:\n        \"\"\"Try to consume `cost` tokens. Returns True if successful.\"\"\"\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        \"\"\"Current number of tokens in the bucket after refilling.\"\"\"\n        self._refill()\n        return self._tokens\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nimport re\nfrom collections import defaultdict\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    def parse_amount(amount_str: str) -> float | None:\n        \"\"\"Parse amount string to float. Returns None if invalid.\"\"\"\n        if not amount_str:\n            return None\n        \n        s = amount_str.strip()\n        if not s:\n            return None\n        \n        # Determine sign\n        negative = False\n        if s.startswith('-'):\n            negative = True\n            s = s[1:]\n        \n        # Remove dollar sign\n        if s.startswith('$'):\n            s = s[1:]\n        \n        # Remove commas (thousand separators)\n        s = s.replace(',', '')\n        \n        try:\n            value = float(s)\n            return -value if negative else value\n        except ValueError:\n            return None\n    \n    # Store: lowercase_key -> [display_name, running_total]\n    customers = {}\n    \n    for row in rows:\n        customer = row.get('customer', '')\n        amount_str = row.get('amount', '')\n        \n        # Trim customer name\n        customer = customer.strip()\n        \n        # Skip empty customer\n        if not customer:\n            continue\n        \n        # Parse amount, skip if invalid\n        amount = parse_amount(amount_str)\n        if amount is None:\n            continue\n        \n        # Case-insensitive key\n        key = customer.lower()\n        \n        if key not in customers:\n            # First valid occurrence determines display name\n            customers[key] = [customer, 0.0]\n        \n        customers[key][1] += amount\n    \n    # Build results with rounded totals\n    results = [(name, round(total, 2)) for name, total in customers.values()]\n    \n    # Sort by total descending, then name ascending\n    results.sort(key=lambda x: (-x[1], x[0]))\n    \n    return results[:n]\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "```json\n{\n  \"doc_type\": {\n    \"invoice\": 1.0,\n    \"resume\": 0.0,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.0\n  },\n  \"missing_due_date\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-hard-incident-matrix": {
+   "output": "```json\n{\n  \"severity\": {\n    \"0\": 0.01,\n    \"1\": 0.97,\n    \"2\": 0.02,\n    \"3\": 0.0\n  },\n  \"page\": {\n    \"true\": 0.02,\n    \"false\": 0.98\n    }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0011,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "```json\n{\n  \"phishing\": {\n    \"true\": 0.01,\n    \"false\": 0.99\n  },\n  \"action_needed\": {\n    \"true\": 0.01,\n    \"false\": 0.99\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "```json\n{\n  \"slot\": {\n    \"A\": 0,\n    \"B\": 1,\n    \"C\": 0,\n    \"D\": 0\n  },\n  \"raj_last\": {\n    \"true\": 1,\n    \"false\": 0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "slot": "B",
+     "raj_last": "true"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "```json\n{\n  \"outcome\": {\n    \"full_refund\": 0,\n    \"partial_refund\": 0,\n    \"store_credit\": 1,\n    \"nothing\": 0\n  },\n  \"defective\": {\n    \"true\": 0,\n    \"false\": 1\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "{\n  \"hardware\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"support\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "```json\n{\n  \"tool\": {\n    \"web_search\": 0,\n    \"calculator\": 0,\n    \"calendar\": 1,\n    \"email\": 0,\n    \"none\": 0\n  },\n  \"confirm\": {\n    \"true\": 1,\n    \"false\": 0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "```json\n{\n  \"policy\": {\n    \"none\": 0.01,\n    \"harassment\": 0.99,\n    \"hate\": 0.0,\n    \"spam\": 0.0,\n    \"self_harm\": 0.0\n  },\n  \"personal_info\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"risk\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.01,\n    \"3\": 0.99\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "```json\n{\n  \"data_kind\": {\n    \"none\": 0,\n    \"contact\": 0,\n    \"financial\": 0,\n    \"government_id\": 1,\n    \"health\": 0\n  },\n  \"sensitive\": {\n    \"true\": 1,\n    \"false\": 0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "```json\n{\n  \"department\": {\n    \"billing\": 1.0,\n    \"technical\": 0.0,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.0\n  },\n  \"refund\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"tone\": {\n    \"frustrated\": 0.0,\n    \"calm\": 1.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "```json\n{\n  \"sentiment\": {\n    \"positive\": 0.05,\n    \"neutral\": 0.05,\n    \"negative\": 0.9\n  },\n  \"defect\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"recommend\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.005,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "```json\n{\n  \"tool\": {\n    \"web_search\": 0.01,\n    \"calculator\": 0.01,\n    \"calendar\": 0.97,\n    \"email\": 0.01,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0006,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "```json\n{\n  \"department\": {\n    \"billing\": 0.05,\n    \"technical\": 0.95,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.0\n  },\n  \"urgency\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.05,\n    \"3\": 0.95\n  },\n  \"outage\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0033,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 24,
+    "total": 24,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 61236.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38556.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 293058.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "{\n  \"tenants\": [\n    \"Marcus Lin\",\n    \"Sofia Lin\"\n  ],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2236.00,\n  \"late_fee_from_2025_06_01\": 111.80,\n  \"security_deposit\": 2150.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2306.00,\n  \"move_in_payment\": 4700.00\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "{\n  \"q3_total_usd\": 15346000,\n  \"q2_total_usd\": 14464000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\n    \"East\"\n  ],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 9,
+    "total": 9,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\n    \"billing_address\"\n  ],\n  \"affected_orders\": [\n    \"SO-99812\",\n    \"SO-99820\",\n    \"SO-99827\"\n  ],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 11,
+    "total": 11,
+    "wrong": [],
+    "bare_json": true
+   }
+  }
+ }
+}

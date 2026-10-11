@@ -403,5 +403,104 @@
   "overall": 7.8,
   "rank": 39,
   "of": 41
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "gpt-oss-120b",
+  "name": "gpt-oss-120b",
+  "event": "added",
+  "overall": 96.2,
+  "rank": 2,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "ling-3-0-flash",
+  "name": "Ling 3.0 Flash",
+  "event": "added",
+  "overall": 94.0,
+  "rank": 4,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "glm-4-5v",
+  "name": "GLM 4.5V",
+  "event": "added",
+  "overall": 93.1,
+  "rank": 5,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "ling-3-0-flash-vl",
+  "name": "Ling 3.0 Flash VL",
+  "event": "added",
+  "overall": 92.1,
+  "rank": 6,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "glm-4-5-air",
+  "name": "GLM 4.5 Air",
+  "event": "added",
+  "overall": 76.2,
+  "rank": 18,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "glm-4-6v",
+  "name": "GLM 4.6V",
+  "event": "added",
+  "overall": 72.9,
+  "rank": 19,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "devstral-2512",
+  "name": "Devstral 2 2512",
+  "event": "added",
+  "overall": 53.2,
+  "rank": 26,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "hunyuan-a13b-instruct",
+  "name": "Hunyuan A13B Instruct",
+  "event": "added",
+  "overall": 51.8,
+  "rank": 27,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "llama-3-3-70b-instruct",
+  "name": "Llama 3.3 70B Instruct",
+  "event": "added",
+  "overall": 45.7,
+  "rank": 30,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "command-a",
+  "name": "Command A",
+  "event": "added",
+  "overall": 44.7,
+  "rank": 31,
+  "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "llama-3-1-70b-instruct",
+  "name": "Llama 3.1 70B Instruct",
+  "event": "added",
+  "overall": 38.5,
+  "rank": 38,
+  "of": 52
  }
 ]

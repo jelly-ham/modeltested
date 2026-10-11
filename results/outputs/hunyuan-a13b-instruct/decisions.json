@@ -1,0 +1,159 @@
+{
+ "decide-doc-invoice-missing-due": {
+  "output": "{\n  \"doc_type\": {\"invoice\": 0.99, \"resume\": 0.0, \"contract\": 0.01, \"bank_statement\": 0.0, \"other\": 0.0},\n  \"missing_due_date\": {\"true\": 0.05, \"false\": 0.95}\n}\n",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.9026,
+   "picks": {
+    "doc_type": "invoice",
+    "missing_due_date": "false"
+   }
+  }
+ },
+ "decide-hard-incident-matrix": {
+  "output": "{\"severity\": {\"3\": 1.0}, \"page\": {\"false\": 1.0}}\n",
+  "score": 0.5,
+  "detail": {
+   "brier": 1.0,
+   "picks": {
+    "severity": "3",
+    "page": "false"
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "{\"phishing\": false, \"action_needed\": false}\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "phishing": null,
+    "action_needed": null
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "{\"slot\": {\"A\": 0.0, \"B\": 1.0, \"C\": 0.0, \"D\": 0.0}, \"raj_last\": true}\n",
+  "score": 0.5,
+  "detail": {
+   "brier": 1.0,
+   "picks": {
+    "slot": "B",
+    "raj_last": null
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "{\"outcome\": {\"full_refund\": 0, \"partial_refund\": 0, \"store_credit\": 1, \"nothing\": 0}, \"defective\": {\"true\": 0, \"false\": 1}}\n",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "outcome": "store_credit",
+    "defective": "false"
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "{\"hardware\": {\"true\": 1.0}, \"support\": {\"true\": 1.0}}\n",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "hardware": "true",
+    "support": "true"
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "```json\n{\n  \"tool\": \"calendar\",\n  \"confirm\": \"true\"\n}\n```\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "tool": null,
+    "confirm": null
+   }
+  }
+ },
+ "decide-moderation-doxxing": {
+  "output": "{\"policy\": {\"harassment\": 1.0}, \"personal_info\": {\"true\": 1.0}}\n",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "policy": "harassment",
+    "personal_info": "true"
+   }
+  }
+ },
+ "decide-phishing-paypal": {
+  "output": "{\"phishing\": {\"true\": 0.95, \"false\": 0.05}, \"risk\": {\"0\": 0.02, \"1\": 0.02, \"2\": 0.02, \"3\": 0.94}}\n",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0049,
+   "picks": {
+    "phishing": "true",
+    "risk": "3"
+   }
+  }
+ },
+ "decide-pii-ssn-email": {
+  "output": "{\"data_kind\": {\"none\": 0.05, \"contact\": 0.3, \"financial\": 0.1, \"government_id\": 0.5, \"health\": 0.05}, \"sensitive\": {\"true\": 1.0, \"false\": 0.0}}\n",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.1775,
+   "picks": {
+    "data_kind": "government_id",
+    "sensitive": "true"
+   }
+  }
+ },
+ "decide-refund-wrong-plan": {
+  "output": "{\"department\": {\"billing\": 1.0}, \"refund\": {\"true\": 1.0}, \"tone\": {\"calm\": 1.0}}\n",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "department": "billing",
+    "refund": "true",
+    "tone": "calm"
+   }
+  }
+ },
+ "decide-review-mixed": {
+  "output": "{\"sentiment\": {\"negative\": 1.0}, \"defect\": {\"true\": 1.0}, \"recommend\": {\"false\": 1.0}}\n",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "sentiment": "negative",
+    "defect": "true",
+    "recommend": "false"
+   }
+  }
+ },
+ "decide-route-calendar": {
+  "output": "```json\n{\n  \"tool\": \"calendar\",\n  \"confirm\": \"true\"\n}\n```\n",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "tool": null,
+    "confirm": null
+   }
+  }
+ },
+ "decide-support-checkout-down": {
+  "output": "{\n  \"department\": {\n    \"billing\": 0.9,\n    \"technical\": 0.05,\n    \"account\": 0.03,\n    \"shipping\": 0.01,\n    \"sales\": 0.01\n  },\n  \"urgency\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.0,\n    \"3\": 1.0\n  },\n  \"outage\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n",
+  "score": 0.6667,
+  "detail": {
+   "brier": 0.5712,
+   "picks": {
+    "department": "billing",
+    "urgency": "3",
+    "outage": "true"
+   }
+  }
+ }
+}

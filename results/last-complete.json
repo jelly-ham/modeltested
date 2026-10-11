@@ -1,4 +1,96 @@
 {
+ "command-a": {
+  "slug": "command-a",
+  "name": "Command A",
+  "org": "cohere",
+  "openrouter_id": "cohere/command-a",
+  "hf_id": "CohereForAI/c4ai-command-a-03-2025",
+  "params_b": 111.06,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 44.7,
+  "hard": 27.3,
+  "suites": {
+   "coding": {
+    "score": 33.3,
+    "public": 28.6,
+    "private": 34.8,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 87.5,
+    "public": 89.3,
+    "private": 86.9,
+    "done": 56,
+    "total": 56,
+    "calibration": 88.7,
+    "hard": 68.4
+   },
+   "extract": {
+    "score": 56.1,
+    "public": 73.8,
+    "private": 51.5,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Cohere"
+  ]
+ },
+ "devstral-2512": {
+  "slug": "devstral-2512",
+  "name": "Devstral 2 2512",
+  "org": "mistralai",
+  "openrouter_id": "mistralai/devstral-2512",
+  "hf_id": "mistralai/Devstral-2-123B-Instruct-2512",
+  "params_b": 125.03,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 53.2,
+  "hard": 23.7,
+  "suites": {
+   "coding": {
+    "score": 53.3,
+    "public": 71.4,
+    "private": 47.8,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 92.0,
+    "public": 85.7,
+    "private": 94.0,
+    "done": 56,
+    "total": 56,
+    "calibration": 91.7,
+    "hard": 78.9
+   },
+   "extract": {
+    "score": 53.2,
+    "public": 70.9,
+    "private": 48.5,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Mistral"
+  ]
+ },
  "gemma-2-27b-it": {
   "slug": "gemma-2-27b-it",
   "name": "Gemma 2 27B",
@@ -335,6 +427,148 @@
    "Crusoe"
   ]
  },
+ "glm-4-5-air": {
+  "slug": "glm-4-5-air",
+  "name": "GLM 4.5 Air",
+  "org": "z-ai",
+  "openrouter_id": "z-ai/glm-4.5-air",
+  "hf_id": "zai-org/GLM-4.5-Air",
+  "params_b": 110.47,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 76.2,
+  "hard": 52.4,
+  "suites": {
+   "coding": {
+    "score": 70.0,
+    "public": 71.4,
+    "private": 69.6,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 90.5,
+    "public": 97.6,
+    "private": 88.1,
+    "done": 56,
+    "total": 56,
+    "calibration": 91.9,
+    "hard": 89.5
+   },
+   "extract": {
+    "score": 82.4,
+    "public": 82.2,
+    "private": 82.4,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Novita",
+   "SiliconFlow",
+   "Z.AI"
+  ]
+ },
+ "glm-4-5v": {
+  "slug": "glm-4-5v",
+  "name": "GLM 4.5V",
+  "org": "z-ai",
+  "openrouter_id": "z-ai/glm-4.5v",
+  "hf_id": "zai-org/GLM-4.5V",
+  "params_b": 107.71,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 93.1,
+  "hard": 88.9,
+  "suites": {
+   "coding": {
+    "score": 86.7,
+    "public": 85.7,
+    "private": 87.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 98.2,
+    "public": 100.0,
+    "private": 97.6,
+    "done": 56,
+    "total": 56,
+    "calibration": 98.8,
+    "hard": 100.0
+   },
+   "extract": {
+    "score": 99.4,
+    "public": 100.0,
+    "private": 99.2,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Z.AI",
+   "Novita"
+  ]
+ },
+ "glm-4-6v": {
+  "slug": "glm-4-6v",
+  "name": "GLM 4.6V",
+  "org": "z-ai",
+  "openrouter_id": "z-ai/glm-4.6v",
+  "hf_id": "zai-org/GLM-4.6V",
+  "params_b": 107.71,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 72.9,
+  "hard": 53.1,
+  "suites": {
+   "coding": {
+    "score": 73.3,
+    "public": 85.7,
+    "private": 69.6,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 93.8,
+    "public": 96.4,
+    "private": 92.9,
+    "done": 56,
+    "total": 56,
+    "calibration": 95.4,
+    "hard": 94.7
+   },
+   "extract": {
+    "score": 72.6,
+    "public": 78.4,
+    "private": 71.1,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Novita",
+   "Z.AI"
+  ]
+ },
  "glm-4-7-flash": {
   "slug": "glm-4-7-flash",
   "name": "GLM 4.7 Flash",
@@ -380,6 +614,56 @@
   "providers": [
    "Novita",
    "Venice"
+  ]
+ },
+ "gpt-oss-120b": {
+  "slug": "gpt-oss-120b",
+  "name": "gpt-oss-120b",
+  "org": "openai",
+  "openrouter_id": "openai/gpt-oss-120b",
+  "hf_id": "openai/gpt-oss-120b",
+  "params_b": 116.83,
+  "active_params_b": null,
+  "ollama": "gpt-oss:120b",
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 96.2,
+  "hard": 94.4,
+  "suites": {
+   "coding": {
+    "score": 93.3,
+    "public": 100.0,
+    "private": 91.3,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 99.1,
+    "public": 100.0,
+    "private": 98.8,
+    "done": 56,
+    "total": 56,
+    "calibration": 98.6,
+    "hard": 100.0
+   },
+   "extract": {
+    "score": 99.2,
+    "public": 96.1,
+    "private": 100.0,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "AkashML",
+   "DekaLLM",
+   "DeepInfra",
+   "Crusoe",
+   "Mancer 2"
   ]
  },
  "gpt-oss-20b": {
@@ -522,6 +806,52 @@
    "CoreWeave"
   ]
  },
+ "hunyuan-a13b-instruct": {
+  "slug": "hunyuan-a13b-instruct",
+  "name": "Hunyuan A13B Instruct",
+  "org": "tencent",
+  "openrouter_id": "tencent/hunyuan-a13b-instruct",
+  "hf_id": "tencent/Hunyuan-A13B-Instruct",
+  "params_b": 80.39,
+  "active_params_b": 13.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 51.8,
+  "hard": 27.8,
+  "suites": {
+   "coding": {
+    "score": 36.7,
+    "public": 57.1,
+    "private": 30.4,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 73.5,
+    "public": 65.5,
+    "private": 76.2,
+    "done": 56,
+    "total": 56,
+    "calibration": 74.2,
+    "hard": 60.5
+   },
+   "extract": {
+    "score": 66.8,
+    "public": 82.7,
+    "private": 62.7,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "SiliconFlow"
+  ]
+ },
  "laguna-xs-2-1": {
   "slug": "laguna-xs-2-1",
   "name": "Laguna XS 2.1",
@@ -566,6 +896,144 @@
   },
   "providers": [
    "Poolside"
+  ]
+ },
+ "ling-3-0-flash": {
+  "slug": "ling-3-0-flash",
+  "name": "Ling 3.0 Flash",
+  "org": "inclusionai",
+  "openrouter_id": "inclusionai/ling-3.0-flash",
+  "hf_id": "inclusionAI/Ling-3.0-flash",
+  "params_b": 127.49,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 94.0,
+  "hard": 91.1,
+  "suites": {
+   "coding": {
+    "score": 93.3,
+    "public": 100.0,
+    "private": 91.3,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 99.1,
+    "public": 100.0,
+    "private": 98.8,
+    "done": 56,
+    "total": 56,
+    "calibration": 98.6,
+    "hard": 97.4
+   },
+   "extract": {
+    "score": 94.8,
+    "public": 86.3,
+    "private": 97.0,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "ling-3-0-flash-vl": {
+  "slug": "ling-3-0-flash-vl",
+  "name": "Ling 3.0 Flash VL",
+  "org": "inclusionai",
+  "openrouter_id": "inclusionai/ling-3.0-flash-vl",
+  "hf_id": "inclusionAI/Ling-3.0-flash-VL",
+  "params_b": 124.85,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 92.1,
+  "hard": 82.5,
+  "suites": {
+   "coding": {
+    "score": 86.7,
+    "public": 71.4,
+    "private": 91.3,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 96.4,
+    "public": 100.0,
+    "private": 95.2,
+    "done": 56,
+    "total": 56,
+    "calibration": 96.6,
+    "hard": 92.1
+   },
+   "extract": {
+    "score": 97.5,
+    "public": 97.5,
+    "private": 97.5,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Novita"
+  ]
+ },
+ "llama-3-1-70b-instruct": {
+  "slug": "llama-3-1-70b-instruct",
+  "name": "Llama 3.1 70B Instruct",
+  "org": "meta-llama",
+  "openrouter_id": "meta-llama/llama-3.1-70b-instruct",
+  "hf_id": "meta-llama/Meta-Llama-3.1-70B-Instruct",
+  "params_b": 70.55,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 38.5,
+  "hard": 21.8,
+  "suites": {
+   "coding": {
+    "score": 33.3,
+    "public": 28.6,
+    "private": 34.8,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 83.9,
+    "public": 82.1,
+    "private": 84.5,
+    "done": 56,
+    "total": 56,
+    "calibration": 86.4,
+    "hard": 71.1
+   },
+   "extract": {
+    "score": 43.6,
+    "public": 55.4,
+    "private": 40.5,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
   ]
  },
  "llama-3-1-8b-instruct": {
@@ -748,6 +1216,53 @@
   },
   "providers": [
    "Parasail"
+  ]
+ },
+ "llama-3-3-70b-instruct": {
+  "slug": "llama-3-3-70b-instruct",
+  "name": "Llama 3.3 70B Instruct",
+  "org": "meta-llama",
+  "openrouter_id": "meta-llama/llama-3.3-70b-instruct",
+  "hf_id": "meta-llama/Llama-3.3-70B-Instruct",
+  "params_b": 70.55,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 45.7,
+  "hard": 26.5,
+  "suites": {
+   "coding": {
+    "score": 46.7,
+    "public": 42.9,
+    "private": 47.8,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 85.7,
+    "public": 89.3,
+    "private": 84.5,
+    "done": 56,
+    "total": 56,
+    "calibration": 86.2,
+    "hard": 68.4
+   },
+   "extract": {
+    "score": 44.6,
+    "public": 60.4,
+    "private": 40.5,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "AkashML",
+   "CoreWeave"
   ]
  },
  "llama-3-3-8b-q4-mac": {

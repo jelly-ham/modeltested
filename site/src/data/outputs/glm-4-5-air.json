@@ -1,0 +1,276 @@
+{
+ "coding": {
+  "code-hard-ini-parser": {
+   "output": "To solve this problem, we need to parse an INI text file according to specific rules and return a dictionary of dictionaries representing the sections and their key-value pairs. The solution involves several steps: parsing the text into sections and key-value pairs, handling continuations, comments, and quoted values, and finally resolving interpolations in the values.\n\n### Approach\n1. **Initialization**: We start by initializing a dictionary to hold all sections (including the special `DEFAULT` section) and variables to track the current section and the last processed key in that section.\n2. **Line Processing**: We process each line of the input text:\n   - **Empty and Comment Lines**: Skip lines that are empty or start with `;` or `#` after optional whitespace.\n   - **Section Headers**: Lines enclosed in `[ ]` define a new section. The section name is stripped of surrounding whitespace.\n   - **Key-Value Lines**: For lines containing `=` or `:`, split into key and value. The key is stripped and lowercased. The value is processed to remove surrounding whitespace, inline comments, and quotes.\n   - **Continuation Lines**: Lines starting with whitespace are appended to the previous value with a newline character.\n3. **Interpolation**: After parsing, we resolve interpolations in values. Interpolations can reference keys in the same section or other sections using `${key}` or `${section:key}`. This is done recursively, checking for circular references and missing keys.\n4. **Result Construction**: The final result excludes the `DEFAULT` section but includes all other sections with their resolved key-value pairs.\n\n### Solution Code\n```python\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    sections = {}\n    current_section = None\n    last_key = None\n    lines = text.splitlines()\n    i = 0\n    n = len(lines)\n    \n    while i < n:\n        line = lines[i]\n        stripped_line = line.strip()\n        \n        if stripped_line == '' or stripped_line[0] in ';#':\n            i += 1\n            continue\n            \n        if line.lstrip().startswith('[') and ']' in line:\n            start_index = line.index('[')\n            end_index = line.index(']', start_index+1)\n            section_name = line[start_index+1:end_index].strip()\n            current_section = section_name\n            sections[current_section] = {}\n            last_key = None\n            i += 1\n            continue\n            \n        if current_section is None:\n            raise ValueError(\"Key before any section header\")\n            \n        if line.startswith(' ') or line.startswith('\\t'):\n            if last_key is None:\n                raise ValueError(\"Continuation line without a previous key\")\n            value = sections[current_section][last_key]\n            value += \"\\n\" + line.strip()\n            sections[current_section][last_key] = value\n            i += 1\n            continue\n            \n        pos_equal = line.find('=')\n        pos_colon = line.find(':')\n        if pos_equal == -1 and pos_colon == -1:\n            raise ValueError(\"Malformed line\")\n            \n        if pos_equal == -1:\n            pos = pos_colon\n        elif pos_colon == -1:\n            pos = pos_equal\n        else:\n            pos = min(pos_equal, pos_colon)\n            \n        key_str = line[:pos]\n        key = key_str.strip().lower()\n        value_str = line[pos+1:].lstrip()\n        \n        if len(value_str) >= 2 and value_str[0] == '\"' and value_str[-1] == '\"':\n            value = value_str[1:-1]\n        else:\n            indices = []\n            idx_semicolon = value_str.find(' ;')\n            idx_hash = value_str.find(' #')\n            if idx_semicolon != -1:\n                indices.append(idx_semicolon)\n            if idx_hash != -1:\n                indices.append(idx_hash)\n            if indices:\n                idx = min(indices)\n                value_str = value_str[:idx]\n            value = value_str.strip()\n            \n        j = i + 1\n        current_value = value\n        while j < n:\n            next_line = lines[j]\n            if next_line.startswith(' ') or next_line.startswith('\\t'):\n                current_value += \"\\n\" + next_line.strip()\n                j += 1\n            else:\n                break\n                \n        sections[current_section][key] = current_value\n        last_key = key\n        i = j\n        \n    def get_value(section_name, key_name, current_section, sections):\n        if section_name == current_section:\n            if current_section in sections and key_name in sections[current_section]:\n                return sections[current_section][key_name]\n            if 'DEFAULT' in sections and key_name in sections['DEFAULT']:\n                return sections['DEFAULT'][key_name]\n            raise KeyError(f\"Key {key_name} not found in section {current_section} or DEFAULT\")\n        else:\n            if section_name in sections and key_name in sections[section_name]:\n                return sections[section_name][key_name]\n            raise KeyError(f\"Key {key_name} not found in section {section_name}\")\n            \n    def resolve_value(value, current_section, sections, visited=None):\n        if visited is None:\n            visited = set()\n        start = value.find('${')\n        if start == -1:\n            return value\n        end = value.find('}', start+2)\n        if end == -1:\n            return value\n        inner = value[start+2:end]\n        \n        if ':' in inner:\n            section_name, key_name = inner.split(':', 1)\n        else:\n            section_name = current_section\n            key_name = inner\n            \n        if (section_name, key_name) in visited:\n            raise ValueError(f\"Circular reference: {section_name}:{key_name}\")\n        visited.add((section_name, key_name))\n        \n        try:\n            base_value = get_value(section_name, key_name, current_section, sections)\n            resolved_base_value = resolve_value(base_value, current_section, sections, visited)\n        except (KeyError, ValueError) as e:\n            visited.remove((section_name, key_name))\n            raise e\n            \n        visited.remove((section_name, key_name))\n        new_value = value[:start] + resolved_base_value + value[end+1:]\n        return resolve_value(new_value, current_section, sections, visited)\n        \n    for section_name, section in sections.items():\n        for key, value in section.items():\n            sections[section_name][key] = resolve_value(value, section_name, sections, set())\n            \n    result = {}\n    for section_name, section in sections.items():\n        if section_name != 'DEFAULT':\n            result[section_name] = section\n            \n    return result\n```\n\n### Explanation\n1. **Initialization**: The `sections` dictionary stores all parsed sections, including `DEFAULT`. `current_section` tracks the active section, and `last_key` remembers the last processed key in the current section.\n2. **Line Processing**:\n   - **Section Headers**: Lines starting with `[ ]` define new sections. The section name is extracted and stored in `sections`.\n   - **Key-Value Lines**: Lines containing `=` or `:` are split into key and value. The key is stripped and lowercased. The value is processed to remove quotes and inline comments.\n   - **Continuation Lines**: Lines starting with whitespace are appended to the previous value with a newline.\n3. **Interpolation**: The `resolve_value` function recursively resolves `${key}` and `${section:key}` interpolations. It checks for circular references and missing keys using a `visited` set.\n4. **Result Construction**: The final result excludes the `DEFAULT` section but includes all other sections with their resolved key-value pairs after interpolation.\n\nThis approach efficiently parses the INI text according to the specified rules, handling comments, continuations, quotes, and interpolations while ensuring correctness and error handling.",
+   "score": 0.0,
+   "detail": {
+    "error": "KeyError: 'Key host not found in section web'"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "To solve this problem, we need to implement a TTL (Time-To-Live) cache with LRU (Least Recently Used) eviction policy. The cache should store key-value pairs where each entry has a time-to-live (TTL) after which it expires. The cache should efficiently handle insertions, retrievals, and removals of expired entries while maintaining the LRU order for evictions when the cache exceeds its capacity.\n\n### Approach\n1. **Data Structures**: \n   - **Doubly Linked List**: To maintain the LRU order. The most recently accessed items are near the head, and the least recently accessed items are near the tail.\n   - **Dictionary (Hash Map)**: To map keys to their corresponding nodes in the linked list for O(1) access time.\n   \n2. **Key Operations**:\n   - **Put Operation**:\n     - If the key exists, update its value and expiry time, then move it to the head (most recently used).\n     - If the key is new:\n       - First, remove all expired entries.\n       - If the cache is still at or above capacity, evict the least recently used item (tail of the linked list).\n       - Add the new key-value pair with the current time plus TTL as the expiry time and move it to the head.\n   - **Get Operation**:\n     - If the key exists and is not expired, move it to the head (most recently used) and return its value.\n     - If the key is expired or does not exist, remove it (if expired), increment the miss count, and return the default value.\n   - **Remove Expired Entries**: Iterate through all entries to remove those that have expired based on the current time from the clock.\n   - **Length Calculation**: Count all non-expired entries by checking each entry's expiry against the current time.\n   - **Statistics Tracking**: Maintain counts for hits, misses, evictions, and expirations.\n\n3. **Edge Cases**:\n   - **Zero Capacity**: The cache does not store any entries; all operations are no-ops or return defaults.\n   - **Expired Entries**: These are removed during `get` or `put` operations, and their removal counts as an expiration.\n\n### Solution Code\n```python\nclass TTLCache:\n    class Node:\n        __slots__ = ('key', 'value', 'expiry', 'prev', 'next')\n        def __init__(self, key, value, expiry):\n            self.key = key\n            self.value = value\n            self.expiry = expiry\n            self.prev = None\n            self.next = None\n\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = {}\n        self.head = None\n        self.tail = None\n        self.hits = 0\n        self.misses = 0\n        self.evictions = 0\n        self.expirations = 0\n\n    def _add_node_at_head(self, node):\n        node.prev = None\n        node.next = self.head\n        if self.head is not None:\n            self.head.prev = node\n        self.head = node\n        if self.tail is None:\n            self.tail = node\n\n    def _remove_node(self, node):\n        if node.prev is not None:\n            node.prev.next = node.next\n        else:\n            self.head = node.next\n        if node.next is not None:\n            node.next.prev = node.prev\n        else:\n            self.tail = node.prev\n\n    def _move_to_head(self, node):\n        self._remove_node(node)\n        self._add_node_at_head(node)\n\n    def _remove_all_expired(self):\n        current_time = self.clock()\n        expired_keys = []\n        for key, node in self.cache.items():\n            if current_time >= node.expiry:\n                expired_keys.append(key)\n        for key in expired_keys:\n            node = self.cache[key]\n            self._remove_node(node)\n            del self.cache[key]\n            self.expirations += 1\n\n    def put(self, key, value):\n        if self.capacity == 0:\n            return\n        if key in self.cache:\n            node = self.cache[key]\n            node.value = value\n            node.expiry = self.clock() + self.ttl\n            self._move_to_head(node)\n        else:\n            self._remove_all_expired()\n            if len(self.cache) >= self.capacity:\n                if self.tail is not None:\n                    tail_node = self.tail\n                    self._remove_node(tail_node)\n                    del self.cache[tail_node.key]\n                    self.evictions += 1\n            current_time = self.clock()\n            node = self.Node(key, value, current_time + self.ttl)\n            self.cache[key] = node\n            self._add_node_at_head(node)\n\n    def get(self, key, default=None):\n        if self.capacity == 0:\n            self.misses += 1\n            return default\n        if key in self.cache:\n            node = self.cache[key]\n            current_time = self.clock()\n            if current_time < node.expiry:\n                self._move_to_head(node)\n                self.hits += 1\n                return node.value\n            else:\n                self._remove_node(node)\n                del self.cache[key]\n                self.expirations += 1\n                self.misses += 1\n                return default\n        else:\n            self.misses += 1\n            return default\n\n    def __len__(self):\n        if self.capacity == 0:\n            return 0\n        current_time = self.clock()\n        count = 0\n        for node in self.cache.values():\n            if current_time < node.expiry:\n                count += 1\n        return count\n\n    def stats(self):\n        return {\n            'hits': self.hits,\n            'misses': self.misses,\n            'evictions': self.evictions,\n            'expirations': self.expirations\n        }\n```\n\n### Explanation\n- **Initialization**: The cache is initialized with a given capacity, TTL duration, and a clock function to get the current time.\n- **Linked List Operations**: The `_add_node_at_head`, `_remove_node`, and `_move_to_head` methods manage the doubly linked list to maintain LRU order.\n- **Put Operation**: Updates existing entries or inserts new ones. For new entries, it first removes expired entries and evicts the least recently used item if necessary before adding the new entry.\n- **Get Operation**: Retrieves the value if the key exists and is not expired, updates its recency, and returns it. If the key is expired or missing, it removes the expired entry (if applicable) and returns the default value.\n- **Length Calculation**: Counts non-expired entries by checking each entry's expiry against the current time.\n- **Statistics**: Tracks the number of hits, misses, evictions, and expirations to monitor cache performance.\n\nThis approach efficiently combines LRU eviction with TTL expiration, ensuring optimal performance for both insertions and retrievals while maintaining correct statistics.",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-parse-duration": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'parse_duration' is not defined"
+   },
+   "reasoning_tail": "rror.\n\n 539. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 540. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 541. Example: \"1h0m0s100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000h\" -> duplicate h -> error.\n\n 542. Example: \"1h0m0s100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 543. Example: \"1h0m0s100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 544. Example: \"1h0m0s1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000h\" -> duplicate h -> error.\n\n 545. Example: \"1h0m0s1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 546. Example: \"1h0m0s1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 547. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000h\" -> duplicate h -> error.\n\n 548. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 549. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 550. Example: \"1h0m0s100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000h\" -> duplicate h -> error.\n\n 551. Example: \"1h0m0s100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 552. Example: \"1h0m0s100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 553. Example: \"1h0m0s1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000h\" -> duplicate h -> error.\n\n 554. Example: \"1h0m0s1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 555. Example: \"1h0m0s1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 556. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000h\" -> duplicate h -> error.\n\n 557. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 558. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 559. Example: \"1h0m0s100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000h\" -> duplicate h -> error.\n\n 560. Example: \"1h0m0s100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 561. Example: \"1h0m0s100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 562. Example: \"1h0m0s1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000h\" -> duplicate h -> error.\n\n 563. Example: \"1h0m0s1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 564. Example: \"1h0m0s1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 565. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000h\" -> duplicate h -> error.\n\n 566. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000m\" -> duplicate m -> error.\n\n 567. Example: \"1h0m0s10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000s\" -> duplicate s -> error.\n\n 568. Example: \"1h0m0s100000000000000000000000000000000000"
+  },
+  "code-slugify": {
+   "output": "To solve this problem, we need to create a URL slug from a given title string, adhering to specific formatting rules. The slug must be suitable for URLs, ensuring it is ASCII-compatible, lowercase, and uses hyphens to separate words. Additionally, the slug should not exceed a specified maximum length without cutting words unless necessary.\n\n### Approach\n1. **Transliterate and Convert to ASCII**: Convert accented characters to their ASCII equivalents (e.g., 'é' becomes 'e') and remove any non-ASCII characters. This is done using Unicode normalization (NFKD) followed by encoding to ASCII while ignoring non-ASCII characters.\n2. **Lowercase the String**: Convert the entire string to lowercase to maintain consistency.\n3. **Replace Non-Alphanumeric Characters**: Replace sequences of characters that are not letters or digits with a single hyphen. Also, remove any leading or trailing hyphens to ensure the slug starts and ends with alphanumeric characters.\n4. **Truncate if Necessary**: If the resulting slug exceeds the specified maximum length, truncate it without cutting words. This involves:\n   - Splitting the slug into words separated by hyphens.\n   - Building the longest possible prefix of whole words (each word is a sequence of alphanumeric characters) that fits within the maximum length.\n   - If the first word alone exceeds the maximum length, hard-cut it to the maximum length characters.\n5. **Ensure No Trailing Hyphen**: The final slug should not end with a hyphen, which is inherently handled by the truncation process.\n\n### Solution Code\n```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Normalize the string to decompose characters and remove non-ASCII\n    normalized = unicodedata.normalize('NFKD', title)\n    ascii_title = normalized.encode('ascii', 'ignore').decode('ascii')\n    \n    # Step 2: Convert to lowercase\n    lower_title = ascii_title.lower()\n    \n    # Step 3: Replace non-alphanumeric runs with a single hyphen and strip hyphens\n    slug = re.sub(r'[^a-z0-9]+', '-', lower_title)\n    slug = slug.strip('-')\n    \n    # If the slug is empty after processing, return empty string\n    if not slug:\n        return ''\n    \n    # Step 4: Truncate the slug if it exceeds max_len\n    if len(slug) <= max_len:\n        return slug\n    \n    words = slug.split('-')\n    result = []\n    current_length = 0\n    \n    for word in words:\n        if not result:\n            if len(word) <= max_len:\n                result.append(word)\n                current_length = len(word)\n            else:\n                result.append(word[:max_len])\n                current_length = max_len\n                break\n        else:\n            required_length = current_length + 1 + len(word)\n            if required_length <= max_len:\n                result.append(word)\n                current_length = required_length\n            else:\n                break\n    \n    return '-'.join(result)\n```\n\n### Explanation\n1. **Normalization and ASCII Conversion**: The input string is normalized to decompose accented characters (e.g., 'é' becomes 'e' followed by a combining acute accent). Non-ASCII characters are then removed by encoding to ASCII and ignoring any characters that cannot be represented.\n2. **Lowercasing**: The entire string is converted to lowercase to ensure uniformity.\n3. **Hyphen Replacement**: Sequences of non-alphanumeric characters are replaced with a single hyphen. Leading and trailing hyphens are stripped to ensure the slug starts and ends with alphanumeric characters.\n4. **Truncation**: The slug is split into words separated by hyphens. The algorithm then builds the longest possible prefix of whole words that fits within the maximum length. If the first word exceeds the maximum length, it is truncated to the specified length. Subsequent words are only added if they fit within the remaining length when combined with existing words and hyphens.\n5. **Result Construction**: The selected words are joined with hyphens to form the final slug, ensuring no trailing hyphen and adherence to the maximum length constraint.\n\nThis approach efficiently processes the input string into a URL-friendly slug while adhering to all specified constraints.",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "To solve this problem, we need to process a list of integers by removing duplicates, sorting the remaining numbers, and then formatting consecutive sequences. Specifically, runs of three or more consecutive integers should be collapsed into a range format (e.g., \"a..b\"), while shorter runs (one or two numbers) should be listed individually. The results should be joined into a single string separated by commas without any spaces.\n\n### Approach\n1. **Remove Duplicates and Sort**: First, we convert the input list into a set to eliminate duplicates, then sort the resulting set to ensure the numbers are in ascending order.\n2. **Identify Consecutive Runs**: Traverse the sorted list to identify sequences of consecutive integers. For each sequence, determine its start and end points.\n3. **Format Runs**: \n   - For sequences of three or more consecutive integers, format them as \"start..end\".\n   - For sequences of one or two integers, list each number individually.\n4. **Combine Results**: Join all formatted parts into a single string separated by commas.\n\n### Solution Code\n```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    sorted_nums = sorted(set(nums))\n    n = len(sorted_nums)\n    i = 0\n    result = []\n    while i < n:\n        j = i\n        while j < n - 1 and sorted_nums[j + 1] == sorted_nums[j] + 1:\n            j += 1\n        start = sorted_nums[i]\n        end = sorted_nums[j]\n        if end - start >= 2:\n            result.append(f\"{start}..{end}\")\n        else:\n            for num in range(start, end + 1):\n                result.append(str(num))\n        i = j + 1\n    return \",\".join(result)\n```\n\n### Explanation\n1. **Initial Checks**: The function first checks if the input list is empty and returns an empty string if true.\n2. **Processing the List**: The input list is converted to a set to remove duplicates, then sorted to ensure ascending order.\n3. **Traversal and Grouping**: The sorted list is traversed to find sequences of consecutive integers. For each sequence:\n   - The start and end of the sequence are identified.\n   - If the sequence length is three or more (determined by `end - start >= 2`), it is formatted as \"start..end\".\n   - Shorter sequences (one or two numbers) are added to the result list as individual strings.\n4. **Result Construction**: The formatted parts are joined into a single string separated by commas, which is returned as the final result.\n\nThis approach efficiently processes the input list by leveraging sorting and a linear traversal to identify and format consecutive sequences, ensuring optimal performance and correctness.",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "To solve this problem, we need to implement a token bucket rate limiter that refills tokens continuously based on elapsed time. The bucket starts full with a specified capacity and refills tokens at a given rate per second. The `allow` method checks if a certain number of tokens (cost) are available and subtracts them if possible, while the `tokens` property returns the current token count after refilling.\n\n### Approach\n1. **Initialization**: The token bucket is initialized with a maximum capacity, a refill rate (tokens per second), and a clock function to get the current time. The bucket starts full, and the last update time is set to the current time.\n2. **Refilling Mechanism**: The `_refill` method calculates the elapsed time since the last update. It then adds the new tokens based on the elapsed time and the refill rate, ensuring the token count does not exceed the capacity. The last update time is then set to the current time.\n3. **Allow Method**: The `allow` method first refills the bucket. If the available tokens are sufficient to cover the cost, it subtracts the cost and returns `True`; otherwise, it returns `False` without modifying the token count.\n4. **Tokens Property**: The `tokens` property refills the bucket and returns the current token count. This ensures that any access to the token count reflects the most up-to-date value after refilling.\n\n### Solution Code\n```python\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: callable):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self._tokens = capacity\n        self.last_update = clock()\n    \n    def _refill(self):\n        current_time = self.clock()\n        elapsed = current_time - self.last_update\n        if elapsed < 0:\n            elapsed = 0\n        new_tokens = self._tokens + elapsed * self.refill_per_sec\n        self._tokens = min(new_tokens, self.capacity)\n        self.last_update = current_time\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```\n\n### Explanation\n- **Initialization**: The `__init__` method sets up the bucket with the given capacity, refill rate, and clock function. The initial token count is set to the capacity, and the last update time is initialized to the current time.\n- **Refilling**: The `_refill` method calculates the time elapsed since the last update. It then computes the new tokens by multiplying the elapsed time by the refill rate and adds this to the current tokens, capping the result at the capacity. The last update time is then updated to the current time.\n- **Allow Method**: The `allow` method first refills the bucket to update the token count. If the available tokens are at least the requested cost, the cost is deducted from the token count, and the method returns `True`; otherwise, it returns `False`.\n- **Tokens Property**: The `tokens` property ensures the bucket is refilled to the current state before returning the token count. This provides a real-time view of the available tokens without modifying the bucket's state.\n\nThis approach efficiently manages the token bucket by continuously refilling tokens based on elapsed time and provides methods to check for available tokens and consume them when possible.",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "To solve this problem, we need to process a list of transaction records, aggregate the total amounts per customer, and then return the top `n` customers based on their total amounts. The solution involves several steps including data cleaning, aggregation, sorting, and formatting the results.\n\n### Approach\n1. **Data Cleaning**: For each transaction record, we first clean and validate the customer name and the amount. The customer name is stripped of leading/trailing whitespace, and empty names are skipped. The amount string is processed to remove dollar signs, commas, and spaces before being converted to a float. If the amount string cannot be converted, the record is skipped.\n2. **Aggregation**: We use a dictionary to aggregate the total amounts per customer. The dictionary keys are case-insensitive versions of the customer names (to handle case variations), while the values store the original customer name (as first encountered) and the cumulative total amount.\n3. **Rounding and Sorting**: After processing all records, we round each customer's total amount to two decimal places. The customers are then sorted in descending order of their total amounts. If two customers have the same total, they are sorted alphabetically by name.\n4. **Top N Selection**: Finally, we return the top `n` customers from the sorted list. If there are fewer than `n` customers, all customers are returned.\n\n### Solution Code\n```python\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    customer_data = {}\n    \n    for row in rows:\n        customer = row.get('customer', '').strip()\n        amount_str = row.get('amount', '').strip()\n        \n        if not customer or not amount_str:\n            continue\n            \n        clean_amount = amount_str.replace('$', '').replace(',', '').replace(' ', '')\n        try:\n            amount = float(clean_amount)\n        except ValueError:\n            continue\n            \n        customer_lower = customer.lower()\n        if customer_lower not in customer_data:\n            customer_data[customer_lower] = (customer, amount)\n        else:\n            original_name, current_total = customer_data[customer_lower]\n            customer_data[customer_lower] = (original_name, current_total + amount)\n    \n    result_list = []\n    for original_name, total in customer_data.values():\n        rounded_total = round(total, 2)\n        result_list.append((original_name, rounded_total))\n    \n    sorted_list = sorted(result_list, key=lambda x: (-x[1], x[0]))\n    return sorted_list[:n]\n```\n\n### Explanation\n1. **Data Cleaning**: The customer name is stripped of any leading or trailing whitespace. The amount string is processed to remove any dollar signs, commas, and spaces, making it suitable for conversion to a float. If the amount string is invalid, the record is skipped.\n2. **Aggregation**: A dictionary (`customer_data`) is used where keys are the lowercase versions of customer names to ensure case-insensitive matching. The first occurrence of a customer name (original case) is stored along with their cumulative total amount. Subsequent amounts for the same customer are added to this total.\n3. **Rounding and Sorting**: Each customer's total amount is rounded to two decimal places. The customers are sorted based on their total amounts in descending order. If two customers have the same total, they are sorted alphabetically by name in ascending order.\n4. **Top N Selection**: The sorted list of customers is then sliced to return the top `n` customers. If the list contains fewer than `n` customers, the entire list is returned.\n\nThis approach efficiently processes the transaction data, handles case variations in customer names, and ensures the results are formatted and sorted as required.",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "```json\n{\n  \"doc_type\": {\n    \"invoice\": 1.0,\n    \"resume\": 0.0,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.0\n  },\n  \"missing_due_date\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-hard-incident-matrix": {
+   "output": "```json\n{\n  \"severity\": {\n    \"0\": 0.0,\n    \"1\": 0.95,\n    \"2\": 0.05,\n    \"3\": 0.0\n  },\n  \"page\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.005,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "```json\n{\n  \"phishing\": {\n    \"true\": 0.001,\n    \"false\": 0.999\n  },\n  \"action_needed\": {\n    \"true\": 0.001,\n    \"false\": 0.999\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "{\n  \"slot\": {\n    \"A\": 0.0,\n    \"B\": 1.0,\n    \"C\": 0.0,\n    \"D\": 0.0\n  },\n  \"raj_last\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "slot": "B",
+     "raj_last": "true"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "```json\n{\n  \"outcome\": {\n    \"full_refund\": 0.0,\n    \"partial_refund\": 0.0,\n    \"store_credit\": 1.0,\n    \"nothing\": 0.0\n  },\n  \"defective\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "```json\n{\n  \"hardware\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  },\n  \"support\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0026,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "```json\n{\n  \"tool\": {\n    \"web_search\": 0.01,\n    \"calculator\": 0.01,\n    \"calendar\": 0.98,\n    \"email\": 0.01,\n    \"none\": 0.01\n  },\n  \"confirm\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0011,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "```json\n{\n  \"policy\": {\n    \"none\": 0.0,\n    \"harassment\": 0.95,\n    \"hate\": 0.0,\n    \"spam\": 0.0,\n    \"self_harm\": 0.05\n  },\n  \"personal_info\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0026,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "```json\n{\n  \"phishing\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"risk\": {\n    \"0\": 0.01,\n    \"1\": 0.02,\n    \"2\": 0.07,\n    \"3\": 0.90\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0078,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "```json\n{\n  \"data_kind\": {\n    \"none\": 0,\n    \"contact\": 0.1,\n    \"financial\": 0,\n    \"government_id\": 0.9,\n    \"health\": 0\n  },\n  \"sensitive\": {\n    \"true\": 1,\n    \"false\": 0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.01,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "```json\n{\n  \"department\": {\n    \"billing\": 0.95,\n    \"technical\": 0.01,\n    \"account\": 0.01,\n    \"shipping\": 0.01,\n    \"sales\": 0.02\n  },\n  \"refund\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"tone\": {\n    \"frustrated\": 0.05,\n    \"calm\": 0.95\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0028,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "```json\n{\n  \"sentiment\": {\n    \"positive\": 0.1,\n    \"neutral\": 0.1,\n    \"negative\": 0.8\n  },\n  \"defect\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  },\n  \"recommend\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0233,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "```json\n{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 1.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "```json\n{\n  \"department\": {\n    \"billing\": 0.95,\n    \"technical\": 0.04,\n    \"account\": 0.00,\n    \"shipping\": 0.00,\n    \"sales\": 0.01\n  },\n  \"urgency\": {\n    \"0\": 0.00,\n    \"1\": 0.00,\n    \"2\": 0.05,\n    \"3\": 0.95\n  },\n  \"outage\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}\n```",
+   "score": 0.6667,
+   "detail": {
+    "brier": 0.6098,
+    "picks": {
+     "department": "billing",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "```json\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "matched": 24,
+    "total": 24,
+    "wrong": [],
+    "bare_json": false
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 46.53,\n  \"year3_price_per_seat_month\": 48.86,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 60298.56,\n  \"addon_months_billed\": 960,\n  \"addon_invoice\": 39937.76,\n  \"year3_invoice\": 63322.56,\n  \"year3_discount_percent\": 10.00,\n  \"total_contract_value\": 221878.88,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 0.2,
+   "detail": {
+    "matched": 2,
+    "total": 10,
+    "wrong": [
+     "$.addon_invoice",
+     "$.addon_months_billed",
+     "$.total_contract_value",
+     "$.year2_invoice",
+     "$.year2_price_per_seat_month",
+     "$.year3_discount_percent",
+     "$.year3_invoice",
+     "$.year3_price_per_seat_month"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "```json\n{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2236.00,\n  \"late_fee_from_2025_06_01\": 111.80,\n  \"security_deposit\": 2150.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2306.00,\n  \"move_in_payment\": 4700.00\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
+    "wrong": [],
+    "bare_json": false
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "{\n  \"q3_total_usd\": 15346000,\n  \"q2_total_usd\": 14464000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 9,
+    "total": 9,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "```json\n{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\"billing_address\"],\n  \"affected_orders\": [\"SO-99812\", \"SO-99820\", \"SO-99827\"],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T21:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}\n```",
+   "score": 0.9091,
+   "detail": {
+    "matched": 10,
+    "total": 11,
+    "wrong": [
+     "$.sla_due_utc"
+    ],
+    "bare_json": false
+   }
+  }
+ }
+}

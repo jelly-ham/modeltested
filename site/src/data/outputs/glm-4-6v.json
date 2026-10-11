@@ -1,0 +1,279 @@
+{
+ "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\nimport re\nfrom typing import Dict, Tuple, Set\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    sections: dict[str, dict[str, str]] = {}\n    default_section: dict[str, str] = {}\n    current_section: str | None = None\n    current_key: str | None = None\n    current_value: str = \"\"\n    last_line_was_key: bool = False\n\n    def remove_inline_comments(line: str) -> str:\n        in_quotes = False\n        result = []\n        i = 0\n        while i < len(line):\n            if line[i] == '\"':\n                in_quotes = not in_quotes\n                result.append(line[i])\n                i += 1\n            elif not in_quotes and line[i].isspace():\n                # Check for comment start\n                if i + 1 < len(line) and line[i+1] in (';', '#'):\n                    # Comment starts here, cut the line\n                    break\n                result.append(line[i])\n                i += 1\n            else:\n                result.append(line[i])\n                i += 1\n        return ''.join(result)\n\n    lines = text.splitlines()\n    for line_num, raw_line in enumerate(lines, 1):\n        line = raw_line.rstrip('\n')\n        # Remove inline comments\n        line = remove_inline_comments(line)\n        # Skip empty lines\n        if not line.strip():\n            last_line_was_key = False\n            continue\n        # Check for continuation line\n        if last_line_was_key and line.startswith((' ', '\\t')):\n            # Append to current value\n            current_value += '\n' + line.lstrip()\n            continue\n        # Not a continuation line, process as new line\n        last_line_was_key = False\n        # Section header?\n        if line.startswith('[') and line.endswith(']'):\n            section_name = line[1:-1].strip()\n            current_section = section_name\n            current_key = None\n            current_value = \"\"\n            sections[section_name] = {}\n            continue\n        # Key-value line?\n        # Find first '=' or ':' that is not inside quotes\n        in_quotes = False\n        sep_pos = -1\n        for i, ch in enumerate(line):\n            if ch == '\"':\n                in_quotes = not in_quotes\n            elif not in_quotes and ch in ('=', ':'):\n                sep_pos = i\n                break\n        if sep_pos != -1:\n            key_part = line[:sep_pos].strip()\n            value_part = line[sep_pos+1:].strip()\n            if not key_part:\n                raise ValueError(f\"Malformed key-value line at line {line_num}\")\n            key = key_part.lower()\n            # Check for quoted value\n            if value_part.startswith('\"') and value_part.endswith('\"'):\n                value = value_part[1:-1]\n            else:\n                value = value_part\n            # Store in current section or default\n            if current_section is None:\n                raise ValueError(f\"Key line before any section at line {line_num}\")\n            if current_section == \"DEFAULT\":\n                default_section[key] = value\n            else:\n                sections[current_section][key] = value\n            current_key = key\n            current_value = value\n            last_line_was_key = True\n            continue\n        # If we get here, it's an invalid line\n        raise ValueError(f\"Malformed line at line {line_num}\")\n\n    # Interpolation\n    def get_value(section_name: str, key: str) -> str:\n        if key in sections.get(section_name, {}):\n            return sections[section_name][key]\n        if key in default_section:\n            return default_section[key]\n        raise KeyError(f\"Key '{key}' not found in section '{section_name}'\")\n\n    def resolve_placeholder(placeholder: str, section_name: str, visited: Set[Tuple[str, str]]) -> str:\n        if ':' in placeholder:\n            parts = placeholder.split(':', 1)\n            ref_section = parts[0]\n            ref_key = parts[1]\n            if ref_section == \"DEFAULT\":\n                raise KeyError(f\"Section 'DEFAULT' not found\")\n            if ref_section not in sections:\n                raise KeyError(f\"Section '{ref_section}' not found\")\n            try:\n                ref_value = get_value(ref_section, ref_key)\n            except KeyError as e:\n                raise KeyError(f\"Key '{ref_key}' not found in section '{ref_section}'\") from e\n        else:\n            ref_key = placeholder\n            ref_section = section_name\n            try:\n                ref_value = get_value(section_name, ref_key)\n            except KeyError as e:\n                raise KeyError(f\"Key '{ref_key}' not found in section '{section_name}'\") from e\n        if (ref_section, ref_key) in visited:\n            raise ValueError(f\"Circular reference: ${placeholder}\")\n        visited.add((ref_section, ref_key))\n        return interpolate_value(ref_value, ref_section, visited)\n\n    def interpolate_value(value: str, section_name: str, visited: Set[Tuple[str, str]]) -> str:\n        # Find all placeholders outside quotes\n        in_quotes = False\n        result = []\n        i = 0\n        while i < len(value):\n            if value[i] == '\"':\n                in_quotes = not in_quotes\n                result.append(value[i])\n                i += 1\n            elif not in_quotes and value.startswith('${', i):\n                # Extract placeholder\n                j = i + 2\n                while j < len(value) and value[j] != '}':\n                    j += 1\n                if j == len(value):\n                    raise ValueError(f\"Malformed placeholder at line (placeholder not closed)\")\n                placeholder = value[i+2:j]\n                resolved = resolve_placeholder(placeholder, section_name, visited)\n                result.append(resolved)\n                i = j + 1\n            else:\n                result.append(value[i])\n                i += 1\n        return ''.join(result)\n\n    # Apply interpolation to all values\n    for section_name, section_dict in sections.items():\n        new_section_dict = {}\n        for key, value in section_dict.items():\n            visited: Set[Tuple[str, str]] = set()\n            interpolated = interpolate_value(value, section_name, visited)\n            new_section_dict[key] = interpolated\n        sections[section_name] = new_section_dict\n\n    return sections\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "SyntaxError: unterminated string literal (detected at line 35)"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\nfrom typing import Callable, Dict, Any, Tuple\n\nclass TTLCache:\n    \"\"\"\n    An LRU cache with time-to-live (TTL) expiration.\n    \n    Parameters\n    ----------\n    capacity : int\n        Maximum number of non-expired entries the cache can hold.\n    ttl : float\n        Time-to-live in seconds for each entry.\n    clock : Callable[[], float]\n        Zero-argument callable that returns the current time in seconds.\n    \"\"\"\n    \n    def __init__(self, capacity: int, ttl: float, clock: Callable[[], float]) -> None:\n        if capacity < 0:\n            raise ValueError(\"capacity must be non-negative\")\n        self.capacity: int = capacity\n        self.ttl: float = ttl\n        self.clock: Callable[[], float] = clock\n        self._cache: \"OrderedDict[Any, Tuple[Any, float]]\" = OrderedDict()\n        self._stats: Dict[str, int] = {\"hits\": 0, \"misses\": 0, \"evictions\": 0, \"expirations\": 0}\n    \n    def _now(self) -> float:\n        \"\"\"Return the current time using the provided clock.\"\"\"\n        return self.clock()\n    \n    def _is_expired(self, expiry: float) -> bool:\n        \"\"\"Check if an entry has expired.\"\"\"\n        return expiry <= self._now()\n    \n    def _remove_expired(self) -> None:\n        \"\"\"Remove all expired entries from the cache, updating expirations count.\"\"\"\n        now = self._now()\n        expired_keys = [key for key, (_, expiry) in self._cache.items() if expiry <= now]\n        for key in expired_keys:\n            del self._cache[key]\n            self._stats[\"expirations\"] += 1\n    \n    def _evict_lru(self) -> None:\n        \"\"\"Evict the least recently used entry, updating evictions count.\"\"\"\n        if self._cache:\n            self._cache.popitem(last=False)\n            self._stats[\"evictions\"] += 1\n    \n    def put(self, key: Any, value: Any) -> None:\n        \"\"\"\n        Insert or replace an entry.\n        \n        If the key already exists, its expiry and recency are refreshed.\n        If inserting a new key exceeds capacity, expired entries are removed first;\n        if still full, the least recently used entry is evicted.\n        \"\"\"\n        if self.capacity == 0:\n            return\n        \n        now = self._now()\n        if key in self._cache:\n            # Update existing entry: refresh expiry and recency.\n            self._cache[key] = (value, now + self.ttl)\n            self._cache.move_to_end(key)\n        else:\n            # New key: first remove expired entries.\n            self._remove_expired()\n            # If still at capacity, evict LRU.\n            if len(self._cache) >= self.capacity:\n                self._evict_lru()\n            # Insert new entry.\n            self._cache[key] = (value, now + self.ttl)\n    \n    def get(self, key: Any, default: Any = None) -> Any:\n        \"\"\"\n        Retrieve an entry if present and not expired.\n        \n        Marks the entry as most recently used if found and not expired.\n        Expired entries are removed and counted as expirations and misses.\n        \"\"\"\n        if self.capacity == 0:\n            return default\n        \n        now = self._now()\n        if key in self._cache:\n            value, expiry = self._cache[key]\n            if self._is_expired(expiry):\n                # Entry expired: remove and count as expiration and miss.\n                del self._cache[key]\n                self._stats[\"expirations\"] += 1\n                self._stats[\"misses\"] += 1\n                return default\n            else:\n                # Valid entry: count as hit and mark as most recent.\n                self._stats[\"hits\"] += 1\n                self._cache.move_to_end(key)\n                return value\n        else:\n            self._stats[\"misses\"] += 1\n            return default\n    \n    def __len__(self) -> int:\n        \"\"\"\n        Return the number of non-expired entries at the current time.\n        Does not modify the cache or stats.\n        \"\"\"\n        now = self._now()\n        count = 0\n        for _, expiry in self._cache.values():\n            if expiry > now:\n                count += 1\n        return count\n    \n    def stats(self) -> Dict[str, int]:\n        \"\"\"\n        Return a copy of the statistics dictionary.\n        \"\"\"\n        return self._stats.copy()\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Convert a duration string into a total number of seconds.\n\n    Supported units: h (hours), m (minutes), s (seconds). Units are case-insensitive.\n    Each part is a non-negative integer followed by a unit, e.g. \"1h30m\", \"45s\", \"2H\",\n    \"1h 5m 10s\", \"90m\". Whitespace is allowed before, after and between parts.\n    Units must appear in the order h, m, s and each at most once.\n\n    Raises:\n        ValueError: for empty/blank strings, numbers without a unit, unknown units,\n                    decimals, repeated units, or units out of order.\n    \"\"\"\n    if not isinstance(s, str):\n        raise ValueError(\"Input must be a string\")\n\n    # Strip leading/trailing whitespace\n    s = s.strip()\n    if not s:\n        raise ValueError(\"Empty or blank string\")\n\n    # Regular expression to capture integer-unit pairs\n    pattern = r'(\\d+)([hmsHMS])'\n    matches = list(re.finditer(pattern, s))\n\n    # Ensure the entire string (ignoring whitespace) is covered by matches\n    # Reconstruct the string from matches and compare with the stripped input\n    reconstructed = ''.join(f\"{m.group(1)}{m.group(2)}\" for m in matches)\n    if reconstructed != s.replace(' ', ''):\n        raise ValueError(\"Invalid format: contains characters without a unit or unknown units\")\n\n    if not matches:\n        raise ValueError(\"No valid duration parts found\")\n\n    total_seconds = 0\n    last_unit = None\n    seen_units = set()\n\n    for match in matches:\n        num_str, unit = match.group(1), match.group(2).lower()\n\n        # Validate integer part (non-negative, no decimals)\n        if not num_str.isdigit():\n            raise ValueError(f\"Invalid number '{num_str}' in part '{match.group(0)}'\")\n\n        num = int(num_str)\n        if num < 0:\n            raise ValueError(f\"Negative number '{num}' in part '{match.group(0)}'\")\n\n        # Validate unit order and uniqueness\n        if unit in seen_units:\n            raise ValueError(f\"Repeated unit '{unit}'\")\n        if last_unit is not None and unit < last_unit:\n            raise ValueError(f\"Units out of order: '{last_unit}' before '{unit}'\")\n        seen_units.add(unit)\n        last_unit = unit\n\n        # Convert to seconds\n        if unit == 'h':\n            total_seconds += num * 3600\n        elif unit == 'm':\n            total_seconds += num * 60\n        elif unit == 's':\n            total_seconds += num\n        else:\n            # This should not happen due to regex, but kept for safety\n            raise ValueError(f\"Unknown unit '{unit}'\")\n\n    return total_seconds\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    if not title:\n        return \"\"\n\n    # 1. Transliterate accented characters to ASCII\n    normalized = unicodedata.normalize('NFKD', title)\n    ascii_str = ''.join(c for c in normalized if unicodedata.category(c) != 'Mn')\n\n    # 2. Lowercase\n    ascii_str = ascii_str.lower()\n\n    # 3. Replace non-alphanumeric runs with a single hyphen and strip hyphens\n    slug = re.sub(r'[^a-z0-9]+', '-', ascii_str)\n    slug = slug.strip('-')\n\n    # 4. Truncate if needed\n    if max_len <= 0:\n        return \"\"\n    if len(slug) <= max_len:\n        return slug\n\n    words = slug.split('-')\n    # If the first word alone exceeds max_len, hard‑cut it\n    if words and len(words[0]) > max_len:\n        return words[0][:max_len]\n\n    # Build the longest prefix of whole words that fits within max_len\n    prefix = []\n    current_len = 0\n    for i, word in enumerate(words):\n        word_len = len(word)\n        # Adding a hyphen before this word (if not the first) may exceed max_len\n        if i > 0 and current_len + 1 + word_len > max_len:\n            break\n        if i > 0:\n            current_len += 1  # hyphen\n        current_len += word_len\n        prefix.append(word)\n\n    # Ensure no trailing hyphen\n    result = '-'.join(prefix)\n    return result.rstrip('-')\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    sorted_nums = sorted(set(nums))\n    n = len(sorted_nums)\n    i = 0\n    result = []\n    while i < n:\n        start = sorted_nums[i]\n        j = i\n        while j + 1 < n and sorted_nums[j + 1] == sorted_nums[j] + 1:\n            j += 1\n        end = sorted_nums[j]\n        if end - start >= 2:\n            result.append(f\"{start}..{end}\")\n        else:\n            result.append(str(start))\n            if start != end:\n                result.append(str(end))\n        i = j + 1\n    return \",\".join(result)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nfrom __future__ import annotations\nfrom typing import Callable\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]) -> None:\n        if capacity <= 0:\n            raise ValueError(\"capacity must be positive\")\n        if refill_per_sec < 0:\n            raise ValueError(\"refill_per_sec must be non-negative\")\n        self._capacity = float(capacity)\n        self._refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._tokens = float(capacity)\n        self._last_refill_time = float(clock())\n\n    def _refill(self) -> None:\n        now = self._clock()\n        elapsed = now - self._last_refill_time\n        if elapsed > 0:\n            added = elapsed * self._refill_per_sec\n            self._tokens = min(self._tokens + added, self._capacity)\n            self._last_refill_time = now\n\n    def allow(self, cost: float = 1.0) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nfrom typing import List, Dict, Tuple\n\ndef top_customers(rows: List[Dict[str, str]], n: int) -> List[Tuple[str, float]]:\n    \"\"\"\n    Compute the top `n` customers by total amount.\n\n    Parameters\n    ----------\n    rows : list[dict]\n        Each dict must contain \"customer\" and \"amount\" keys.\n    n : int\n        Number of top customers to return.\n\n    Returns\n    -------\n    list[tuple[str, float]]\n        List of (customer_name, total_amount) tuples sorted by total descending,\n        then name ascending.\n    \"\"\"\n    if n <= 0:\n        return []\n\n    totals: Dict[str, float] = {}\n    original_names: Dict[str, str] = {}\n\n    for row in rows:\n        customer = row.get(\"customer\")\n        amount = row.get(\"amount\")\n\n        # Skip rows with missing or empty customer/amount\n        if not customer or not amount:\n            continue\n\n        customer_clean = customer.strip()\n        if not customer_clean:\n            continue\n\n        # Parse amount: remove $ and commas, then convert to float\n        try:\n            amount_clean = amount.strip().replace(\"$\", \"\").replace(\",\", \"\")\n            amount_val = float(amount_clean)\n        except (ValueError, AttributeError):\n            continue\n\n        norm_name = customer_clean.lower()\n        if norm_name not in totals:\n            totals[norm_name] = amount_val\n            original_names[norm_name] = customer_clean\n        else:\n            totals[norm_name] += amount_val\n\n    # Round totals to 2 decimal places\n    for name in totals:\n        totals[name] = round(totals[name], 2)\n\n    # Build result list\n    result = [(original_names[name], totals[name]) for name in totals]\n\n    # Sort by total descending, then name ascending\n    result.sort(key=lambda x: (-x[1], x[0]))\n\n    # Return top n entries\n    return result[:n]\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\n  \"doc_type\": {\n    \"invoice\": 0.95,\n    \"resume\": 0.01,\n    \"contract\": 0.03,\n    \"bank_statement\": 0.01,\n    \"other\": 0.00\n  },\n  \"missing_due_date\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0019,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-hard-incident-matrix": {
+   "output": "{\n  \"severity\": {\n    \"0\": 0.0,\n    \"1\": 0.95,\n    \"2\": 0.04,\n    \"3\": 0.01\n  },\n  \"page\": {\n    \"true\": 0.01,\n    \"false\": 0.99\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0022,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 0.01,\n    \"false\": 0.99\n  },\n  \"action_needed\": {\n    \"true\": 0.01,\n    \"false\": 0.99\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "```json\n{\n  \"slot\": {\n    \"A\": 0.5,\n    \"B\": 0.5,\n    \"C\": 0.0,\n    \"D\": 0.0\n  },\n  \"raj_last\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+   "score": 0.5,
+   "detail": {
+    "brier": 0.25,
+    "picks": {
+     "slot": "A",
+     "raj_last": "true"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "{\n  \"outcome\": {\n    \"full_refund\": 0.0,\n    \"partial_refund\": 0.0,\n    \"store_credit\": 1.0,\n    \"nothing\": 0.0\n  },\n  \"defective\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "{\n  \"hardware\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  },\n  \"support\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.005,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 1.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\n  \"policy\": {\n    \"none\": 0.05,\n    \"harassment\": 0.95,\n    \"hate\": 0.0,\n    \"spam\": 0.0,\n    \"self_harm\": 0.0\n  },\n  \"personal_info\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0026,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"risk\": {\n    \"0\": 0.01,\n    \"1\": 0.01,\n    \"2\": 0.08,\n    \"3\": 0.90\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0084,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\n  \"data_kind\": {\n    \"none\": 0.01,\n    \"contact\": 0.05,\n    \"financial\": 0.04,\n    \"government_id\": 0.9,\n    \"health\": 0.0\n  },\n  \"sensitive\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0072,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.95,\n    \"technical\": 0.01,\n    \"account\": 0.01,\n    \"shipping\": 0.01,\n    \"sales\": 0.02\n  },\n  \"refund\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"tone\": {\n    \"frustrated\": 0.05,\n    \"calm\": 0.95\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0027,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\"positive\": 0, \"neutral\": 0, \"negative\": 1},\n  \"defect\": {\"true\": 1, \"false\": 0},\n  \"recommend\": {\"true\": 0, \"false\": 1}\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\"tool\": {\"web_search\": 0, \"calculator\": 0, \"calendar\": 1, \"email\": 0, \"none\": 0}, \"confirm\": {\"true\": 1, \"false\": 0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.05,\n    \"technical\": 0.90,\n    \"account\": 0.03,\n    \"shipping\": 0.01,\n    \"sales\": 0.01\n  },\n  \"urgency\": {\n    \"0\": 0.01,\n    \"1\": 0.01,\n    \"2\": 0.08,\n    \"3\": 0.90\n  },\n  \"outage\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0117,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "```json\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 41.04\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2155.47,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}\n```",
+   "score": 0.875,
+   "detail": {
+    "matched": 21,
+    "total": 24,
+    "wrong": [
+     "$.approved_items[1].amount_usd",
+     "$.approved_items[4].amount_usd",
+     "$.total_reimbursable_usd"
+    ],
+    "bare_json": false
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "```json\n{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 61164.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 45360.00,\n  \"year3_invoice\": 135408.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 300252.00,\n  \"contract_end_date\": \"2027-02-28\"\n}\n```",
+   "score": 0.6,
+   "detail": {
+    "matched": 6,
+    "total": 10,
+    "wrong": [
+     "$.addon_invoice",
+     "$.total_contract_value",
+     "$.year2_invoice",
+     "$.year3_invoice"
+    ],
+    "bare_json": false
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "```json\n{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150,\n  \"monthly_rent_from_2025_06_01\": 2236,\n  \"late_fee_from_2025_06_01\": 111.8,\n  \"security_deposit\": 2150,\n  \"total_pet_deposits\": 800,\n  \"total_monthly_payment_july_2025\": 2306,\n  \"move_in_payment\": 4700\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
+    "wrong": [],
+    "bare_json": false
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "```json\n{\n  \"q3_total_usd\": 15346,\n  \"q2_total_usd\": 14464,\n  \"q2_central_originally_reported_usd\": 3047,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731,\n  \"west_excluding_mountain_q3_usd\": 4201\n}\n```",
+   "score": 0.4444,
+   "detail": {
+    "matched": 4,
+    "total": 9,
+    "wrong": [
+     "$.international_q3_organic_usd",
+     "$.q2_central_originally_reported_usd",
+     "$.q2_total_usd",
+     "$.q3_total_usd",
+     "$.west_excluding_mountain_q3_usd"
+    ],
+    "bare_json": false
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "```json\n{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\"billing_address\"],\n  \"affected_orders\": [\"SO-99812\", \"SO-99820\", \"SO-99827\"],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "matched": 11,
+    "total": 11,
+    "wrong": [],
+    "bare_json": false
+   }
+  }
+ }
+}
