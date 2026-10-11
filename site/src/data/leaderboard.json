@@ -1873,6 +1873,77 @@
    "rank": 24
   },
   {
+   "slug": "laguna-s-2-1",
+   "name": "Laguna S 2.1",
+   "org": "poolside",
+   "openrouter_id": "poolside/laguna-s-2.1",
+   "hf_id": "poolside/Laguna-S-2.1",
+   "params_b": 117.56,
+   "active_params_b": null,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-11",
+   "kind": null,
+   "status": "auto",
+   "base": null,
+   "quant": null,
+   "overall": 64.2,
+   "hard": 46.4,
+   "suites": {
+    "coding": {
+     "score": 70.0,
+     "public": 85.7,
+     "private": 65.2,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 83.0,
+     "public": 85.7,
+     "private": 82.1,
+     "done": 56,
+     "total": 56,
+     "calibration": 84.3,
+     "hard": 73.7
+    },
+    "extract": {
+     "score": 58.5,
+     "public": 76.3,
+     "private": 53.8,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "providers": [
+    "Poolside"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 1.61,
+    "need_gb": {
+     "Q4_K_M": 73.5,
+     "Q5_K_M": 85.8,
+     "Q6_K": 99.1,
+     "Q8_0": 127.1
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": null,
+     "gpu-32": null,
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": null,
+     "mac-48": null,
+     "mac-64": null,
+     "mac-96": null,
+     "mac-128": "Q5_K_M"
+    }
+   },
+   "rank": 25
+  },
+  {
    "slug": "nemotron-3-5-lightning",
    "name": "Nemotron 3.5 Lightning",
    "org": "nvidia",
@@ -1942,7 +2013,78 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 25
+   "rank": 26
+  },
+  {
+   "slug": "nex-n2-5-mini",
+   "name": "Nex-N2.5-Mini",
+   "org": "nex-agi",
+   "openrouter_id": "nex-agi/nex-n2.5-mini",
+   "hf_id": "nex-agi/Nex-N2.5-mini",
+   "params_b": 35.11,
+   "active_params_b": null,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-11",
+   "kind": null,
+   "status": "auto",
+   "base": null,
+   "quant": null,
+   "overall": 57.4,
+   "hard": 39.8,
+   "suites": {
+    "coding": {
+     "score": 26.7,
+     "public": 14.3,
+     "private": 30.4,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 94.6,
+     "public": 100.0,
+     "private": 92.9,
+     "done": 56,
+     "total": 56,
+     "calibration": 95.2,
+     "hard": 94.7
+    },
+    "extract": {
+     "score": 88.1,
+     "public": 98.3,
+     "private": 85.4,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "providers": [
+    "Nex AGI"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 0.67,
+    "need_gb": {
+     "Q4_K_M": 22.6,
+     "Q5_K_M": 26.2,
+     "Q6_K": 30.2,
+     "Q8_0": 38.6
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": "Q4_K_M",
+     "gpu-32": "Q6_K",
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": null,
+     "mac-48": "Q6_K",
+     "mac-64": "Q8_0",
+     "mac-96": "Q8_0",
+     "mac-128": "Q8_0"
+    }
+   },
+   "rank": 27
   },
   {
    "slug": "devstral-2512",
@@ -2013,7 +2155,7 @@
      "mac-128": "Q5_K_M"
     }
    },
-   "rank": 26
+   "rank": 28
   },
   {
    "slug": "hunyuan-a13b-instruct",
@@ -2084,7 +2226,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 27
+   "rank": 29
   },
   {
    "slug": "qwen3-coder-30b-a3b-instruct",
@@ -2155,7 +2297,78 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 28
+   "rank": 30
+  },
+  {
+   "slug": "qwen-2-5-72b-instruct",
+   "name": "Qwen2.5 72B Instruct",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen-2.5-72b-instruct",
+   "hf_id": "Qwen/Qwen2.5-72B-Instruct",
+   "params_b": 72.71,
+   "active_params_b": null,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-11",
+   "kind": null,
+   "status": "auto",
+   "base": null,
+   "quant": null,
+   "overall": 46.0,
+   "hard": 22.6,
+   "suites": {
+    "coding": {
+     "score": 40.0,
+     "public": 42.9,
+     "private": 39.1,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 88.4,
+     "public": 89.3,
+     "private": 88.1,
+     "done": 56,
+     "total": 56,
+     "calibration": 89.3,
+     "hard": 81.6
+    },
+    "extract": {
+     "score": 52.0,
+     "public": 64.2,
+     "private": 48.8,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "providers": [
+    "DeepInfra"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 2.68,
+    "need_gb": {
+     "Q4_K_M": 47.4,
+     "Q5_K_M": 55.0,
+     "Q6_K": 63.2,
+     "Q8_0": 80.5
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": null,
+     "gpu-32": null,
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": null,
+     "mac-48": null,
+     "mac-64": "Q4_K_M",
+     "mac-96": "Q6_K",
+     "mac-128": "Q8_0"
+    }
+   },
+   "rank": 31
   },
   {
    "slug": "qwen3-vl-30b-a3b-instruct",
@@ -2228,7 +2441,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 29
+   "rank": 32
   },
   {
    "slug": "llama-3-3-70b-instruct",
@@ -2300,7 +2513,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 30
+   "rank": 33
   },
   {
    "slug": "command-a",
@@ -2371,7 +2584,7 @@
      "mac-128": "Q6_K"
     }
    },
-   "rank": 31
+   "rank": 34
   },
   {
    "slug": "ministral-14b-2512",
@@ -2442,7 +2655,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 32
+   "rank": 35
   },
   {
    "slug": "mistral-small-3-2-24b-instruct",
@@ -2515,7 +2728,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 33
+   "rank": 36
   },
   {
    "slug": "mistral-small-24b-instruct-2501",
@@ -2586,7 +2799,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 34
+   "rank": 37
   },
   {
    "slug": "gemma-3-27b-it",
@@ -2661,7 +2874,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 35
+   "rank": 38
   },
   {
    "slug": "qwen3-30b-a3b-instruct-2507",
@@ -2733,7 +2946,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 36
+   "rank": 39
   },
   {
    "slug": "qwen3-vl-8b-instruct",
@@ -2804,7 +3017,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 37
+   "rank": 40
   },
   {
    "slug": "llama-3-1-70b-instruct",
@@ -2875,7 +3088,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 38
+   "rank": 41
   },
   {
    "slug": "ministral-8b-2512",
@@ -2946,7 +3159,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 39
+   "rank": 42
   },
   {
    "slug": "gemma-3-12b-it",
@@ -3017,7 +3230,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 40
+   "rank": 43
   },
   {
    "slug": "phi-4",
@@ -3088,7 +3301,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 41
+   "rank": 44
   },
   {
    "slug": "qwen-2-5-7b-instruct",
@@ -3159,7 +3372,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 42
+   "rank": 45
   },
   {
    "slug": "gemma-2-27b-it",
@@ -3230,7 +3443,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 43
+   "rank": 46
   },
   {
    "slug": "llama-3-3-8b-q4-mac",
@@ -3298,7 +3511,7 @@
      "mac-128": "Q4_K_M"
     }
    },
-   "rank": 44
+   "rank": 47
   },
   {
    "slug": "mistral-nemo",
@@ -3372,7 +3585,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 45
+   "rank": 48
   },
   {
    "slug": "granite-4-0-h-micro-mac",
@@ -3438,7 +3651,7 @@
      "mac-128": "Q4_K_M"
     }
    },
-   "rank": 46
+   "rank": 49
   },
   {
    "slug": "ministral-3b-2512",
@@ -3509,7 +3722,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 47
+   "rank": 50
   },
   {
    "slug": "llama-3-1-8b-instruct",
@@ -3582,7 +3795,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 48
+   "rank": 51
   },
   {
    "slug": "gemma-3-4b-it",
@@ -3653,7 +3866,78 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 49
+   "rank": 52
+  },
+  {
+   "slug": "qwen2-5-vl-72b-instruct",
+   "name": "Qwen2.5 VL 72B Instruct",
+   "org": "qwen",
+   "openrouter_id": "qwen/qwen2.5-vl-72b-instruct",
+   "hf_id": "Qwen/Qwen2.5-VL-72B-Instruct",
+   "params_b": 73.41,
+   "active_params_b": null,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-11",
+   "kind": null,
+   "status": "auto",
+   "base": null,
+   "quant": null,
+   "overall": 13.6,
+   "hard": 7.9,
+   "suites": {
+    "coding": {
+     "score": 13.3,
+     "public": 14.3,
+     "private": 13.0,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 89.3,
+     "public": 89.3,
+     "private": 89.3,
+     "done": 56,
+     "total": 56,
+     "calibration": 89.4,
+     "hard": 81.6
+    },
+    "extract": {
+     "score": 13.8,
+     "public": 18.3,
+     "private": 12.6,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "providers": [
+    "Parasail"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 2.68,
+    "need_gb": {
+     "Q4_K_M": 47.8,
+     "Q5_K_M": 55.5,
+     "Q6_K": 63.8,
+     "Q8_0": 81.3
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": null,
+     "gpu-24": null,
+     "gpu-32": null,
+     "mac-16": null,
+     "mac-24": null,
+     "mac-32": null,
+     "mac-48": null,
+     "mac-64": "Q4_K_M",
+     "mac-96": "Q6_K",
+     "mac-128": "Q8_0"
+    }
+   },
+   "rank": 53
   },
   {
    "slug": "reka-edge",
@@ -3724,7 +4008,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 50
+   "rank": 54
   },
   {
    "slug": "llama-3-2-3b-instruct",
@@ -3795,7 +4079,7 @@
      "mac-128": "Q8_0"
     }
    },
-   "rank": 51
+   "rank": 55
   },
   {
    "slug": "llama-3-2-1b-q4-mac",
@@ -3861,17 +4145,13 @@
      "mac-128": "Q4_K_M"
     }
    },
-   "rank": 52
+   "rank": 56
   }
  ],
  "pending": [
-  "laguna-s-2-1",
   "llama-4-scout",
   "mistral-small-2603",
   "nemotron-3-super-120b-a12b",
-  "nex-n2-5-mini",
-  "qwen-2-5-72b-instruct",
-  "qwen2-5-vl-72b-instruct",
   "qwen3-5-122b-a10b",
   "qwen3-coder-next",
   "qwen3-next-80b-a3b-instruct",
@@ -4137,6 +4417,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 27.78,
+   "open_weights": true,
+   "license": null,
    "accuracy": 100.0,
    "calibration": 99.9,
    "hard": 100.0,
@@ -4149,6 +4431,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 35.95,
+   "open_weights": true,
+   "license": null,
    "accuracy": 99.1,
    "calibration": 99.4,
    "hard": 100.0,
@@ -4161,6 +4445,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 27.78,
+   "open_weights": true,
+   "license": null,
    "accuracy": 99.1,
    "calibration": 99.2,
    "hard": 100.0,
@@ -4173,6 +4459,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 35.95,
+   "open_weights": true,
+   "license": null,
    "accuracy": 99.1,
    "calibration": 99.1,
    "hard": 100.0,
@@ -4185,6 +4473,8 @@
    "org": "meta",
    "kind": "local",
    "params_b": 29.78,
+   "open_weights": true,
+   "license": null,
    "accuracy": 99.1,
    "calibration": 99.0,
    "hard": 100.0,
@@ -4197,6 +4487,8 @@
    "org": "openai",
    "kind": "local",
    "params_b": 116.83,
+   "open_weights": true,
+   "license": null,
    "accuracy": 99.1,
    "calibration": 98.6,
    "hard": 100.0,
@@ -4209,6 +4501,8 @@
    "org": "inclusionai",
    "kind": "local",
    "params_b": 127.49,
+   "open_weights": true,
+   "license": null,
    "accuracy": 99.1,
    "calibration": 98.6,
    "hard": 97.4,
@@ -4221,6 +4515,8 @@
    "org": "z-ai",
    "kind": "local",
    "params_b": 107.71,
+   "open_weights": true,
+   "license": null,
    "accuracy": 98.2,
    "calibration": 98.8,
    "hard": 100.0,
@@ -4233,6 +4529,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 27.78,
+   "open_weights": true,
+   "license": null,
    "accuracy": 98.2,
    "calibration": 98.3,
    "hard": 100.0,
@@ -4245,6 +4543,8 @@
    "org": "poolside",
    "kind": "local",
    "params_b": 33.44,
+   "open_weights": true,
+   "license": null,
    "accuracy": 97.3,
    "calibration": 98.4,
    "hard": 100.0,
@@ -4257,6 +4557,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 9.65,
+   "open_weights": true,
+   "license": null,
    "accuracy": 97.3,
    "calibration": 97.3,
    "hard": 100.0,
@@ -4269,6 +4571,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 32.76,
+   "open_weights": true,
+   "license": null,
    "accuracy": 96.4,
    "calibration": 97.6,
    "hard": 97.4,
@@ -4281,6 +4585,8 @@
    "org": "inclusionai",
    "kind": "local",
    "params_b": 124.85,
+   "open_weights": true,
+   "license": null,
    "accuracy": 96.4,
    "calibration": 96.6,
    "hard": 92.1,
@@ -4293,6 +4599,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 31.07,
+   "open_weights": true,
+   "license": null,
    "accuracy": 96.4,
    "calibration": 95.8,
    "hard": 97.4,
@@ -4305,6 +4613,8 @@
    "org": "upstage",
    "kind": "decision",
    "params_b": null,
+   "open_weights": false,
+   "license": null,
    "accuracy": 95.5,
    "calibration": 96.1,
    "hard": 94.7,
@@ -4317,6 +4627,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 30.53,
+   "open_weights": true,
+   "license": null,
    "accuracy": 95.5,
    "calibration": 95.5,
    "hard": 97.4,
@@ -4329,6 +4641,8 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 14.77,
+   "open_weights": true,
+   "license": null,
    "accuracy": 94.6,
    "calibration": 95.3,
    "hard": 94.7,
@@ -4341,6 +4655,8 @@
    "org": "nex-agi",
    "kind": "local",
    "params_b": 35.11,
+   "open_weights": true,
+   "license": null,
    "accuracy": 94.6,
    "calibration": 95.2,
    "hard": 94.7,
@@ -4353,6 +4669,8 @@
    "org": "openai",
    "kind": "local",
    "params_b": 20.91,
+   "open_weights": true,
+   "license": null,
    "accuracy": 94.6,
    "calibration": 94.6,
    "hard": 97.4,
@@ -4365,6 +4683,8 @@
    "org": "z-ai",
    "kind": "local",
    "params_b": 107.71,
+   "open_weights": true,
+   "license": null,
    "accuracy": 93.8,
    "calibration": 95.4,
    "hard": 94.7,
@@ -4377,6 +4697,8 @@
    "org": "inception",
    "kind": "decision",
    "params_b": null,
+   "open_weights": false,
+   "license": null,
    "accuracy": 93.8,
    "calibration": 95.1,
    "hard": 89.5,
@@ -4389,6 +4711,8 @@
    "org": "nvidia",
    "kind": "local",
    "params_b": 31.58,
+   "open_weights": true,
+   "license": null,
    "accuracy": 93.8,
    "calibration": 93.7,
    "hard": 100.0,
@@ -4401,6 +4725,8 @@
    "org": "google",
    "kind": "local",
    "params_b": 31.27,
+   "open_weights": true,
+   "license": null,
    "accuracy": 92.9,
    "calibration": 92.9,
    "hard": 81.6,
@@ -4413,6 +4739,8 @@
    "org": "ibm-granite",
    "kind": "local",
    "params_b": 8.79,
+   "open_weights": true,
+   "license": null,
    "accuracy": 92.9,
    "calibration": 92.6,
    "hard": 97.4,
@@ -4425,6 +4753,8 @@
    "org": "typesafe",
    "kind": "decision",
    "params_b": null,
+   "open_weights": false,
+   "license": null,
    "accuracy": 92.0,
    "calibration": 93.5,
    "hard": 78.9,
@@ -4437,6 +4767,8 @@
    "org": "nace-ai",
    "kind": "decision",
    "params_b": 8.95,
+   "open_weights": true,
+   "license": "custom license",
    "accuracy": 92.0,
    "calibration": 92.9,
    "hard": 84.2,
@@ -4449,6 +4781,8 @@
    "org": "mistralai",
    "kind": "local",
    "params_b": 125.03,
+   "open_weights": true,
+   "license": null,
    "accuracy": 92.0,
    "calibration": 91.7,
    "hard": 78.9,
@@ -4461,6 +4795,8 @@
    "org": "google",
    "kind": "local",
    "params_b": 25.81,
+   "open_weights": true,
+   "license": null,
    "accuracy": 92.0,
    "calibration": 91.3,
    "hard": 78.9,
@@ -4473,6 +4809,8 @@
    "org": "perplexity",
    "kind": "decision",
    "params_b": null,
+   "open_weights": false,
+   "license": null,
    "accuracy": 91.1,
    "calibration": 93.6,
    "hard": 84.2,
@@ -4485,6 +4823,8 @@
    "org": "z-ai",
    "kind": "local",
    "params_b": 110.47,
+   "open_weights": true,
+   "license": null,
    "accuracy": 90.5,
    "calibration": 91.9,
    "hard": 89.5,
@@ -4497,6 +4837,8 @@
    "org": "microsoft",
    "kind": "decision",
    "params_b": null,
+   "open_weights": false,
+   "license": null,
    "accuracy": 90.2,
    "calibration": 92.1,
    "hard": 86.8,
@@ -4509,6 +4851,8 @@
    "org": "openai",
    "kind": "decision",
    "params_b": null,
+   "open_weights": false,
+   "license": null,
    "accuracy": 89.3,
    "calibration": 94.5,
    "hard": 78.9,
@@ -4516,16 +4860,46 @@
    "rank": 32
   },
   {
+   "slug": "qwen2-5-vl-72b-instruct",
+   "name": "Qwen2.5 VL 72B Instruct",
+   "org": "qwen",
+   "kind": "local",
+   "params_b": 73.41,
+   "open_weights": true,
+   "license": null,
+   "accuracy": 89.3,
+   "calibration": 89.4,
+   "hard": 81.6,
+   "openrouter_id": "qwen/qwen2.5-vl-72b-instruct",
+   "rank": 33
+  },
+  {
    "slug": "gemma-3-27b-it",
    "name": "Gemma 3 27B",
    "org": "google",
    "kind": "local",
    "params_b": 27.43,
+   "open_weights": true,
+   "license": null,
    "accuracy": 88.4,
    "calibration": 90.7,
    "hard": 78.9,
    "openrouter_id": "google/gemma-3-27b-it",
-   "rank": 33
+   "rank": 34
+  },
+  {
+   "slug": "qwen-2-5-72b-instruct",
+   "name": "Qwen2.5 72B Instruct",
+   "org": "qwen",
+   "kind": "local",
+   "params_b": 72.71,
+   "open_weights": true,
+   "license": null,
+   "accuracy": 88.4,
+   "calibration": 89.3,
+   "hard": 81.6,
+   "openrouter_id": "qwen/qwen-2.5-72b-instruct",
+   "rank": 35
   },
   {
    "slug": "clef",
@@ -4533,11 +4907,13 @@
    "org": "cloudflare",
    "kind": "decision",
    "params_b": 27.36,
+   "open_weights": true,
+   "license": "Apache 2.0",
    "accuracy": 87.5,
    "calibration": 91.2,
    "hard": 76.3,
    "openrouter_id": "cloudflare/clef",
-   "rank": 34
+   "rank": 36
   },
   {
    "slug": "command-a",
@@ -4545,11 +4921,13 @@
    "org": "cohere",
    "kind": "local",
    "params_b": 111.06,
+   "open_weights": true,
+   "license": null,
    "accuracy": 87.5,
    "calibration": 88.7,
    "hard": 68.4,
    "openrouter_id": "cohere/command-a",
-   "rank": 35
+   "rank": 37
   },
   {
    "slug": "d1",
@@ -4557,11 +4935,13 @@
    "org": "liquid",
    "kind": "decision",
    "params_b": null,
+   "open_weights": false,
+   "license": null,
    "accuracy": 86.6,
    "calibration": 90.7,
    "hard": 73.7,
    "openrouter_id": "liquid/d1",
-   "rank": 36
+   "rank": 38
   },
   {
    "slug": "solar-decide-flash",
@@ -4569,11 +4949,13 @@
    "org": "upstage",
    "kind": "decision",
    "params_b": null,
+   "open_weights": false,
+   "license": null,
    "accuracy": 85.7,
    "calibration": 90.0,
    "hard": 73.7,
    "openrouter_id": "upstage/solar-decide-flash",
-   "rank": 37
+   "rank": 39
   },
   {
    "slug": "llama-3-3-70b-instruct",
@@ -4581,11 +4963,13 @@
    "org": "meta-llama",
    "kind": "local",
    "params_b": 70.55,
+   "open_weights": true,
+   "license": null,
    "accuracy": 85.7,
    "calibration": 86.2,
    "hard": 68.4,
    "openrouter_id": "meta-llama/llama-3.3-70b-instruct",
-   "rank": 38
+   "rank": 40
   },
   {
    "slug": "ministral-14b-2512",
@@ -4593,11 +4977,13 @@
    "org": "mistralai",
    "kind": "local",
    "params_b": 13.95,
+   "open_weights": true,
+   "license": null,
    "accuracy": 85.7,
    "calibration": 86.0,
    "hard": 68.4,
    "openrouter_id": "mistralai/ministral-14b-2512",
-   "rank": 39
+   "rank": 41
   },
   {
    "slug": "tev1-4b-experimental",
@@ -4605,11 +4991,13 @@
    "org": "togethercomputer",
    "kind": "decision",
    "params_b": 4.66,
+   "open_weights": true,
+   "license": "license not stated",
    "accuracy": 84.8,
    "calibration": 88.2,
    "hard": 73.7,
    "openrouter_id": "togethercomputer/tev1-4b-experimental",
-   "rank": 40
+   "rank": 42
   },
   {
    "slug": "clef-flash",
@@ -4617,11 +5005,13 @@
    "org": "cloudflare",
    "kind": "decision",
    "params_b": 9.41,
+   "open_weights": true,
+   "license": "Apache 2.0",
    "accuracy": 84.8,
    "calibration": 88.1,
    "hard": 68.4,
    "openrouter_id": "cloudflare/clef-flash",
-   "rank": 41
+   "rank": 43
   },
   {
    "slug": "mistral-small-24b-instruct-2501",
@@ -4629,11 +5019,13 @@
    "org": "mistralai",
    "kind": "local",
    "params_b": 23.57,
+   "open_weights": true,
+   "license": null,
    "accuracy": 84.8,
    "calibration": 86.9,
    "hard": 68.4,
    "openrouter_id": "mistralai/mistral-small-24b-instruct-2501",
-   "rank": 42
+   "rank": 44
   },
   {
    "slug": "glm-4-7-flash",
@@ -4641,11 +5033,13 @@
    "org": "z-ai",
    "kind": "local",
    "params_b": 31.22,
+   "open_weights": true,
+   "license": null,
    "accuracy": 84.8,
    "calibration": 86.7,
    "hard": 84.2,
    "openrouter_id": "z-ai/glm-4.7-flash",
-   "rank": 43
+   "rank": 45
   },
   {
    "slug": "kev-4b",
@@ -4653,11 +5047,13 @@
    "org": "jaredpalmer",
    "kind": "decision",
    "params_b": null,
+   "open_weights": true,
+   "license": "Apache 2.0",
    "accuracy": 83.9,
    "calibration": 87.2,
    "hard": 68.4,
    "openrouter_id": "jaredpalmer/kev-4b",
-   "rank": 44
+   "rank": 46
   },
   {
    "slug": "llama-3-1-70b-instruct",
@@ -4665,11 +5061,13 @@
    "org": "meta-llama",
    "kind": "local",
    "params_b": 70.55,
+   "open_weights": true,
+   "license": null,
    "accuracy": 83.9,
    "calibration": 86.4,
    "hard": 71.1,
    "openrouter_id": "meta-llama/llama-3.1-70b-instruct",
-   "rank": 45
+   "rank": 47
   },
   {
    "slug": "qwen3-30b-a3b-instruct-2507",
@@ -4677,11 +5075,13 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 30.53,
+   "open_weights": true,
+   "license": null,
    "accuracy": 83.9,
    "calibration": 85.6,
    "hard": 68.4,
    "openrouter_id": "qwen/qwen3-30b-a3b-instruct-2507",
-   "rank": 46
+   "rank": 48
   },
   {
    "slug": "ministral-8b-2512",
@@ -4689,11 +5089,13 @@
    "org": "mistralai",
    "kind": "local",
    "params_b": 8.92,
+   "open_weights": true,
+   "license": null,
    "accuracy": 83.9,
    "calibration": 85.0,
    "hard": 73.7,
    "openrouter_id": "mistralai/ministral-8b-2512",
-   "rank": 47
+   "rank": 49
   },
   {
    "slug": "gemma-3-12b-it",
@@ -4701,11 +5103,13 @@
    "org": "google",
    "kind": "local",
    "params_b": 12.19,
+   "open_weights": true,
+   "license": null,
    "accuracy": 83.0,
    "calibration": 87.1,
    "hard": 71.1,
    "openrouter_id": "google/gemma-3-12b-it",
-   "rank": 48
+   "rank": 50
   },
   {
    "slug": "clef-omni",
@@ -4713,11 +5117,13 @@
    "org": "cloudflare",
    "kind": "decision",
    "params_b": 35.26,
+   "open_weights": true,
+   "license": "Apache 2.0",
    "accuracy": 83.0,
    "calibration": 85.9,
    "hard": 68.4,
    "openrouter_id": "cloudflare/clef-omni",
-   "rank": 49
+   "rank": 51
   },
   {
    "slug": "mistral-small-3-2-24b-instruct",
@@ -4725,11 +5131,13 @@
    "org": "mistralai",
    "kind": "local",
    "params_b": 24.01,
+   "open_weights": true,
+   "license": null,
    "accuracy": 83.0,
    "calibration": 84.5,
    "hard": 60.5,
    "openrouter_id": "mistralai/mistral-small-3.2-24b-instruct",
-   "rank": 50
+   "rank": 52
   },
   {
    "slug": "laguna-s-2-1",
@@ -4737,11 +5145,13 @@
    "org": "poolside",
    "kind": "local",
    "params_b": 117.56,
+   "open_weights": true,
+   "license": null,
    "accuracy": 83.0,
    "calibration": 84.3,
    "hard": 73.7,
    "openrouter_id": "poolside/laguna-s-2.1",
-   "rank": 51
+   "rank": 53
   },
   {
    "slug": "qwen3-coder-30b-a3b-instruct",
@@ -4749,11 +5159,13 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 30.53,
+   "open_weights": true,
+   "license": null,
    "accuracy": 81.2,
    "calibration": 84.8,
    "hard": 63.2,
    "openrouter_id": "qwen/qwen3-coder-30b-a3b-instruct",
-   "rank": 52
+   "rank": 54
   },
   {
    "slug": "nemotron-3-5-lightning",
@@ -4761,11 +5173,13 @@
    "org": "nvidia",
    "kind": "local",
    "params_b": 31.58,
+   "open_weights": true,
+   "license": null,
    "accuracy": 80.4,
    "calibration": 82.9,
    "hard": 68.4,
    "openrouter_id": "nvidia/nemotron-3.5-lightning",
-   "rank": 53
+   "rank": 55
   },
   {
    "slug": "gemma-2-27b-it",
@@ -4773,11 +5187,13 @@
    "org": "google",
    "kind": "local",
    "params_b": 27.23,
+   "open_weights": true,
+   "license": null,
    "accuracy": 79.5,
    "calibration": 82.8,
    "hard": 71.1,
    "openrouter_id": "google/gemma-2-27b-it",
-   "rank": 54
+   "rank": 56
   },
   {
    "slug": "qwen3-vl-8b-instruct",
@@ -4785,11 +5201,13 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 8.77,
+   "open_weights": true,
+   "license": null,
    "accuracy": 78.6,
    "calibration": 81.2,
    "hard": 63.2,
    "openrouter_id": "qwen/qwen3-vl-8b-instruct",
-   "rank": 55
+   "rank": 57
   },
   {
    "slug": "mistral-nemo",
@@ -4797,11 +5215,13 @@
    "org": "mistralai",
    "kind": "local",
    "params_b": 12.25,
+   "open_weights": true,
+   "license": null,
    "accuracy": 78.0,
    "calibration": 82.9,
    "hard": 71.1,
    "openrouter_id": "mistralai/mistral-nemo",
-   "rank": 56
+   "rank": 58
   },
   {
    "slug": "phi-4",
@@ -4809,11 +5229,13 @@
    "org": "microsoft",
    "kind": "local",
    "params_b": 14.66,
+   "open_weights": true,
+   "license": null,
    "accuracy": 75.0,
    "calibration": 77.8,
    "hard": 52.6,
    "openrouter_id": "microsoft/phi-4",
-   "rank": 57
+   "rank": 59
   },
   {
    "slug": "qwen3-vl-30b-a3b-instruct",
@@ -4821,11 +5243,13 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 31.07,
+   "open_weights": true,
+   "license": null,
    "accuracy": 75.0,
    "calibration": 76.2,
    "hard": 42.1,
    "openrouter_id": "qwen/qwen3-vl-30b-a3b-instruct",
-   "rank": 58
+   "rank": 60
   },
   {
    "slug": "hunyuan-a13b-instruct",
@@ -4833,11 +5257,13 @@
    "org": "tencent",
    "kind": "local",
    "params_b": 80.39,
+   "open_weights": true,
+   "license": null,
    "accuracy": 73.5,
    "calibration": 74.2,
    "hard": 60.5,
    "openrouter_id": "tencent/hunyuan-a13b-instruct",
-   "rank": 59
+   "rank": 61
   },
   {
    "slug": "ministral-3b-2512",
@@ -4845,11 +5271,13 @@
    "org": "mistralai",
    "kind": "local",
    "params_b": 3.85,
+   "open_weights": true,
+   "license": null,
    "accuracy": 71.7,
    "calibration": 74.9,
    "hard": 52.6,
    "openrouter_id": "mistralai/ministral-3b-2512",
-   "rank": 60
+   "rank": 62
   },
   {
    "slug": "qwen-2-5-7b-instruct",
@@ -4857,11 +5285,13 @@
    "org": "qwen",
    "kind": "local",
    "params_b": 7.62,
+   "open_weights": true,
+   "license": null,
    "accuracy": 71.4,
    "calibration": 75.9,
    "hard": 63.2,
    "openrouter_id": "qwen/qwen-2.5-7b-instruct",
-   "rank": 61
+   "rank": 63
   },
   {
    "slug": "llama-3-1-8b-instruct",
@@ -4869,11 +5299,13 @@
    "org": "meta-llama",
    "kind": "local",
    "params_b": 8.03,
+   "open_weights": true,
+   "license": null,
    "accuracy": 68.2,
    "calibration": 70.9,
    "hard": 52.6,
    "openrouter_id": "meta-llama/llama-3.1-8b-instruct",
-   "rank": 62
+   "rank": 64
   },
   {
    "slug": "gemma-3-4b-it",
@@ -4881,11 +5313,13 @@
    "org": "google",
    "kind": "local",
    "params_b": 4.3,
+   "open_weights": true,
+   "license": null,
    "accuracy": 67.9,
    "calibration": 73.0,
    "hard": 60.5,
    "openrouter_id": "google/gemma-3-4b-it",
-   "rank": 63
+   "rank": 65
   },
   {
    "slug": "llama-3-3-8b-q4-mac",
@@ -4893,11 +5327,13 @@
    "org": "meta-llama",
    "kind": "local",
    "params_b": 8.03,
+   "open_weights": true,
+   "license": "llama3.3",
    "accuracy": 59.2,
    "calibration": 61.4,
    "hard": 55.3,
    "openrouter_id": null,
-   "rank": 64
+   "rank": 66
   },
   {
    "slug": "llama-3-2-3b-instruct",
@@ -4905,11 +5341,13 @@
    "org": "meta-llama",
    "kind": "local",
    "params_b": 3.21,
+   "open_weights": true,
+   "license": null,
    "accuracy": 44.3,
    "calibration": 54.3,
    "hard": 42.1,
    "openrouter_id": "meta-llama/llama-3.2-3b-instruct",
-   "rank": 65
+   "rank": 67
   },
   {
    "slug": "reka-edge",
@@ -4917,11 +5355,27 @@
    "org": "rekaai",
    "kind": "local",
    "params_b": 7.13,
+   "open_weights": true,
+   "license": null,
    "accuracy": 8.9,
    "calibration": 14.0,
    "hard": 7.9,
    "openrouter_id": "rekaai/reka-edge",
-   "rank": 66
+   "rank": 68
+  }
+ ],
+ "decisions_unsupported": [
+  {
+   "name": "Span-01",
+   "openrouter_id": "respan/span-01",
+   "open_weights": false,
+   "reason": "Respan only accepts yes/no questions about a chat transcript ({input, output} state); our decision tasks use multiple-choice questions and structured states."
+  },
+  {
+   "name": "Span-01 Lite",
+   "openrouter_id": "respan/span-01-lite",
+   "open_weights": false,
+   "reason": "Respan only accepts yes/no questions about a chat transcript ({input, output} state); our decision tasks use multiple-choice questions and structured states."
   }
  ],
  "n_hard": 18,
@@ -5153,6 +5607,42 @@
    "of": 52
   },
   {
+   "date": "2026-10-11",
+   "slug": "laguna-s-2-1",
+   "name": "Laguna S 2.1",
+   "event": "added",
+   "overall": 64.2,
+   "rank": 25,
+   "of": 56
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "nex-n2-5-mini",
+   "name": "Nex-N2.5-Mini",
+   "event": "added",
+   "overall": 57.4,
+   "rank": 27,
+   "of": 56
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "qwen-2-5-72b-instruct",
+   "name": "Qwen2.5 72B Instruct",
+   "event": "added",
+   "overall": 46.0,
+   "rank": 31,
+   "of": 56
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "qwen2-5-vl-72b-instruct",
+   "name": "Qwen2.5 VL 72B Instruct",
+   "event": "added",
+   "overall": 13.6,
+   "rank": 53,
+   "of": 56
+  },
+  {
    "date": "2026-10-10",
    "slug": "gemma-4-31b-it",
    "name": "Gemma 4 31B",
@@ -5339,42 +5829,6 @@
    "event": "added",
    "overall": 58.5,
    "rank": 21,
-   "of": 31
-  },
-  {
-   "date": "2026-10-10",
-   "slug": "mistral-nemo",
-   "name": "Mistral Nemo",
-   "event": "added",
-   "overall": 54.5,
-   "rank": 22,
-   "of": 31
-  },
-  {
-   "date": "2026-10-10",
-   "slug": "qwen-2-5-7b-instruct",
-   "name": "Qwen2.5 7B Instruct",
-   "event": "added",
-   "overall": 54.3,
-   "rank": 23,
-   "of": 31
-  },
-  {
-   "date": "2026-10-10",
-   "slug": "granite-4-0-h-micro",
-   "name": "Granite 4.0 Micro",
-   "event": "added",
-   "overall": 52.0,
-   "rank": 24,
-   "of": 31
-  },
-  {
-   "date": "2026-10-10",
-   "slug": "ministral-3b-2512",
-   "name": "Ministral 3 3B 2512",
-   "event": "added",
-   "overall": 49.5,
-   "rank": 25,
    "of": 31
   }
  ]

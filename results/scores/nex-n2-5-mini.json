@@ -95,6 +95,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-hard-json-path": {
+   "h": "4b7ca7bd11df",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Nex AGI",
+   "truncated": true,
+   "tok": 32768,
+   "ptok": 248,
+   "cost": 0.003283,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "coding/code-hard-ledger": {
    "h": "a48727466d95",
    "v": "priv",
@@ -241,6 +253,18 @@
    "tok": 1716,
    "ptok": 200,
    "cost": 0.0001766,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-slugify": {
+   "h": "ff09da2f4a43",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Nex AGI",
+   "truncated": true,
+   "tok": 32768,
+   "ptok": 211,
+   "cost": 0.0032821,
    "mt": 32768,
    "at": "2026-10-11"
   },

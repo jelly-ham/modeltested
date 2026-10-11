@@ -852,6 +852,52 @@
    "SiliconFlow"
   ]
  },
+ "laguna-s-2-1": {
+  "slug": "laguna-s-2-1",
+  "name": "Laguna S 2.1",
+  "org": "poolside",
+  "openrouter_id": "poolside/laguna-s-2.1",
+  "hf_id": "poolside/Laguna-S-2.1",
+  "params_b": 117.56,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 64.2,
+  "hard": 46.4,
+  "suites": {
+   "coding": {
+    "score": 70.0,
+    "public": 85.7,
+    "private": 65.2,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 83.0,
+    "public": 85.7,
+    "private": 82.1,
+    "done": 56,
+    "total": 56,
+    "calibration": 84.3,
+    "hard": 73.7
+   },
+   "extract": {
+    "score": 58.5,
+    "public": 76.3,
+    "private": 53.8,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Poolside"
+  ]
+ },
  "laguna-xs-2-1": {
   "slug": "laguna-xs-2-1",
   "name": "Laguna XS 2.1",
@@ -1731,6 +1777,52 @@
    "Nebius"
   ]
  },
+ "nex-n2-5-mini": {
+  "slug": "nex-n2-5-mini",
+  "name": "Nex-N2.5-Mini",
+  "org": "nex-agi",
+  "openrouter_id": "nex-agi/nex-n2.5-mini",
+  "hf_id": "nex-agi/Nex-N2.5-mini",
+  "params_b": 35.11,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 57.4,
+  "hard": 39.8,
+  "suites": {
+   "coding": {
+    "score": 26.7,
+    "public": 14.3,
+    "private": 30.4,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 94.6,
+    "public": 100.0,
+    "private": 92.9,
+    "done": 56,
+    "total": 56,
+    "calibration": 95.2,
+    "hard": 94.7
+   },
+   "extract": {
+    "score": 88.1,
+    "public": 98.3,
+    "private": 85.4,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Nex AGI"
+  ]
+ },
  "phi-4": {
   "slug": "phi-4",
   "name": "Phi 4",
@@ -1769,6 +1861,52 @@
     "score": 26.2,
     "public": 52.6,
     "private": 19.3,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "qwen-2-5-72b-instruct": {
+  "slug": "qwen-2-5-72b-instruct",
+  "name": "Qwen2.5 72B Instruct",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen-2.5-72b-instruct",
+  "hf_id": "Qwen/Qwen2.5-72B-Instruct",
+  "params_b": 72.71,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 46.0,
+  "hard": 22.6,
+  "suites": {
+   "coding": {
+    "score": 40.0,
+    "public": 42.9,
+    "private": 39.1,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 88.4,
+    "public": 89.3,
+    "private": 88.1,
+    "done": 56,
+    "total": 56,
+    "calibration": 89.3,
+    "hard": 81.6
+   },
+   "extract": {
+    "score": 52.0,
+    "public": 64.2,
+    "private": 48.8,
     "done": 24,
     "total": 24
    }
@@ -1865,6 +2003,52 @@
   },
   "providers": [
    "ollama/Q4_K_M"
+  ]
+ },
+ "qwen2-5-vl-72b-instruct": {
+  "slug": "qwen2-5-vl-72b-instruct",
+  "name": "Qwen2.5 VL 72B Instruct",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen2.5-vl-72b-instruct",
+  "hf_id": "Qwen/Qwen2.5-VL-72B-Instruct",
+  "params_b": 73.41,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 13.6,
+  "hard": 7.9,
+  "suites": {
+   "coding": {
+    "score": 13.3,
+    "public": 14.3,
+    "private": 13.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 89.3,
+    "public": 89.3,
+    "private": 89.3,
+    "done": 56,
+    "total": 56,
+    "calibration": 89.4,
+    "hard": 81.6
+   },
+   "extract": {
+    "score": 13.8,
+    "public": 18.3,
+    "private": 12.6,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Parasail"
   ]
  },
  "qwen3-14b": {

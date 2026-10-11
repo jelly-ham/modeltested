@@ -13,6 +13,28 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-cron-matches": {
+   "h": "3d42429ae11d",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "tok": 893,
+   "ptok": 241,
+   "cost": 0.0005703,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-dedupe-emails": {
+   "h": "286981be824d",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "tok": 402,
+   "ptok": 200,
+   "cost": 0.0002732,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "coding/code-diff-dicts": {
    "h": "23e48c290b3c",
    "v": "priv",
@@ -21,6 +43,28 @@
    "tok": 366,
    "ptok": 187,
    "cost": 0.0002496,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-evaluate-expr": {
+   "h": "9645efdf07a9",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "tok": 713,
+   "ptok": 193,
+   "cost": 0.0004554,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-bool-expr": {
+   "h": "a84a25915d0e",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "tok": 1931,
+   "ptok": 292,
+   "cost": 0.0011918,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -123,6 +167,50 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-inventory": {
+   "h": "50c4fef1ef24",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "tok": 488,
+   "ptok": 261,
+   "cost": 0.0003349,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-mask-secrets": {
+   "h": "0b802cf0137a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "tok": 395,
+   "ptok": 237,
+   "cost": 0.0002757,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-money-split": {
+   "h": "aa121a0efaa6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "tok": 387,
+   "ptok": 160,
+   "cost": 0.0002571,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-paginate": {
+   "h": "6d0e58ddd5b7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "tok": 374,
+   "ptok": 208,
+   "cost": 0.0002581,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "coding/code-parse-duration": {
    "h": "7d2f96c9a827",
    "v": "publ",
@@ -145,6 +233,17 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-search-index": {
+   "h": "3fc4c534a420",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "tok": 395,
+   "ptok": 197,
+   "cost": 0.0002685,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "coding/code-slugify": {
    "h": "ff09da2f4a43",
    "v": "publ",
@@ -153,6 +252,28 @@
    "tok": 458,
    "ptok": 204,
    "cost": 0.0003069,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-sort-versions": {
+   "h": "e34aa61843e7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "tok": 354,
+   "ptok": 198,
+   "cost": 0.0002445,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-summarize-logs": {
+   "h": "712019075476",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "tok": 320,
+   "ptok": 245,
+   "cost": 0.0002329,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -200,6 +321,78 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-churn-threat": {
+   "h": "d6335aa9dc79",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Novita",
+   "brier": 0.83,
+   "tok": 68,
+   "ptok": 168,
+   "cost": 7.04e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-code-review-auth": {
+   "h": "23453bb85f69",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Novita",
+   "brier": 0.65,
+   "tok": 76,
+   "ptok": 175,
+   "cost": 7.63e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-compliance-returns": {
+   "h": "0a4dcd13b9e5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.02,
+   "tok": 82,
+   "ptok": 250,
+   "cost": 9.34e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-criticism-not-hate": {
+   "h": "0a90865e89ae",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0675,
+   "tok": 86,
+   "ptok": 240,
+   "cost": 9.39e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-bank-overdrawn": {
+   "h": "8603b122a7d1",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0025,
+   "tok": 88,
+   "ptok": 224,
+   "cost": 9.22e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-contract-autorenew": {
+   "h": "611b0ee529a3",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0175,
+   "tok": 85,
+   "ptok": 213,
+   "cost": 8.85e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "decisions/decide-doc-invoice-missing-due": {
    "h": "caa2741573fc",
    "v": "publ",
@@ -209,6 +402,114 @@
    "tok": 89,
    "ptok": 238,
    "cost": 9.54e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-resume": {
+   "h": "f02928ab84f6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0,
+   "tok": 70,
+   "ptok": 226,
+   "cost": 8.2e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-duplicate-ticket": {
+   "h": "c9625a8d1dfd",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.02,
+   "tok": 30,
+   "ptok": 156,
+   "cost": 4.58e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-gdpr-erasure": {
+   "h": "71059f428f66",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0257,
+   "tok": 85,
+   "ptok": 229,
+   "cost": 9.14e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-auto-renewal": {
+   "h": "3e087ffec063",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0,
+   "tok": 75,
+   "ptok": 307,
+   "cost": 9.95e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-bec-reply-to": {
+   "h": "2032b702a0a5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0175,
+   "tok": 69,
+   "ptok": 298,
+   "cost": 9.44e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-contractor-access": {
+   "h": "b7e390613d00",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Novita",
+   "brier": 1.0,
+   "tok": 71,
+   "ptok": 280,
+   "cost": 9.23e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-expense-cap": {
+   "h": "aebb0f5d72e8",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.01,
+   "tok": 81,
+   "ptok": 293,
+   "cost": 0.0001005,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-fraud-rules": {
+   "h": "a0592e88c7ec",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0,
+   "tok": 66,
+   "ptok": 282,
+   "cost": 8.97e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-hazmat-split": {
+   "h": "965c7970b711",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0,
+   "tok": 68,
+   "ptok": 292,
+   "cost": 9.27e-05,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -224,6 +525,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-hard-insurance-oop": {
+   "h": "992734f451ab",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "brier": 2.0,
+   "tok": 73,
+   "ptok": 291,
+   "cost": 9.55e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "decisions/decide-hard-legit-security-alert": {
    "h": "cc22949cde32",
    "v": "publ",
@@ -233,6 +546,18 @@
    "tok": 57,
    "ptok": 279,
    "cost": 8.39e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-loan-dti": {
+   "h": "56f7d4035132",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.25,
+   "tok": 63,
+   "ptok": 302,
+   "cost": 9.15e-05,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -248,6 +573,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-hard-misleading-subject": {
+   "h": "449ecb23cd0a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.25,
+   "tok": 83,
+   "ptok": 255,
+   "cost": 9.49e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "decisions/decide-hard-refund-window": {
    "h": "ebd11009bb29",
    "v": "publ",
@@ -257,6 +594,18 @@
    "tok": 73,
    "ptok": 345,
    "cost": 0.0001052,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-report-not-hate": {
+   "h": "f27dcdb47e4e",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Novita",
+   "brier": 0.86,
+   "tok": 85,
+   "ptok": 257,
+   "cost": 9.64e-05,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -272,6 +621,30 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-hard-semver": {
+   "h": "4bce67599f05",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "brier": 2.0,
+   "tok": 67,
+   "ptok": 243,
+   "cost": 8.33e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-sla-timezones": {
+   "h": "04ec9f2dab61",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "brier": 1.715,
+   "tok": 93,
+   "ptok": 338,
+   "cost": 0.0001157,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "decisions/decide-hard-tool-followup": {
    "h": "4824d643da57",
    "v": "publ",
@@ -281,6 +654,66 @@
    "tok": 73,
    "ptok": 293,
    "cost": 9.58e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-incident-docs": {
+   "h": "4c63e3a29e86",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "brier": 1.12,
+   "tok": 73,
+   "ptok": 236,
+   "cost": 8.56e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-incident-payments": {
+   "h": "2536c0ad4a10",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Novita",
+   "brier": 0.4325,
+   "tok": 71,
+   "ptok": 226,
+   "cost": 8.26e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-intent-upgrade": {
+   "h": "d9a0553519c7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0094,
+   "tok": 77,
+   "ptok": 175,
+   "cost": 7.69e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-language-shipping": {
+   "h": "a620e343f0e7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0,
+   "tok": 91,
+   "ptok": 242,
+   "cost": 9.73e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-loan-dti": {
+   "h": "7b196804131f",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Novita",
+   "brier": 0.9025,
+   "tok": 75,
+   "ptok": 256,
+   "cost": 9.03e-05,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -296,6 +729,54 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-negated-billing": {
+   "h": "07fe2078d376",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0137,
+   "tok": 55,
+   "ptok": 197,
+   "cost": 6.79e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-password-reset-no-rush": {
+   "h": "41b8d2f2f1b3",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.09,
+   "tok": 87,
+   "ptok": 253,
+   "cost": 9.69e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-legit-newsletter": {
+   "h": "5f9846221479",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.01,
+   "tok": 74,
+   "ptok": 197,
+   "cost": 7.91e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-mailbox-full": {
+   "h": "888daa8ba685",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0552,
+   "tok": 76,
+   "ptok": 211,
+   "cost": 8.28e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "decisions/decide-phishing-paypal": {
    "h": "3483ab984a02",
    "v": "publ",
@@ -305,6 +786,42 @@
    "tok": 74,
    "ptok": 210,
    "cost": 8.15e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-card": {
+   "h": "a5f51b6888c1",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0625,
+   "tok": 77,
+   "ptok": 231,
+   "cost": 8.7e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-contact-only": {
+   "h": "78e062b32aee",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0,
+   "tok": 71,
+   "ptok": 229,
+   "cost": 8.31e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-health": {
+   "h": "2202c616180c",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.08,
+   "tok": 79,
+   "ptok": 229,
+   "cost": 8.78e-05,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -344,6 +861,30 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-review-sarcasm": {
+   "h": "c54f7879f164",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0175,
+   "tok": 69,
+   "ptok": 176,
+   "cost": 7.24e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-calculator": {
+   "h": "fecbfc72964a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0,
+   "tok": 69,
+   "ptok": 218,
+   "cost": 8e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "decisions/decide-route-calendar": {
    "h": "cb843c555d6c",
    "v": "publ",
@@ -353,6 +894,78 @@
    "tok": 77,
    "ptok": 226,
    "cost": 8.61e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-email": {
+   "h": "0cc2c5dfb624",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Novita",
+   "brier": 1.0,
+   "tok": 69,
+   "ptok": 222,
+   "cost": 8.07e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-none": {
+   "h": "83d5627c2104",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0,
+   "tok": 48,
+   "ptok": 174,
+   "cost": 5.96e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-search": {
+   "h": "c4689a70b581",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.02,
+   "tok": 77,
+   "ptok": 220,
+   "cost": 8.5e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-screening-work-auth": {
+   "h": "b2a2a46cb642",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.0,
+   "tok": 59,
+   "ptok": 202,
+   "cost": 7.12e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-self-harm-signal": {
+   "h": "6dedfd528895",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Novita",
+   "brier": 0.98,
+   "tok": 83,
+   "ptok": 245,
+   "cost": 9.31e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-spam-followers": {
+   "h": "91bbd39166b5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.005,
+   "tok": 87,
+   "ptok": 242,
+   "cost": 9.49e-05,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -368,6 +981,17 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "extract/extract-event-registrations": {
+   "h": "3199f1c4131a",
+   "v": "priv",
+   "score": 0.2857,
+   "provider": "Novita",
+   "tok": 82,
+   "ptok": 366,
+   "cost": 0.0001143,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "extract/extract-expense-thread": {
    "h": "b5a830bf8bd2",
    "v": "publ",
@@ -376,6 +1000,61 @@
    "tok": 319,
    "ptok": 644,
    "cost": 0.0003041,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-family-deductible": {
+   "h": "81246a09d54a",
+   "v": "priv",
+   "score": 0.4,
+   "provider": "Novita",
+   "tok": 107,
+   "ptok": 404,
+   "cost": 0.0001358,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-mortgage-extra": {
+   "h": "e93b750776b8",
+   "v": "priv",
+   "score": 0.1667,
+   "provider": "Novita",
+   "tok": 75,
+   "ptok": 288,
+   "cost": 9.61e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-payroll-holiday": {
+   "h": "16a2289e0d2e",
+   "v": "priv",
+   "score": 0.1111,
+   "provider": "Novita",
+   "tok": 103,
+   "ptok": 476,
+   "cost": 0.0001465,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-project-schedule": {
+   "h": "e41939ede116",
+   "v": "priv",
+   "score": 0.0714,
+   "provider": "Novita",
+   "tok": 108,
+   "ptok": 354,
+   "cost": 0.0001274,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-quarterly-results": {
+   "h": "8d4ee12aa753",
+   "v": "priv",
+   "score": 0.25,
+   "provider": "Novita",
+   "tok": 105,
+   "ptok": 494,
+   "cost": 0.0001509,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -390,6 +1069,61 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "extract/extract-hard-three-way-match": {
+   "h": "1388e321b606",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Novita",
+   "tok": 90,
+   "ptok": 417,
+   "cost": 0.0001282,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-travel-per-diem": {
+   "h": "155ca1fed4af",
+   "v": "priv",
+   "score": 0.5294,
+   "provider": "Novita",
+   "tok": 206,
+   "ptok": 453,
+   "cost": 0.0002031,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-insurance-eob": {
+   "h": "e116049aa384",
+   "v": "priv",
+   "score": 0.6364,
+   "provider": "Novita",
+   "tok": 132,
+   "ptok": 433,
+   "cost": 0.0001558,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-inventory-reorder": {
+   "h": "67392cb27d86",
+   "v": "priv",
+   "score": 0.4286,
+   "provider": "Novita",
+   "tok": 81,
+   "ptok": 376,
+   "cost": 0.0001155,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-itinerary-timezones": {
+   "h": "805b94273c69",
+   "v": "priv",
+   "score": 0.4615,
+   "provider": "Novita",
+   "tok": 128,
+   "ptok": 443,
+   "cost": 0.0001553,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "extract/extract-lease-amendment": {
    "h": "9d0a9ed11a7c",
    "v": "publ",
@@ -398,6 +1132,50 @@
    "tok": 162,
    "ptok": 494,
    "cost": 0.0001845,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-meeting-actions": {
+   "h": "0d64413c903c",
+   "v": "priv",
+   "score": 0.25,
+   "provider": "Novita",
+   "tok": 164,
+   "ptok": 354,
+   "cost": 0.0001605,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-offer-comparison": {
+   "h": "3f8df5d67fa0",
+   "v": "priv",
+   "score": 0.4444,
+   "provider": "Novita",
+   "tok": 101,
+   "ptok": 436,
+   "cost": 0.0001381,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-paystub": {
+   "h": "8080cef4eb78",
+   "v": "priv",
+   "score": 0.1667,
+   "provider": "Novita",
+   "tok": 140,
+   "ptok": 402,
+   "cost": 0.000155,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-recipe-scaling": {
+   "h": "45ef96b3f74a",
+   "v": "priv",
+   "score": 0.6154,
+   "provider": "Novita",
+   "tok": 125,
+   "ptok": 390,
+   "cost": 0.000144,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -412,6 +1190,28 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "extract/extract-shift-schedule": {
+   "h": "2d7d94844072",
+   "v": "priv",
+   "score": 0.2727,
+   "provider": "Novita",
+   "tok": 102,
+   "ptok": 438,
+   "cost": 0.000139,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-subscription-renewal": {
+   "h": "dcb8138bce39",
+   "v": "priv",
+   "score": 0.7,
+   "provider": "Novita",
+   "tok": 142,
+   "ptok": 423,
+   "cost": 0.0001599,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "extract/extract-ticket-sla": {
    "h": "cbe5fabaef6e",
    "v": "publ",
@@ -420,6 +1220,28 @@
    "tok": 138,
    "ptok": 541,
    "cost": 0.0001788,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-transcript-gpa": {
+   "h": "dec2498fa382",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Novita",
+   "tok": 101,
+   "ptok": 414,
+   "cost": 0.0001341,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-utility-bill": {
+   "h": "fd3b2eebc5e2",
+   "v": "priv",
+   "score": 0.4444,
+   "provider": "Novita",
+   "tok": 102,
+   "ptok": 365,
+   "cost": 0.0001259,
    "mt": 32768,
    "at": "2026-10-11"
   }

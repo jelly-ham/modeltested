@@ -1192,6 +1192,17 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "extract/extract-recipe-scaling": {
+   "h": "45ef96b3f74a",
+   "v": "priv",
+   "score": 0.9231,
+   "provider": "Poolside",
+   "tok": 151,
+   "ptok": 459,
+   "cost": 6.59e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "extract/extract-sales-footnotes": {
    "h": "daec43e801f3",
    "v": "publ",

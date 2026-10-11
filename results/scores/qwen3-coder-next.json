@@ -1,0 +1,107 @@
+{
+ "model": "qwen3-coder-next",
+ "runner_version": 1,
+ "items": {
+  "coding/code-hard-ini-parser": {
+   "h": "6a135218f939",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Parasail",
+   "tok": 1854,
+   "ptok": 401,
+   "cost": 0.0015313,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ttl-lru": {
+   "h": "5dc6bf962b41",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Parasail",
+   "tok": 820,
+   "ptok": 316,
+   "cost": 0.0006939,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-parse-duration": {
+   "h": "7d2f96c9a827",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Parasail",
+   "tok": 555,
+   "ptok": 210,
+   "cost": 0.0004692,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-slugify": {
+   "h": "ff09da2f4a43",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Parasail",
+   "tok": 415,
+   "ptok": 204,
+   "cost": 0.0003565,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-summarize-ranges": {
+   "h": "5fc14f626f2b",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Parasail",
+   "tok": 224,
+   "ptok": 161,
+   "cost": 0.0001985,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-token-bucket": {
+   "h": "d3602409587d",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Parasail",
+   "tok": 238,
+   "ptok": 189,
+   "cost": 0.0002131,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-top-customers": {
+   "h": "61620e14b107",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Parasail",
+   "tok": 704,
+   "ptok": 208,
+   "cost": 0.0005882,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "h": "96a270e00ef1",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "Parasail",
+   "brier": 0.82,
+   "tok": 59,
+   "ptok": 372,
+   "cost": 9.18e-05,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-refund-window": {
+   "h": "ebd11009bb29",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "Parasail",
+   "brier": 1.0,
+   "tok": 77,
+   "ptok": 366,
+   "cost": 0.0001055,
+   "mt": 32768,
+   "at": "2026-10-11"
+  }
+ }
+}

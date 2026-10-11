@@ -1,0 +1,51 @@
+{
+ "code-hard-ini-parser": {
+  "output": "```python\nimport re\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    def interpolate(value: str, section_name: str, sections: dict[str, dict[str, str]]) -> str:\n        def replace(match):\n            if ':' in match.group(1):\n                sect, key = match.group(1).split(':', 1)\n                if sect not in sections:\n                    raise KeyError(f\"Section '{sect}' not found\")\n                return sections[sect][key]\n            else:\n                key = match.group(1)\n                if key in sections[section_name]:\n                    return sections[section_name][key]\n                elif 'DEFAULT' in sections and key in sections['DEFAULT']:\n                    return sections['DEFAULT'][key]\n                else:\n                    raise KeyError(f\"Key '{key}' not found in section '{section_name}'\")\n        \n        while '${' in value:\n            try:\n                new_value = re.sub(r'\\$\\{([^}]+)\\}', replace, value)\n                if new_value == value:\n                    raise ValueError(\"Interpolation cycle detected\")\n                value = new_value\n            except KeyError as e:\n                raise KeyError(str(e)) from None\n        return value\n\n    lines = text.splitlines()\n    current_section = None\n    sections = {}\n    default_section = {}\n\n    for line in lines:\n        line = line.strip()\n\n        if not line or line.startswith(';') or line.startswith('#'):\n            continue\n\n        if line.startswith('[') and line.endswith(']'):\n            section_name = line[1:-1].strip()\n            if not section_name:\n                raise ValueError(\"Empty section name\")\n            current_section = section_name\n            sections[current_section] = {}\n            continue\n\n        if '=' in line or ':' in line:\n            if current_section is None:\n                raise ValueError(\"Key outside of any section\")\n\n            delimiter = '=' if '=' in line else ':'\n            key, value = line.split(delimiter, 1)\n            key = key.strip().lower()\n            value = value.strip()\n\n            if value.startswith('\"') and value.endswith('\"'):\n                value = value[1:-1]\n\n            if ' ;' in value or ' #' in value:\n                value = value[:value.find(' ;')].strip() if ' ;' in value else value[:value.find(' #')].strip()\n\n            if line.startswith(' ') or line.startswith('\\t'):\n                if key not in sections[current_section]:\n                    raise ValueError(\"Continuation line without preceding key\")\n                sections[current_section][key] += '\\n' + value\n            else:\n                sections[current_section][key] = value\n\n            if current_section != 'DEFAULT':\n                if key in default_section:\n                    sections[current_section][key] = default_section[key]\n                sections[current_section][key] = interpolate(sections[current_section][key], current_section, sections)\n\n        else:\n            raise ValueError(\"Malformed line\")\n\n    if 'DEFAULT' in sections:\n        default_section = sections.pop('DEFAULT')\n\n    for section in sections.values():\n        for key in list(section.keys()):\n            if key in default_section and key not in section:\n                section[key] = default_section[key]\n\n    return sections\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: Malformed line"
+  }
+ },
+ "code-hard-ttl-lru": {
+  "output": "```python\nfrom collections import OrderedDict\nimport time\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = OrderedDict()\n        self.stats = {\"hits\": 0, \"misses\": 0, \"evictions\": 0, \"expirations\": 0}\n\n    def _remove_expired(self):\n        now = self.clock()\n        keys_to_remove = [key for key, (_, expiry) in self.cache.items() if now >= expiry]\n        for key in keys_to_remove:\n            del self.cache[key]\n            self.stats[\"expirations\"] += 1\n\n    def put(self, key, value):\n        now = self.clock()\n        if self.capacity == 0:\n            return\n        self._remove_expired()\n        if key in self.cache:\n            del self.cache[key]\n        elif len(self.cache) >= self.capacity:\n            self.cache.popitem(last=False)\n            self.stats[\"evictions\"] += 1\n        self.cache[key] = (value, now + self.ttl)\n        self.cache.move_to_end(key)\n\n    def get(self, key, default=None):\n        now = self.clock()\n        self._remove_expired()\n        if key not in self.cache or now >= self.cache[key][1]:\n            self.stats[\"misses\"] += 1\n            return default\n        value, _ = self.cache[key]\n        self.cache.move_to_end(key)\n        self.stats[\"hits\"] += 1\n        return value\n\n    def __len__(self):\n        self._remove_expired()\n        return len(self.cache)\n\n    def stats(self):\n        return self.stats.copy()\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "TypeError: 'dict' object is not callable"
+  }
+ },
+ "code-parse-duration": {
+  "output": "```",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: invalid syntax"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters to ASCII and drop other non-ASCII characters\n    normalized_title = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii')\n    \n    # Step 2: Lowercase\n    lowercased_title = normalized_title.lower()\n    \n    # Step 3: Replace runs of non-alphanumeric characters with a single \"-\"\n    import re\n    slug = re.sub(r'[^a-z0-9]+', '-', lowercased_title).strip('-')\n    \n    # Step 4: Shorten if necessary\n    words = slug.split('-')\n    shortened_slug = ''\n    for word in words:\n        if len(shortened_slug) + len(word) + (len(shortened_slug) > 0) <= max_len:\n            shortened_slug += ('-' if shortened_slug else '') + word\n        else:\n            break\n    \n    # Step 5: Ensure the result never ends with \"-\"\n    return shortened_slug.rstrip('-')\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    sorted_nums = sorted(set(nums))\n    ranges = []\n    start = end = sorted_nums[0]\n    \n    for num in sorted_nums[1:]:\n        if num == end + 1:\n            end = num\n        else:\n            if start == end:\n                ranges.append(str(start))\n            elif start + 1 == end:\n                ranges.extend([str(start), str(end)])\n            else:\n                ranges.append(f\"{start}..{end}\")\n            start = end = num\n    \n    if start == end:\n        ranges.append(str(start))\n    elif start + 1 == end:\n        ranges.extend([str(start), str(end)])\n    else:\n        ranges.append(f\"{start}..{end}\")\n    \n    return \",\".join(ranges)\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-token-bucket": {
+  "output": "```",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: invalid syntax"
+  }
+ },
+ "code-top-customers": {
+  "output": "```",
+  "score": 0.0,
+  "detail": {
+   "error": "SyntaxError: invalid syntax"
+  }
+ }
+}

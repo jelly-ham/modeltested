@@ -1,0 +1,47 @@
+{
+ "extract-expense-thread": {
+  "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 130.00,\n  \"total_reimbursable_usd\": 2250.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+  "score": 0.9167,
+  "detail": {
+   "matched": 22,
+   "total": 24,
+   "wrong": [
+    "$.per_diem_usd",
+    "$.total_reimbursable_usd"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-hard-saas-escalator": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
+ "extract-lease-amendment": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
+ "extract-sales-footnotes": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
+ "extract-ticket-sla": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ }
+}

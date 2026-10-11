@@ -502,5 +502,41 @@
   "overall": 38.5,
   "rank": 38,
   "of": 52
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "laguna-s-2-1",
+  "name": "Laguna S 2.1",
+  "event": "added",
+  "overall": 64.2,
+  "rank": 25,
+  "of": 56
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "nex-n2-5-mini",
+  "name": "Nex-N2.5-Mini",
+  "event": "added",
+  "overall": 57.4,
+  "rank": 27,
+  "of": 56
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "qwen-2-5-72b-instruct",
+  "name": "Qwen2.5 72B Instruct",
+  "event": "added",
+  "overall": 46.0,
+  "rank": 31,
+  "of": 56
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "qwen2-5-vl-72b-instruct",
+  "name": "Qwen2.5 VL 72B Instruct",
+  "event": "added",
+  "overall": 13.6,
+  "rank": 53,
+  "of": 56
  }
 ]
