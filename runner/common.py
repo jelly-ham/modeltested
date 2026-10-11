@@ -93,7 +93,8 @@ def save_models(doc: dict) -> None:
 
 
 def runnable_models(doc: dict) -> list[dict]:
-    return [m for m in doc["models"] if m.get("status") in ("active", "auto")]
+    # "reference" models (e.g. big cloud models) are tested for comparison but never ranked as local.
+    return [m for m in doc["models"] if m.get("status") in ("active", "auto", "reference")]
 
 
 def load_scores(slug: str) -> dict:

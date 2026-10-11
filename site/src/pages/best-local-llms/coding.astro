@@ -2,7 +2,7 @@
 import Article from "../../layouts/Article.astro";
 import Leaderboard from "../../components/Leaderboard.astro";
 import TierPicks from "../../components/TierPicks.astro";
-import { data, ranked, monthYear, fmtDate, solved, nCodingTasks } from "../../lib/data";
+import { data, ranked, monthYear, fmtDate, solvedBy, codingTotal, nCodingTasks } from "../../lib/data";
 import { rankingPosts, shortDate } from "../../lib/posts";
 
 const post = rankingPosts()[1];
@@ -35,7 +35,7 @@ const toc = [
     <strong>The short version</strong>
     <ul>
       <li>
-        The best coders solved {solved(top.suites.coding?.score)} of {nTasks} jobs:
+        The best coders solved {solvedBy(top)} of {codingTotal(top)} jobs:
         {ties.slice(0, 4).map((m, i) => <>{i > 0 && ", "}<a href={`/models/${m.slug}/`} style="color: var(--blue)">{m.name}</a></>)}{ties.length > 4 && ` and ${ties.length - 4} more`}.
       </li>
       <li>The jobs are things like reading dates, cleaning up messy data and building a simple stock tracker.</li>

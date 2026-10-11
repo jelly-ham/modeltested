@@ -34,10 +34,16 @@ def model_summary(model: dict, by_suite: dict) -> dict:
             "done": len(rows), "total": len(qs),
         }
     overall = round(_mean([s["score"] for s in suites.values()]), 1) if complete else None
+    # Hard tasks: reported separately so the top of the table stays distinguishable.
+    hard_rows = [r["score"] for qs in by_suite.values() for q in qs if q.data.get("difficulty") == "hard"
+                 for r in [items.get(q.key)] if r and r.get("h") == q.hash]
+    n_hard = sum(q.data.get("difficulty") == "hard" for qs in by_suite.values() for q in qs)
+    hard = round(100 * _mean(hard_rows), 1) if n_hard and len(hard_rows) == n_hard else None
     keep = ("slug", "name", "org", "openrouter_id", "hf_id", "params_b", "active_params_b", "ollama", "license", "added")
     return {
         **{k: model.get(k) for k in keep},
         "overall": overall,
+        "hard": hard,
         "suites": suites,
         "providers": [p for p, _ in providers.most_common()],
         "memory": memory.estimate(model),
@@ -58,6 +64,16 @@ def main(args) -> None:
         by_suite.setdefault(q.suite, []).append(q)
 
     summaries = [model_summary(m, by_suite) for m in models]
+
+    # While new questions are being rolled out, a model is incomplete until it has answered them.
+    # Keep showing its last complete result (marked as updating) instead of dropping it.
+    prev_path = SITE_DATA / "leaderboard.json"
+    prev = {m["slug"]: m for m in json.loads(prev_path.read_text()).get("models", [])} if prev_path.exists() else {}
+    for i, s in enumerate(summaries):
+        if s["overall"] is None and s["slug"] in prev and not args.include_test:
+            summaries[i] = {**prev[s["slug"]], "memory": s["memory"], "updating": True}
+
+    references = [model_summary(m, by_suite) for m in doc["models"] if m.get("status") == "reference"]
     ranked = sorted([s for s in summaries if s["overall"] is not None], key=lambda s: -s["overall"])
     for i, s in enumerate(ranked, 1):
         s["rank"] = i
@@ -82,6 +98,8 @@ def main(args) -> None:
                                "quants": dict(memory.QUANTS)},
         "models": ranked,
         "pending": pending,
+        "references": [r for r in references if r["overall"] is not None],
+        "n_hard": sum(q.data.get("difficulty") == "hard" for q in questions),
         "changelog": sorted(history, key=lambda h: h["date"], reverse=True)[:50],
     })
 

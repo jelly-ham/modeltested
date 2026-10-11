@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content";
-import { data, models, ranked, family, minTiers, solved, nCodingTasks, whole, type Model } from "./data";
+import { data, models, ranked, family, minTiers, solvedBy, codingTotal, nCodingTasks, whole, type Model } from "./data";
 
 /** A cover is a small chart (or a big word) drawn from real numbers. */
 export type Cover =
@@ -50,7 +50,7 @@ function reviewPost(m: Model): Post {
   return {
     url: `/models/${m.slug}/`,
     title: `${m.name} review: ${verdict(m)}`,
-    dek: `It scored ${whole(m.overall)} out of 100, #${m.rank} of ${models.length}. It solved ${solved(c)} of ${nCodingTasks()} coding jobs and scored ${whole(d)} on reading documents. ${hardwareLine(m)}`,
+    dek: `It scored ${whole(m.overall)} out of 100, #${m.rank} of ${models.length}. It solved ${solvedBy(m)} of ${codingTotal(m)} coding jobs and scored ${whole(d)} on reading documents. ${hardwareLine(m)}`,
     date: m.added ?? data.generated,
     category: "Reviews",
     tags,
@@ -80,7 +80,7 @@ export function rankingPosts(): Post[] {
       date: data.generated,
       category: "Rankings",
       tags: ["Rankings", "Coding", "Local LLMs"],
-      cover: { kind: "cells", label: "Best coder · jobs solved", solved: solved(coders[0]?.suites.coding?.score), total: nCodingTasks() },
+      cover: { kind: "cells", label: "Best coder · jobs solved", solved: solvedBy(coders[0]), total: codingTotal(coders[0]) },
       order: 1,
     },
   ];

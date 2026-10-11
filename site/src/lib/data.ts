@@ -6,6 +6,8 @@ export const REPO_URL = "https://github.com/jelly-ham/modeltested";
 
 export type SuiteScore = { score: number | null; public: number | null; private: number | null; done: number; total: number };
 export type Model = {
+  hard?: number | null;
+  updating?: boolean;
   slug: string;
   name: string;
   org: string | null;
@@ -31,6 +33,8 @@ export const data = board as unknown as {
   memory_assumptions: { context: number; overhead_gb: number; quants: Record<string, number> };
   models: Model[];
   pending: string[];
+  references?: Model[];
+  n_hard?: number;
   changelog: { date: string; slug: string; name: string; event: string; overall: number; rank: number; of: number }[];
 };
 
@@ -96,7 +100,8 @@ export const whole = (x: number | null | undefined) => (x == null ? "?" : String
 
 /** "extract-expense-thread" -> "Expense thread" */
 export function questionTitle(id: string): string {
-  const t = id.replace(/^(code|extract)-/, "").replace(/-/g, " ").replace(/\bsla\b/g, "SLA");
+  const hard = /^(code|extract)-hard-/.test(id);
+  const t = id.replace(/^(code|extract)-(hard-)?/, "").replace(/-/g, " ").replace(/\bsla\b/g, "SLA").replace(/\b(ini|lru|ttl|json|csv)\b/gi, (w) => w.toUpperCase()) + (hard ? " (hard)" : "");
   return t.charAt(0).toUpperCase() + t.slice(1);
 }
 
@@ -118,5 +123,6 @@ export const nCodingTasks = () => {
   const s = data.suites.find((x) => x.id === "coding");
   return s ? s.n_public + s.n_private : 0;
 };
-/** Coding score (percent) -> jobs solved. */
-export const solved = (codingScore: number | null | undefined) => Math.round(((codingScore ?? 0) / 100) * nCodingTasks());
+/** Coding jobs a model was scored on (older results may cover fewer jobs than the current test). */
+export const codingTotal = (m: Model) => m.suites.coding?.total ?? nCodingTasks();
+export const solvedBy = (m: Model) => Math.round(((m.suites.coding?.score ?? 0) / 100) * codingTotal(m));

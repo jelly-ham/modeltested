@@ -1,7 +1,7 @@
 ---
 import Article from "../../layouts/Article.astro";
 import PostCard from "../../components/PostCard.astro";
-import { data, models, tiers, size, whole, suiteLabel, quantLabel, questionTitle, orgName, solved, nCodingTasks, ranked, type Model } from "../../lib/data";
+import { data, models, tiers, size, whole, suiteLabel, quantLabel, questionTitle, orgName, solvedBy, codingTotal, nCodingTasks, ranked, type Model } from "../../lib/data";
 import { allPosts, verdict, hardwareLine, slugTag, shortDate } from "../../lib/posts";
 import publicQs from "../../data/public-questions.json";
 
@@ -68,7 +68,7 @@ const jsonLd = [{
     <strong>The short version</strong>
     <ul>
       <li>{model.name} is a free model{model.org && ` from ${orgName(model.org)}`} that you can run on your own computer. In our tests it's {verdict(model)}: {whole(model.overall)} out of 100, #{model.rank} of {models.length}.</li>
-      <li>It solved {solved(c)} of {nTasks} coding jobs and scored {whole(d)} on reading documents.</li>
+      <li>It solved {solvedBy(model)} of {codingTotal(model)} coding jobs and scored {whole(d)} on reading documents.{model.hard != null && ` On our hardest tasks it scored ${whole(model.hard)}.`}</li>
       <li>{hardwareLine(model)}</li>
     </ul>
   </div>
@@ -76,12 +76,12 @@ const jsonLd = [{
   <div class="prose">
     <h2 id="coding">Coding</h2>
     <p>
-      Our coding test is {nTasks} small programming jobs, like reading time durations, cleaning up messy data and building a simple
-      stock tracker. We run each answer against tests the model never sees, and a job only counts if everything passes.
-      {model.name} got {solved(c)} of them right.
+      Our coding test is {nTasks} programming jobs, from small ones like reading time durations or cleaning up messy data to harder
+      ones like a config-file parser or a double-entry ledger. We run each answer against tests the model never sees, and a job only
+      counts if everything passes. {model.name} got {solvedBy(model)} of {codingTotal(model)} right.
       {coder.slug === model.slug || coder.suites.coding?.score === c
         ? " That's as good as any model we've tested."
-        : ` The best local coders solved ${solved(coder.suites.coding?.score)}.`}
+        : ` The best local coders solved ${solvedBy(coder)} of ${codingTotal(coder)}.`}
     </p>
 
     <h2 id="documents">Reading documents</h2>
@@ -102,6 +102,8 @@ const jsonLd = [{
       </tbody>
     </table>
   </div>
+  {model.hard != null && <p class="sub">On the {data.n_hard} hardest tasks (included in the scores above) it scored <b>{whole(model.hard)}</b>. This number separates the top models.</p>}
+  {model.updating && <p class="sub">We added new, harder questions. These results are from before; updated scores are on the way.</p>}
   {data.suites.some((s) => gap(model.suites[s.id]) > 15) && (
     <p class="sub">This model did much better on our public questions than on the secret ones. Sometimes that's luck; it can also mean the model has seen the public questions before.</p>
   )}

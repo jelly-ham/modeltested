@@ -37,6 +37,12 @@ const toc = [
     <ul>
       {data.suites.map((s) => <li><strong>{s.name}</strong>: {s.description} {s.n_public + s.n_private} tasks, {s.n_public} of them public.</li>)}
     </ul>
+    <p>
+      {data.n_hard} of the tasks are marked <strong>hard</strong>: longer specs with more rules and edge cases (parsers, a ledger,
+      a cron scheduler) and longer documents that need several steps of reasoning (contract pricing, family deductibles, payroll,
+      project schedules). They count toward the coding and document scores like any other task, and we also report the hard-task
+      average on its own, because the best models already score in the high 90s on the standard tasks.
+    </p>
     <h3>Coding</h3>
     <p>
       Each task is a precise spec for a Python function or class. We take the model's code, append our unit tests and run it in a

@@ -255,6 +255,20 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "mistral-large-4",
+      "name": "Mistral Large 4 (Le Chonk)",
+      "status": "reference",
+      "openrouter_id": "mistralai/mistral-large-4-0",
+      "hf_id": null,
+      "org": "mistralai",
+      "params_b": 1050,
+      "active_params_b": 49,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-11",
+      "note": "Cloud reference model: ~1T parameters, not runnable on home hardware; never ranked as a local model."
+    },
+    {
       "slug": "mistral-nemo",
       "name": "Mistral Nemo",
       "status": "active",
@@ -814,7 +828,6 @@
     "mistralai/mistral-large": "no open weights linked",
     "mistralai/mistral-large-2407": "no open weights linked",
     "mistralai/mistral-large-2512": "no open weights linked",
-    "mistralai/mistral-large-4-0": "no open weights linked",
     "mistralai/mistral-medium-3": "no open weights linked",
     "mistralai/mistral-medium-3-5": "no open weights linked",
     "mistralai/mistral-medium-3.1": "no open weights linked",

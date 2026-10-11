@@ -5,6 +5,7 @@ interface Props { by: string }
 const { by } = Astro.props;
 const rows = ranked(by);
 const suiteCols = by === "overall" ? data.suites : data.suites.filter((s) => s.id === by);
+const showHard = by === "overall" && rows.some((m) => m.hard != null);
 ---
 <div class="table-box" style="font-family: var(--sans)">
   <table style="min-width: 760px">
@@ -14,6 +15,7 @@ const suiteCols = by === "overall" ? data.suites : data.suites.filter((s) => s.i
         <th>Model</th>
         {by === "overall" && <th class="num">Score</th>}
         {suiteCols.map((s) => <th class="num">{suiteLabel(s.id).short}</th>)}
+        {showHard && <th class="num">Hard tasks</th>}
         <th>Runs on (PC)</th>
         <th>Runs on (Mac)</th>
       </tr>
@@ -25,7 +27,7 @@ const suiteCols = by === "overall" ? data.suites : data.suites.filter((s) => s.i
         return (
           <tr>
             <td class="num" style="color: var(--faint)">{i + 1}</td>
-            <td><a href={`/models/${m.slug}/`} style="font-weight: 600">{m.name}</a><div class="sub" style="font-size: 13px">{size(m)}{m.ollama && <> · <code>{m.ollama}</code></>}</div></td>
+            <td><a href={`/models/${m.slug}/`} style="font-weight: 600">{m.name}</a>{m.updating && <span class="sub" style="font-size: 12px"> · updating</span>}<div class="sub" style="font-size: 13px">{size(m)}{m.ollama && <> · <code>{m.ollama}</code></>}</div></td>
             {by === "overall" && (
               <td class="num">
                 <span style="display: inline-flex; align-items: center; gap: 10px; justify-content: flex-end">
@@ -35,6 +37,7 @@ const suiteCols = by === "overall" ? data.suites : data.suites.filter((s) => s.i
               </td>
             )}
             {suiteCols.map((s) => <td class="num">{whole(m.suites[s.id]?.score)}</td>)}
+            {showHard && <td class="num">{m.hard == null ? <span class="sub">–</span> : whole(m.hard)}</td>}
             <td style="white-space: nowrap">{t.gpu ? `${t.gpu.gb} GB card (${quantLabel(m.memory!.best_quant_by_tier[t.gpu.id])})` : <span class="sub">more than 32 GB</span>}</td>
             <td style="white-space: nowrap">{t.mac ? `${t.mac.gb} GB Mac (${quantLabel(m.memory!.best_quant_by_tier[t.mac.id])})` : <span class="sub">more than 64 GB</span>}</td>
           </tr>
