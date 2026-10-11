@@ -349,5 +349,23 @@
   "overall": 17.8,
   "rank": 34,
   "of": 35
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "granite-4-0-h-micro-mac",
+  "name": "Granite 4.0 Micro (Q4, Mac)",
+  "event": "added",
+  "overall": 22.2,
+  "rank": 32,
+  "of": 37
+ },
+ {
+  "date": "2026-10-11",
+  "slug": "llama-3-2-1b-q4-mac",
+  "name": "Llama 3.2 1B Instruct (Q4, Mac)",
+  "event": "added",
+  "overall": 4.7,
+  "rank": 37,
+  "of": 37
  }
 ]

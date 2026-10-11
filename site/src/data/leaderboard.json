@@ -2270,6 +2270,71 @@
    "rank": 31
   },
   {
+   "slug": "granite-4-0-h-micro-mac",
+   "name": "Granite 4.0 Micro (Q4, Mac)",
+   "org": "ibm-granite",
+   "openrouter_id": null,
+   "hf_id": "ibm-granite/granite-4.0-h-micro",
+   "params_b": 3.19,
+   "active_params_b": null,
+   "ollama": "granite4:micro-h",
+   "license": null,
+   "added": "2026-10-11",
+   "kind": null,
+   "status": "local",
+   "base": "granite-4-0-h-micro",
+   "quant": "Q4_K_M",
+   "overall": 22.2,
+   "hard": 14.1,
+   "suites": {
+    "coding": {
+     "score": 13.3,
+     "public": 0.0,
+     "private": 17.4,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 29.7,
+     "public": 12.5,
+     "private": 34.5,
+     "done": 37,
+     "total": 37,
+     "calibration": 33.6
+    },
+    "extract": {
+     "score": 31.1,
+     "public": 41.2,
+     "private": 28.4,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "providers": [
+    "ollama/Q4_K_M"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 0.67,
+    "need_gb": {
+     "Q4_K_M": 3.2
+    },
+    "best_quant_by_tier": {
+     "gpu-8": "Q4_K_M",
+     "gpu-12": "Q4_K_M",
+     "gpu-16": "Q4_K_M",
+     "gpu-24": "Q4_K_M",
+     "gpu-32": "Q4_K_M",
+     "mac-16": "Q4_K_M",
+     "mac-24": "Q4_K_M",
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q4_K_M",
+     "mac-64": "Q4_K_M"
+    }
+   },
+   "rank": 32
+  },
+  {
    "slug": "ministral-3b-2512",
    "name": "Ministral 3 3B 2512",
    "org": "mistralai",
@@ -2335,7 +2400,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 32
+   "rank": 33
   },
   {
    "slug": "llama-3-1-8b-instruct",
@@ -2405,7 +2470,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 33
+   "rank": 34
   },
   {
    "slug": "gemma-3-4b-it",
@@ -2473,7 +2538,7 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 34
+   "rank": 35
   },
   {
    "slug": "llama-3-2-3b-instruct",
@@ -2541,7 +2606,72 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 35
+   "rank": 36
+  },
+  {
+   "slug": "llama-3-2-1b-q4-mac",
+   "name": "Llama 3.2 1B Instruct (Q4, Mac)",
+   "org": "meta-llama",
+   "openrouter_id": null,
+   "hf_id": "meta-llama/Llama-3.2-1B-Instruct",
+   "params_b": 1.24,
+   "active_params_b": null,
+   "ollama": "llama3.2:1b-instruct-q4_K_M",
+   "license": null,
+   "added": "2026-10-11",
+   "kind": null,
+   "status": "local",
+   "base": "llama-3-2-1b-instruct",
+   "quant": "Q4_K_M",
+   "overall": 4.7,
+   "hard": 2.7,
+   "suites": {
+    "coding": {
+     "score": 0.0,
+     "public": 0.0,
+     "private": 0.0,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 0.0,
+     "public": 0.0,
+     "private": 0.0,
+     "done": 37,
+     "total": 37,
+     "calibration": 1.8
+    },
+    "extract": {
+     "score": 9.3,
+     "public": 16.7,
+     "private": 7.4,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "providers": [
+    "ollama/Q4_K_M"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 0.5,
+    "need_gb": {
+     "Q4_K_M": 1.9
+    },
+    "best_quant_by_tier": {
+     "gpu-8": "Q4_K_M",
+     "gpu-12": "Q4_K_M",
+     "gpu-16": "Q4_K_M",
+     "gpu-24": "Q4_K_M",
+     "gpu-32": "Q4_K_M",
+     "mac-16": "Q4_K_M",
+     "mac-24": "Q4_K_M",
+     "mac-32": "Q4_K_M",
+     "mac-48": "Q4_K_M",
+     "mac-64": "Q4_K_M"
+    }
+   },
+   "rank": 37
   }
  ],
  "pending": [],
@@ -2614,7 +2744,185 @@
    }
   }
  ],
- "quantized": [],
+ "quantized": [
+  {
+   "slug": "gemma-3-4b-q4-mac",
+   "name": "Gemma 3 4B (Q4, Mac)",
+   "base": "gemma-3-4b-it",
+   "quant": "Q4_K_M",
+   "overall": 13.3,
+   "hard": 7.9,
+   "suites": {
+    "coding": {
+     "score": 0.0,
+     "public": 0.0,
+     "private": 0.0,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 59.5,
+     "public": 68.8,
+     "private": 56.9,
+     "done": 37,
+     "total": 37,
+     "calibration": 65.3
+    },
+    "extract": {
+     "score": 26.7,
+     "public": 39.4,
+     "private": 23.4,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "base_overall": 14.2,
+   "base_hard": 6.3,
+   "base_suites": {
+    "coding": {
+     "score": 3.3,
+     "public": 0.0,
+     "private": 4.3,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 71.6,
+     "public": 68.8,
+     "private": 72.4,
+     "done": 37,
+     "total": 37,
+     "calibration": 77.0
+    },
+    "extract": {
+     "score": 25.1,
+     "public": 40.3,
+     "private": 21.1,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "delta": -0.9
+  },
+  {
+   "slug": "llama-3-1-8b-q4-mac",
+   "name": "Llama 3.1 8B Instruct (Q4, Mac)",
+   "base": "llama-3-1-8b-instruct",
+   "quant": "Q4_K_M",
+   "overall": 14.2,
+   "hard": 7.2,
+   "suites": {
+    "coding": {
+     "score": 0.0,
+     "public": 0.0,
+     "private": 0.0,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 51.8,
+     "public": 39.6,
+     "private": 55.2,
+     "done": 37,
+     "total": 37,
+     "calibration": 59.6
+    },
+    "extract": {
+     "score": 28.3,
+     "public": 33.9,
+     "private": 26.9,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "base_overall": 14.8,
+   "base_hard": 3.4,
+   "base_suites": {
+    "coding": {
+     "score": 3.3,
+     "public": 0.0,
+     "private": 4.3,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 76.1,
+     "public": 77.1,
+     "private": 75.9,
+     "done": 37,
+     "total": 37,
+     "calibration": 78.9
+    },
+    "extract": {
+     "score": 26.2,
+     "public": 42.6,
+     "private": 21.9,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "delta": -0.6
+  },
+  {
+   "slug": "qwen-2-5-7b-q4-mac",
+   "name": "Qwen2.5 7B Instruct (Q4, Mac)",
+   "base": "qwen-2-5-7b-instruct",
+   "quant": "Q4_K_M",
+   "overall": 23.8,
+   "hard": 9.1,
+   "suites": {
+    "coding": {
+     "score": 13.3,
+     "public": 14.3,
+     "private": 13.0,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 83.8,
+     "public": 87.5,
+     "private": 82.8,
+     "done": 37,
+     "total": 37,
+     "calibration": 84.5
+    },
+    "extract": {
+     "score": 34.3,
+     "public": 56.2,
+     "private": 28.6,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "base_overall": 23.7,
+   "base_hard": 11.4,
+   "base_suites": {
+    "coding": {
+     "score": 10.0,
+     "public": 0.0,
+     "private": 13.0,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 75.7,
+     "public": 87.5,
+     "private": 72.4,
+     "done": 37,
+     "total": 37,
+     "calibration": 80.6
+    },
+    "extract": {
+     "score": 37.4,
+     "public": 57.4,
+     "private": 32.1,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "delta": 0.1
+  }
+ ],
  "decisions": [
   {
    "slug": "qwen3-5-27b",
@@ -3143,6 +3451,28 @@
    "calibration": 54.1,
    "openrouter_id": "meta-llama/llama-3.2-3b-instruct",
    "rank": 48
+  },
+  {
+   "slug": "granite-4-0-h-micro-mac",
+   "name": "Granite 4.0 Micro (Q4, Mac)",
+   "org": "ibm-granite",
+   "kind": "local",
+   "params_b": 3.19,
+   "accuracy": 29.7,
+   "calibration": 33.6,
+   "openrouter_id": null,
+   "rank": 49
+  },
+  {
+   "slug": "llama-3-2-1b-q4-mac",
+   "name": "Llama 3.2 1B Instruct (Q4, Mac)",
+   "org": "meta-llama",
+   "kind": "local",
+   "params_b": 1.24,
+   "accuracy": 0.0,
+   "calibration": 1.8,
+   "openrouter_id": null,
+   "rank": 50
   }
  ],
  "n_hard": 18,
@@ -3218,6 +3548,24 @@
    "overall": 17.8,
    "rank": 34,
    "of": 35
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "granite-4-0-h-micro-mac",
+   "name": "Granite 4.0 Micro (Q4, Mac)",
+   "event": "added",
+   "overall": 22.2,
+   "rank": 32,
+   "of": 37
+  },
+  {
+   "date": "2026-10-11",
+   "slug": "llama-3-2-1b-q4-mac",
+   "name": "Llama 3.2 1B Instruct (Q4, Mac)",
+   "event": "added",
+   "overall": 4.7,
+   "rank": 37,
+   "of": 37
   },
   {
    "date": "2026-10-10",

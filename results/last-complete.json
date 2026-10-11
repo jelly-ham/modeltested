@@ -183,6 +183,51 @@
    "DeepInfra"
   ]
  },
+ "gemma-3-4b-q4-mac": {
+  "slug": "gemma-3-4b-q4-mac",
+  "name": "Gemma 3 4B (Q4, Mac)",
+  "org": "google",
+  "openrouter_id": null,
+  "hf_id": "google/gemma-3-4b-it",
+  "params_b": 4.3,
+  "active_params_b": null,
+  "ollama": "gemma3:4b-it-q4_K_M",
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "local",
+  "base": "gemma-3-4b-it",
+  "quant": "Q4_K_M",
+  "overall": 13.3,
+  "hard": 7.9,
+  "suites": {
+   "coding": {
+    "score": 0.0,
+    "public": 0.0,
+    "private": 0.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 59.5,
+    "public": 68.8,
+    "private": 56.9,
+    "done": 37,
+    "total": 37,
+    "calibration": 65.3
+   },
+   "extract": {
+    "score": 26.7,
+    "public": 39.4,
+    "private": 23.4,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "ollama/Q4_K_M"
+  ]
+ },
  "gemma-4-26b-a4b-it": {
   "slug": "gemma-4-26b-a4b-it",
   "name": "Gemma 4 26B A4B ",
@@ -379,6 +424,51 @@
    "SiliconFlow"
   ]
  },
+ "granite-4-0-h-micro-mac": {
+  "slug": "granite-4-0-h-micro-mac",
+  "name": "Granite 4.0 Micro (Q4, Mac)",
+  "org": "ibm-granite",
+  "openrouter_id": null,
+  "hf_id": "ibm-granite/granite-4.0-h-micro",
+  "params_b": 3.19,
+  "active_params_b": null,
+  "ollama": "granite4:micro-h",
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "local",
+  "base": "granite-4-0-h-micro",
+  "quant": "Q4_K_M",
+  "overall": 22.2,
+  "hard": 14.1,
+  "suites": {
+   "coding": {
+    "score": 13.3,
+    "public": 0.0,
+    "private": 17.4,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 29.7,
+    "public": 12.5,
+    "private": 34.5,
+    "done": 37,
+    "total": 37,
+    "calibration": 33.6
+   },
+   "extract": {
+    "score": 31.1,
+    "public": 41.2,
+    "private": 28.4,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "ollama/Q4_K_M"
+  ]
+ },
  "granite-4-2-8b": {
   "slug": "granite-4-2-8b",
   "name": "Granite 4.2 8B",
@@ -470,6 +560,96 @@
    "CoreWeave",
    "DeepInfra",
    "Novita"
+  ]
+ },
+ "llama-3-1-8b-q4-mac": {
+  "slug": "llama-3-1-8b-q4-mac",
+  "name": "Llama 3.1 8B Instruct (Q4, Mac)",
+  "org": "meta-llama",
+  "openrouter_id": null,
+  "hf_id": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+  "params_b": 8.03,
+  "active_params_b": null,
+  "ollama": "llama3.1:8b-instruct-q4_K_M",
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "local",
+  "base": "llama-3-1-8b-instruct",
+  "quant": "Q4_K_M",
+  "overall": 14.2,
+  "hard": 7.2,
+  "suites": {
+   "coding": {
+    "score": 0.0,
+    "public": 0.0,
+    "private": 0.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 51.8,
+    "public": 39.6,
+    "private": 55.2,
+    "done": 37,
+    "total": 37,
+    "calibration": 59.6
+   },
+   "extract": {
+    "score": 28.3,
+    "public": 33.9,
+    "private": 26.9,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "ollama/Q4_K_M"
+  ]
+ },
+ "llama-3-2-1b-q4-mac": {
+  "slug": "llama-3-2-1b-q4-mac",
+  "name": "Llama 3.2 1B Instruct (Q4, Mac)",
+  "org": "meta-llama",
+  "openrouter_id": null,
+  "hf_id": "meta-llama/Llama-3.2-1B-Instruct",
+  "params_b": 1.24,
+  "active_params_b": null,
+  "ollama": "llama3.2:1b-instruct-q4_K_M",
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "local",
+  "base": "llama-3-2-1b-instruct",
+  "quant": "Q4_K_M",
+  "overall": 4.7,
+  "hard": 2.7,
+  "suites": {
+   "coding": {
+    "score": 0.0,
+    "public": 0.0,
+    "private": 0.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 0.0,
+    "public": 0.0,
+    "private": 0.0,
+    "done": 37,
+    "total": 37,
+    "calibration": 1.8
+   },
+   "extract": {
+    "score": 9.3,
+    "public": 16.7,
+    "private": 7.4,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "ollama/Q4_K_M"
   ]
  },
  "llama-3-2-3b-instruct": {
@@ -971,6 +1151,51 @@
   },
   "providers": [
    "Phala"
+  ]
+ },
+ "qwen-2-5-7b-q4-mac": {
+  "slug": "qwen-2-5-7b-q4-mac",
+  "name": "Qwen2.5 7B Instruct (Q4, Mac)",
+  "org": "qwen",
+  "openrouter_id": null,
+  "hf_id": "Qwen/Qwen2.5-7B-Instruct",
+  "params_b": 7.62,
+  "active_params_b": null,
+  "ollama": "qwen2.5:7b-instruct-q4_K_M",
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "local",
+  "base": "qwen-2-5-7b-instruct",
+  "quant": "Q4_K_M",
+  "overall": 23.8,
+  "hard": 9.1,
+  "suites": {
+   "coding": {
+    "score": 13.3,
+    "public": 14.3,
+    "private": 13.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 83.8,
+    "public": 87.5,
+    "private": 82.8,
+    "done": 37,
+    "total": 37,
+    "calibration": 84.5
+   },
+   "extract": {
+    "score": 34.3,
+    "public": 56.2,
+    "private": 28.6,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "ollama/Q4_K_M"
   ]
  },
  "qwen3-14b": {
