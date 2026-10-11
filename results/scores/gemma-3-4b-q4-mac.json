@@ -1,0 +1,771 @@
+{
+ "model": "gemma-3-4b-q4-mac",
+ "runner_version": 1,
+ "items": {
+  "coding/code-business-day": {
+   "h": "6edd0827fd3a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-cron-matches": {
+   "h": "3d42429ae11d",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-dedupe-emails": {
+   "h": "286981be824d",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-diff-dicts": {
+   "h": "23e48c290b3c",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-evaluate-expr": {
+   "h": "9645efdf07a9",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-bool-expr": {
+   "h": "a84a25915d0e",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-csv-parser": {
+   "h": "78842db66786",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ini-parser": {
+   "h": "6a135218f939",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-json-path": {
+   "h": "4b7ca7bd11df",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ledger": {
+   "h": "a48727466d95",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-meeting-slots": {
+   "h": "0def4e647232",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-next-cron": {
+   "h": "dd8445a3ed3c",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-normalize-path": {
+   "h": "78e2f4f44780",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-rate-limiter-log": {
+   "h": "bf48840ef5f8",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-hard-ttl-lru": {
+   "h": "5dc6bf962b41",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-inventory": {
+   "h": "50c4fef1ef24",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-mask-secrets": {
+   "h": "0b802cf0137a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-money-split": {
+   "h": "aa121a0efaa6",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-paginate": {
+   "h": "6d0e58ddd5b7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-parse-duration": {
+   "h": "7d2f96c9a827",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-parse-query": {
+   "h": "c758323f80cf",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-search-index": {
+   "h": "3fc4c534a420",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-slugify": {
+   "h": "ff09da2f4a43",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-sort-versions": {
+   "h": "e34aa61843e7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-summarize-logs": {
+   "h": "712019075476",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-summarize-ranges": {
+   "h": "5fc14f626f2b",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-token-bucket": {
+   "h": "d3602409587d",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-top-customers": {
+   "h": "61620e14b107",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-topo-sort": {
+   "h": "3abb90497cc4",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "coding/code-wrap-text": {
+   "h": "b079bee015b9",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-churn-threat": {
+   "h": "d6335aa9dc79",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.53,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-code-review-auth": {
+   "h": "23453bb85f69",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.54,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-compliance-returns": {
+   "h": "0a4dcd13b9e5",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.9599,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-criticism-not-hate": {
+   "h": "0a90865e89ae",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0116,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-bank-overdrawn": {
+   "h": "8603b122a7d1",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0227,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-contract-autorenew": {
+   "h": "611b0ee529a3",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.01,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "h": "caa2741573fc",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.001,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-resume": {
+   "h": "f02928ab84f6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0017,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-duplicate-ticket": {
+   "h": "c9625a8d1dfd",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 2.0,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-gdpr-erasure": {
+   "h": "71059f428f66",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0801,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-incident-docs": {
+   "h": "4c63e3a29e86",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 1.9019,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-incident-payments": {
+   "h": "2536c0ad4a10",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.595,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-intent-upgrade": {
+   "h": "d9a0553519c7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0151,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-language-shipping": {
+   "h": "a620e343f0e7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0995,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-loan-dti": {
+   "h": "7b196804131f",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 1.7175,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "h": "5301594c3843",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.7892,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-negated-billing": {
+   "h": "07fe2078d376",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0062,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-password-reset-no-rush": {
+   "h": "41b8d2f2f1b3",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.53,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-legit-newsletter": {
+   "h": "5f9846221479",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0026,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-mailbox-full": {
+   "h": "888daa8ba685",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.48,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-paypal": {
+   "h": "3483ab984a02",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.48,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-card": {
+   "h": "a5f51b6888c1",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.942,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-contact-only": {
+   "h": "78e062b32aee",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 1.1859,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-health": {
+   "h": "2202c616180c",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.2502,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "h": "2285b10e744d",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.9323,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "h": "655c40f0c349",
+   "v": "publ",
+   "score": 0.3333,
+   "provider": "ollama/Q4_K_M",
+   "brier": 1.3389,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-review-mixed": {
+   "h": "9e41737cefd0",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0467,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-review-sarcasm": {
+   "h": "c54f7879f164",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.02,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-calculator": {
+   "h": "fecbfc72964a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 2.0,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-calendar": {
+   "h": "cb843c555d6c",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.0156,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-email": {
+   "h": "0cc2c5dfb624",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 1.0481,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-none": {
+   "h": "83d5627c2104",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.092,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-search": {
+   "h": "c4689a70b581",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 2.0,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-screening-work-auth": {
+   "h": "b2a2a46cb642",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 2.0,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-self-harm-signal": {
+   "h": "6dedfd528895",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "brier": 1.6925,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-spam-followers": {
+   "h": "91bbd39166b5",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.9599,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-support-checkout-down": {
+   "h": "5d379850ce99",
+   "v": "publ",
+   "score": 0.6667,
+   "provider": "ollama/Q4_K_M",
+   "brier": 0.3583,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-event-registrations": {
+   "h": "3199f1c4131a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-expense-thread": {
+   "h": "b5a830bf8bd2",
+   "v": "publ",
+   "score": 0.6667,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-family-deductible": {
+   "h": "81246a09d54a",
+   "v": "priv",
+   "score": 0.2,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-mortgage-extra": {
+   "h": "e93b750776b8",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-payroll-holiday": {
+   "h": "16a2289e0d2e",
+   "v": "priv",
+   "score": 0.1111,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-project-schedule": {
+   "h": "e41939ede116",
+   "v": "priv",
+   "score": 0.2,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-quarterly-results": {
+   "h": "8d4ee12aa753",
+   "v": "priv",
+   "score": 0.125,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "h": "95f3efe03d45",
+   "v": "publ",
+   "score": 0.1,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-three-way-match": {
+   "h": "1388e321b606",
+   "v": "priv",
+   "score": 0.2222,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-hard-travel-per-diem": {
+   "h": "155ca1fed4af",
+   "v": "priv",
+   "score": 0.4706,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-insurance-eob": {
+   "h": "e116049aa384",
+   "v": "priv",
+   "score": 0.3636,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-inventory-reorder": {
+   "h": "67392cb27d86",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-itinerary-timezones": {
+   "h": "805b94273c69",
+   "v": "priv",
+   "score": 0.2,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-lease-amendment": {
+   "h": "9d0a9ed11a7c",
+   "v": "publ",
+   "score": 0.6667,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-meeting-actions": {
+   "h": "0d64413c903c",
+   "v": "priv",
+   "score": 0.25,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-offer-comparison": {
+   "h": "3f8df5d67fa0",
+   "v": "priv",
+   "score": 0.5556,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-paystub": {
+   "h": "8080cef4eb78",
+   "v": "priv",
+   "score": 0.25,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-recipe-scaling": {
+   "h": "45ef96b3f74a",
+   "v": "priv",
+   "score": 0.0769,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-sales-footnotes": {
+   "h": "daec43e801f3",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-shift-schedule": {
+   "h": "2d7d94844072",
+   "v": "priv",
+   "score": 0.1818,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-subscription-renewal": {
+   "h": "dcb8138bce39",
+   "v": "priv",
+   "score": 0.4,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-ticket-sla": {
+   "h": "cbe5fabaef6e",
+   "v": "publ",
+   "score": 0.5385,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-transcript-gpa": {
+   "h": "dec2498fa382",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "extract/extract-utility-bill": {
+   "h": "fd3b2eebc5e2",
+   "v": "priv",
+   "score": 0.3333,
+   "provider": "ollama/Q4_K_M",
+   "mt": 32768,
+   "at": "2026-10-11"
+  }
+ }
+}

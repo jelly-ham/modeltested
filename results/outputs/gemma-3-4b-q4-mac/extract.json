@@ -1,0 +1,81 @@
+{
+ "extract-expense-thread": {
+  "output": "```json\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"LIS\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 36.00\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 212.40\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 432.00\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 41.50\n    }\n  ],\n  \"rejected_item_count\": 0,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 215.00,\n  \"total_reimbursable_usd\": 2453.50,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}\n```",
+  "score": 0.6667,
+  "detail": {
+   "matched": 16,
+   "total": 24,
+   "wrong": [
+    "$.approved_items[1].amount_usd",
+    "$.approved_items[2].amount_usd",
+    "$.approved_items[3].amount_usd",
+    "$.approved_items[4].amount_usd",
+    "$.destination_city",
+    "$.per_diem_usd",
+    "$.rejected_item_count",
+    "$.total_reimbursable_usd"
+   ],
+   "bare_json": false
+  }
+ },
+ "extract-hard-saas-escalator": {
+  "output": "```json\n{\n  \"year2_price_per_seat_month\": 45.00,\n  \"year3_price_per_seat_month\": 49.00,\n  \"year1_invoice\": 5400.00,\n  \"year2_invoice\": 5670.00,\n  \"addon_months_billed\": 160,\n  \"addon_invoice\": 7560.00,\n  \"year3_invoice\": 5670.00,\n  \"year3_discount_percent\": 0.15,\n  \"total_contract_value\": 18900.00,\n  \"contract_end_date\": \"2027-02-28\"\n}\n```",
+  "score": 0.1,
+  "detail": {
+   "matched": 1,
+   "total": 10,
+   "wrong": [
+    "$.addon_invoice",
+    "$.addon_months_billed",
+    "$.total_contract_value",
+    "$.year1_invoice",
+    "$.year2_invoice",
+    "$.year2_price_per_seat_month",
+    "$.year3_discount_percent",
+    "$.year3_invoice",
+    "$.year3_price_per_seat_month"
+   ],
+   "bare_json": false
+  }
+ },
+ "extract-lease-amendment": {
+  "output": "```json\n{\n  \"tenants\": [\n    \"Marcus Lin\",\n    \"Sofia Lin\"\n  ],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2295.00,\n  \"late_fee_from_2025_06_01\": 108.75,\n  \"security_deposit\": 2150.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2303.75,\n  \"move_in_payment\": 4300.00\n}\n```",
+  "score": 0.6667,
+  "detail": {
+   "matched": 8,
+   "total": 12,
+   "wrong": [
+    "$.late_fee_from_2025_06_01",
+    "$.monthly_rent_from_2025_06_01",
+    "$.move_in_payment",
+    "$.total_monthly_payment_july_2025"
+   ],
+   "bare_json": false
+  }
+ },
+ "extract-sales-footnotes": {
+  "output": "```json\n{\n  \"q3_total_usd\": 14,708,\n  \"q2_total_usd\": 11,862,\n  \"q2_central_originally_reported_usd\": 3047,\n  \"q2_to_q3_change_pct\": 27.6,\n  \"top_region_q3\": \"West\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\n    \"Central\"\n  ],\n  \"international_q3_organic_usd\": 1951,\n  \"west_excluding_mountain_q3_usd\": 4200\n}\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
+ "extract-ticket-sla": {
+  "output": "```json\n{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\n    \"billing_address\",\n    \"invoice_pdf\"\n  ],\n  \"affected_orders\": [\n    \"SO-99812\",\n    \"SO-99815\",\n    \"SO-99820\",\n    \"SO-99827\"\n  ],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-19T09:00:00 America/Chicago\",\n  \"sla_due_utc\": \"2025-09-19T09:00:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}\n```",
+  "score": 0.5385,
+  "detail": {
+   "matched": 7,
+   "total": 13,
+   "wrong": [
+    "$.affected_orders[1]",
+    "$.affected_orders[2]",
+    "$.affected_orders[3]",
+    "$.resolved_issues[1]",
+    "$.sla_due_local",
+    "$.sla_due_utc"
+   ],
+   "bare_json": false
+  }
+ }
+}

@@ -1,0 +1,93 @@
+{
+ "decide-doc-invoice-missing-due": {
+  "output": "```json\n{\n  \"doc_type\": {\n    \"invoice\": 0.99,\n    \"resume\": 0.01,\n    \"contract\": 0.01,\n    \"bank_statement\": 0.01,\n    \"other\": 0.01\n  },\n  \"missing_due_date\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.001,
+   "picks": {
+    "doc_type": "invoice",
+    "missing_due_date": "true"
+   }
+  }
+ },
+ "decide-moderation-doxxing": {
+  "output": "```json\n{\n  \"policy\": {\n    \"none\": 0.85,\n    \"harassment\": 0.10,\n    \"hate\": 0.02,\n    \"spam\": 0.01,\n    \"self_harm\": 0.02\n  },\n  \"personal_info\": {\n    \"true\": 0.85,\n    \"false\": 0.15\n  }\n}\n```",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.7892,
+   "picks": {
+    "policy": "none",
+    "personal_info": "true"
+   }
+  }
+ },
+ "decide-phishing-paypal": {
+  "output": "```json\n{\n  \"phishing\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  },\n  \"risk\": {\n    \"0\": 0.05,\n    \"1\": 0.25,\n    \"2\": 0.50,\n    \"3\": 0.20\n  }\n}\n```",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.48,
+   "picks": {
+    "phishing": "true",
+    "risk": "2"
+   }
+  }
+ },
+ "decide-pii-ssn-email": {
+  "output": "```json\n{\n  \"data_kind\": {\n    \"none\": 0.95,\n    \"contact\": 0.03,\n    \"financial\": 0.0,\n    \"government_id\": 0.02,\n    \"health\": 0.0\n  },\n  \"sensitive\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  }\n}\n```",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.9323,
+   "picks": {
+    "data_kind": "none",
+    "sensitive": "true"
+   }
+  }
+ },
+ "decide-refund-wrong-plan": {
+  "output": "```json\n{\n  \"department\": {\n    \"billing\": 0.85,\n    \"technical\": 0.05,\n    \"account\": 0.05,\n    \"shipping\": 0.0,\n    \"sales\": 0.0\n  },\n  \"refund\": \"true\",\n  \"tone\": \"calm\"\n}\n```",
+  "score": 0.3333,
+  "detail": {
+   "brier": 1.3389,
+   "picks": {
+    "department": "billing",
+    "refund": null,
+    "tone": null
+   }
+  }
+ },
+ "decide-review-mixed": {
+  "output": "```json\n{\n  \"sentiment\": {\n    \"positive\": 0.1,\n    \"neutral\": 0.2,\n    \"negative\": 0.7\n  },\n  \"defect\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"recommend\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0467,
+   "picks": {
+    "sentiment": "negative",
+    "defect": "true",
+    "recommend": "false"
+   }
+  }
+ },
+ "decide-route-calendar": {
+  "output": "```json\n{\n  \"tool\": {\n    \"web_search\": 0.05,\n    \"calculator\": 0.01,\n    \"calendar\": 0.85,\n    \"email\": 0.03,\n    \"none\": 0.05\n  },\n  \"confirm\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0156,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "true"
+   }
+  }
+ },
+ "decide-support-checkout-down": {
+  "output": "```json\n{\n  \"department\": {\n    \"billing\": 0.1,\n    \"technical\": 0.6,\n    \"account\": 0.2,\n    \"shipping\": 0.05,\n    \"sales\": 0.05\n  },\n  \"urgency\": {\n    \"0\": 0.05,\n    \"1\": 0.2,\n    \"2\": 0.5,\n    \"3\": 0.25\n  },\n  \"outage\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}\n```",
+  "score": 0.6667,
+  "detail": {
+   "brier": 0.3583,
+   "picks": {
+    "department": "technical",
+    "urgency": "2",
+    "outage": "true"
+   }
+  }
+ }
+}

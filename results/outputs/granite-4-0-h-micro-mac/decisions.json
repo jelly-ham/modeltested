@@ -1,0 +1,93 @@
+{
+ "decide-doc-invoice-missing-due": {
+  "output": "{\n  \"doc_type\": {\n    \"invoice\": 1\n  },\n  \"missing_due_date\": {\n    \"false\": 1\n  }\n}",
+  "score": 0.5,
+  "detail": {
+   "brier": 1.0,
+   "picks": {
+    "doc_type": "invoice",
+    "missing_due_date": "false"
+   }
+  }
+ },
+ "decide-moderation-doxxing": {
+  "output": "{\n  \"policy\": {\n    \"none\": 0.95,\n    \"harassment\": 0.01,\n    \"hate\": 0.01,\n    \"spam\": 0.01,\n    \"self_harm\": 0.01\n  },\n  \"personal_info\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.953,
+   "picks": {
+    "policy": "none",
+    "personal_info": "true"
+   }
+  }
+ },
+ "decide-phishing-paypal": {
+  "output": "{\n  \"phishing\": \"true\",\n  \"risk\": \"3\"\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "phishing": null,
+    "risk": null
+   }
+  }
+ },
+ "decide-pii-ssn-email": {
+  "output": "{\n  \"data_kind\": {\n    \"none\": 0.9,\n    \"contact\": 0.05,\n    \"financial\": 0.03,\n    \"government_id\": 0.02,\n    \"health\": 0.0\n  },\n  \"sensitive\": \"false\"\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 1.8869,
+   "picks": {
+    "data_kind": "none",
+    "sensitive": null
+   }
+  }
+ },
+ "decide-refund-wrong-plan": {
+  "output": "{\n  \"department\": \"billing\",\n  \"refund\": \"true\",\n  \"tone\": \"frustrated\"\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "department": null,
+    "refund": null,
+    "tone": null
+   }
+  }
+ },
+ "decide-review-mixed": {
+  "output": "{\n  \"sentiment\": \"negative\",\n  \"defect\": \"true\",\n  \"recommend\": \"false\"\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "sentiment": null,
+    "defect": null,
+    "recommend": null
+   }
+  }
+ },
+ "decide-route-calendar": {
+  "output": "{\n  \"tool\": \"calendar\",\n  \"confirm\": \"true\"\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "tool": null,
+    "confirm": null
+   }
+  }
+ },
+ "decide-support-checkout-down": {
+  "output": "{\n  \"department\": \"technical\",\n  \"urgency\": \"3\",\n  \"outage\": \"true\"\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "department": null,
+    "urgency": null,
+    "outage": null
+   }
+  }
+ }
+}

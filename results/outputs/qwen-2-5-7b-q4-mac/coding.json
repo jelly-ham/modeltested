@@ -1,0 +1,51 @@
+{
+ "code-hard-ini-parser": {
+  "output": "```python\nimport re\nfrom typing import Dict\n\ndef parse_ini(text: str) -> Dict[str, Dict[str, str]]:\n    def expand_refs(key: str, section: Dict[str, str]) -> str:\n        def replace_match(match: re.Match) -> str:\n            ref = match.group(0)[2:]  # strip the leading ${ and }\n            if ref.count(\":\"):\n                section_name, key_name = ref.split(\":\", 1)\n                try:\n                    return section[section_name][key_name]\n                except KeyError:\n                    raise KeyError(f\"missing key {section_name}:{key_name}\")\n            else:\n                try:\n                    return section[key]\n                except KeyError:\n                    raise KeyError(f\"missing key {ref}\")\n\n        return re.sub(r\"\\${\\s*([^}\\s]+)\\s*}\", replace_match, key)\n\n    lines = [line.strip() for line in text.splitlines() if not line.startswith((\"#\", \";\")) and line.strip()]\n    defaults = {}\n    sections = {}\n\n    for line in lines:\n        if line.startswith(\"[\"):\n            section_name = line[1:line.find(\"]\")].strip()\n            if section_name:\n                sections[section_name] = {}\n        else:\n            if \"=\" in line or \":\" in line:\n                key, value = line.split(maxsplit=1)\n                key, value = key.strip().lower(), value.strip()\n                if key.endswith(\"#\") or key.endswith(\";\"):\n                    key, comment = key.rsplit(None, 1)\n                else:\n                    comment = None\n                if key.endswith(\"\\\\\"):\n                    key = key[:-1].rstrip()\n                    if not sections:\n                        raise ValueError(\"key line before section header\")\n                    sections[section[key][-1]].update({key: value})\n                else:\n                    sections[section_name].update({key: expand_refs(value, sections[section_name])})\n            elif line.startswith(\" \"):\n                if not sections:\n                    raise ValueError(\"key line before section header\")\n                sections[section[-1]].update({key: expand_refs(line, sections[section[-1]])})\n            else:\n                if not sections:\n                    raise ValueError(\"key line before section header\")\n                sections[section[-1]].update({key: value})\n\n    for section in sections:\n        sections[section].update(defaults)\n\n    return sections\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "KeyError: 'missing key host}'"
+  }
+ },
+ "code-hard-ttl-lru": {
+  "output": "```python\nfrom collections import OrderedDict\nfrom time import time\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock=time):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = OrderedDict()\n        self.stats = {\"hits\": 0, \"misses\": 0, \"evictions\": 0, \"expirations\": 0}\n\n    def put(self, key, value):\n        now = self.clock()\n        if key in self.cache:\n            self.cache.pop(key)\n            self.cache[key] = (value, now)\n        else:\n            if len(self.cache) >= self.capacity:\n                self._remove_expired()\n                if len(self.cache) >= self.capacity:\n                    self.cache.popitem(last=False)\n            self.cache[key] = (value, now)\n        self.stats[\"hits\"] += 1\n\n    def get(self, key, default=None):\n        now = self.clock()\n        if key in self.cache:\n            value, expiry = self.cache[key]\n            if now < expiry:\n                self.stats[\"hits\"] += 1\n                self._move_to_end(key)\n                return value\n            else:\n                self.stats[\"expirations\"] += 1\n                self._remove_expired()\n                if key in self.cache:\n                    self.stats[\"hits\"] += 1\n                    return self.cache.pop(key)[0]\n        self.stats[\"misses\"] += 1\n        return default\n\n    def _remove_expired(self):\n        now = self.clock()\n        keys_to_remove = [k for k, (_, expiry) in self.cache.items() if now >= expiry]\n        for key in keys_to_remove:\n            self.cache.pop(key)\n            self.stats[\"expirations\"] += 1\n\n    def _move_to_end(self, key):\n        value, expiry = self.cache.pop(key)\n        self.cache[key] = (value, expiry)\n\n    def __len__(self):\n        now = self.clock()\n        return sum(1 for k, (_, expiry) in self.cache.items() if now < expiry)\n\n    def stats(self):\n        return self.stats\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-parse-duration": {
+  "output": "```python\ndef parse_duration(s: str) -> int:\n    from collections import OrderedDict\n\n    if not s.strip():\n        raise ValueError(\"Empty or blank string\")\n\n    time_map = OrderedDict([(\"h\", 3600), (\"m\", 60), (\"s\", 1)])\n    parts = [part.strip() for part in s.lower().split() if part.strip()]\n    parsed_parts = []\n\n    for part in parts:\n        if len(part) < 2 or not part[:-1].isdigit() or part[-1] not in time_map:\n            raise ValueError(f\"Unknown unit or invalid format: {part}\")\n        parsed_parts.append(int(part[:-1]) * time_map[part[-1]])\n\n    if len(parsed_parts) != len(time_map):\n        raise ValueError(\"Repeating units or out of order units\")\n\n    return sum(parsed_parts)\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: Unknown unit or invalid format: 1h30m"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Transliterate accented characters to ASCII and lowercase\n    slug = title.lower()\n    slug = unicodedata.normalize('NFKD', slug).encode('ascii', 'ignore').decode('ascii')\n    \n    # Replace every run of characters other than a-z and 0-9 with a single \"-\", and strip leading/trailing \"-\"\n    slug = re.sub(r'[^a-z0-9]+', '-', slug).strip('-')\n    \n    # If the slug is longer than max_len, shorten it without cutting a word\n    if len(slug) > max_len:\n        words = slug.split('-')\n        for i in range(len(words), 0, -1):\n            if len('-'.join(words[:i])) <= max_len:\n                slug = '-'.join(words[:i])\n                break\n        else:\n            slug = words[0][:max_len]\n    \n    # Ensure the result never ends with \"-\"\n    if slug.endswith('-'):\n        slug = slug[:-1]\n    \n    return slug\n```",
+  "score": 1.0,
+  "detail": {
+   "error": null
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    nums.sort()\n    result = []\n    i = 0\n    \n    while i < len(nums):\n        start = nums[i]\n        while i + 1 < len(nums) and nums[i] + 1 == nums[i + 1]:\n            i += 1\n        end = nums[i]\n        \n        if end - start >= 2:\n            result.append(f\"{start}..{end}\")\n        else:\n            result.extend(map(str, nums[i - (i > 0):i + 1]))\n        \n        i += 1\n    \n    return \",\".join(result)\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock=time.time):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = capacity\n        self.last_time = clock()\n\n    def allow(self, cost: float = 1) -> bool:\n        current_time = self.clock()\n        elapsed_time = current_time - self.last_time\n        self.tokens = min(self.capacity, self.tokens + elapsed_time * self.refill_per_sec)\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        return False\n\n    @property\n    def tokens(self):\n        current_time = self.clock()\n        elapsed_time = current_time - self.last_time\n        self.last_time = current_time\n        return min(self.capacity, self._tokens + elapsed_time * self.refill_per_sec)\n\n    @tokens.setter\n    def tokens(self, value):\n        self._tokens = value\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nfrom typing import List, Tuple\nfrom decimal import Decimal, InvalidOperation\n\ndef top_customers(rows: List[dict], n: int) -> List[Tuple[str, float]]:\n    from collections import defaultdict\n\n    def parse_amount(amount: str) -> Decimal:\n        try:\n            return Decimal(amount.replace(\"$\", \"\").replace(\",\", \"\"))\n        except InvalidOperation:\n            return Decimal(0)\n\n    customer_totals = defaultdict(Decimal)\n\n    for row in rows:\n        name = row.get(\"customer\").strip().lower()\n        if not name or \"amount\" not in row:\n            continue\n        amount = row[\"amount\"]\n        parsed_amount = parse_amount(amount)\n        if parsed_amount == 0:\n            continue\n        customer_totals[name] += parsed_amount\n\n    top_customers = sorted(\n        ((name, float(total)) for name, total in customer_totals.items()), \n        key=lambda x: (-x[1], x[0])\n    )[:n]\n\n    return top_customers\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ }
+}

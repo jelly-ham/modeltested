@@ -1,0 +1,51 @@
+{
+ "code-hard-ini-parser": {
+  "output": "```python\nimport re\nfrom typing import Dict\n\ndef parse_ini(text: str) -> Dict[str, Dict[str, str]]:\n    def resolve_key(section: str, key: str) -> str:\n        parts = key.split(':', 1)\n        if len(parts) == 1:\n            return sections.get(section, {}).get(key)\n        else:\n            sec, k = parts\n            return resolve_key(sec, k)\n\n    lines = text.splitlines()\n    sections = {}\n    current_section = 'DEFAULT'\n    result = {}\n\n    key_pattern = re.compile(r'^\\s*([\\w-]+)\\s*(?:=[^=]+|:)\\s*$', re.IGNORECASE)\n    comment_pattern = re.compile(r'^\\s*;.*|^\\s*#\\s*.*$', re.IGNORECASE)\n\n    i = 0\n    while i < len(lines):\n        line = lines[i].strip()\n        if not line or comment_pattern.match(line):\n            i += 1\n            continue\n\n        if line.startswith('[') and line.endswith(']'):\n            sec_name = line[1:-1]\n            if sec_name == '':\n                raise ValueError(\"Empty section name\")\n            current_section = sec_name\n            result[current_section] = {}\n            i += 1\n            continue\n\n        match = key_pattern.match(line)\n        if not match:\n            raise ValueError(\"Malformed line\")\n\n        key, raw_value = match.groups()\n        value = raw_value[1:].rstrip() if value[0] in ('\"', \"'\") else raw_value\n\n        if current_section not in result:\n            result[current_section] = {}\n\n        result[current_section][key.lower()] = value\n        i += 1\n\n    # Handle interpolation\n    def resolve_key_recursive(section: str, key: str) -> str:\n        nonlocal result\n        value = resolve_key(section, key)\n        while '${' in value:\n            value = re.sub(r'\\$\\{([^}]+)\\}', lambda m: resolve_key_recursive(section, m.group(1)), value)\n        return value\n\n    for sec, keys in result.items():\n        for k in keys:\n            result[sec][k] = resolve_key_recursive(sec, k)\n\n    return result\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: not enough values to unpack (expected 2, got 1)"
+  }
+ },
+ "code-hard-ttl-lru": {
+  "output": "```python\nfrom collections import OrderedDict\nfrom typing import Callable, Dict, Any, Optional\nimport time\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock: Callable[[], float]):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache: OrderedDict[Any, Dict[str, Any]] = OrderedDict()\n        self.stats: Dict[str, int] = {\"hits\": 0, \"misses\": 0, \"evictions\": 0, \"expirations\": 0}\n\n    def _evict_expired(self) -> None:\n        now = self.clock()\n        while self.cache and now >= self.cache[next(iter(self.cache))][\"expiry\"]:\n            self.cache.popitem(last=False)\n            self.stats[\"expirations\"] += 1\n\n    def put(self, key: Any, value: Any) -> None:\n        now = self.clock()\n        if key in self.cache:\n            self.cache.move_to_end(key)\n            self.cache[key][\"value\"] = value\n            self.cache[key][\"expiry\"] = now + self.ttl\n            self.stats[\"hits\"] += 1\n        else:\n            if len(self.cache) >= self.capacity:\n                self._evict_expired()\n                if len(self.cache) >= self.capacity:\n                    self.stats[\"evictions\"] += 1\n                    self.cache.popitem(last=False)\n            self.cache[key] = {\"value\": value, \"expiry\": now + self.ttl}\n            self.stats[\"hits\"] += 1\n\n    def get(self, key: Any, default: Optional[Any] = None) -> Any:\n        now = self.clock()\n        if key not in self.cache:\n            self.stats[\"misses\"] += 1\n            return default\n        if now >= self.cache[key][\"expiry\"]:\n            self.cache.pop(key)\n            self.stats[\"expirations\"] += 1\n            return default\n        self.cache.move_to_end(key)\n        self.stats[\"hits\"] += 1\n        return self.cache[key][\"value\"]\n\n    def __len__(self) -> int:\n        self._evict_expired()\n        return len(self.cache)\n\n    def stats(self) -> Dict[str, int]:\n        return self.stats\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "TypeError: 'dict' object is not callable"
+  }
+ },
+ "code-parse-duration": {
+  "output": "```python\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Convert a duration string into a total number of seconds.\n    \n    Supported units: 'h' (hours), 'm' (minutes), 's' (seconds).\n    Units are case-insensitive. Each part is a non-negative integer \n    followed by a unit, separated by optional whitespace.\n    \n    Raises ValueError for:\n    - Empty/blank strings\n    - Numbers without a unit\n    - Unknown units\n    - Decimals\n    - Repeated units\n    - Units out of order (e.g., 'ms')\n    \"\"\"\n    if not s.strip():\n        raise ValueError(\"Empty string provided\")\n\n    total_seconds = 0\n    parts = s.split()\n    seen_units = set()\n\n    for part in parts:\n        # Check for decimals\n        if '.' in part:\n            raise ValueError(\"Decimals are not supported\")\n\n        # Extract numeric part and unit\n        num_str = ''\n        unit = ''\n        for char in part:\n            if char.isdigit():\n                num_str += char\n            elif char.upper() in 'HMS':\n                unit += char.upper()\n            else:\n                raise ValueError(f\"Unknown unit '{char}' in '{part}'\")\n\n        # Validate parts\n        if not num_str:\n            raise ValueError(f\"Number missing in '{part}'\")\n        if not unit:\n            raise ValueError(f\"Unit missing in '{part}'\")\n        if unit not in 'HMS':\n            raise ValueError(f\"Unknown unit '{unit}' in '{part}'\")\n        if unit in seen_units:\n            raise ValueError(f\"Duplicate unit '{unit}' in '{part}'\")\n        seen_units.add(unit)\n\n        # Convert and accumulate\n        total_seconds += int(num_str) * {'H': 3600, 'M': 60, 'S': 1}[unit]\n\n    return total_seconds\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "KeyError: 'HM'"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # 1. Transliterate accented characters to ASCII and drop non-ASCII\n    ascii_title = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii')\n\n    # 2. Lowercase\n    ascii_title = ascii_title.lower()\n\n    # 3. Replace non-alphanumeric with '-', strip leading/trailing '-'\n    slug = re.sub(r'[^a-z0-9]+', '-', ascii_title).strip('-')\n\n    # 4. Shorten if necessary without cutting a word\n    if len(slug) > max_len:\n        # Find the last hyphen within the max_len\n        cut_pos = slug.rfind('-', 0, max_len)\n        if cut_pos == -1:  # If no hyphen found, cut to max_len\n            slug = slug[:max_len]\n        else:\n            slug = slug[:cut_pos]\n\n    return slug\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\nfrom typing import List\n\ndef summarize_ranges(nums: List[int]) -> str:\n    if not nums:\n        return \"\"\n    \n    nums = sorted(set(nums))\n    result = []\n    i = 0\n    while i < len(nums):\n        start = nums[i]\n        while i + 1 < len(nums) and nums[i] + 1 == nums[i + 1]:\n            i += 1\n        end = nums[i]\n        \n        if end - start >= 2:\n            result.append(f\"{start}..{end}\")\n        else:\n            result.extend(str(num) for num in nums[start:i+1])\n        \n        i += 1\n    \n    return \",\".join(result)\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nfrom typing import Callable\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]):\n        self._capacity = capacity\n        self._refill_per_sec = refill_per_sec\n        self._clock = clock\n        self._tokens = capacity\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n\n    def _refill(self) -> None:\n        elapsed = self._clock() - self._last_refill_time\n        refill_amount = min(self._refill_per_sec * elapsed, self._capacity - self._tokens)\n        self._tokens = min(self._capacity, self._tokens + refill_amount)\n        self._last_refill_time = self._clock()\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AttributeError: 'TokenBucket' object has no attribute '_last_refill_time'"
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nfrom typing import List, Tuple\nfrom decimal import Decimal\n\ndef top_customers(rows: List[dict], n: int) -> List[Tuple[str, float]]:\n    customer_totals = {}\n    \n    for row in rows:\n        customer_name = row.get(\"customer\", \"\").strip()\n        amount_str = row.get(\"amount\", \"\").strip()\n        \n        if not customer_name or not amount_str:\n            continue\n        \n        try:\n            amount = Decimal(amount_str.replace('$', '').replace(',', ''))\n        except (ValueError, DecimalException):\n            continue\n        \n        customer_name = customer_name.lower()\n        \n        if customer_name not in customer_totals:\n            customer_totals[customer_name] = Decimal(0)\n        \n        customer_totals[customer_name] += amount\n    \n    sorted_customers = sorted(\n        customer_totals.items(),\n        key=lambda x: (-x[1], x[0])\n    )\n    \n    return [(name.capitalize(), float(total)) for name, total in sorted_customers[:n]]\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'DecimalException' is not defined"
+  }
+ }
+}

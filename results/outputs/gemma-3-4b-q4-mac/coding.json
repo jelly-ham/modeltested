@@ -1,0 +1,51 @@
+{
+ "code-hard-ini-parser": {
+  "output": "```python\nimport re\nfrom typing import Dict\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    \"\"\"Parses an INI file with custom rules.\"\"\"\n    data: Dict[str, dict[str, str]] = {}\n    current_section = None\n    current_key = None\n    lines = text.splitlines()\n    for line in lines:\n        line = line.strip()\n        if not line or line.startswith(\";\") or line.startswith(\"#\"):\n            continue\n\n        if line.startswith(\"[\") and line.endswith(\"]\"):\n            section_name = line[1:-1].strip()\n            if section_name in data:\n                raise ValueError(f\"Duplicate section name: {section_name}\")\n            data[section_name] = {}\n            current_section = section_name\n        elif current_section is not None:\n            match = re.match(r\"^\\s*([a-zA-Z0-9_]+)\\s*[=:]\\s*(.*)\", line)\n            if match:\n                key = match.group(1).lower()\n                value = match.group(2).strip()\n\n                if value.startswith('\"') and value.endswith('\"'):\n                    value = value[1:-1]\n                \n                data[current_section][key] = value\n            else:\n                raise ValueError(f\"Invalid key-value line: {line}\")\n    return data\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: Invalid key-value line: second line"
+  }
+ },
+ "code-hard-ttl-lru": {
+  "output": "```python\nimport time\nfrom collections import OrderedDict\n\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = OrderedDict()\n        self.hits = 0\n        self.misses = 0\n        self.evictions = 0\n        self.expirations = 0\n\n    def put(self, key, value):\n        if key in self.cache:\n            self.cache.move_to_end(key)\n            self.cache[key] = (value, self.clock() + self.ttl)\n            return\n        if len(self.cache) == self.capacity:\n            self.evict()\n        self.cache[key] = (value, self.clock() + self.ttl)\n\n    def get(self, key, default=None):\n        if key in self.cache:\n            value, expiry = self.cache[key]\n            now = self.clock()\n            if now >= expiry:\n                self.expirations += 1\n                self.cache.pop(key)\n                self.evictions += 1\n                return default\n            else:\n                self.cache.move_to_end(key)\n                self.hits += 1\n                return value\n        else:\n            self.misses += 1\n            return default\n\n    def evict(self):\n        if self.capacity == 0:\n            return\n        self.evictions += 1\n        while self.cache:\n            key, (value, expiry) = self.cache.popitem(last=False)\n\n    def __len__(self):\n        count = 0\n        now = self.clock()\n        for key, (value, expiry) in self.cache.items():\n            if now < expiry:\n                count += 1\n        return count\n\n    def stats(self):\n        now = self.clock()\n        count = {\"hits\": self.hits, \"misses\": self.misses, \"evictions\": self.evictions, \"expirations\": self.expirations}\n        return count\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-parse-duration": {
+  "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    \"\"\"Converts a duration string into a total number of seconds.\n\n    - Supported units: `h` (hours), `m` (minutes), `s` (seconds). Units are case-insensitive.\n    - Each part is a non-negative integer followed by a unit, e.g. \"1h30m\", \"45s\", \"2H\", \"1h 5m 10s\", \"90m\".\n    - Whitespace is allowed before, after and between parts.\n    - Units must appear in the order h, m, s and each at most once.\n    - Raise `ValueError` for empty/blank strings, numbers without a unit, unknown units, decimals, repeated units, or units out of order.\n    \"\"\"\n    if not s or not re.match(r\"^[a-zA-Z0-9 ]+$\", s):\n        raise ValueError(\"Empty or invalid string\")\n\n    parts = re.findall(r\"(\\d+)([hm s]+)\", s)\n    if not parts:\n        raise ValueError(\"No valid parts found\")\n\n    total_seconds = 0\n    units = set()\n\n    for count, unit in parts:\n        if not count:\n            raise ValueError(\"Missing number\")\n        try:\n            count = int(count)\n        except ValueError:\n            raise ValueError(\"Invalid number\")\n\n        if unit.lower() == \"h\":\n            if \"h\" in units:\n                raise ValueError(\"Repeated units\")\n            total_seconds += count * 3600\n            units.add(\"h\")\n        elif unit.lower() == \"m\":\n            if \"m\" in units:\n                raise ValueError(\"Repeated units\")\n            total_seconds += count * 60\n            units.add(\"m\")\n        elif unit.lower() == \"s\":\n            if \"s\" in units:\n                raise ValueError(\"Repeated units\")\n            total_seconds += count\n            units.add(\"s\")\n        else:\n            raise ValueError(f\"Unknown unit: {unit}\")\n\n    if any(not u for u in units):\n        raise ValueError(\"Units out of order\")\n\n    return total_seconds\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "ValueError: No valid parts found"
+  }
+ },
+ "code-slugify": {
+  "output": "```python\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    \"\"\"Builds a URL slug.\"\"\"\n    title = title.lower()\n    title = re.sub(r\"[^\\w\\s-]\", \"\", title)\n    title = re.sub(r\"[-\\s]+\", \"-\", title)\n    title = title.strip(\"-\")\n    if len(title) > max_len:\n        parts = title.split(\"-\")\n        new_title = \"\"\n        for part in parts:\n            if len(new_title) + len(part) + 1 <= max_len:\n                new_title += part + \"-\"\n            else:\n                break\n        new_title = new_title.rstrip(\"-\")\n        return new_title\n    else:\n        return title\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-summarize-ranges": {
+  "output": "```python\nfrom typing import List\n\ndef summarize_ranges(nums: List[int]) -> str:\n    \"\"\"Sorts the numbers and removes duplicates. Then collapse runs of 3 or more consecutive integers into \"a..b\".\n    Numbers in shorter runs (1 or 2 numbers) are listed individually.\n    Join everything with \",\" (no spaces). An empty list returns \"\".\n    \"\"\"\n    if not nums:\n        return \"\"\n\n    nums = sorted(list(set(nums)))\n    if len(nums) == 1:\n        return str(nums[0])\n\n    result = []\n    start = nums[0]\n    end = nums[0]\n\n    for i in range(1, len(nums)):\n        if nums[i] == end + 1:\n            end = nums[i]\n        else:\n            if start == end:\n                result.append(str(start))\n            else:\n                result.append(f\"{start}..{end}\")\n            start = nums[i]\n            end = nums[i]\n\n    if start == end:\n        result.append(str(start))\n    else:\n        result.append(f\"{start}..{end}\")\n\n    return \",\".join(result)\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ },
+ "code-token-bucket": {
+  "output": "```python\nimport time\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = float(capacity)\n\n    def allow(self, cost: float = 1) -> bool:\n        now = self.clock()\n        time_passed = now - self.last_refill_time\n        tokens_to_add = time_passed * self.refill_per_sec\n        self.tokens = min(self.capacity, self.tokens + tokens_to_add)\n        self.last_refill_time = now\n\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        else:\n            return False\n\n    @property\n    def tokens(self):\n        return self.tokens\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AttributeError: property 'tokens' of 'TokenBucket' object has no setter"
+  }
+ },
+ "code-top-customers": {
+  "output": "```python\nfrom collections import defaultdict\nimport re\nimport math\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    \"\"\"\n    Calculates the total amount spent by each customer and returns the top n customers.\n    \"\"\"\n    customer_totals = defaultdict(float)\n    for row in rows:\n        name = row.get(\"customer\", \"\").strip()\n        amount_str = row.get(\"amount\", \"\")\n        if not name or not amount_str:\n            continue\n        try:\n            amount = float(re.sub(r'[$,]', '', amount_str))\n            if amount < 0:\n                amount = -amount\n            customer_totals[name.lower()] += amount\n        except ValueError:\n            continue\n    \n    sorted_customers = sorted(customer_totals.items(), key=lambda item: (-item[1], item[0]))\n    \n    return sorted_customers[:n]\n```",
+  "score": 0.0,
+  "detail": {
+   "error": "AssertionError"
+  }
+ }
+}

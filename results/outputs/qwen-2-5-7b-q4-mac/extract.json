@@ -1,0 +1,82 @@
+{
+ "extract-expense-thread": {
+  "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\"date\": \"2025-02-24\", \"category\": \"airfare\", \"amount_usd\": 1184.60},\n    {\"date\": \"2025-02-24\", \"category\": \"ground_transport\", \"amount_usd\": 39.55},\n    {\"date\": \"2025-02-25\", \"category\": \"meals\", \"amount_usd\": 230.95},\n    {\"date\": \"2025-02-26\", \"category\": \"lodging\", \"amount_usd\": 468.48},\n    {\"date\": \"2025-02-27\", \"category\": \"ground_transport\", \"amount_usd\": 44.82}\n  ],\n  \"rejected_item_count\": 2,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 1861.85,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+  "score": 0.7917,
+  "detail": {
+   "matched": 19,
+   "total": 24,
+   "wrong": [
+    "$.approved_items[1].amount_usd",
+    "$.approved_items[2].amount_usd",
+    "$.approved_items[3].amount_usd",
+    "$.rejected_item_count",
+    "$.total_reimbursable_usd"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-hard-saas-escalator": {
+  "output": "{\n  \"year2_price_per_seat_month\": 48.38,\n  \"year3_price_per_seat_month\": 46.18,\n  \"year1_invoice\": 54000,\n  \"year2_invoice\": null,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 13246.67,\n  \"year3_invoice\": 41738.89,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 109985.56,\n  \"contract_end_date\": \"2028-02-28\"\n}",
+  "score": 0.2,
+  "detail": {
+   "matched": 2,
+   "total": 10,
+   "wrong": [
+    "$.addon_invoice",
+    "$.contract_end_date",
+    "$.total_contract_value",
+    "$.year1_invoice",
+    "$.year2_invoice",
+    "$.year2_price_per_seat_month",
+    "$.year3_invoice",
+    "$.year3_price_per_seat_month"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-lease-amendment": {
+  "output": "{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150,\n  \"monthly_rent_from_2025_06_01\": 2246,\n  \"late_fee_from_2025_06_01\": 112.3,\n  \"security_deposit\": 2150,\n  \"total_pet_deposits\": 800,\n  \"total_monthly_payment_july_2025\": 2281,\n  \"move_in_payment\": 4500\n}",
+  "score": 0.6667,
+  "detail": {
+   "matched": 8,
+   "total": 12,
+   "wrong": [
+    "$.late_fee_from_2025_06_01",
+    "$.monthly_rent_from_2025_06_01",
+    "$.move_in_payment",
+    "$.total_monthly_payment_july_2025"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-sales-footnotes": {
+  "output": "{\n  \"q3_total_usd\": 1951000,\n  \"q2_total_usd\": 1622000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": -16.2,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"West\",\n  \"regions_declining_q2_to_q3\": [\"Central\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4181000\n}",
+  "score": 0.3333,
+  "detail": {
+   "matched": 3,
+   "total": 9,
+   "wrong": [
+    "$.fastest_growing_region_q1_to_q3",
+    "$.q2_to_q3_change_pct",
+    "$.q2_total_usd",
+    "$.q3_total_usd",
+    "$.regions_declining_q2_to_q3[0]",
+    "$.west_excluding_mountain_q3_usd"
+   ],
+   "bare_json": true
+  }
+ },
+ "extract-ticket-sla": {
+  "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\"billing_address\"],\n  \"affected_orders\": [\"SO-99812\", \"SO-99820\", \"SO-99827\"],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-13T17:00\",\n  \"sla_due_utc\": \"2025-09-13T23:00:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+  "score": 0.8182,
+  "detail": {
+   "matched": 9,
+   "total": 11,
+   "wrong": [
+    "$.sla_due_local",
+    "$.sla_due_utc"
+   ],
+   "bare_json": true
+  }
+ }
+}
