@@ -46,7 +46,8 @@ def model_summary(model: dict, by_suite: dict) -> dict:
 
 def main(args) -> None:
     doc = load_models()
-    statuses = {"active", "auto"} | ({"test"} if args.include_test else set())
+    # "unavailable" models keep their place on the leaderboard if they were fully tested.
+    statuses = {"active", "auto", "unavailable"} | ({"test"} if args.include_test else set())
     models = [m for m in doc["models"] if m.get("status") in statuses]
     questions = load_questions()
     if os.environ.get("CI") and not any(q.private for q in questions):
@@ -60,7 +61,8 @@ def main(args) -> None:
     ranked = sorted([s for s in summaries if s["overall"] is not None], key=lambda s: -s["overall"])
     for i, s in enumerate(ranked, 1):
         s["rank"] = i
-    pending = [s["slug"] for s in summaries if s["overall"] is None]
+    unavailable = {m["slug"] for m in models if m.get("status") == "unavailable"}
+    pending = [s["slug"] for s in summaries if s["overall"] is None and s["slug"] not in unavailable]
 
     history = json.loads(HISTORY.read_text()) if HISTORY.exists() else []
     seen = {h["slug"] for h in history}

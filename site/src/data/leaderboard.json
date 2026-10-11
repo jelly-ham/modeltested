@@ -2076,12 +2076,7 @@
    "rank": 35
   }
  ],
- "pending": [
-  "granite-4-0-h-micro",
-  "llama-3-2-1b-instruct",
-  "mistral-small-3-1-24b-instruct",
-  "qwen-2-5-coder-32b-instruct"
- ],
+ "pending": [],
  "changelog": [
   {
    "date": "2026-10-11",

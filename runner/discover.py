@@ -67,6 +67,44 @@ def active_params_b(*names: str) -> float | None:
     return None
 
 
+def endpoint_providers(openrouter_id: str) -> list[str] | None:
+    """Provider names currently serving a model; [] if OpenRouter no longer lists it, None on other errors."""
+    try:
+        with urllib.request.urlopen(f"{client.API}/models/{openrouter_id}/endpoints", timeout=30) as r:
+            return [e.get("provider_name") for e in json.loads(r.read())["data"]["endpoints"]]
+    except urllib.error.HTTPError as e:
+        return [] if e.code == 404 else None
+    except (urllib.error.URLError, TimeoutError, ValueError, KeyError):
+        return None
+
+
+def check_availability(doc: dict) -> None:
+    """Park models that only blocked providers serve, and bring them back when that changes.
+
+    Without this they fail every request on every run ("All providers have been ignored").
+    """
+    for m in doc["models"]:
+        status = m.get("status")
+        if status not in ("active", "auto", "unavailable") or m["openrouter_id"].startswith("mock:"):
+            continue
+        providers = endpoint_providers(m["openrouter_id"])
+        if providers is None:
+            continue  # couldn't check; leave as is
+        usable = [p for p in providers if p not in client.BLOCKED_PROVIDERS]
+        if not usable and status != "unavailable":
+            m["previous_status"] = status
+            m["status"] = "unavailable"
+            m["unavailable_reason"] = (f"only blocked providers ({', '.join(providers)})" if providers
+                                       else "no longer listed on OpenRouter")
+            m["unavailable_since"] = today()
+            print(f"unavailable: {m['openrouter_id']} ({m['unavailable_reason']})")
+        elif usable and status == "unavailable":
+            m["status"] = m.pop("previous_status", "active")
+            m.pop("unavailable_reason", None)
+            m.pop("unavailable_since", None)
+            print(f"available again: {m['openrouter_id']} via {', '.join(usable)}")
+
+
 def main(args) -> None:
     doc = load_models()
     known = {m["openrouter_id"] for m in doc["models"]} | set(doc.get("ignored", {}))
@@ -110,6 +148,7 @@ def main(args) -> None:
         doc["models"].append(entry)
         added.append(oid)
         print(f"added: {oid} ({params}B)")
+    check_availability(doc)
     if args.dry_run:
         print(f"dry run: would add {len(added)} models")
         return
