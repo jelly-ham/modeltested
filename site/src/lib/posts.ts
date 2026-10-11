@@ -59,9 +59,25 @@ function reviewPost(m: Model): Post {
   };
 }
 
+export function decisionPost(): Post | null {
+  const rows = data.decisions ?? [];
+  if (!rows.length) return null;
+  return {
+    url: "/best-decision-models/",
+    title: "Decision models vs. regular LLMs: who makes the right call?",
+    dek: `${rows.length} models, ${(data.suites.find((s) => s.id === "decisions")?.n_public ?? 0) + (data.suites.find((s) => s.id === "decisions")?.n_private ?? 0)} real decisions: routing tickets, spotting phishing, flagging risky code. Accuracy and how honest their confidence is.`,
+    date: data.generated,
+    category: "Rankings",
+    tags: ["Rankings", "Decision models"],
+    cover: { kind: "bars", label: "Top 5 · decision accuracy", rows: rows.slice(0, 5).map((r) => ({ name: r.name, value: r.accuracy })) },
+    order: 2,
+  };
+}
+
 export function rankingPosts(): Post[] {
   const top = ranked("overall").slice(0, 5);
   const coders = ranked("coding");
+  const dp = decisionPost();
   return [
     {
       url: "/best-local-llms/",
@@ -83,6 +99,7 @@ export function rankingPosts(): Post[] {
       cover: { kind: "cells", label: "Best coder · jobs solved", solved: solvedBy(coders[0]), total: codingTotal(coders[0]) },
       order: 1,
     },
+    ...(dp ? [dp] : []),
   ];
 }
 

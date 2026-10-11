@@ -49,7 +49,12 @@ def _post(path: str, body: dict, timeout: int) -> dict:
         return json.loads(r.read())
 
 
-def chat(model: dict, prompt: str, max_tokens: int = 8192, timeout: int = 180) -> ChatResult:
+# Reasoning models can spend thousands of tokens thinking before they answer; at 8192 many answers
+# came back empty ("length"). Answers truncated under a lower limit are re-run (see run.py).
+MAX_TOKENS = 32768
+
+
+def chat(model: dict, prompt: str, max_tokens: int = MAX_TOKENS, timeout: int = 180) -> ChatResult:
     body = {
         "model": model["openrouter_id"],
         "messages": [{"role": "user", "content": prompt}],
@@ -105,6 +110,44 @@ def chat(model: dict, prompt: str, max_tokens: int = 8192, timeout: int = 180) -
     return ChatResult(error=last_err or "unknown error")
 
 
+def decide(model: dict, state, questions: dict, timeout: int = 120) -> ChatResult:
+    """Call a decision model through OpenRouter's Decisions API. `text` holds the raw answers as JSON."""
+    body = {"model": model["openrouter_id"], "state": state, "questions": questions}
+    if model.get("provider"):
+        body["provider"] = model["provider"]
+    last_err = None
+    for attempt in range(3):
+        try:
+            d = _post_abs("https://openrouter.ai/api/alpha/decisions", body, timeout)
+        except urllib.error.HTTPError as e:
+            last_err = f"HTTP {e.code}: {e.read().decode(errors='replace')[:300]}"
+            if e.code in (408, 429, 500, 502, 503, 504):
+                time.sleep(5 * 2 ** attempt)
+                continue
+            break
+        except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.HTTPException, ValueError) as e:
+            last_err = f"network: {e}"
+            time.sleep(3)
+            continue
+        usage = d.get("usage") or {}
+        return ChatResult(text=json.dumps(d.get("answers") or {}), provider=d.get("provider"),
+                          cost=float(usage.get("cost") or 0), finish_reason="decision",
+                          usage={"prompt_tokens": usage.get("input_tokens"), "completion_tokens": usage.get("output_tokens")})
+    return ChatResult(error=last_err or "unknown error")
+
+
+def _post_abs(url: str, body: dict, timeout: int) -> dict:
+    key = os.environ.get("OPENROUTER_API_KEY")
+    if not key:
+        raise RuntimeError("OPENROUTER_API_KEY is not set")
+    req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={
+        "Authorization": f"Bearer {key}", "Content-Type": "application/json",
+        "X-Title": "Model Tested", "HTTP-Referer": "https://modeltested.com"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return json.loads(r.read())
+
+
 def list_models() -> list[dict]:
-    with urllib.request.urlopen(API + "/models", timeout=60) as r:
+    # output_modalities=all: the default list hides non-text models such as decision models.
+    with urllib.request.urlopen(API + "/models?output_modalities=all", timeout=60) as r:
         return json.loads(r.read())["data"]

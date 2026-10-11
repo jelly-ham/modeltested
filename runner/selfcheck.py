@@ -34,6 +34,16 @@ def main(args) -> None:
             if f'"{k}"' not in q.data["fields"]:
                 problems.append(f"{q.key}: expected key {k!r} missing from fields spec")
 
+    for q in (q for q in qs if q.suite == "decisions"):
+        spec, exp = q.data["questions"], q.data["expected"]
+        if set(spec) != set(exp):
+            problems.append(f"{q.key}: questions and expected answers don't match")
+            continue
+        perfect = {qid: {suites._expected_key(s, exp[qid]): 1.0} for qid, s in spec.items()}
+        score, _ = suites.score_decisions(spec, exp, suites.decisions_from_llm(json.dumps(perfect), spec))
+        if score != 1.0:
+            problems.append(f"{q.key}: answer key does not score 1.0 against itself")
+
     for f in (BENCH / "public").glob("*.json"):
         if json.loads(f.read_text()).get("canary") != CANARY:
             problems.append(f"{f.name}: missing canary")

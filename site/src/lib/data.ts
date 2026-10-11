@@ -24,6 +24,10 @@ export type Model = {
   providers: string[];
   memory: { context: number; kv_cache_gb: number; need_gb: Record<string, number>; best_quant_by_tier: Record<string, string | null> } | null;
 };
+export type DecisionRow = {
+  slug: string; name: string; org: string | null; kind: "decision" | "local" | "reference";
+  params_b: number | null; accuracy: number; calibration: number | null; rank: number; openrouter_id: string;
+};
 export type Tier = { id: string; label: string; kind: "gpu" | "mac"; gb: number; usable_gb: number };
 
 export const data = board as unknown as {
@@ -34,6 +38,7 @@ export const data = board as unknown as {
   models: Model[];
   pending: string[];
   references?: Model[];
+  decisions?: DecisionRow[];
   n_hard?: number;
   changelog: { date: string; slug: string; name: string; event: string; overall: number; rank: number; of: number }[];
 };

@@ -1,0 +1,1417 @@
+{
+ "gemma-2-27b-it": {
+  "slug": "gemma-2-27b-it",
+  "name": "Gemma 2 27B",
+  "org": "google",
+  "openrouter_id": "google/gemma-2-27b-it",
+  "hf_id": "google/gemma-2-27b-it",
+  "params_b": 27.23,
+  "active_params_b": null,
+  "ollama": "gemma2:27b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 23.4,
+  "hard": 11.9,
+  "suites": {
+   "coding": {
+    "score": 13.3,
+    "public": 14.3,
+    "private": 13.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 33.5,
+    "public": 37.9,
+    "private": 32.4,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "NextBit"
+  ]
+ },
+ "gemma-3-12b-it": {
+  "slug": "gemma-3-12b-it",
+  "name": "Gemma 3 12B",
+  "org": "google",
+  "openrouter_id": "google/gemma-3-12b-it",
+  "hf_id": "google/gemma-3-12b-it",
+  "params_b": 12.19,
+  "active_params_b": null,
+  "ollama": "gemma3:12b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 34.9,
+  "hard": 23.8,
+  "suites": {
+   "coding": {
+    "score": 30.0,
+    "public": 28.6,
+    "private": 30.4,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 39.8,
+    "public": 56.0,
+    "private": 35.6,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "gemma-3-27b-it": {
+  "slug": "gemma-3-27b-it",
+  "name": "Gemma 3 27B",
+  "org": "google",
+  "openrouter_id": "google/gemma-3-27b-it",
+  "hf_id": "google/gemma-3-27b-it",
+  "params_b": 27.43,
+  "active_params_b": null,
+  "ollama": "gemma3:27b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 39.8,
+  "hard": 29.1,
+  "suites": {
+   "coding": {
+    "score": 33.3,
+    "public": 28.6,
+    "private": 34.8,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 46.2,
+    "public": 64.5,
+    "private": 41.4,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "NextBit",
+   "Parasail",
+   "Nebius",
+   "DeepInfra",
+   "Novita"
+  ]
+ },
+ "gemma-3-4b-it": {
+  "slug": "gemma-3-4b-it",
+  "name": "Gemma 3 4B",
+  "org": "google",
+  "openrouter_id": "google/gemma-3-4b-it",
+  "hf_id": "google/gemma-3-4b-it",
+  "params_b": 4.3,
+  "active_params_b": null,
+  "ollama": "gemma3:4b",
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 17.8,
+  "suites": {
+   "coding": {
+    "score": 5.0,
+    "public": 0.0,
+    "private": 6.7,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 30.6,
+    "public": 47.8,
+    "private": 24.9,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "gemma-4-26b-a4b-it": {
+  "slug": "gemma-4-26b-a4b-it",
+  "name": "Gemma 4 26B A4B ",
+  "org": "google",
+  "openrouter_id": "google/gemma-4-26b-a4b-it",
+  "hf_id": "google/gemma-4-26B-A4B-it",
+  "params_b": 25.81,
+  "active_params_b": 4.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 70.4,
+  "hard": 50.3,
+  "suites": {
+   "coding": {
+    "score": 83.3,
+    "public": 71.4,
+    "private": 87.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 57.5,
+    "public": 79.3,
+    "private": 51.7,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DekaLLM",
+   "Io Net",
+   "NextBit",
+   "DeepInfra",
+   "Novita",
+   "CoreWeave",
+   "Parasail",
+   "Venice",
+   "SiliconFlow"
+  ]
+ },
+ "gemma-4-31b-it": {
+  "slug": "gemma-4-31b-it",
+  "name": "Gemma 4 31B",
+  "org": "google",
+  "openrouter_id": "google/gemma-4-31b-it",
+  "hf_id": "google/gemma-4-31B-it",
+  "params_b": 31.27,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 79.2,
+  "hard": 72.6,
+  "suites": {
+   "coding": {
+    "score": 93.3,
+    "public": 100.0,
+    "private": 91.3,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 65.0,
+    "public": 79.1,
+    "private": 61.2,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra",
+   "Novita",
+   "Parasail",
+   "Crusoe"
+  ]
+ },
+ "glm-4-7-flash": {
+  "slug": "glm-4-7-flash",
+  "name": "GLM 4.7 Flash",
+  "org": "z-ai",
+  "openrouter_id": "z-ai/glm-4.7-flash",
+  "hf_id": "zai-org/GLM-4.7-Flash",
+  "params_b": 31.22,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 70.1,
+  "hard": 38.7,
+  "suites": {
+   "coding": {
+    "score": 73.3,
+    "public": 71.4,
+    "private": 73.9,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 66.9,
+    "public": 78.2,
+    "private": 63.9,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Novita",
+   "Venice"
+  ]
+ },
+ "gpt-oss-20b": {
+  "slug": "gpt-oss-20b",
+  "name": "gpt-oss-20b",
+  "org": "openai",
+  "openrouter_id": "openai/gpt-oss-20b",
+  "hf_id": "openai/gpt-oss-20b",
+  "params_b": 20.91,
+  "active_params_b": null,
+  "ollama": "gpt-oss:20b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 83.4,
+  "hard": 57.8,
+  "suites": {
+   "coding": {
+    "score": 80.0,
+    "public": 85.7,
+    "private": 78.3,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 86.8,
+    "public": 96.7,
+    "private": 84.2,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Darkbloom",
+   "DekaLLM",
+   "SiliconFlow",
+   "DeepInfra"
+  ]
+ },
+ "granite-4-2-8b": {
+  "slug": "granite-4-2-8b",
+  "name": "Granite 4.2 8B",
+  "org": "ibm-granite",
+  "openrouter_id": "ibm-granite/granite-4.2-8b",
+  "hf_id": "ibm-granite/granite-4.2-8b",
+  "params_b": 8.79,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 18.9,
+  "hard": 9.0,
+  "suites": {
+   "coding": {
+    "score": 16.7,
+    "public": 28.6,
+    "private": 13.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 21.2,
+    "public": 18.3,
+    "private": 21.9,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra",
+   "CoreWeave"
+  ]
+ },
+ "llama-3-1-8b-instruct": {
+  "slug": "llama-3-1-8b-instruct",
+  "name": "Llama 3.1 8B Instruct",
+  "org": "meta-llama",
+  "openrouter_id": "meta-llama/llama-3.1-8b-instruct",
+  "hf_id": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+  "params_b": 8.03,
+  "active_params_b": null,
+  "ollama": "llama3.1:8b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 14.8,
+  "hard": 3.4,
+  "suites": {
+   "coding": {
+    "score": 3.3,
+    "public": 0.0,
+    "private": 4.3,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 26.2,
+    "public": 42.6,
+    "private": 21.9,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra",
+   "Novita"
+  ]
+ },
+ "llama-3-2-3b-instruct": {
+  "slug": "llama-3-2-3b-instruct",
+  "name": "Llama 3.2 3B Instruct",
+  "org": "meta-llama",
+  "openrouter_id": "meta-llama/llama-3.2-3b-instruct",
+  "hf_id": "meta-llama/Llama-3.2-3B-Instruct",
+  "params_b": 3.21,
+  "active_params_b": null,
+  "ollama": "llama3.2:3b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 6.2,
+  "hard": 1.9,
+  "suites": {
+   "coding": {
+    "score": 0.0,
+    "public": 0.0,
+    "private": 0.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 12.5,
+    "public": 24.1,
+    "private": 9.5,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Parasail"
+  ]
+ },
+ "ministral-14b-2512": {
+  "slug": "ministral-14b-2512",
+  "name": "Ministral 3 14B 2512",
+  "org": "mistralai",
+  "openrouter_id": "mistralai/ministral-14b-2512",
+  "hf_id": "mistralai/Ministral-3-14B-Instruct-2512",
+  "params_b": 13.95,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 44.1,
+  "hard": 23.8,
+  "suites": {
+   "coding": {
+    "score": 43.3,
+    "public": 57.1,
+    "private": 39.1,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 44.9,
+    "public": 61.5,
+    "private": 40.5,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Mistral"
+  ]
+ },
+ "ministral-3b-2512": {
+  "slug": "ministral-3b-2512",
+  "name": "Ministral 3 3B 2512",
+  "org": "mistralai",
+  "openrouter_id": "mistralai/ministral-3b-2512",
+  "hf_id": "mistralai/Ministral-3-3B-Instruct-2512",
+  "params_b": 3.85,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 20.9,
+  "hard": 15.3,
+  "suites": {
+   "coding": {
+    "score": 10.0,
+    "public": 14.3,
+    "private": 8.7,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 31.7,
+    "public": 52.3,
+    "private": 26.3,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Mistral"
+  ]
+ },
+ "ministral-8b-2512": {
+  "slug": "ministral-8b-2512",
+  "name": "Ministral 3 8B 2512",
+  "org": "mistralai",
+  "openrouter_id": "mistralai/ministral-8b-2512",
+  "hf_id": "mistralai/Ministral-3-8B-Instruct-2512",
+  "params_b": 8.92,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 36.6,
+  "hard": 18.3,
+  "suites": {
+   "coding": {
+    "score": 30.0,
+    "public": 28.6,
+    "private": 30.4,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 43.2,
+    "public": 61.5,
+    "private": 38.3,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Mistral"
+  ]
+ },
+ "mistral-nemo": {
+  "slug": "mistral-nemo",
+  "name": "Mistral Nemo",
+  "org": "mistralai",
+  "openrouter_id": "mistralai/mistral-nemo",
+  "hf_id": "mistralai/Mistral-Nemo-Instruct-2407",
+  "params_b": 12.25,
+  "active_params_b": null,
+  "ollama": "mistral-nemo",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 22.9,
+  "hard": 13.0,
+  "suites": {
+   "coding": {
+    "score": 10.0,
+    "public": 14.3,
+    "private": 8.7,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 35.9,
+    "public": 50.7,
+    "private": 32.0,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra",
+   "DekaLLM",
+   "Io Net",
+   "Parasail"
+  ]
+ },
+ "mistral-small-24b-instruct-2501": {
+  "slug": "mistral-small-24b-instruct-2501",
+  "name": "Mistral Small 3",
+  "org": "mistralai",
+  "openrouter_id": "mistralai/mistral-small-24b-instruct-2501",
+  "hf_id": "mistralai/Mistral-Small-24B-Instruct-2501",
+  "params_b": 23.57,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 41.0,
+  "hard": 23.9,
+  "suites": {
+   "coding": {
+    "score": 36.7,
+    "public": 42.9,
+    "private": 34.8,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 45.2,
+    "public": 57.6,
+    "private": 41.9,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "mistral-small-3-2-24b-instruct": {
+  "slug": "mistral-small-3-2-24b-instruct",
+  "name": "Mistral Small 3.2 24B",
+  "org": "mistralai",
+  "openrouter_id": "mistralai/mistral-small-3.2-24b-instruct",
+  "hf_id": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+  "params_b": 24.01,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 43.5,
+  "hard": 20.9,
+  "suites": {
+   "coding": {
+    "score": 40.0,
+    "public": 42.9,
+    "private": 39.1,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 47.0,
+    "public": 60.1,
+    "private": 43.6,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra",
+   "Venice",
+   "Parasail"
+  ]
+ },
+ "nemotron-3-5-lightning": {
+  "slug": "nemotron-3-5-lightning",
+  "name": "Nemotron 3.5 Lightning",
+  "org": "nvidia",
+  "openrouter_id": "nvidia/nemotron-3.5-lightning",
+  "hf_id": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+  "params_b": 31.58,
+  "active_params_b": 3.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 38.0,
+  "hard": 22.2,
+  "suites": {
+   "coding": {
+    "score": 20.0,
+    "public": 28.6,
+    "private": 17.4,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 55.9,
+    "public": 72.5,
+    "private": 51.6,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "CoreWeave",
+   "DeepInfra"
+  ]
+ },
+ "nemotron-3-nano-30b-a3b": {
+  "slug": "nemotron-3-nano-30b-a3b",
+  "name": "Nemotron 3 Nano 30B A3B",
+  "org": "nvidia",
+  "openrouter_id": "nvidia/nemotron-3-nano-30b-a3b",
+  "hf_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16",
+  "params_b": 31.58,
+  "active_params_b": 3.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 75.3,
+  "hard": 54.2,
+  "suites": {
+   "coding": {
+    "score": 66.7,
+    "public": 85.7,
+    "private": 60.9,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 84.0,
+    "public": 91.7,
+    "private": 82.0,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Nebius"
+  ]
+ },
+ "phi-4": {
+  "slug": "phi-4",
+  "name": "Phi 4",
+  "org": "microsoft",
+  "openrouter_id": "microsoft/phi-4",
+  "hf_id": "microsoft/phi-4",
+  "params_b": 14.66,
+  "active_params_b": null,
+  "ollama": "phi4",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 24.8,
+  "hard": 19.2,
+  "suites": {
+   "coding": {
+    "score": 23.3,
+    "public": 42.9,
+    "private": 17.4,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 26.2,
+    "public": 52.6,
+    "private": 19.3,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "qwen-2-5-7b-instruct": {
+  "slug": "qwen-2-5-7b-instruct",
+  "name": "Qwen2.5 7B Instruct",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen-2.5-7b-instruct",
+  "hf_id": "Qwen/Qwen2.5-7B-Instruct",
+  "params_b": 7.62,
+  "active_params_b": null,
+  "ollama": "qwen2.5:7b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 23.7,
+  "hard": 11.4,
+  "suites": {
+   "coding": {
+    "score": 10.0,
+    "public": 0.0,
+    "private": 13.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 37.4,
+    "public": 57.4,
+    "private": 32.1,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Phala"
+  ]
+ },
+ "qwen3-14b": {
+  "slug": "qwen3-14b",
+  "name": "Qwen3 14B",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3-14b",
+  "hf_id": "Qwen/Qwen3-14B",
+  "params_b": 14.77,
+  "active_params_b": null,
+  "ollama": "qwen3:14b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 67.0,
+  "hard": 36.2,
+  "suites": {
+   "coding": {
+    "score": 53.3,
+    "public": 57.1,
+    "private": 52.2,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 80.7,
+    "public": 82.1,
+    "private": 80.3,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "qwen3-30b-a3b": {
+  "slug": "qwen3-30b-a3b",
+  "name": "Qwen3 30B A3B",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3-30b-a3b",
+  "hf_id": "Qwen/Qwen3-30B-A3B",
+  "params_b": 30.53,
+  "active_params_b": 3.0,
+  "ollama": "qwen3:30b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 61.6,
+  "hard": 33.3,
+  "suites": {
+   "coding": {
+    "score": 40.0,
+    "public": 71.4,
+    "private": 30.4,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 83.2,
+    "public": 78.3,
+    "private": 84.5,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "qwen3-30b-a3b-instruct-2507": {
+  "slug": "qwen3-30b-a3b-instruct-2507",
+  "name": "Qwen3 30B A3B Instruct 2507",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3-30b-a3b-instruct-2507",
+  "hf_id": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+  "params_b": 30.53,
+  "active_params_b": 3.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 39.2,
+  "hard": 25.2,
+  "suites": {
+   "coding": {
+    "score": 33.3,
+    "public": 57.1,
+    "private": 26.1,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 45.2,
+    "public": 55.9,
+    "private": 42.4,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "SiliconFlow",
+   "Nebius"
+  ]
+ },
+ "qwen3-32b": {
+  "slug": "qwen3-32b",
+  "name": "Qwen3 32B",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3-32b",
+  "hf_id": "Qwen/Qwen3-32B",
+  "params_b": 32.76,
+  "active_params_b": null,
+  "ollama": "qwen3:32b",
+  "license": null,
+  "added": "2026-10-10",
+  "kind": null,
+  "status": "active",
+  "overall": 62.6,
+  "hard": 50.1,
+  "suites": {
+   "coding": {
+    "score": 46.7,
+    "public": 57.1,
+    "private": 43.5,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 0,
+    "total": 37
+   },
+   "extract": {
+    "score": 78.6,
+    "public": 90.0,
+    "private": 75.6,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra",
+   "Tenstorrent",
+   "SiliconFlow"
+  ]
+ },
+ "qwen3-5-27b": {
+  "slug": "qwen3-5-27b",
+  "name": "Qwen3.5-27B",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3.5-27b",
+  "hf_id": "Qwen/Qwen3.5-27B",
+  "params_b": 27.78,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 92.1,
+  "suites": {
+   "coding": {
+    "score": 85.0,
+    "public": 100.0,
+    "private": 80.0,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 99.2,
+    "public": 96.9,
+    "private": 100.0,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "SiliconFlow",
+   "DeepInfra",
+   "AtlasCloud",
+   "Novita"
+  ]
+ },
+ "qwen3-5-35b-a3b": {
+  "slug": "qwen3-5-35b-a3b",
+  "name": "Qwen3.5-35B-A3B",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3.5-35b-a3b",
+  "hf_id": "Qwen/Qwen3.5-35B-A3B",
+  "params_b": 35.95,
+  "active_params_b": 3.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 81.8,
+  "suites": {
+   "coding": {
+    "score": 65.0,
+    "public": 100.0,
+    "private": 53.3,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 98.6,
+    "public": 97.9,
+    "private": 98.8,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "Parasail",
+   "DeepInfra",
+   "AtlasCloud",
+   "SiliconFlow"
+  ]
+ },
+ "qwen3-5-9b": {
+  "slug": "qwen3-5-9b",
+  "name": "Qwen3.5-9B",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3.5-9b",
+  "hf_id": "Qwen/Qwen3.5-9B",
+  "params_b": 9.65,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 61.8,
+  "suites": {
+   "coding": {
+    "score": 50.0,
+    "public": 40.0,
+    "private": 53.3,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 73.6,
+    "public": 72.9,
+    "private": 73.8,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "SiliconFlow",
+   "Parasail",
+   "Venice",
+   "DeepInfra"
+  ]
+ },
+ "qwen3-6-27b": {
+  "slug": "qwen3-6-27b",
+  "name": "Qwen3.6 27B",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3.6-27b",
+  "hf_id": "Qwen/Qwen3.6-27B",
+  "params_b": 27.78,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 97.2,
+  "suites": {
+   "coding": {
+    "score": 95.0,
+    "public": 100.0,
+    "private": 93.3,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 99.5,
+    "public": 97.9,
+    "private": 100.0,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "Chutes",
+   "DeepInfra",
+   "SiliconFlow",
+   "Venice"
+  ]
+ },
+ "qwen3-6-35b-a3b": {
+  "slug": "qwen3-6-35b-a3b",
+  "name": "Qwen3.6 35B A3B",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3.6-35b-a3b",
+  "hf_id": "Qwen/Qwen3.6-35B-A3B",
+  "params_b": 35.95,
+  "active_params_b": 3.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 67.2,
+  "suites": {
+   "coding": {
+    "score": 40.0,
+    "public": 40.0,
+    "private": 40.0,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 94.5,
+    "public": 100.0,
+    "private": 92.7,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "Venice",
+   "Parasail",
+   "AkashML",
+   "AtlasCloud",
+   "SiliconFlow",
+   "CoreWeave"
+  ]
+ },
+ "qwen3-8-27b": {
+  "slug": "qwen3-8-27b",
+  "name": "Qwen3.8 27B",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3.8-27b",
+  "hf_id": "Qwen/Qwen3.8-27B",
+  "params_b": 27.78,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 72.5,
+  "suites": {
+   "coding": {
+    "score": 45.0,
+    "public": 40.0,
+    "private": 46.7,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 100.0,
+    "public": 100.0,
+    "private": 100.0,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "Near AI",
+   "DeepInfra",
+   "Reka",
+   "Ionstream",
+   "Venice",
+   "Chutes",
+   "AkashML"
+  ]
+ },
+ "qwen3-coder-30b-a3b-instruct": {
+  "slug": "qwen3-coder-30b-a3b-instruct",
+  "name": "Qwen3 Coder 30B A3B Instruct",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3-coder-30b-a3b-instruct",
+  "hf_id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+  "params_b": 30.53,
+  "active_params_b": 3.0,
+  "ollama": "qwen3-coder:30b",
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 56.7,
+  "suites": {
+   "coding": {
+    "score": 60.0,
+    "public": 40.0,
+    "private": 66.7,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 53.4,
+    "public": 75.3,
+    "private": 46.1,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "SiliconFlow"
+  ]
+ },
+ "qwen3-vl-30b-a3b-instruct": {
+  "slug": "qwen3-vl-30b-a3b-instruct",
+  "name": "Qwen3 VL 30B A3B Instruct",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3-vl-30b-a3b-instruct",
+  "hf_id": "Qwen/Qwen3-VL-30B-A3B-Instruct",
+  "params_b": 31.07,
+  "active_params_b": 3.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 52.2,
+  "suites": {
+   "coding": {
+    "score": 50.0,
+    "public": 40.0,
+    "private": 53.3,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 54.4,
+    "public": 75.3,
+    "private": 47.4,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "DeepInfra",
+   "Novita",
+   "SiliconFlow"
+  ]
+ },
+ "qwen3-vl-30b-a3b-thinking": {
+  "slug": "qwen3-vl-30b-a3b-thinking",
+  "name": "Qwen3 VL 30B A3B Thinking",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3-vl-30b-a3b-thinking",
+  "hf_id": "Qwen/Qwen3-VL-30B-A3B-Thinking",
+  "params_b": 31.07,
+  "active_params_b": 3.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 87.5,
+  "suites": {
+   "coding": {
+    "score": 80.0,
+    "public": 80.0,
+    "private": 80.0,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 94.9,
+    "public": 97.9,
+    "private": 93.9,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "SiliconFlow"
+  ]
+ },
+ "qwen3-vl-8b-instruct": {
+  "slug": "qwen3-vl-8b-instruct",
+  "name": "Qwen3 VL 8B Instruct",
+  "org": "qwen",
+  "openrouter_id": "qwen/qwen3-vl-8b-instruct",
+  "hf_id": "Qwen/Qwen3-VL-8B-Instruct",
+  "params_b": 8.77,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-10",
+  "overall": 45.9,
+  "suites": {
+   "coding": {
+    "score": 45.0,
+    "public": 40.0,
+    "private": 46.7,
+    "done": 20,
+    "total": 20
+   },
+   "extract": {
+    "score": 46.8,
+    "public": 56.3,
+    "private": 43.6,
+    "done": 16,
+    "total": 16
+   }
+  },
+  "providers": [
+   "Parasail"
+  ]
+ }
+}

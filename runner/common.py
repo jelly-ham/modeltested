@@ -34,7 +34,19 @@ SUITES = {
         "name": "Structured extraction",
         "description": "Pull facts out of messy business documents — with corrections, distractors and calculations — into JSON, graded field by field.",
     },
+    # Not part of the local-LLM overall score: it has its own ranking, shared with dedicated decision models.
+    "decisions": {
+        "name": "Decisions",
+        "description": "Classify, route and triage real-world inputs (tickets, emails, incidents, code changes) by picking from fixed options with probabilities; graded on accuracy and calibration.",
+        "ranked": False,
+    },
 }
+RANKED_SUITES = [k for k, v in SUITES.items() if v.get("ranked", True)]
+
+
+def model_suites(model: dict) -> set[str]:
+    """Decision models only answer decision questions; everything else answers all suites."""
+    return {"decisions"} if model.get("kind") == "decision" else set(SUITES)
 
 
 @dataclass

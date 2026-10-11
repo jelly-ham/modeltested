@@ -16,7 +16,7 @@ from . import client, sandbox, suites
 HARD_GRACE_MIN = float(os.environ.get("BENCH_HARD_GRACE_MIN", 5))  # minutes after --max-minutes before in-flight requests are abandoned
 
 from .common import (OUTPUTS_DIR, PRIVATE_OUTPUTS_DIR, Question, load_models, load_questions, load_scores,
-                     runnable_models, save_scores, today, write_json)
+                     model_suites, runnable_models, save_scores, today, write_json)
 
 
 def _mock_answer(model: dict, q: Question) -> client.ChatResult:
@@ -24,6 +24,9 @@ def _mock_answer(model: dict, q: Question) -> client.ChatResult:
     if kind == "reference":
         if q.suite == "coding":
             text = "```python\n" + q.data["reference"] + "\n```"
+        elif q.suite == "decisions":
+            text = json.dumps({qid: {suites._expected_key(spec, q.data["expected"][qid]): 1.0}
+                               for qid, spec in q.data["questions"].items()})
         else:
             text = json.dumps(q.data["expected"])
     elif kind == "slow":
@@ -44,6 +47,8 @@ def _mock_answer(model: dict, q: Question) -> client.ChatResult:
 def _ask(model: dict, q: Question) -> client.ChatResult:
     if model["openrouter_id"].startswith("mock:"):
         return _mock_answer(model, q)
+    if q.suite == "decisions" and model.get("kind") == "decision":
+        return client.decide(model, q.data["state"], q.data["questions"])
     return client.chat(model, suites.build_prompt(q.suite, q.data))
 
 
@@ -66,12 +71,22 @@ def finalize_model(model: dict, todo: list[Question], answers: dict[str, client.
         if q.suite == "coding":
             res = coding_results[k]
             score, detail = (1.0 if res["passed"] else 0.0), {"error": res["error"]}
+        elif q.suite == "decisions":
+            qs = q.data["questions"]
+            try:
+                probs = (suites.decisions_from_api(json.loads(r.text), qs) if model.get("kind") == "decision"
+                         else suites.decisions_from_llm(r.text, qs))
+            except ValueError:
+                probs = {}
+            score, detail = suites.score_decisions(qs, q.data["expected"], probs)
         else:
             parsed, strict = suites.parse_json_output(r.text)
             score, detail = suites.score_extract(q.data["expected"], parsed)
             detail["bare_json"] = strict
         items[k] = {"h": q.hash, "v": q.visibility[:4], "score": round(score, 4), "provider": r.provider,
-                    "truncated": r.finish_reason == "length" or None, "at": today()}
+                    "truncated": r.finish_reason == "length" or None, "brier": detail.get("brier"),
+                    "mt": model.get("max_tokens", client.MAX_TOKENS) if q.suite != "decisions" or model.get("kind") != "decision" else None,
+                    "at": today()}
         items[k] = {kk: vv for kk, vv in items[k].items() if vv is not None}
         (private_out if q.private else public_out)[k] = {"output": r.text[:20000], "score": round(score, 4), "detail": detail}
         # Grader errors are printed for public questions only (hidden ones would leak test details).
@@ -129,9 +144,10 @@ def main(args) -> None:
     todo: dict[str, list[Question]] = {}
     for m in models:
         items = load_scores(m["slug"])["items"]
-        todo[m["slug"]] = [q for q in questions
-                           if args.rerun or items.get(q.key, {}).get("h") != q.hash
-                           or items[q.key].get("provider") in client.BLOCKED_PROVIDERS]
+        allowed = model_suites(m)
+        todo[m["slug"]] = [q for q in questions if q.suite in allowed and (args.rerun or items.get(q.key, {}).get("h") != q.hash
+                           or items[q.key].get("provider") in client.BLOCKED_PROVIDERS
+                           or (items[q.key].get("truncated") and items[q.key].get("mt", 8192) < client.MAX_TOKENS))]
     jobs = [(m, q) for m in models for q in todo[m["slug"]]]
     print(f"{len(jobs)} (model, question) pairs to run across {sum(bool(v) for v in todo.values())} models", flush=True)
 

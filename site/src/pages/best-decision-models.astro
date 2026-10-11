@@ -1,0 +1,69 @@
+---
+import Article from "../layouts/Article.astro";
+import { data, fmtDate, whole } from "../lib/data";
+import { decisionPost, shortDate } from "../lib/posts";
+
+const rows = data.decisions ?? [];
+const post = decisionPost();
+const s = data.suites.find((x) => x.id === "decisions");
+const nItems = s ? s.n_public + s.n_private : 0;
+const kindLabel = { decision: "Decision model", local: "Local LLM", reference: "Cloud LLM" } as const;
+const bestDecision = rows.find((r) => r.kind === "decision");
+const bestLocal = rows.find((r) => r.kind === "local");
+const title = "Best Decision Models (Clef, Jev, Microsoft-Decision-1…) vs. Regular LLMs | Model Tested";
+const description = post?.dek ?? "Decision models tested on real classification, routing and triage tasks.";
+---
+<Article
+  seoTitle={title}
+  description={description}
+  heading={post?.title ?? "Decision models"}
+  dek="Decision models don't write text. You give them a situation and a few multiple-choice questions, and they return a probability for every option. We tested them, and regular LLMs, on the same real-world calls."
+  kicker={`Rankings · updated ${shortDate(data.generated)}`}
+  crumbs={[{ href: "/", label: "Home" }, { href: "/topics/rankings/", label: "Rankings" }]}
+  cover={post?.cover}
+  nav="rankings"
+>
+  {rows.length === 0 ? <p class="dek">Results are being collected.</p> : (
+    <>
+      <div class="short">
+        <strong>The short version</strong>
+        <ul>
+          {bestDecision && <li>Best dedicated decision model: <b>{bestDecision.name}</b>, right on {whole(bestDecision.accuracy)}% of calls.</li>}
+          {bestLocal && <li>Best regular model you can run at home: <a href={`/models/${bestLocal.slug}/`} style="color: var(--blue)">{bestLocal.name}</a>, {whole(bestLocal.accuracy)}%.</li>}
+          <li>"Calibration" shows how honest a model's confidence is: 100 means it is always right and always sure; low numbers mean it is often confidently wrong.</li>
+        </ul>
+      </div>
+      <div class="table-box">
+        <table style="min-width: 620px">
+          <thead><tr><th class="num">#</th><th>Model</th><th>Type</th><th class="num">Accuracy</th><th class="num">Calibration</th></tr></thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr>
+                <td class="num" style="color: var(--faint)">{r.rank}</td>
+                <td>{r.kind === "local" ? <a href={`/models/${r.slug}/`} style="font-weight: 600">{r.name}</a> : <b>{r.name}</b>}<div class="sub" style="font-size: 13px"><code>{r.openrouter_id}</code></div></td>
+                <td>{kindLabel[r.kind]}</td>
+                <td class="num"><b>{whole(r.accuracy)}</b></td>
+                <td class="num">{whole(r.calibration)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  )}
+  <div class="prose">
+    <h2>What we test</h2>
+    <p>
+      {nItems} situations, each with one to three questions: which team should get a support ticket and how urgent it is, whether an
+      email is phishing, which tool an assistant should use, what kind of document something is, whether a message contains sensitive
+      data, how severe an incident is, and whether a code change needs a security review. Some are tricky on purpose: sarcasm,
+      "this is NOT a billing question", criticism that isn't hate speech.
+    </p>
+    <p>
+      Decision models answer through OpenRouter's Decisions API. Regular LLMs get the same situations and options and are asked to
+      give a probability for each option as JSON. Accuracy counts how often the most likely option is right; calibration uses the
+      Brier score. <a href="/best-local-llms/methodology/">Full technical details</a>.
+    </p>
+  </div>
+  <div slot="tags" class="chips"><a class="chip" href="/topics/rankings/">Rankings</a></div>
+</Article>

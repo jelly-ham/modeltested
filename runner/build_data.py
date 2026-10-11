@@ -7,8 +7,8 @@ import shutil
 from collections import Counter
 
 from . import memory
-from .common import (CANARY, OUTPUTS_DIR, RESULTS, SITE_DATA, SUITES, load_models, load_questions, load_scores,
-                     today, write_json)
+from .common import (CANARY, OUTPUTS_DIR, RANKED_SUITES, RESULTS, SITE_DATA, SUITES, load_models, load_questions,
+                     load_scores, model_suites, today, write_json)
 
 HISTORY = RESULTS / "history.json"
 
@@ -21,25 +21,33 @@ def model_summary(model: dict, by_suite: dict) -> dict:
     items = load_scores(model["slug"])["items"]
     suites, providers, complete = {}, Counter(), True
     for suite, qs in by_suite.items():
+        if suite not in model_suites(model):
+            continue
         rows = [(q, items[q.key]) for q in qs if items.get(q.key, {}).get("h") == q.hash]
         providers.update(r.get("provider") for _, r in rows if r.get("provider"))
         pub = [r["score"] for q, r in rows if not q.private]
         priv = [r["score"] for q, r in rows if q.private]
         done = len(rows) == len(qs)
-        complete &= done
+        if suite in RANKED_SUITES:
+            complete &= done
         suites[suite] = {
             "score": round(100 * _mean([r["score"] for _, r in rows]), 1) if done else None,
             "public": round(100 * _mean(pub), 1) if pub and done else None,
             "private": round(100 * _mean(priv), 1) if priv and done else None,
             "done": len(rows), "total": len(qs),
         }
-    overall = round(_mean([s["score"] for s in suites.values()]), 1) if complete else None
+        if suite == "decisions" and done:
+            briers = [r["brier"] for _, r in rows if r.get("brier") is not None]
+            # 100 = perfectly calibrated and certain; Brier per question ranges 0..2.
+            suites[suite]["calibration"] = round(100 * (1 - _mean(briers) / 2), 1) if briers else None
+    ranked = [s["score"] for k, s in suites.items() if k in RANKED_SUITES]
+    overall = round(_mean(ranked), 1) if complete and ranked else None
     # Hard tasks: reported separately so the top of the table stays distinguishable.
     hard_rows = [r["score"] for qs in by_suite.values() for q in qs if q.data.get("difficulty") == "hard"
                  for r in [items.get(q.key)] if r and r.get("h") == q.hash]
     n_hard = sum(q.data.get("difficulty") == "hard" for qs in by_suite.values() for q in qs)
     hard = round(100 * _mean(hard_rows), 1) if n_hard and len(hard_rows) == n_hard else None
-    keep = ("slug", "name", "org", "openrouter_id", "hf_id", "params_b", "active_params_b", "ollama", "license", "added")
+    keep = ("slug", "name", "org", "openrouter_id", "hf_id", "params_b", "active_params_b", "ollama", "license", "added", "kind", "status")
     return {
         **{k: model.get(k) for k in keep},
         "overall": overall,
@@ -50,11 +58,28 @@ def model_summary(model: dict, by_suite: dict) -> dict:
     }
 
 
+def decision_board(doc: dict, by_suite: dict, summaries: list[dict]) -> list[dict]:
+    """Everyone who finished the decisions suite: dedicated decision models, local LLMs and reference models."""
+    rows = []
+    dec_models = [m for m in doc["models"] if m.get("kind") == "decision" and m.get("status") in ("active", "auto", "unavailable")]
+    for s in summaries + [model_summary(m, by_suite) for m in dec_models]:
+        d = s.get("suites", {}).get("decisions") or {}
+        if d.get("score") is None:
+            continue
+        kind = "decision" if s.get("kind") == "decision" else "reference" if s.get("status") == "reference" else "local"
+        rows.append({"slug": s["slug"], "name": s["name"], "org": s.get("org"), "kind": kind, "params_b": s.get("params_b"),
+                     "accuracy": d["score"], "calibration": d.get("calibration"), "openrouter_id": s.get("openrouter_id")})
+    rows.sort(key=lambda r: (-r["accuracy"], -(r["calibration"] or 0)))
+    for i, r in enumerate(rows, 1):
+        r["rank"] = i
+    return rows
+
+
 def main(args) -> None:
     doc = load_models()
     # "unavailable" models keep their place on the leaderboard if they were fully tested.
     statuses = {"active", "auto", "unavailable"} | ({"test"} if args.include_test else set())
-    models = [m for m in doc["models"] if m.get("status") in statuses]
+    models = [m for m in doc["models"] if m.get("status") in statuses and m.get("kind") != "decision"]
     questions = load_questions()
     if os.environ.get("CI") and not any(q.private for q in questions):
         # Publishing public-only scores would silently change every number on the site.
@@ -67,11 +92,22 @@ def main(args) -> None:
 
     # While new questions are being rolled out, a model is incomplete until it has answered them.
     # Keep showing its last complete result (marked as updating) instead of dropping it.
-    prev_path = SITE_DATA / "leaderboard.json"
-    prev = {m["slug"]: m for m in json.loads(prev_path.read_text()).get("models", [])} if prev_path.exists() else {}
+    # Source: results/last-complete.json (committed), seeded from the site data the first time.
+    last_path = RESULTS / "last-complete.json"
+    if last_path.exists():
+        last = json.loads(last_path.read_text())
+    else:
+        site = SITE_DATA / "leaderboard.json"
+        # Entries flagged "updating" still carry that model's last complete result.
+        last = {m["slug"]: {k: v for k, v in m.items() if k not in ("updating", "memory", "rank")}
+                for m in json.loads(site.read_text()).get("models", [])} if site.exists() else {}
     for i, s in enumerate(summaries):
-        if s["overall"] is None and s["slug"] in prev and not args.include_test:
-            summaries[i] = {**prev[s["slug"]], "memory": s["memory"], "updating": True}
+        if s["overall"] is not None:
+            last[s["slug"]] = {k: v for k, v in s.items() if k not in ("memory", "rank")}
+        elif s["slug"] in last and not args.include_test:
+            summaries[i] = {**last[s["slug"]], "memory": s["memory"], "updating": True}
+    if not args.include_test:
+        write_json(last_path, dict(sorted(last.items())))
 
     references = [model_summary(m, by_suite) for m in doc["models"] if m.get("status") == "reference"]
     ranked = sorted([s for s in summaries if s["overall"] is not None], key=lambda s: -s["overall"])
@@ -99,6 +135,7 @@ def main(args) -> None:
         "models": ranked,
         "pending": pending,
         "references": [r for r in references if r["overall"] is not None],
+        "decisions": decision_board(doc, by_suite, summaries + references),
         "n_hard": sum(q.data.get("difficulty") == "hard" for q in questions),
         "changelog": sorted(history, key=lambda h: h["date"], reverse=True)[:50],
     })

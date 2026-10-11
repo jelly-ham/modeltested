@@ -14,6 +14,14 @@
    "description": "Pull facts out of messy business documents — with corrections, distractors and calculations — into JSON, graded field by field.",
    "n_public": 5,
    "n_private": 19
+  },
+  {
+   "id": "decisions",
+   "name": "Decisions",
+   "description": "Classify, route and triage real-world inputs (tickets, emails, incidents, code changes) by picking from fixed options with probabilities; graded on accuracy and calibration.",
+   "ranked": false,
+   "n_public": 8,
+   "n_private": 29
   }
  ],
  "tiers": [
@@ -155,8 +163,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 1,
-   "updating": true
+   "updating": true,
+   "rank": 1
   },
   {
    "slug": "qwen3-5-27b",
@@ -214,8 +222,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 2,
-   "updating": true
+   "updating": true,
+   "rank": 2
   },
   {
    "slug": "qwen3-vl-30b-a3b-thinking",
@@ -270,8 +278,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 3,
-   "updating": true
+   "updating": true,
+   "rank": 3
   },
   {
    "slug": "gpt-oss-20b",
@@ -284,6 +292,8 @@
    "ollama": "gpt-oss:20b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 83.4,
    "hard": 57.8,
    "suites": {
@@ -293,6 +303,13 @@
      "private": 78.3,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 86.8,
@@ -385,8 +402,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 5,
-   "updating": true
+   "updating": true,
+   "rank": 5
   },
   {
    "slug": "gemma-4-31b-it",
@@ -399,6 +416,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 79.2,
    "hard": 72.6,
    "suites": {
@@ -408,6 +427,13 @@
      "private": 91.3,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 65.0,
@@ -458,6 +484,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 75.3,
    "hard": 54.2,
    "suites": {
@@ -467,6 +495,13 @@
      "private": 60.9,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 84.0,
@@ -562,8 +597,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 8,
-   "updating": true
+   "updating": true,
+   "rank": 8
   },
   {
    "slug": "gemma-4-26b-a4b-it",
@@ -576,6 +611,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 70.4,
    "hard": 50.3,
    "suites": {
@@ -585,6 +622,13 @@
      "private": 87.0,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 57.5,
@@ -640,6 +684,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 70.1,
    "hard": 38.7,
    "suites": {
@@ -649,6 +695,13 @@
      "private": 73.9,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 66.9,
@@ -744,8 +797,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 11,
-   "updating": true
+   "updating": true,
+   "rank": 11
   },
   {
    "slug": "qwen3-14b",
@@ -758,6 +811,8 @@
    "ollama": "qwen3:14b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 67.0,
    "hard": 36.2,
    "suites": {
@@ -767,6 +822,13 @@
      "private": 52.2,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 80.7,
@@ -814,6 +876,8 @@
    "ollama": "qwen3:32b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 62.6,
    "hard": 50.1,
    "suites": {
@@ -823,6 +887,13 @@
      "private": 43.5,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 78.6,
@@ -917,8 +988,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 14,
-   "updating": true
+   "updating": true,
+   "rank": 14
   },
   {
    "slug": "qwen3-30b-a3b",
@@ -931,6 +1002,8 @@
    "ollama": "qwen3:30b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 61.6,
    "hard": 33.3,
    "suites": {
@@ -940,6 +1013,13 @@
      "private": 30.4,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 83.2,
@@ -1029,8 +1109,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 16,
-   "updating": true
+   "updating": true,
+   "rank": 16
   },
   {
    "slug": "qwen3-vl-30b-a3b-instruct",
@@ -1087,8 +1167,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 17,
-   "updating": true
+   "updating": true,
+   "rank": 17
   },
   {
    "slug": "qwen3-vl-8b-instruct",
@@ -1143,8 +1223,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 18,
-   "updating": true
+   "updating": true,
+   "rank": 18
   },
   {
    "slug": "ministral-14b-2512",
@@ -1157,6 +1237,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 44.1,
    "hard": 23.8,
    "suites": {
@@ -1166,6 +1248,13 @@
      "private": 39.1,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 44.9,
@@ -1213,6 +1302,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 43.5,
    "hard": 20.9,
    "suites": {
@@ -1222,6 +1313,13 @@
      "private": 39.1,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 47.0,
@@ -1271,6 +1369,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 41.0,
    "hard": 23.9,
    "suites": {
@@ -1280,6 +1380,13 @@
      "private": 34.8,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 45.2,
@@ -1327,6 +1434,8 @@
    "ollama": "gemma3:27b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 39.8,
    "hard": 29.1,
    "suites": {
@@ -1336,6 +1445,13 @@
      "private": 34.8,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 46.2,
@@ -1387,6 +1503,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 39.2,
    "hard": 25.2,
    "suites": {
@@ -1396,6 +1514,13 @@
      "private": 26.1,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 45.2,
@@ -1444,6 +1569,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 38.0,
    "hard": 22.2,
    "suites": {
@@ -1453,6 +1580,13 @@
      "private": 17.4,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 55.9,
@@ -1501,6 +1635,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 36.6,
    "hard": 18.3,
    "suites": {
@@ -1510,6 +1646,13 @@
      "private": 30.4,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 43.2,
@@ -1557,6 +1700,8 @@
    "ollama": "gemma3:12b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 34.9,
    "hard": 23.8,
    "suites": {
@@ -1566,6 +1711,13 @@
      "private": 30.4,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 39.8,
@@ -1613,6 +1765,8 @@
    "ollama": "phi4",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 24.8,
    "hard": 19.2,
    "suites": {
@@ -1622,6 +1776,13 @@
      "private": 17.4,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 26.2,
@@ -1669,6 +1830,8 @@
    "ollama": "qwen2.5:7b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 23.7,
    "hard": 11.4,
    "suites": {
@@ -1678,6 +1841,13 @@
      "private": 13.0,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 37.4,
@@ -1725,6 +1895,8 @@
    "ollama": "gemma2:27b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 23.4,
    "hard": 11.9,
    "suites": {
@@ -1734,6 +1906,13 @@
      "private": 13.0,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 33.5,
@@ -1781,6 +1960,8 @@
    "ollama": "mistral-nemo",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 22.9,
    "hard": 13.0,
    "suites": {
@@ -1790,6 +1971,13 @@
      "private": 8.7,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 35.9,
@@ -1840,6 +2028,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 20.9,
    "hard": 15.3,
    "suites": {
@@ -1849,6 +2039,13 @@
      "private": 8.7,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 31.7,
@@ -1896,6 +2093,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 18.9,
    "hard": 9.0,
    "suites": {
@@ -1905,6 +2104,13 @@
      "private": 13.0,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 21.2,
@@ -1995,8 +2201,8 @@
      "mac-64": "Q8_0"
     }
    },
-   "rank": 33,
-   "updating": true
+   "updating": true,
+   "rank": 33
   },
   {
    "slug": "llama-3-1-8b-instruct",
@@ -2009,6 +2215,8 @@
    "ollama": "llama3.1:8b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 14.8,
    "hard": 3.4,
    "suites": {
@@ -2018,6 +2226,13 @@
      "private": 4.3,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 26.2,
@@ -2066,6 +2281,8 @@
    "ollama": "llama3.2:3b",
    "license": null,
    "added": "2026-10-10",
+   "kind": null,
+   "status": "active",
    "overall": 6.2,
    "hard": 1.9,
    "suites": {
@@ -2075,6 +2292,13 @@
      "private": 0.0,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 12.5,
@@ -2125,6 +2349,8 @@
    "ollama": null,
    "license": null,
    "added": "2026-10-11",
+   "kind": null,
+   "status": "reference",
    "overall": 59.5,
    "hard": 38.9,
    "suites": {
@@ -2134,6 +2360,13 @@
      "private": 21.7,
      "done": 30,
      "total": 30
+    },
+    "decisions": {
+     "score": null,
+     "public": null,
+     "private": null,
+     "done": 0,
+     "total": 37
     },
     "extract": {
      "score": 95.8,
@@ -2170,6 +2403,7 @@
    }
   }
  ],
+ "decisions": [],
  "n_hard": 18,
  "changelog": [
   {

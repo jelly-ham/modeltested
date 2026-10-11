@@ -90,7 +90,8 @@ def check_availability(doc: dict) -> None:
         providers = endpoint_providers(m["openrouter_id"])
         if providers is None:
             continue  # couldn't check; leave as is
-        usable = [p for p in providers if p not in client.BLOCKED_PROVIDERS]
+        # The block list is about corrupted generated text; decision models return probabilities, not text.
+        usable = providers if m.get("kind") == "decision" else [p for p in providers if p not in client.BLOCKED_PROVIDERS]
         if not usable and status != "unavailable":
             m["previous_status"] = status
             m["status"] = "unavailable"
@@ -115,6 +116,22 @@ def main(args) -> None:
             continue
         hf = m.get("hugging_face_id")
         org = oid.split("/", 1)[0]
+        outputs = (m.get("architecture") or {}).get("output_modalities") or ["text"]
+        if "decisions" in outputs:
+            # Decision models (state + typed questions -> probabilities) get their own ranking;
+            # open weights are not required and there is no size limit.
+            doc["models"].append({
+                "slug": slugify(oid.split("/", 1)[1]), "name": m.get("name", oid).split(": ", 1)[-1],
+                "status": "auto", "kind": "decision", "openrouter_id": oid, "hf_id": hf, "org": org,
+                "params_b": hf_params_b(hf) if hf else None, "active_params_b": None, "arch": None,
+                "ollama": None, "added": today(),
+            })
+            added.append(oid)
+            print(f"added decision model: {oid}")
+            continue
+        if "text" not in outputs:
+            doc.setdefault("ignored", {})[oid] = f"output is {'/'.join(outputs)}, not text"
+            continue
         if not hf:
             doc.setdefault("ignored", {})[oid] = "no open weights linked"
             continue
