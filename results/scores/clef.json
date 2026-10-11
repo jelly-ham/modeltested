@@ -86,8 +86,8 @@
    "h": "3e087ffec063",
    "v": "priv",
    "score": 0.5,
-   "provider": "Cloudflare",
-   "brier": 0.8557,
+   "provider": "PrimeIntellect",
+   "brier": 0.6648,
    "tok": 0,
    "at": "2026-10-11"
   },
@@ -345,8 +345,8 @@
    "h": "a5f51b6888c1",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0005,
+   "provider": "PrimeIntellect",
+   "brier": 0.0007,
    "tok": 0,
    "at": "2026-10-11"
   },

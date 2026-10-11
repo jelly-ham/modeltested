@@ -342,6 +342,16 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-hard-duplicate-encoding": {
+   "h": "cb77a5971040",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "brier": 0.025,
+   "tok": 77,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
   "decisions/decide-hard-expense-cap": {
    "h": "aebb0f5d72e8",
    "v": "priv",
@@ -439,6 +449,16 @@
    "provider": "DeepInfra",
    "brier": 0.14,
    "tok": 92,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-report-not-hate": {
+   "h": "f27dcdb47e4e",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "DeepInfra",
+   "brier": 0.9522,
+   "tok": 96,
    "mt": 32768,
    "at": "2026-10-11"
   },

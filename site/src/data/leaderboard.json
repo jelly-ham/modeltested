@@ -2531,11 +2531,13 @@
      "total": 30
     },
     "decisions": {
-     "score": null,
-     "public": null,
-     "private": null,
-     "done": 54,
-     "total": 56
+     "score": 67.9,
+     "public": 64.3,
+     "private": 69.0,
+     "done": 56,
+     "total": 56,
+     "calibration": 73.0,
+     "hard": 60.5
     },
     "extract": {
      "score": 25.1,
@@ -2819,11 +2821,13 @@
      "total": 30
     },
     "decisions": {
-     "score": null,
-     "public": null,
-     "private": null,
-     "done": 54,
-     "total": 56
+     "score": 67.9,
+     "public": 64.3,
+     "private": 69.0,
+     "done": 56,
+     "total": 56,
+     "calibration": 73.0,
+     "hard": 60.5
     },
     "extract": {
      "score": 25.1,
@@ -3238,7 +3242,7 @@
    "kind": "decision",
    "params_b": 27.36,
    "accuracy": 86.6,
-   "calibration": 90.8,
+   "calibration": 91.0,
    "hard": 73.7,
    "openrouter_id": "cloudflare/clef",
    "rank": 24
@@ -3520,6 +3524,18 @@
    "rank": 47
   },
   {
+   "slug": "gemma-3-4b-it",
+   "name": "Gemma 3 4B",
+   "org": "google",
+   "kind": "local",
+   "params_b": 4.3,
+   "accuracy": 67.9,
+   "calibration": 73.0,
+   "hard": 60.5,
+   "openrouter_id": "google/gemma-3-4b-it",
+   "rank": 48
+  },
+  {
    "slug": "llama-3-2-3b-instruct",
    "name": "Llama 3.2 3B Instruct",
    "org": "meta-llama",
@@ -3529,7 +3545,7 @@
    "calibration": 54.3,
    "hard": 42.1,
    "openrouter_id": "meta-llama/llama-3.2-3b-instruct",
-   "rank": 48
+   "rank": 49
   }
  ],
  "n_hard": 18,

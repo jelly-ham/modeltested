@@ -167,11 +167,13 @@
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 54,
-    "total": 56
+    "score": 67.9,
+    "public": 64.3,
+    "private": 69.0,
+    "done": 56,
+    "total": 56,
+    "calibration": 73.0,
+    "hard": 60.5
    },
    "extract": {
     "score": 25.1,
