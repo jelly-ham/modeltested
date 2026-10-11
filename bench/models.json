@@ -43,6 +43,19 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "command-a",
+      "name": "Command A",
+      "status": "auto",
+      "openrouter_id": "cohere/command-a",
+      "hf_id": "CohereForAI/c4ai-command-a-03-2025",
+      "org": "cohere",
+      "params_b": 111.06,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "d1",
       "name": "d1",
       "status": "auto",
@@ -53,6 +66,23 @@
       "params_b": null,
       "active_params_b": null,
       "arch": null,
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "devstral-2512",
+      "name": "Devstral 2 2512",
+      "status": "auto",
+      "openrouter_id": "mistralai/devstral-2512",
+      "hf_id": "mistralai/Devstral-2-123B-Instruct-2512",
+      "org": "mistralai",
+      "params_b": 125.03,
+      "active_params_b": null,
+      "arch": {
+        "layers": 88,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
       "ollama": null,
       "added": "2026-10-11"
     },
@@ -179,6 +209,57 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "glm-4-5-air",
+      "name": "GLM 4.5 Air",
+      "status": "auto",
+      "openrouter_id": "z-ai/glm-4.5-air",
+      "hf_id": "zai-org/GLM-4.5-Air",
+      "org": "z-ai",
+      "params_b": 110.47,
+      "active_params_b": null,
+      "arch": {
+        "layers": 46,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "glm-4-5v",
+      "name": "GLM 4.5V",
+      "status": "auto",
+      "openrouter_id": "z-ai/glm-4.5v",
+      "hf_id": "zai-org/GLM-4.5V",
+      "org": "z-ai",
+      "params_b": 107.71,
+      "active_params_b": null,
+      "arch": {
+        "layers": 46,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "glm-4-6v",
+      "name": "GLM 4.6V",
+      "status": "auto",
+      "openrouter_id": "z-ai/glm-4.6v",
+      "hf_id": "zai-org/GLM-4.6V",
+      "org": "z-ai",
+      "params_b": 107.71,
+      "active_params_b": null,
+      "arch": {
+        "layers": 46,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "glm-4-7-flash",
       "name": "GLM 4.7 Flash",
       "status": "active",
@@ -208,6 +289,27 @@
       "arch": null,
       "ollama": null,
       "added": "2026-10-11"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "name": "gpt-oss-120b",
+      "status": "auto",
+      "openrouter_id": "openai/gpt-oss-120b",
+      "hf_id": "openai/gpt-oss-120b",
+      "org": "openai",
+      "params_b": 116.83,
+      "active_params_b": null,
+      "arch": {
+        "layers": 36,
+        "kv_heads": 8,
+        "head_dim": 64
+      },
+      "ollama": "gpt-oss:120b",
+      "added": "2026-10-11",
+      "native_quant": {
+        "name": "MXFP4",
+        "bpw": 4.25
+      }
     },
     {
       "slug": "gpt-oss-20b",
@@ -294,6 +396,23 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "hunyuan-a13b-instruct",
+      "name": "Hunyuan A13B Instruct",
+      "status": "auto",
+      "openrouter_id": "tencent/hunyuan-a13b-instruct",
+      "hf_id": "tencent/Hunyuan-A13B-Instruct",
+      "org": "tencent",
+      "params_b": 80.39,
+      "active_params_b": 13.0,
+      "arch": {
+        "layers": 32,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "jev-1-13",
       "name": "Jev 1.13",
       "status": "auto",
@@ -322,6 +441,23 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "laguna-s-2-1",
+      "name": "Laguna S 2.1",
+      "status": "auto",
+      "openrouter_id": "poolside/laguna-s-2.1",
+      "hf_id": "poolside/Laguna-S-2.1",
+      "org": "poolside",
+      "params_b": 117.56,
+      "active_params_b": null,
+      "arch": {
+        "layers": 48,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "laguna-xs-2-1",
       "name": "Laguna XS 2.1",
       "status": "auto",
@@ -335,6 +471,53 @@
         "kv_heads": 8,
         "head_dim": 128
       },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "ling-3-0-flash",
+      "name": "Ling 3.0 Flash",
+      "status": "auto",
+      "openrouter_id": "inclusionai/ling-3.0-flash",
+      "hf_id": "inclusionAI/Ling-3.0-flash",
+      "org": "inclusionai",
+      "params_b": 127.49,
+      "active_params_b": null,
+      "arch": {
+        "layers": 42,
+        "kv_heads": 32,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "ling-3-0-flash-vl",
+      "name": "Ling 3.0 Flash VL",
+      "status": "auto",
+      "openrouter_id": "inclusionai/ling-3.0-flash-vl",
+      "hf_id": "inclusionAI/Ling-3.0-flash-VL",
+      "org": "inclusionai",
+      "params_b": 124.85,
+      "active_params_b": null,
+      "arch": {
+        "layers": 42,
+        "kv_heads": 32,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "llama-3-1-70b-instruct",
+      "name": "Llama 3.1 70B Instruct",
+      "status": "auto",
+      "openrouter_id": "meta-llama/llama-3.1-70b-instruct",
+      "hf_id": "meta-llama/Meta-Llama-3.1-70B-Instruct",
+      "org": "meta-llama",
+      "params_b": 70.55,
+      "active_params_b": null,
+      "arch": null,
       "ollama": null,
       "added": "2026-10-11"
     },
@@ -425,6 +608,19 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "llama-3-3-70b-instruct",
+      "name": "Llama 3.3 70B Instruct",
+      "status": "auto",
+      "openrouter_id": "meta-llama/llama-3.3-70b-instruct",
+      "hf_id": "meta-llama/Llama-3.3-70B-Instruct",
+      "org": "meta-llama",
+      "params_b": 70.55,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "llama-3-3-8b-q4-mac",
       "name": "Llama 3.3 8B Instruct (Q4, Mac)",
       "status": "local",
@@ -446,6 +642,19 @@
       "license": "llama3.3",
       "added": "2026-10-11",
       "note": "Never officially released by Meta: weights recovered by the community (allura-forge, Dec 2025) from Meta's Llama API fine-tuning download. Same architecture as Llama 3.1 8B (8k context config). Compare with llama-3-1-8b-q4-mac (same Mac, same Q4)."
+    },
+    {
+      "slug": "llama-4-scout",
+      "name": "Llama 4 Scout",
+      "status": "auto",
+      "openrouter_id": "meta-llama/llama-4-scout",
+      "hf_id": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "org": "meta-llama",
+      "params_b": 108.64,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-11"
     },
     {
       "slug": "mercury-decide",
@@ -576,6 +785,23 @@
       },
       "ollama": null,
       "added": "2026-10-10"
+    },
+    {
+      "slug": "mistral-small-2603",
+      "name": "Mistral Small 4",
+      "status": "auto",
+      "openrouter_id": "mistralai/mistral-small-2603",
+      "hf_id": "mistralai/Mistral-Small-4-119B-2603",
+      "org": "mistralai",
+      "params_b": 119.4,
+      "active_params_b": null,
+      "arch": {
+        "layers": 36,
+        "kv_heads": 32,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
     },
     {
       "slug": "mistral-small-3-1-24b-instruct",
@@ -711,6 +937,23 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "nemotron-3-super-120b-a12b",
+      "name": "Nemotron 3 Super",
+      "status": "auto",
+      "openrouter_id": "nvidia/nemotron-3-super-120b-a12b",
+      "hf_id": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8",
+      "org": "nvidia",
+      "params_b": 123.61,
+      "active_params_b": 12.0,
+      "arch": {
+        "layers": 88,
+        "kv_heads": 2,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "nex-n2-5-mini",
       "name": "Nex-N2.5-Mini",
       "status": "auto",
@@ -755,6 +998,23 @@
       "params_b": null,
       "active_params_b": null,
       "arch": null,
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "qwen-2-5-72b-instruct",
+      "name": "Qwen2.5 72B Instruct",
+      "status": "auto",
+      "openrouter_id": "qwen/qwen-2.5-72b-instruct",
+      "hf_id": "Qwen/Qwen2.5-72B-Instruct",
+      "org": "qwen",
+      "params_b": 72.71,
+      "active_params_b": null,
+      "arch": {
+        "layers": 80,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
       "ollama": null,
       "added": "2026-10-11"
     },
@@ -820,6 +1080,23 @@
       "previous_status": "active",
       "unavailable_reason": "only blocked providers (Cloudflare)",
       "unavailable_since": "2026-10-11"
+    },
+    {
+      "slug": "qwen2-5-vl-72b-instruct",
+      "name": "Qwen2.5 VL 72B Instruct",
+      "status": "auto",
+      "openrouter_id": "qwen/qwen2.5-vl-72b-instruct",
+      "hf_id": "Qwen/Qwen2.5-VL-72B-Instruct",
+      "org": "qwen",
+      "params_b": 73.41,
+      "active_params_b": null,
+      "arch": {
+        "layers": 80,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
     },
     {
       "slug": "qwen3-14b",
@@ -888,6 +1165,23 @@
       },
       "ollama": "qwen3:32b",
       "added": "2026-10-10"
+    },
+    {
+      "slug": "qwen3-5-122b-a10b",
+      "name": "Qwen3.5-122B-A10B",
+      "status": "auto",
+      "openrouter_id": "qwen/qwen3.5-122b-a10b",
+      "hf_id": "Qwen/Qwen3.5-122B-A10B",
+      "org": "qwen",
+      "params_b": 125.09,
+      "active_params_b": 10.0,
+      "arch": {
+        "layers": 48,
+        "kv_heads": 2,
+        "head_dim": 256
+      },
+      "ollama": null,
+      "added": "2026-10-11"
     },
     {
       "slug": "qwen3-5-27b",
@@ -1007,6 +1301,57 @@
       },
       "ollama": "qwen3-coder:30b",
       "added": "2026-10-10"
+    },
+    {
+      "slug": "qwen3-coder-next",
+      "name": "Qwen3 Coder Next",
+      "status": "auto",
+      "openrouter_id": "qwen/qwen3-coder-next",
+      "hf_id": "Qwen/Qwen3-Coder-Next",
+      "org": "qwen",
+      "params_b": 79.67,
+      "active_params_b": null,
+      "arch": {
+        "layers": 48,
+        "kv_heads": 2,
+        "head_dim": 256
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "qwen3-next-80b-a3b-instruct",
+      "name": "Qwen3 Next 80B A3B Instruct",
+      "status": "auto",
+      "openrouter_id": "qwen/qwen3-next-80b-a3b-instruct",
+      "hf_id": "Qwen/Qwen3-Next-80B-A3B-Instruct",
+      "org": "qwen",
+      "params_b": 81.32,
+      "active_params_b": 3.0,
+      "arch": {
+        "layers": 48,
+        "kv_heads": 2,
+        "head_dim": 256
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "qwen3-next-80b-a3b-thinking",
+      "name": "Qwen3 Next 80B A3B Thinking",
+      "status": "auto",
+      "openrouter_id": "qwen/qwen3-next-80b-a3b-thinking",
+      "hf_id": "Qwen/Qwen3-Next-80B-A3B-Thinking",
+      "org": "qwen",
+      "params_b": 81.32,
+      "active_params_b": 3.0,
+      "arch": {
+        "layers": 48,
+        "kv_heads": 2,
+        "head_dim": 256
+      },
+      "ollama": null,
+      "added": "2026-10-11"
     },
     {
       "slug": "qwen3-vl-30b-a3b-instruct",
@@ -1255,7 +1600,6 @@
     "bytedance/ui-tars-1.5-7b": "org 'bytedance' not on allowlist",
     "canopylabs/orpheus-3b-0.1-ft": "output is speech, not text",
     "cognitivecomputations/dolphin-mistral-24b-venice-edition": "org 'cognitivecomputations' not on allowlist",
-    "cohere/command-a": "111.06B params > 40B",
     "cohere/command-a-plus": "no open weights linked",
     "cohere/command-r-08-2024": "no open weights linked",
     "cohere/command-r-plus-08-2024": "no open weights linked",
@@ -1337,10 +1681,8 @@
     "heygen/heygen-video-1": "output is video, not text",
     "inception/mercury-2": "no open weights linked",
     "inception/mercury-2.5": "no open weights linked",
-    "inclusionai/ling-3.0-flash": "127.49B params > 40B",
     "inclusionai/ling-3.0-flash-fin": "no open weights linked",
     "inclusionai/ling-3.0-flash-sante": "no open weights linked",
-    "inclusionai/ling-3.0-flash-vl": "124.85B params > 40B",
     "inclusionai/ling-3.1-flash": "no open weights linked",
     "inclusionai/ming-image-0.1-design": "output is image, not text",
     "inclusionai/ming-image-0.1-design-layer": "output is image, not text",
@@ -1357,10 +1699,7 @@
     "kwaivgi/kling-video-o1": "output is video, not text",
     "mancer/weaver": "no open weights linked",
     "meituan/longcat-2.0": "org 'meituan' not on allowlist",
-    "meta-llama/llama-3.1-70b-instruct": "70.55B params > 40B",
-    "meta-llama/llama-3.3-70b-instruct": "70.55B params > 40B",
     "meta-llama/llama-4-maverick": "401.58B params > 40B",
-    "meta-llama/llama-4-scout": "108.64B params > 40B",
     "meta-llama/llama-guard-4-12b": "specialized model, not a general assistant",
     "meta/muse-image": "output is image, not text",
     "meta/muse-spark-1.1": "no open weights linked",
@@ -1394,7 +1733,6 @@
     "minimax/speech-2.8-turbo": "output is speech, not text",
     "mistralai/codestral-2508": "no open weights linked",
     "mistralai/codestral-embed-2505": "output is embeddings, not text",
-    "mistralai/devstral-2512": "125.03B params > 40B",
     "mistralai/mistral-embed-2312": "output is embeddings, not text",
     "mistralai/mistral-large": "no open weights linked",
     "mistralai/mistral-large-2407": "no open weights linked",
@@ -1403,7 +1741,6 @@
     "mistralai/mistral-medium-3-5": "no open weights linked",
     "mistralai/mistral-medium-3.1": "no open weights linked",
     "mistralai/mistral-saba": "no open weights linked",
-    "mistralai/mistral-small-2603": "119.4B params > 40B",
     "mistralai/mixtral-8x22b-instruct": "140.63B params > 40B",
     "mistralai/voxtral-mini-3b-2507": "output is transcription, not text",
     "mistralai/voxtral-mini-transcribe": "output is transcription, not text",
@@ -1423,7 +1760,6 @@
     "nousresearch/hermes-3-llama-3.1-405b": "org 'nousresearch' not on allowlist",
     "nousresearch/hermes-3-llama-3.1-70b": "org 'nousresearch' not on allowlist",
     "nousresearch/hermes-4-405b": "org 'nousresearch' not on allowlist",
-    "nvidia/nemotron-3-super-120b-a12b": "123.61B params > 40B",
     "nvidia/nemotron-3-ultra-550b-a55b": "560.52B params > 40B",
     "nvidia/nemotron-3.5-asr-streaming-multilingual-0.6b": "output is transcription, not text",
     "nvidia/nemotron-3.5-content-safety": "specialized model, not a general assistant",
@@ -1490,7 +1826,6 @@
     "openai/gpt-image-2": "output is image, not text",
     "openai/gpt-image-2.5-flare": "output is image, not text",
     "openai/gpt-image-2.5-sunburst": "output is image, not text",
-    "openai/gpt-oss-120b": "116.83B params > 40B",
     "openai/gpt-oss-safeguard-20b": "specialized model, not a general assistant",
     "openai/gpt-transcribe": "output is transcription, not text",
     "openai/o1": "no open weights linked",
@@ -1522,28 +1857,21 @@
     "perplexity/sonar-pro": "no open weights linked",
     "perplexity/sonar-pro-search": "no open weights linked",
     "perplexity/sonar-reasoning-pro": "no open weights linked",
-    "poolside/laguna-s-2.1": "117.56B params > 40B",
-    "qwen/qwen-2.5-72b-instruct": "72.71B params > 40B",
     "qwen/qwen-audio-3.0-tts-flash": "output is speech, not text",
     "qwen/qwen-audio-3.0-tts-plus": "output is speech, not text",
     "qwen/qwen-image-3": "output is image, not text",
     "qwen/qwen-image-3-pro": "output is image, not text",
     "qwen/qwen-plus": "no open weights linked",
-    "qwen/qwen2.5-vl-72b-instruct": "73.41B params > 40B",
     "qwen/qwen3-235b-a22b-2507": "235.09B params > 40B",
     "qwen/qwen3-235b-a22b-thinking-2507": "235.09B params > 40B",
     "qwen/qwen3-asr-0.6b": "output is transcription, not text",
     "qwen/qwen3-asr-1.7b": "output is transcription, not text",
     "qwen/qwen3-coder": "480.15B params > 40B",
     "qwen/qwen3-coder-flash": "no open weights linked",
-    "qwen/qwen3-coder-next": "79.67B params > 40B",
     "qwen/qwen3-embedding-4b": "output is embeddings, not text",
     "qwen/qwen3-embedding-8b": "output is embeddings, not text",
-    "qwen/qwen3-next-80b-a3b-instruct": "81.32B params > 40B",
-    "qwen/qwen3-next-80b-a3b-thinking": "81.32B params > 40B",
     "qwen/qwen3-reranker-8b": "output is rerank, not text",
     "qwen/qwen3-vl-235b-a22b-instruct": "235.67B params > 40B",
-    "qwen/qwen3.5-122b-a10b": "125.09B params > 40B",
     "qwen/qwen3.5-397b-a17b": "403.4B params > 40B",
     "qwen/qwen3.5-flash-02-23": "no open weights linked",
     "qwen/qwen3.5-plus-02-15": "no open weights linked",
@@ -1598,7 +1926,6 @@
     "stepfun/step-3.5-flash": "org 'stepfun' not on allowlist",
     "stepfun/step-3.7-flash": "org 'stepfun' not on allowlist",
     "stepfun/step-5-preview": "no open weights linked",
-    "tencent/hunyuan-a13b-instruct": "80.39B params > 40B",
     "tencent/hy-image-v3.5-preview": "output is image, not text",
     "tencent/hy-mt2-1.8b": "specialized model, not a general assistant",
     "tencent/hy-mt2-30b-a3b": "specialized model, not a general assistant",
@@ -1650,10 +1977,7 @@
     "xiaomi/mimo-v2.6-pro": "1024.22B params > 40B",
     "xiaomi/mimo-v2.6-pro-ultraspeed": "no open weights linked",
     "z-ai/glm-4.5": "358.34B params > 40B",
-    "z-ai/glm-4.5-air": "110.47B params > 40B",
-    "z-ai/glm-4.5v": "107.71B params > 40B",
     "z-ai/glm-4.6": "356.79B params > 40B",
-    "z-ai/glm-4.6v": "107.71B params > 40B",
     "z-ai/glm-4.7": "358.34B params > 40B",
     "z-ai/glm-5": "753.86B params > 40B",
     "z-ai/glm-5-turbo": "no open weights linked",

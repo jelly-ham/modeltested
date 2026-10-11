@@ -27,6 +27,7 @@ const others = tiers.filter((t) => t.kind === tier.kind);
       <p class="dek">
         {fits.length} of the {models.length} models we've tested fit, with room for a normal-length chat.
         {top && <>The best one is <a href={`/models/${top.model.slug}/`} style="color: var(--blue)">{top.model.name}</a>, scoring {whole(top.model.overall)} out of 100.</>}
+        {tier.id === "mac-128" && <> The same list is a good guide for 128 GB "AI PCs" such as AMD Strix Halo (Ryzen AI Max+ 395) and NVIDIA DGX Spark.</>}
       </p>
       <div class="hw-chips" style="margin-top: 20px">
         {others.map((t) => (

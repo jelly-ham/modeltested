@@ -1,11 +1,12 @@
 ---
-import { data, ranked, size, minTiers, suiteLabel, quantLabel, whole } from "../lib/data";
+import { data, ranked, size, minTiers, suiteLabel, quantLabel, whole, tiers } from "../lib/data";
 
 interface Props { by: string }
 const { by } = Astro.props;
 const rows = ranked(by);
 // Only the suites that make up the overall score (decisions has its own page).
 const suiteCols = by === "overall" ? data.suites.filter((s) => s.ranked !== false) : data.suites.filter((s) => s.id === by);
+const maxGb = (kind: string) => Math.max(...tiers.filter((t) => t.kind === kind).map((t) => t.gb));
 const showHard = by === "overall" && rows.some((m) => m.hard != null);
 ---
 <div class="table-box" style="font-family: var(--sans)">
@@ -39,8 +40,8 @@ const showHard = by === "overall" && rows.some((m) => m.hard != null);
             )}
             {suiteCols.map((s) => <td class="num">{whole(m.suites[s.id]?.score)}</td>)}
             {showHard && <td class="num">{m.hard == null ? <span class="sub">–</span> : whole(m.hard)}</td>}
-            <td style="white-space: nowrap">{t.gpu ? `${t.gpu.gb} GB card (${quantLabel(m.memory!.best_quant_by_tier[t.gpu.id])})` : <span class="sub">more than 32 GB</span>}</td>
-            <td style="white-space: nowrap">{t.mac ? `${t.mac.gb} GB Mac (${quantLabel(m.memory!.best_quant_by_tier[t.mac.id])})` : <span class="sub">more than 64 GB</span>}</td>
+            <td style="white-space: nowrap">{t.gpu ? `${t.gpu.gb} GB card (${quantLabel(m.memory!.best_quant_by_tier[t.gpu.id])})` : <span class="sub">more than {maxGb("gpu")} GB</span>}</td>
+            <td style="white-space: nowrap">{t.mac ? `${t.mac.gb} GB Mac (${quantLabel(m.memory!.best_quant_by_tier[t.mac.id])})` : <span class="sub">more than {maxGb("mac")} GB</span>}</td>
           </tr>
         );
       })}

@@ -23,6 +23,9 @@ TIERS = [
     {"id": "mac-32", "label": "Mac 32 GB", "kind": "mac", "gb": 32},
     {"id": "mac-48", "label": "Mac 48 GB", "kind": "mac", "gb": 48},
     {"id": "mac-64", "label": "Mac 64 GB", "kind": "mac", "gb": 64},
+    # Also how much a 128 GB "AI PC" (Strix Halo, DGX Spark) can give a model, roughly.
+    {"id": "mac-96", "label": "Mac 96 GB", "kind": "mac", "gb": 96},
+    {"id": "mac-128", "label": "Mac 128 GB", "kind": "mac", "gb": 128},
 ]
 
 

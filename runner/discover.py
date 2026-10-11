@@ -14,7 +14,9 @@ import urllib.request
 from . import client
 from .common import load_models, save_models, slugify, today
 
-MAX_PARAMS_B = 40  # largest model we consider "runnable locally" for now
+# Largest model we consider "runnable locally": a Q4 of ~130B fits a 128 GB Mac or a
+# 128 GB unified-memory PC (Strix Halo, DGX Spark).
+MAX_PARAMS_B = 130
 
 # Orgs whose official open-weight releases we track automatically. Community
 # fine-tunes can still be added by hand.
