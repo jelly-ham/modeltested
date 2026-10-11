@@ -10,6 +10,7 @@ const nItems = s ? s.n_public + s.n_private : 0;
 const kindLabel = { decision: "Decision model", local: "Local LLM", reference: "Cloud LLM" } as const;
 const bestDecision = rows.find((r) => r.kind === "decision");
 const bestLocal = rows.find((r) => r.kind === "local");
+const showHard = rows.some((r) => r.hard != null);
 const title = "Best Decision Models (Clef, Jev, Microsoft-Decision-1…) vs. Regular LLMs | Model Tested";
 const description = post?.dek ?? "Decision models tested on real classification, routing and triage tasks.";
 ---
@@ -35,7 +36,7 @@ const description = post?.dek ?? "Decision models tested on real classification,
       </div>
       <div class="table-box">
         <table style="min-width: 620px">
-          <thead><tr><th class="num">#</th><th>Model</th><th>Type</th><th class="num">Accuracy</th><th class="num">Calibration</th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Model</th><th>Type</th><th class="num">Accuracy</th>{showHard && <th class="num">Hard cases</th>}<th class="num">Calibration</th></tr></thead>
           <tbody>
             {rows.map((r) => (
               <tr>
@@ -43,6 +44,7 @@ const description = post?.dek ?? "Decision models tested on real classification,
                 <td>{r.kind === "local" ? <a href={`/models/${r.slug}/`} style="font-weight: 600">{r.name}</a> : <b>{r.name}</b>}<div class="sub" style="font-size: 13px"><code>{r.openrouter_id}</code></div></td>
                 <td>{kindLabel[r.kind]}</td>
                 <td class="num"><b>{whole(r.accuracy)}</b></td>
+                {showHard && <td class="num">{r.hard == null ? <span class="sub">–</span> : whole(r.hard)}</td>}
                 <td class="num">{whole(r.calibration)}</td>
               </tr>
             ))}
@@ -59,6 +61,11 @@ const description = post?.dek ?? "Decision models tested on real classification,
       data, how severe an incident is, and whether a code change needs a security review. Some are tricky on purpose: sarcasm,
       "this is NOT a billing question", criticism that isn't hate speech.
     </p>
+    {(data.n_hard_decisions ?? 0) > 0 && <p>
+      {data.n_hard_decisions} of the situations are hard cases: the answer follows from rules we spell out (a refund policy, an
+      expense limit, a severity matrix, a contract clause), but getting it right means doing date or money math, converting time
+      zones, or ignoring a detail that points the wrong way. They are part of the accuracy score and also shown on their own.
+    </p>}
     <p>
       Decision models answer through OpenRouter's Decisions API. Regular LLMs get the same situations and options and are asked to
       give a probability for each option as JSON. Accuracy counts how often the most likely option is right; calibration uses the

@@ -498,7 +498,10 @@
       "arch": null,
       "ollama": null,
       "added": "2026-10-11",
-      "note": "Cloud reference model: ~1T parameters, not runnable on home hardware; never ranked as a local model."
+      "note": "Cloud reference model: ~1T parameters, not runnable on home hardware; never ranked as a local model. Run at medium reasoning effort: at the default, 11 of 30 coding answers came back empty after 32,768 tokens of reasoning (2026-10-11).",
+      "reasoning": {
+        "effort": "medium"
+      }
     },
     {
       "slug": "mistral-nemo",

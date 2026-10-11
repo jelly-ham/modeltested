@@ -40,12 +40,15 @@ def model_summary(model: dict, by_suite: dict) -> dict:
             briers = [r["brier"] for _, r in rows if r.get("brier") is not None]
             # 100 = perfectly calibrated and certain; Brier per question ranges 0..2.
             suites[suite]["calibration"] = round(100 * (1 - _mean(briers) / 2), 1) if briers else None
+            hard_scores = [r["score"] for q, r in rows if q.data.get("difficulty") == "hard"]
+            suites[suite]["hard"] = round(100 * _mean(hard_scores), 1) if hard_scores else None
     ranked = [s["score"] for k, s in suites.items() if k in RANKED_SUITES]
     overall = round(_mean(ranked), 1) if complete and ranked else None
     # Hard tasks: reported separately so the top of the table stays distinguishable.
-    hard_rows = [r["score"] for qs in by_suite.values() for q in qs if q.data.get("difficulty") == "hard"
+    # Only the ranked suites: decisions has its own hard score (suites["decisions"]["hard"]).
+    hard_rows = [r["score"] for k, qs in by_suite.items() if k in RANKED_SUITES for q in qs if q.data.get("difficulty") == "hard"
                  for r in [items.get(q.key)] if r and r.get("h") == q.hash]
-    n_hard = sum(q.data.get("difficulty") == "hard" for qs in by_suite.values() for q in qs)
+    n_hard = sum(q.data.get("difficulty") == "hard" for k, qs in by_suite.items() if k in RANKED_SUITES for q in qs)
     hard = round(100 * _mean(hard_rows), 1) if n_hard and len(hard_rows) == n_hard else None
     keep = ("slug", "name", "org", "openrouter_id", "hf_id", "params_b", "active_params_b", "ollama", "license", "added", "kind", "status",
             "base", "quant")
@@ -69,7 +72,7 @@ def decision_board(doc: dict, by_suite: dict, summaries: list[dict]) -> list[dic
             continue
         kind = "decision" if s.get("kind") == "decision" else "reference" if s.get("status") == "reference" else "local"
         rows.append({"slug": s["slug"], "name": s["name"], "org": s.get("org"), "kind": kind, "params_b": s.get("params_b"),
-                     "accuracy": d["score"], "calibration": d.get("calibration"), "openrouter_id": s.get("openrouter_id")})
+                     "accuracy": d["score"], "calibration": d.get("calibration"), "hard": d.get("hard"), "openrouter_id": s.get("openrouter_id")})
     rows.sort(key=lambda r: (-r["accuracy"], -(r["calibration"] or 0)))
     for i, r in enumerate(rows, 1):
         r["rank"] = i
@@ -155,7 +158,8 @@ def main(args) -> None:
         "references": [r for r in references if r["overall"] is not None],
         "quantized": quantized,
         "decisions": decision_board(doc, by_suite, summaries + references),
-        "n_hard": sum(q.data.get("difficulty") == "hard" for q in questions),
+        "n_hard": sum(q.data.get("difficulty") == "hard" and q.suite in RANKED_SUITES for q in questions),
+        "n_hard_decisions": sum(q.data.get("difficulty") == "hard" and q.suite == "decisions" for q in questions),
         "changelog": sorted(history, key=lambda h: h["date"], reverse=True)[:50],
     })
 

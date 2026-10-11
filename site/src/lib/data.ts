@@ -30,7 +30,7 @@ export type Model = {
 };
 export type DecisionRow = {
   slug: string; name: string; org: string | null; kind: "decision" | "local" | "reference";
-  params_b: number | null; accuracy: number; calibration: number | null; rank: number; openrouter_id: string;
+  params_b: number | null; accuracy: number; calibration: number | null; hard?: number | null; rank: number; openrouter_id: string;
 };
 /** A quantized download (run on our Mac) next to the same model at full precision. */
 export type QuantRun = {
@@ -51,6 +51,7 @@ export const data = board as unknown as {
   quantized?: QuantRun[];
   decisions?: DecisionRow[];
   n_hard?: number;
+  n_hard_decisions?: number;
   changelog: { date: string; slug: string; name: string; event: string; overall: number; rank: number; of: number }[];
 };
 
@@ -122,8 +123,8 @@ export const whole = (x: number | null | undefined) => (x == null ? "?" : String
 
 /** "extract-expense-thread" -> "Expense thread" */
 export function questionTitle(id: string): string {
-  const hard = /^(code|extract)-hard-/.test(id);
-  const t = id.replace(/^(code|extract)-(hard-)?/, "").replace(/-/g, " ").replace(/\bsla\b/g, "SLA").replace(/\b(ini|lru|ttl|json|csv)\b/gi, (w) => w.toUpperCase()) + (hard ? " (hard)" : "");
+  const hard = /^(code|extract|decide)-hard-/.test(id);
+  const t = id.replace(/^(code|extract|decide)-(hard-)?/, "").replace(/-/g, " ").replace(/\bsla\b/g, "SLA").replace(/\b(ini|lru|ttl|json|csv)\b/gi, (w) => w.toUpperCase()) + (hard ? " (hard)" : "");
   return t.charAt(0).toUpperCase() + t.slice(1);
 }
 

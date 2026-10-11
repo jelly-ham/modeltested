@@ -6,6 +6,7 @@ because CI logs of a public repo are world-readable.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import sys
@@ -42,6 +43,12 @@ def _mock_answer(model: dict, q: Question) -> client.ChatResult:
     else:
         text = "I'm not sure."
     return client.ChatResult(text=text, provider="mock")
+
+
+def model_cfg(model: dict) -> str | None:
+    """Fingerprint of non-default request settings; answers given under other settings are re-run."""
+    cfg = {k: model[k] for k in ("reasoning", "temperature", "max_tokens", "provider") if k in model}
+    return hashlib.sha256(json.dumps(cfg, sort_keys=True).encode()).hexdigest()[:8] if cfg else None
 
 
 def _ask(model: dict, q: Question) -> client.ChatResult:
@@ -86,7 +93,8 @@ def finalize_model(model: dict, todo: list[Question], answers: dict[str, client.
             score, detail = suites.score_extract(q.data["expected"], parsed)
             detail["bare_json"] = strict
         items[k] = {"h": q.hash, "v": q.visibility[:4], "score": round(score, 4), "provider": r.provider,
-                    "truncated": r.finish_reason == "length" or None, "brier": detail.get("brier"),
+                    "truncated": r.finish_reason == "length" or None, "brier": detail.get("brier"), "cfg": model_cfg(model),
+                    "tok": (r.usage or {}).get("completion_tokens"),
                     "mt": model.get("max_tokens", client.MAX_TOKENS) if q.suite != "decisions" or model.get("kind") != "decision" else None,
                     "at": today()}
         items[k] = {kk: vv for kk, vv in items[k].items() if vv is not None}
@@ -151,6 +159,7 @@ def main(args) -> None:
         allowed = model_suites(m)
         todo[m["slug"]] = [q for q in questions if q.suite in allowed and (args.rerun or items.get(q.key, {}).get("h") != q.hash
                            or items[q.key].get("provider") in client.BLOCKED_PROVIDERS
+                           or items[q.key].get("cfg") != model_cfg(m)
                            or (items[q.key].get("truncated") and items[q.key].get("mt", 8192) < m.get("max_tokens", client.MAX_TOKENS)))]
     jobs = [(m, q) for m in models for q in todo[m["slug"]]]
     print(f"{len(jobs)} (model, question) pairs to run across {sum(bool(v) for v in todo.values())} models", flush=True)
