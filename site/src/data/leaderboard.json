@@ -3241,9 +3241,9 @@
    "org": "cloudflare",
    "kind": "decision",
    "params_b": 27.36,
-   "accuracy": 86.6,
-   "calibration": 91.0,
-   "hard": 73.7,
+   "accuracy": 87.5,
+   "calibration": 91.3,
+   "hard": 76.3,
    "openrouter_id": "cloudflare/clef",
    "rank": 24
   },
@@ -3284,18 +3284,6 @@
    "rank": 27
   },
   {
-   "slug": "clef-flash",
-   "name": "Clef Flash",
-   "org": "cloudflare",
-   "kind": "decision",
-   "params_b": 9.41,
-   "accuracy": 84.8,
-   "calibration": 88.3,
-   "hard": 68.4,
-   "openrouter_id": "cloudflare/clef-flash",
-   "rank": 28
-  },
-  {
    "slug": "tev1-4b-experimental",
    "name": "Tev1 4B Experimental",
    "org": "togethercomputer",
@@ -3305,6 +3293,18 @@
    "calibration": 88.2,
    "hard": 73.7,
    "openrouter_id": "togethercomputer/tev1-4b-experimental",
+   "rank": 28
+  },
+  {
+   "slug": "clef-flash",
+   "name": "Clef Flash",
+   "org": "cloudflare",
+   "kind": "decision",
+   "params_b": 9.41,
+   "accuracy": 84.8,
+   "calibration": 88.1,
+   "hard": 68.4,
+   "openrouter_id": "cloudflare/clef-flash",
    "rank": 29
   },
   {

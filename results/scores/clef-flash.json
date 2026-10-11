@@ -185,9 +185,11 @@
    "h": "834e757cd044",
    "v": "publ",
    "score": 0.5,
-   "provider": "Cloudflare",
-   "brier": 0.7822,
+   "provider": "PrimeIntellect",
+   "brier": 0.9176,
    "tok": 0,
+   "ptok": 424,
+   "cost": 1.61e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-misleading-subject": {

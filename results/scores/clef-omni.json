@@ -9,6 +9,8 @@
    "provider": "Cloudflare",
    "brier": 0.1504,
    "tok": 0,
+   "ptok": 249,
+   "cost": 3.73e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-code-review-auth": {
@@ -18,6 +20,8 @@
    "provider": "Cloudflare",
    "brier": 0.0175,
    "tok": 0,
+   "ptok": 265,
+   "cost": 3.97e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-compliance-returns": {
@@ -27,6 +31,8 @@
    "provider": "Cloudflare",
    "brier": 0.0024,
    "tok": 0,
+   "ptok": 349,
+   "cost": 5.23e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-criticism-not-hate": {
@@ -36,6 +42,8 @@
    "provider": "Cloudflare",
    "brier": 0.0187,
    "tok": 0,
+   "ptok": 339,
+   "cost": 5.09e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-bank-overdrawn": {
@@ -45,6 +53,8 @@
    "provider": "Cloudflare",
    "brier": 0.0003,
    "tok": 0,
+   "ptok": 337,
+   "cost": 5.06e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-contract-autorenew": {
@@ -54,6 +64,8 @@
    "provider": "Cloudflare",
    "brier": 0.0005,
    "tok": 0,
+   "ptok": 315,
+   "cost": 4.73e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-invoice-missing-due": {
@@ -63,6 +75,8 @@
    "provider": "Cloudflare",
    "brier": 0.0031,
    "tok": 0,
+   "ptok": 353,
+   "cost": 5.29e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-resume": {
@@ -72,6 +86,8 @@
    "provider": "Cloudflare",
    "brier": 0.0009,
    "tok": 0,
+   "ptok": 332,
+   "cost": 4.98e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-duplicate-ticket": {
@@ -81,6 +97,8 @@
    "provider": "Cloudflare",
    "brier": 0.0013,
    "tok": 0,
+   "ptok": 193,
+   "cost": 2.89e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-gdpr-erasure": {
@@ -90,6 +108,8 @@
    "provider": "Cloudflare",
    "brier": 0.0004,
    "tok": 0,
+   "ptok": 334,
+   "cost": 5.01e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-auto-renewal": {
@@ -99,6 +119,8 @@
    "provider": "Cloudflare",
    "brier": 0.499,
    "tok": 0,
+   "ptok": 403,
+   "cost": 6.04e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-bec-reply-to": {
@@ -108,6 +130,8 @@
    "provider": "Cloudflare",
    "brier": 0.061,
    "tok": 0,
+   "ptok": 383,
+   "cost": 5.75e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-contractor-access": {
@@ -117,6 +141,8 @@
    "provider": "Cloudflare",
    "brier": 0.3973,
    "tok": 0,
+   "ptok": 373,
+   "cost": 5.59e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-duplicate-encoding": {
@@ -126,6 +152,8 @@
    "provider": "Cloudflare",
    "brier": 0.0008,
    "tok": 0,
+   "ptok": 340,
+   "cost": 5.1e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-expense-cap": {
@@ -135,6 +163,8 @@
    "provider": "Cloudflare",
    "brier": 0.2636,
    "tok": 0,
+   "ptok": 410,
+   "cost": 6.15e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-fraud-rules": {
@@ -144,6 +174,8 @@
    "provider": "Cloudflare",
    "brier": 1.9128,
    "tok": 0,
+   "ptok": 384,
+   "cost": 5.76e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-hazmat-split": {
@@ -153,6 +185,8 @@
    "provider": "Cloudflare",
    "brier": 0.1109,
    "tok": 0,
+   "ptok": 385,
+   "cost": 5.78e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-incident-matrix": {
@@ -162,6 +196,8 @@
    "provider": "Cloudflare",
    "brier": 0.8853,
    "tok": 0,
+   "ptok": 459,
+   "cost": 6.89e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-insurance-oop": {
@@ -171,6 +207,8 @@
    "provider": "Cloudflare",
    "brier": 0.7081,
    "tok": 0,
+   "ptok": 404,
+   "cost": 6.06e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-legit-security-alert": {
@@ -180,6 +218,8 @@
    "provider": "Cloudflare",
    "brier": 0.0006,
    "tok": 0,
+   "ptok": 367,
+   "cost": 5.51e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-loan-dti": {
@@ -189,6 +229,8 @@
    "provider": "Cloudflare",
    "brier": 0.0094,
    "tok": 0,
+   "ptok": 405,
+   "cost": 6.07e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-meeting-slot": {
@@ -198,6 +240,8 @@
    "provider": "Cloudflare",
    "brier": 1.285,
    "tok": 0,
+   "ptok": 418,
+   "cost": 6.27e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-misleading-subject": {
@@ -207,6 +251,8 @@
    "provider": "Cloudflare",
    "brier": 0.0011,
    "tok": 0,
+   "ptok": 360,
+   "cost": 5.4e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-refund-window": {
@@ -216,6 +262,8 @@
    "provider": "Cloudflare",
    "brier": 0.7195,
    "tok": 0,
+   "ptok": 452,
+   "cost": 6.78e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-report-not-hate": {
@@ -225,6 +273,8 @@
    "provider": "Cloudflare",
    "brier": 0.1836,
    "tok": 0,
+   "ptok": 354,
+   "cost": 5.31e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-review-mixed": {
@@ -234,6 +284,8 @@
    "provider": "Cloudflare",
    "brier": 0.0138,
    "tok": 0,
+   "ptok": 340,
+   "cost": 5.1e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-semver": {
@@ -243,6 +295,8 @@
    "provider": "Cloudflare",
    "brier": 1.5568,
    "tok": 0,
+   "ptok": 323,
+   "cost": 4.84e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-sla-timezones": {
@@ -252,6 +306,8 @@
    "provider": "Cloudflare",
    "brier": 0.8566,
    "tok": 0,
+   "ptok": 457,
+   "cost": 6.85e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-tool-followup": {
@@ -261,6 +317,8 @@
    "provider": "Cloudflare",
    "brier": 0.0007,
    "tok": 0,
+   "ptok": 408,
+   "cost": 6.12e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-incident-docs": {
@@ -270,6 +328,8 @@
    "provider": "Cloudflare",
    "brier": 0.0194,
    "tok": 0,
+   "ptok": 306,
+   "cost": 4.59e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-incident-payments": {
@@ -279,6 +339,8 @@
    "provider": "Cloudflare",
    "brier": 0.9872,
    "tok": 0,
+   "ptok": 298,
+   "cost": 4.47e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-intent-upgrade": {
@@ -288,6 +350,8 @@
    "provider": "Cloudflare",
    "brier": 0.0001,
    "tok": 0,
+   "ptok": 264,
+   "cost": 3.96e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-language-shipping": {
@@ -297,6 +361,8 @@
    "provider": "Cloudflare",
    "brier": 0.0076,
    "tok": 0,
+   "ptok": 358,
+   "cost": 5.37e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-loan-dti": {
@@ -306,6 +372,8 @@
    "provider": "Cloudflare",
    "brier": 1.707,
    "tok": 0,
+   "ptok": 329,
+   "cost": 4.94e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-moderation-doxxing": {
@@ -315,6 +383,8 @@
    "provider": "Cloudflare",
    "brier": 0.0018,
    "tok": 0,
+   "ptok": 345,
+   "cost": 5.17e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-negated-billing": {
@@ -324,6 +394,8 @@
    "provider": "Cloudflare",
    "brier": 0.0026,
    "tok": 0,
+   "ptok": 249,
+   "cost": 3.73e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-password-reset-no-rush": {
@@ -333,6 +405,8 @@
    "provider": "Cloudflare",
    "brier": 0.1949,
    "tok": 0,
+   "ptok": 350,
+   "cost": 5.25e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-phishing-legit-newsletter": {
@@ -342,6 +416,8 @@
    "provider": "Cloudflare",
    "brier": 0.0151,
    "tok": 0,
+   "ptok": 282,
+   "cost": 4.23e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-phishing-mailbox-full": {
@@ -351,6 +427,8 @@
    "provider": "Cloudflare",
    "brier": 0.0013,
    "tok": 0,
+   "ptok": 296,
+   "cost": 4.44e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-phishing-paypal": {
@@ -360,6 +438,8 @@
    "provider": "Cloudflare",
    "brier": 0.0013,
    "tok": 0,
+   "ptok": 296,
+   "cost": 4.44e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-card": {
@@ -369,6 +449,8 @@
    "provider": "Cloudflare",
    "brier": 0.0009,
    "tok": 0,
+   "ptok": 341,
+   "cost": 5.12e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-contact-only": {
@@ -378,6 +460,8 @@
    "provider": "Cloudflare",
    "brier": 0.041,
    "tok": 0,
+   "ptok": 337,
+   "cost": 5.06e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-health": {
@@ -387,6 +471,8 @@
    "provider": "Cloudflare",
    "brier": 0.0018,
    "tok": 0,
+   "ptok": 333,
+   "cost": 5e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-ssn-email": {
@@ -396,6 +482,8 @@
    "provider": "Cloudflare",
    "brier": 0.0028,
    "tok": 0,
+   "ptok": 344,
+   "cost": 5.16e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-refund-wrong-plan": {
@@ -405,6 +493,8 @@
    "provider": "Cloudflare",
    "brier": 0.0109,
    "tok": 0,
+   "ptok": 416,
+   "cost": 6.24e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-review-mixed": {
@@ -414,6 +504,8 @@
    "provider": "Cloudflare",
    "brier": 0.001,
    "tok": 0,
+   "ptok": 346,
+   "cost": 5.19e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-review-sarcasm": {
@@ -423,6 +515,8 @@
    "provider": "Cloudflare",
    "brier": 0.0325,
    "tok": 0,
+   "ptok": 259,
+   "cost": 3.89e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-route-calculator": {
@@ -432,6 +526,8 @@
    "provider": "Cloudflare",
    "brier": 0.0005,
    "tok": 0,
+   "ptok": 322,
+   "cost": 4.83e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-route-calendar": {
@@ -441,6 +537,8 @@
    "provider": "Cloudflare",
    "brier": 0.0002,
    "tok": 0,
+   "ptok": 327,
+   "cost": 4.9e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-route-email": {
@@ -450,6 +548,8 @@
    "provider": "Cloudflare",
    "brier": 0.001,
    "tok": 0,
+   "ptok": 324,
+   "cost": 4.86e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-route-none": {
@@ -459,6 +559,8 @@
    "provider": "Cloudflare",
    "brier": 1.9297,
    "tok": 0,
+   "ptok": 220,
+   "cost": 3.3e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-route-search": {
@@ -468,6 +570,8 @@
    "provider": "Cloudflare",
    "brier": 0.004,
    "tok": 0,
+   "ptok": 321,
+   "cost": 4.81e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-screening-work-auth": {
@@ -477,6 +581,8 @@
    "provider": "Cloudflare",
    "brier": 0.0007,
    "tok": 0,
+   "ptok": 269,
+   "cost": 4.03e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-self-harm-signal": {
@@ -486,6 +592,8 @@
    "provider": "Cloudflare",
    "brier": 1.2147,
    "tok": 0,
+   "ptok": 344,
+   "cost": 5.16e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-spam-followers": {
@@ -495,6 +603,8 @@
    "provider": "Cloudflare",
    "brier": 0.0018,
    "tok": 0,
+   "ptok": 339,
+   "cost": 5.09e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-support-checkout-down": {
@@ -504,6 +614,8 @@
    "provider": "Cloudflare",
    "brier": 0.0041,
    "tok": 0,
+   "ptok": 458,
+   "cost": 6.87e-05,
    "at": "2026-10-11"
   }
  }

@@ -157,10 +157,12 @@
   "decisions/decide-hard-insurance-oop": {
    "h": "992734f451ab",
    "v": "priv",
-   "score": 0.5,
-   "provider": "Cloudflare",
-   "brier": 0.3981,
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0706,
    "tok": 0,
+   "ptok": 412,
+   "cost": 9.89e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-legit-security-alert": {
@@ -215,6 +217,8 @@
    "provider": "Cloudflare",
    "brier": 0.3725,
    "tok": 0,
+   "ptok": 358,
+   "cost": 8.59e-05,
    "at": "2026-10-11"
   },
   "decisions/decide-hard-review-mixed": {
@@ -381,6 +385,8 @@
    "provider": "Cloudflare",
    "brier": 0.0018,
    "tok": 0,
+   "ptok": 421,
+   "cost": 0.000101,
    "at": "2026-10-11"
   },
   "decisions/decide-review-mixed": {

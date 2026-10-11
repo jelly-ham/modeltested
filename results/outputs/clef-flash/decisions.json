@@ -33,10 +33,10 @@
   }
  },
  "decide-hard-meeting-slot": {
-  "output": "{\"slot\": {\"type\": \"choice\", \"choice\": \"B\", \"probabilities\": {\"A\": 0.2413, \"B\": 0.3616, \"C\": 0.3384, \"D\": 0.0587}, \"confidence\": 0.0759}, \"raj_last\": {\"type\": \"noul\", \"noul\": 0.2998}}",
+  "output": "{\"slot\": {\"type\": \"choice\", \"choice\": \"B\", \"probabilities\": {\"A\": 0.2826, \"B\": 0.3701, \"C\": 0.281, \"D\": 0.0663}, \"confidence\": 0.1601}, \"raj_last\": {\"type\": \"noul\", \"noul\": 0.2015}}",
   "score": 0.5,
   "detail": {
-   "brier": 0.7822,
+   "brier": 0.9176,
    "picks": {
     "slot": "B",
     "raj_last": "false"
