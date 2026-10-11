@@ -54,6 +54,8 @@ def model_cfg(model: dict) -> str | None:
 def _ask(model: dict, q: Question) -> client.ChatResult:
     if (model.get("openrouter_id") or "").startswith("mock:"):
         return _mock_answer(model, q)
+    if model.get("backend") == "clm":
+        return client.clm_decide(model, q.data["state"], q.data["questions"])
     if model.get("backend") == "ollama":
         return client.ollama_chat(model, suites.build_prompt(q.suite, q.data))
     if q.suite == "decisions" and model.get("kind") == "decision":

@@ -136,7 +136,7 @@ const ORG_NAMES: Record<string, string> = {
   microsoft: "Microsoft", nvidia: "NVIDIA", "z-ai": "Zhipu AI", "ibm-granite": "IBM", deepseek: "DeepSeek",
   moonshotai: "Moonshot AI", liquid: "Liquid AI", cloudflare: "Cloudflare", "nace-ai": "Nace AI", typesafe: "Typesafe",
   jaredpalmer: "Jared Palmer", inception: "Inception", perplexity: "Perplexity", upstage: "Upstage", togethercomputer: "Together AI",
-  respan: "Respan", tencent: "Tencent", allenai: "Ai2", baidu: "Baidu", cohere: "Cohere",
+  respan: "Respan", "contrastive-lm": "Contrastive-LM", tencent: "Tencent", allenai: "Ai2", baidu: "Baidu", cohere: "Cohere",
 };
 export const orgName = (org: string | null) => (org ? ORG_NAMES[org] ?? org : null);
 

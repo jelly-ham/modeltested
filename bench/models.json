@@ -46,6 +46,25 @@
       "license": "Apache 2.0"
     },
     {
+      "slug": "clm-v0-1-8b",
+      "name": "CLM v0.1 8B",
+      "status": "local",
+      "kind": "decision",
+      "backend": "clm",
+      "clm_model": "clm-v0.1-8b",
+      "quant": "Q8_0",
+      "openrouter_id": null,
+      "hf_id": "Contrastive-LM/CLM-v0.1-8B",
+      "org": "contrastive-lm",
+      "params_b": 8.19,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "license": "Apache 2.0",
+      "added": "2026-10-11",
+      "note": "Contrastive decision model: two small heads on a frozen Qwen3-8B encoder. Run on the Mac: llama.cpp serves the Q8_0 Qwen3-8B encoder (last-token pooling), clm-serve runs the heads. The reference setup uses vLLM on a GPU, so embeddings may differ slightly."
+    },
+    {
       "slug": "command-a",
       "name": "Command A",
       "status": "auto",

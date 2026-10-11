@@ -7,8 +7,10 @@ Never run in CI: the GitHub runner has no Ollama.
 """
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
+import urllib.request
 from argparse import Namespace
 
 from . import client, run
@@ -29,12 +31,26 @@ def main(args) -> None:
     if not local:
         raise SystemExit('no models with status "local" in bench/models.json')
 
-    try:
-        client._ollama("/api/version")
-    except Exception as e:
-        raise SystemExit(f"Ollama is not reachable at {client.OLLAMA} ({e}). Start the Ollama app first.")
-
     changed, ready = False, []
+    clm = [m for m in local if m.get("backend") == "clm"]
+    if clm:
+        try:
+            with urllib.request.urlopen(client.CLM_URL + "/health", timeout=10) as r:
+                ok = json.loads(r.read()).get("ok")
+        except Exception as e:
+            ok = False
+            print(f"clm-serve is not reachable at {client.CLM_URL} ({e})", flush=True)
+        if ok:
+            ready += clm
+        else:
+            print("SKIPPED " + ", ".join(m["slug"] for m in clm) + ": start llama-server and clm-serve first (see README)", flush=True)
+    local = [m for m in local if m.get("backend") != "clm"]
+    if local:
+        try:
+            client._ollama("/api/version")
+        except Exception as e:
+            raise SystemExit(f"Ollama is not reachable at {client.OLLAMA} ({e}). Start the Ollama app first.")
+
     for m in local:
         print(f"[{m['slug']}] ollama pull {m['ollama_tag']}", flush=True)
         if subprocess.run(["ollama", "pull", m["ollama_tag"]]).returncode != 0:

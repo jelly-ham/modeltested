@@ -75,6 +75,25 @@ It pulls the model, answers every missing question one at a time (Ctrl-C keeps f
 commits only `results/scores`, `results/outputs` (public questions) and `bench/models.json`, and pushes; the push
 triggers the workflow, which rebuilds the site.
 
+### CLM (contrastive decision model) on the Mac
+
+`clm-v0-1-8b` answers only the decisions suite. It needs two local servers, then `scripts/mac-run.sh clm-v0-1-8b`:
+
+```bash
+brew install llama.cpp
+# 1. Qwen3-8B encoder, last-token pooling (the reference setup is vLLM on a GPU)
+llama-server -hf czl/CLM-v0.1-8B-GGUF:Q8_0 --embeddings --pooling last -c 2048 -b 2048 -ub 2048 --port 8090 --alias qwen3-8b
+# 2. in another terminal: the CLM heads
+python3 -m venv ~/clm-venv && ~/clm-venv/bin/pip install contrastive-lm
+CLM_DEVICE=cpu ~/clm-venv/bin/clm-serve --emb-url http://127.0.0.1:8090/v1/embeddings
+```
+
+Sanity check before a run (should pick "billing" with high probability):
+
+```bash
+curl -s localhost:8700/v1/systemone -H 'Content-Type: application/json' -d '{"state":"Customer: my invoice was charged twice and nobody answers the phone!","questions":{"department":{"type":"choice","instructions":"Which team should handle this?","criteria":{"billing":"Charges, invoices, refunds","technical":"Bugs and outages"}}}}'
+```
+
 ## Editing the hidden question set
 
 ```bash

@@ -206,6 +206,28 @@ def ollama_chat(model: dict, prompt: str, timeout: int = 4 * 3600) -> ChatResult
     )
 
 
+# ---------- CLM (Contrastive-LM) decision models, served locally by clm-serve ----------
+
+CLM_URL = os.environ.get("CLM_BASE_URL", "http://127.0.0.1:8700")
+
+
+def clm_decide(model: dict, state, questions: dict, timeout: int = 600) -> ChatResult:
+    """Same request and answer shape as OpenRouter's Decisions API (state + typed questions)."""
+    body = {"state": state, "questions": questions, "model": model.get("clm_model") or "clm-v0.1-8b"}
+    req = urllib.request.Request(CLM_URL + "/v1/systemone", data=json.dumps(body).encode(),
+                                 headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            d = json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        return ChatResult(error=f"HTTP {e.code}: {e.read().decode(errors='replace')[:300]}")
+    except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.HTTPException, ValueError) as e:
+        return ChatResult(error=f"clm: {e}")
+    usage = d.get("usage") or {}
+    return ChatResult(text=json.dumps(d.get("answers") or {}), provider=f"clm/{model.get('quant') or 'local'}",
+                      finish_reason="decision", usage={"prompt_tokens": usage.get("input_tokens"), "completion_tokens": usage.get("output_tokens")})
+
+
 def list_models() -> list[dict]:
     # output_modalities=all: the default list hides non-text models such as decision models.
     with urllib.request.urlopen(API + "/models?output_modalities=all", timeout=60) as r:

@@ -65,7 +65,7 @@ def model_summary(model: dict, by_suite: dict) -> dict:
 def decision_board(doc: dict, by_suite: dict, summaries: list[dict]) -> list[dict]:
     """Everyone who finished the decisions suite: dedicated decision models, local LLMs and reference models."""
     rows = []
-    dec_models = [m for m in doc["models"] if m.get("kind") == "decision" and m.get("status") in ("active", "auto", "unavailable")]
+    dec_models = [m for m in doc["models"] if m.get("kind") == "decision" and m.get("status") in ("active", "auto", "unavailable", "local")]
     for s in summaries + [model_summary(m, by_suite) for m in dec_models]:
         d = s.get("suites", {}).get("decisions") or {}
         if d.get("score") is None:
