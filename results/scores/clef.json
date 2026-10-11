@@ -78,7 +78,7 @@
    "h": "71059f428f66",
    "v": "priv",
    "score": 1.0,
-   "provider": "Cloudflare",
+   "provider": "PrimeIntellect",
    "brier": 0.0004,
    "at": "2026-10-11"
   },
@@ -198,8 +198,8 @@
    "h": "2285b10e744d",
    "v": "publ",
    "score": 1.0,
-   "provider": "Cloudflare",
-   "brier": 0.0002,
+   "provider": "PrimeIntellect",
+   "brier": 0.0003,
    "at": "2026-10-11"
   },
   "decisions/decide-refund-wrong-plan": {

@@ -33,10 +33,10 @@
   }
  },
  "decide-pii-ssn-email": {
-  "output": "{\"data_kind\": {\"type\": \"choice\", \"choice\": \"government_id\", \"probabilities\": {\"none\": 0.0029, \"contact\": 0.0047, \"financial\": 0.0036, \"government_id\": 0.9863, \"health\": 0.0025}, \"confidence\": 0.9661}, \"sensitive\": {\"type\": \"noul\", \"noul\": 0.9911}}",
+  "output": "{\"data_kind\": {\"type\": \"choice\", \"choice\": \"government_id\", \"probabilities\": {\"none\": 0.0039, \"contact\": 0.0059, \"financial\": 0.0049, \"government_id\": 0.9814, \"health\": 0.0039}, \"confidence\": 0.9768}, \"sensitive\": {\"type\": \"noul\", \"noul\": 0.9919}}",
   "score": 1.0,
   "detail": {
-   "brier": 0.0002,
+   "brier": 0.0003,
    "picks": {
     "data_kind": "government_id",
     "sensitive": "true"

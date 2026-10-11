@@ -10,6 +10,22 @@
    "brier": 0.018,
    "at": "2026-10-11"
   },
+  "decisions/decide-code-review-auth": {
+   "h": "23453bb85f69",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Upstage",
+   "brier": 0.003,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-compliance-returns": {
+   "h": "0a4dcd13b9e5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Upstage",
+   "brier": 0.0002,
+   "at": "2026-10-11"
+  },
   "decisions/decide-criticism-not-hate": {
    "h": "0a90865e89ae",
    "v": "priv",
@@ -50,12 +66,60 @@
    "brier": 0.0002,
    "at": "2026-10-11"
   },
+  "decisions/decide-duplicate-ticket": {
+   "h": "c9625a8d1dfd",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Upstage",
+   "brier": 0.001,
+   "at": "2026-10-11"
+  },
   "decisions/decide-gdpr-erasure": {
    "h": "71059f428f66",
    "v": "priv",
    "score": 1.0,
    "provider": "Upstage",
    "brier": 0.0001,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-incident-docs": {
+   "h": "4c63e3a29e86",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Upstage",
+   "brier": 1.0128,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-incident-payments": {
+   "h": "2536c0ad4a10",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Upstage",
+   "brier": 0.9035,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-intent-upgrade": {
+   "h": "d9a0553519c7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Upstage",
+   "brier": 0.1383,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-language-shipping": {
+   "h": "a620e343f0e7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Upstage",
+   "brier": 0.0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-loan-dti": {
+   "h": "7b196804131f",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Upstage",
+   "brier": 0.7472,
    "at": "2026-10-11"
   },
   "decisions/decide-moderation-doxxing": {
@@ -74,6 +138,30 @@
    "brier": 0.0,
    "at": "2026-10-11"
   },
+  "decisions/decide-password-reset-no-rush": {
+   "h": "41b8d2f2f1b3",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Upstage",
+   "brier": 0.0014,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-legit-newsletter": {
+   "h": "5f9846221479",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Upstage",
+   "brier": 0.6873,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-mailbox-full": {
+   "h": "888daa8ba685",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Upstage",
+   "brier": 0.0001,
+   "at": "2026-10-11"
+  },
   "decisions/decide-phishing-paypal": {
    "h": "3483ab984a02",
    "v": "publ",
@@ -82,12 +170,28 @@
    "brier": 0.0,
    "at": "2026-10-11"
   },
+  "decisions/decide-pii-card": {
+   "h": "a5f51b6888c1",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Upstage",
+   "brier": 0.8147,
+   "at": "2026-10-11"
+  },
   "decisions/decide-pii-contact-only": {
    "h": "78e062b32aee",
    "v": "priv",
    "score": 1.0,
    "provider": "Upstage",
    "brier": 0.1435,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-health": {
+   "h": "2202c616180c",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Upstage",
+   "brier": 0.0013,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-ssn-email": {
@@ -160,6 +264,14 @@
    "score": 1.0,
    "provider": "Upstage",
    "brier": 0.0747,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-screening-work-auth": {
+   "h": "b2a2a46cb642",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Upstage",
+   "brier": 0.0123,
    "at": "2026-10-11"
   },
   "decisions/decide-self-harm-signal": {
