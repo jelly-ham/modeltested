@@ -322,6 +322,23 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "laguna-xs-2-1",
+      "name": "Laguna XS 2.1",
+      "status": "auto",
+      "openrouter_id": "poolside/laguna-xs-2.1",
+      "hf_id": "poolside/Laguna-XS-2.1",
+      "org": "poolside",
+      "params_b": 33.44,
+      "active_params_b": null,
+      "arch": {
+        "layers": 40,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "llama-3-1-8b-instruct",
       "name": "Llama 3.1 8B Instruct",
       "status": "active",
@@ -643,6 +660,23 @@
       "arch": null
     },
     {
+      "slug": "muse-glimmer-30b",
+      "name": "Muse Glimmer 30B",
+      "status": "auto",
+      "openrouter_id": "meta/muse-glimmer-30b",
+      "hf_id": "meta-models/Muse-Glimmer-30B",
+      "org": "meta",
+      "params_b": 29.78,
+      "active_params_b": null,
+      "arch": {
+        "layers": 52,
+        "kv_heads": 2,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "nemotron-3-5-lightning",
       "name": "Nemotron 3.5 Lightning",
       "status": "active",
@@ -675,6 +709,23 @@
       },
       "ollama": null,
       "added": "2026-10-10"
+    },
+    {
+      "slug": "nex-n2-5-mini",
+      "name": "Nex-N2.5-Mini",
+      "status": "auto",
+      "openrouter_id": "nex-agi/nex-n2.5-mini",
+      "hf_id": "nex-agi/Nex-N2.5-mini",
+      "org": "nex-agi",
+      "params_b": 35.11,
+      "active_params_b": null,
+      "arch": {
+        "layers": 40,
+        "kv_heads": 2,
+        "head_dim": 256
+      },
+      "ollama": null,
+      "added": "2026-10-11"
     },
     {
       "slug": "phi-4",
@@ -1009,6 +1060,40 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "reka-edge",
+      "name": "Reka Edge",
+      "status": "auto",
+      "openrouter_id": "rekaai/reka-edge",
+      "hf_id": "RekaAI/reka-edge-2603",
+      "org": "rekaai",
+      "params_b": 7.13,
+      "active_params_b": null,
+      "arch": {
+        "layers": 32,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
+      "slug": "reka-flash-3",
+      "name": "Reka Flash 3",
+      "status": "auto",
+      "openrouter_id": "rekaai/reka-flash-3",
+      "hf_id": "RekaAI/reka-flash-3",
+      "org": "rekaai",
+      "params_b": 20.91,
+      "active_params_b": null,
+      "arch": {
+        "layers": 44,
+        "kv_heads": 8,
+        "head_dim": 96
+      },
+      "ollama": null,
+      "added": "2026-10-11"
+    },
+    {
       "slug": "solar-decide",
       "name": "Solar Decide",
       "status": "auto",
@@ -1065,6 +1150,28 @@
       "ollama": null,
       "added": "2026-10-11",
       "unsupported_reason": "Respan only accepts yes/no questions about a chat transcript ({input, output} state); our decision tasks use multiple-choice questions and structured states."
+    },
+    {
+      "slug": "ternary-bonsai-2-27b",
+      "name": "Ternary Bonsai 2 27B",
+      "status": "auto",
+      "openrouter_id": "prism-ml/ternary-bonsai-2-27b",
+      "hf_id": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+      "org": "prism-ml",
+      "params_b": 27.78,
+      "active_params_b": null,
+      "arch": {
+        "layers": 64,
+        "kv_heads": 4,
+        "head_dim": 256
+      },
+      "ollama": null,
+      "added": "2026-10-11",
+      "native_quant": {
+        "name": "TQ2_0",
+        "bpw": 2.06
+      },
+      "note": "Ternary (-1/0/+1) weights derived from Qwen3.8-27B; architecture copied from it for the memory estimate."
     },
     {
       "slug": "tev1-4b-experimental",
@@ -1255,7 +1362,6 @@
     "meta-llama/llama-4-maverick": "401.58B params > 40B",
     "meta-llama/llama-4-scout": "108.64B params > 40B",
     "meta-llama/llama-guard-4-12b": "specialized model, not a general assistant",
-    "meta/muse-glimmer-30b": "org 'meta' not on allowlist",
     "meta/muse-image": "output is image, not text",
     "meta/muse-spark-1.1": "no open weights linked",
     "meta/muse-spark-1.2": "no open weights linked",
@@ -1313,8 +1419,7 @@
     "moonshotai/kimi-k3": "2779.93B params > 40B",
     "morph/morph-v3-fast": "no open weights linked",
     "morph/morph-v3-large": "no open weights linked",
-    "nex-agi/nex-n2.5-mini": "org 'nex-agi' not on allowlist",
-    "nex-agi/nex-n2.5-pro": "org 'nex-agi' not on allowlist",
+    "nex-agi/nex-n2.5-pro": "396.8B params > 40B",
     "nousresearch/hermes-3-llama-3.1-405b": "org 'nousresearch' not on allowlist",
     "nousresearch/hermes-3-llama-3.1-70b": "org 'nousresearch' not on allowlist",
     "nousresearch/hermes-4-405b": "org 'nousresearch' not on allowlist",
@@ -1417,9 +1522,7 @@
     "perplexity/sonar-pro": "no open weights linked",
     "perplexity/sonar-pro-search": "no open weights linked",
     "perplexity/sonar-reasoning-pro": "no open weights linked",
-    "poolside/laguna-s-2.1": "org 'poolside' not on allowlist",
-    "poolside/laguna-xs-2.1": "org 'poolside' not on allowlist",
-    "prism-ml/ternary-bonsai-2-27b": "org 'prism-ml' not on allowlist",
+    "poolside/laguna-s-2.1": "117.56B params > 40B",
     "qwen/qwen-2.5-72b-instruct": "72.71B params > 40B",
     "qwen/qwen-audio-3.0-tts-flash": "output is speech, not text",
     "qwen/qwen-audio-3.0-tts-plus": "output is speech, not text",
@@ -1471,8 +1574,6 @@
     "recraft/recraft-v4.1-utility": "output is image, not text",
     "recraft/recraft-v4.1-utility-pro": "output is image, not text",
     "recraft/recraft-v4.1-vector": "output is image, not text",
-    "rekaai/reka-edge": "org 'rekaai' not on allowlist",
-    "rekaai/reka-flash-3": "org 'rekaai' not on allowlist",
     "relace/relace-apply-3": "no open weights linked",
     "relace/relace-search": "no open weights linked",
     "runway/aleph-2": "output is video, not text",
@@ -1510,8 +1611,8 @@
     "thedrummer/unslopnemo-12b": "org 'thedrummer' not on allowlist",
     "thenlper/gte-base": "output is embeddings, not text",
     "thenlper/gte-large": "output is embeddings, not text",
-    "thinkingmachines/inkling": "org 'thinkingmachines' not on allowlist",
-    "thinkingmachines/inkling-small": "org 'thinkingmachines' not on allowlist",
+    "thinkingmachines/inkling": "952.38B params > 40B",
+    "thinkingmachines/inkling-small": "265.96B params > 40B",
     "typesafe/jev-router": "no open weights linked",
     "unbiased/pareto": "no open weights linked",
     "unbiased/pareto-26.10-preview": "no open weights linked",

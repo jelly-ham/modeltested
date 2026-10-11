@@ -22,12 +22,20 @@ ORG_ALLOWLIST = {
     "qwen", "google", "meta-llama", "mistralai", "microsoft", "openai", "deepseek", "z-ai", "nvidia",
     "ibm-granite", "liquid", "moonshotai", "allenai", "baidu", "tencent", "minimax", "stepfun-ai",
     "inclusionai", "xiaomi", "cohere", "arcee-ai", "ai21", "bytedance-seed", "thudm",
+    "meta", "prism-ml", "poolside", "nex-agi", "rekaai", "thinkingmachines",
+}
+
+# Hugging Face can't report a size for GGUF-only repos; fill in what the model card states.
+KNOWN = {
+    # Ternary weights (-1/0/1): llama.cpp's TQ2_0 format stores them at ~2.06 bits per weight.
+    # Architecture is Qwen3.8-27B's (copied in models.json for the KV-cache estimate).
+    "prism-ml/ternary-bonsai-2-27b": {"params_b": 27.78, "native_quant": {"name": "TQ2_0", "bpw": 2.06}},
 }
 
 SKIP_SUFFIXES = (":free", ":batch", ":beta", ":extended", ":thinking", ":nitro", ":floor", ":online")
 
 # Specialized models (safety classifiers, translation-only, speech) aren't general assistants.
-SPECIALIZED = re.compile(r"guard|safety|safeguard|-mt\d|voxtral|embed|rerank", re.I)
+SPECIALIZED = re.compile(r"guard|safety|safeguard|-mt\d|voxtral|embed|rerank|schematron", re.I)
 
 
 def _hf_json(url: str):
@@ -106,8 +114,19 @@ def check_availability(doc: dict) -> None:
             print(f"available again: {m['openrouter_id']} via {', '.join(usable)}")
 
 
+def _recheck_ignored(doc: dict) -> None:
+    """Forget "ignored" verdicts that the current rules no longer support, so they're checked again."""
+    ignored = doc.get("ignored", {})
+    for oid, why in list(ignored.items()):
+        org = oid.split("/", 1)[0]
+        too_big = re.match(r"([\d.]+)B params > ", why)
+        if (why.startswith("org '") and org in ORG_ALLOWLIST) or (too_big and float(too_big.group(1)) <= MAX_PARAMS_B):
+            del ignored[oid]
+
+
 def main(args) -> None:
     doc = load_models()
+    _recheck_ignored(doc)
     known = {m["openrouter_id"] for m in doc["models"] if m.get("openrouter_id")} | set(doc.get("ignored", {}))
     added = []
     for m in client.list_models():
@@ -141,7 +160,8 @@ def main(args) -> None:
         if SPECIALIZED.search(oid):
             doc.setdefault("ignored", {})[oid] = "specialized model, not a general assistant"
             continue
-        params = hf_params_b(hf)
+        known_info = KNOWN.get(oid, {})
+        params = known_info.get("params_b") or hf_params_b(hf)
         if params is None:
             # Not ignored permanently — HF metadata may appear later.
             print(f"skip (param count unknown yet): {oid}")
@@ -162,6 +182,8 @@ def main(args) -> None:
             "ollama": None,
             "added": today(),
         }
+        if "native_quant" in known_info:
+            entry["native_quant"] = known_info["native_quant"]
         doc["models"].append(entry)
         added.append(oid)
         print(f"added: {oid} ({params}B)")
