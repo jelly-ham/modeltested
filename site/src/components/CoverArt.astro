@@ -16,17 +16,23 @@ function ariaLabel(c: Cover): string {
     case "word": return c.label;
   }
 }
-const big = size === "card" ? 36 : 84;
+const big = size === "card" ? 30 : 84;
 ---
 <div class={cls} role="img" aria-label={ariaLabel(cover)}>
   {cover.kind === "bars" && (
     <>
       <div class="lbl"><span>{cover.label}</span><span>/100</span></div>
-      <div style={`display: flex; flex-direction: column; gap: ${size === "card" ? 8 : size === "compact" ? 10 : 16}px`}>
-        {cover.rows.slice(0, size === "card" ? 4 : 5).map((r, i) => (
-          <div class="bar-row" style={size === "compact" ? "gap: 4px" : ""}>
-            {size !== "card" && <div class="bar-head" style={size === "compact" ? "font-size: 13px" : ""}><span>{r.name}</span><b>{whole(r.value)}</b></div>}
-            <div class="bar-track" style={size === "card" || size === "compact" ? "height: 8px" : ""}><div style={`width: ${r.value}%; background: ${shades[i]}`}></div></div>
+      <div style={`display: flex; flex-direction: column; gap: ${size === "card" ? 7 : size === "compact" ? 10 : 16}px`}>
+        {cover.rows.slice(0, size === "card" ? 4 : 5).map((r, i) => size === "compact" ? (
+          <div style="display: grid; grid-template-columns: minmax(0, 11fr) minmax(0, 9fr) 26px; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 500">
+            <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{r.name}</span>
+            <div class="bar-track" style="height: 8px"><div style={`width: ${r.value}%; background: ${shades[i]}`}></div></div>
+            <b class="mono" style="text-align: right; font-weight: 600">{whole(r.value)}</b>
+          </div>
+        ) : (
+          <div class="bar-row">
+            {size !== "card" && <div class="bar-head"><span>{r.name}</span><b>{whole(r.value)}</b></div>}
+            <div class="bar-track" style={size === "card" ? "height: 8px" : ""}><div style={`width: ${r.value}%; background: ${shades[i]}`}></div></div>
           </div>
         ))}
       </div>
@@ -37,7 +43,7 @@ const big = size === "card" ? 36 : 84;
     <>
       <div class="lbl"><span>{cover.label}</span></div>
       <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
-        <div style={`display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: ${size === "card" ? 5 : 10}px; width: ${size === "card" ? 110 : 260}px`}>
+        <div style={`display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: ${size === "card" ? 4 : 10}px; width: ${size === "card" ? 84 : 260}px`}>
           {Array.from({ length: cover.total }, (_, i) => (
             <div style={`aspect-ratio: 1; border-radius: 4px; background: ${i < cover.solved ? "#1D4E89" : "#C9D9EF"}`}></div>
           ))}
@@ -54,7 +60,7 @@ const big = size === "card" ? 36 : 84;
         {[["Coding", cover.coding, "#1D4E89"], ["Documents", cover.docs, "#6797D1"]].map(([name, v, col]) => (
           <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1">
             <span class="mono" style="font-weight: 600; font-size: 13px">{whole(v as number)}</span>
-            <div style={`width: 100%; height: ${Math.round((v as number) * 0.7)}px; border-radius: 6px 6px 2px 2px; background: ${col}`}></div>
+            <div style={`width: 100%; height: ${Math.round((v as number) * 0.5)}px; border-radius: 6px 6px 2px 2px; background: ${col}`}></div>
             <span class="lbl" style="font-size: 10px">{name}</span>
           </div>
         ))}
@@ -87,7 +93,7 @@ const big = size === "card" ? 36 : 84;
         {cover.items.map((it, i) => (
           <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1">
             <span class="mono" style={`font-weight: 600; font-size: ${size === "card" ? 13 : 22}px`}>{it.value}</span>
-            <div style={`width: 100%; height: ${Math.round((it.value / 100) * (size === "card" ? 70 : 180))}px; border-radius: 6px 6px 2px 2px; background: ${i === 0 ? "#9BBAE3" : "#1D4E89"}`}></div>
+            <div style={`width: 100%; height: ${Math.round((it.value / 100) * (size === "card" ? 50 : 180))}px; border-radius: 6px 6px 2px 2px; background: ${i === 0 ? "#9BBAE3" : "#1D4E89"}`}></div>
             <span class="lbl" style="font-size: 10px">{it.label}</span>
           </div>
         ))}

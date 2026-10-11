@@ -44,8 +44,10 @@ const jsonLd = [{ "@context": "https://schema.org", "@type": "WebSite", name: SI
           {featured.map((p) => <PostCard post={p} />)}
         </section>
 
-        <h2 class="section-title" style="margin-top: 44px">Latest <a href="/posts/">All posts →</a></h2>
-        {latest.map((p) => <PostRow post={p} />)}
+        <div class="list-compact">
+          <h2 class="section-title">Latest <a href="/posts/">All posts →</a></h2>
+          {latest.map((p) => <PostRow post={p} />)}
+        </div>
         <a class="btn btn-line" href="/posts/" style="margin-top: 20px">See all {posts.length} posts</a>
       </main>
       <Sidebar />

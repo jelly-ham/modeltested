@@ -102,17 +102,27 @@ code, pre, .mono { font-family: var(--mono); }
 .hero p { margin: 0 0 24px; font-size: 19px; line-height: 1.55; color: var(--muted); }
 .hero .cover { flex: 1.3 1 520px; min-width: 0; border-radius: 16px; padding: 36px 36px 30px; }
 /* home: sidebar starts at the top, hero sits inside the main column */
-.cols-top { padding-top: 36px; }
-.hero-compact { padding-top: 0; gap: 28px; align-items: stretch; }
+.cols-top { padding-top: 24px; }
+.hero-compact { padding-top: 0; gap: 24px; align-items: center; }
 .hero-compact .text { flex: 1 1 300px; }
-.hero-compact h1 { font-size: clamp(28px, 3vw, 36px); margin: 10px 0 12px; letter-spacing: -0.03em; }
-.hero-compact p { font-size: 16px; margin-bottom: 20px; }
+.hero-compact h1 { font-size: clamp(26px, 2.6vw, 32px); margin: 8px 0 8px; letter-spacing: -0.03em; }
+.hero-compact p { font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
+.hero-compact .btn { min-height: 38px; padding: 0 14px; font-size: 14px; }
 .hero-compact .hero-chart { flex: 1 1 320px; min-width: 0; display: block; }
-.cover-compact { height: 100%; padding: 18px 20px; border-radius: 12px; gap: 8px; }
-.featured.featured-compact { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 24px; padding-top: 24px; }
-.featured-compact .cover-card { padding: 16px; gap: 10px; aspect-ratio: auto; min-height: 150px; }
-.featured-compact .card h2 { font-size: 16px; }
-.featured-compact .card { gap: 10px; }
+.cover-compact { height: 100%; padding: 14px 18px; border-radius: 12px; gap: 6px; }
+.featured.featured-compact { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-top: 18px; padding-top: 18px; }
+.featured-compact .cover-card { padding: 12px 14px; gap: 6px; aspect-ratio: auto; min-height: 112px; }
+.featured-compact .card h2 { font-size: 15px; line-height: 1.35; }
+.featured-compact .card { gap: 7px; }
+.featured-compact .kicker { font-size: 11px; }
+
+/* denser post list on the home page */
+.list-compact .section-title { margin-top: 28px; }
+.list-compact .post-row { padding: 14px 0; gap: 16px; }
+.list-compact .post-row .date { width: 72px; padding-top: 3px; }
+.list-compact .post-row h3 { font-size: 17px; margin-bottom: 3px; }
+.list-compact .post-row p { font-size: 14px; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.list-compact .post-row .kicker { font-size: 11px; }
 .featured { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
 .card { display: flex; flex-direction: column; gap: 14px; }
 .card h2, .card .title { font-weight: 600; font-size: 20px; line-height: 1.3; letter-spacing: -0.015em; margin: 0; }
