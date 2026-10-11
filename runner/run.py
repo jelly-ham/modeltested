@@ -94,7 +94,8 @@ def finalize_model(model: dict, todo: list[Question], answers: dict[str, client.
             detail["bare_json"] = strict
         items[k] = {"h": q.hash, "v": q.visibility[:4], "score": round(score, 4), "provider": r.provider,
                     "truncated": r.finish_reason == "length" or None, "brier": detail.get("brier"), "cfg": model_cfg(model),
-                    "tok": (r.usage or {}).get("completion_tokens"),
+                    "tok": (r.usage or {}).get("completion_tokens"), "ptok": (r.usage or {}).get("prompt_tokens"),
+                    "cost": round(r.cost, 7) if r.cost else None,
                     "mt": model.get("max_tokens", client.MAX_TOKENS) if q.suite != "decisions" or model.get("kind") != "decision" else None,
                     "at": today()}
         items[k] = {kk: vv for kk, vv in items[k].items() if vv is not None}
