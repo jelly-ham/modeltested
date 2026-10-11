@@ -10,6 +10,72 @@
    }
   }
  },
+ "decide-hard-incident-matrix": {
+  "output": "{\n  \"severity\": {\n    \"0\": 0.0,\n    \"1\": 0.3,\n    \"2\": 0.6,\n    \"3\": 0.1\n  },\n  \"page\": {\n    \"true\": 0.7,\n    \"false\": 0.3\n  }\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 0.92,
+   "picks": {
+    "severity": "2",
+    "page": "true"
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "{\n  \"phishing\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  },\n  \"action_needed\": {\n    \"true\": 0.1,\n    \"false\": 0.9\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0125,
+   "picks": {
+    "phishing": "false",
+    "action_needed": "false"
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "{\n  \"slot\": {\n    \"A\": 0.0,\n    \"B\": 0.0,\n    \"C\": 0.0,\n    \"D\": 1.0\n  },\n  \"raj_last\": {\n    \"true\": 0.3,\n    \"false\": 0.7\n  }\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 1.49,
+   "picks": {
+    "slot": "D",
+    "raj_last": "false"
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "{\n  \"outcome\": {\n    \"full_refund\": 0.0,\n    \"partial_refund\": 0.85,\n    \"store_credit\": 0.10,\n    \"nothing\": 0.05\n  },\n  \"defective\": {\n    \"true\": 0.1,\n    \"false\": 0.9\n  }\n}",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.7775,
+   "picks": {
+    "outcome": "partial_refund",
+    "defective": "false"
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "{\n  \"hardware\": {\n    \"true\": 0.85,\n    \"false\": 0.15\n  },\n  \"support\": {\n    \"true\": 0.9,\n    \"false\": 0.1\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0325,
+   "picks": {
+    "hardware": "true",
+    "support": "true"
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "{\n  \"tool\": {\n    \"calendar\": 1.0\n  },\n  \"confirm\": {\n    \"false\": 1.0\n  }\n}",
+  "score": 0.5,
+  "detail": {
+   "brier": 1.0,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "false"
+   }
+  }
+ },
  "decide-moderation-doxxing": {
   "output": "{\n  \"policy\": {\n    \"none\": 0.1,\n    \"harassment\": 0.8,\n    \"hate\": 0.05,\n    \"spam\": 0.03,\n    \"self_harm\": 0.02\n  },\n  \"personal_info\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}",
   "score": 1.0,

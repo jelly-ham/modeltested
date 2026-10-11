@@ -62,6 +62,72 @@
     }
    }
   },
+  "decide-hard-incident-matrix": {
+   "output": "```json\n{\n  \"severity\": {\n    \"2\": 0.85,\n    \"3\": 0.15\n  },\n  \"page\": {\n    \"true\": 0.85,\n    \"false\": 0.15\n  }\n}\n```",
+   "score": 0.0,
+   "detail": {
+    "brier": 1.595,
+    "picks": {
+     "severity": "2",
+     "page": "true"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "```json\n{\n  \"phishing\": {\n    \"true\": 0.01,\n    \"false\": 0.99\n  },\n  \"action_needed\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0026,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "```json\n{\n  \"slot\": {\n    \"A\": 0.0,\n    \"B\": 0.0,\n    \"C\": 1.0,\n    \"D\": 0.0\n  },\n  \"raj_last\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}\n```",
+   "score": 0.0,
+   "detail": {
+    "brier": 2.0,
+    "picks": {
+     "slot": "C",
+     "raj_last": "false"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "```json\n{\n  \"outcome\": {\n    \"partial_refund\": 0.95,\n    \"full_refund\": 0.03,\n    \"store_credit\": 0.01,\n    \"nothing\": 0.01\n  },\n  \"defective\": {\n    \"false\": 0.99,\n    \"true\": 0.01\n  }\n}\n```",
+   "score": 0.5,
+   "detail": {
+    "brier": 0.9419,
+    "picks": {
+     "outcome": "partial_refund",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "```json\n{\n  \"hardware\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  },\n  \"support\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0026,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "```json\n{\n  \"tool\": {\n    \"calendar\": 0.95,\n    \"none\": 0.05,\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"email\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0026,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
   "decide-moderation-doxxing": {
    "output": "```json\n{\n  \"policy\": {\n    \"none\": 0.05,\n    \"harassment\": 0.90,\n    \"hate\": 0.01,\n    \"spam\": 0.01,\n    \"self_harm\": 0.03\n  },\n  \"personal_info\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}\n```",
    "score": 1.0,

@@ -7,6 +7,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 4086,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-cron-matches": {
@@ -15,14 +18,18 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-dedupe-emails": {
    "h": "286981be824d",
    "v": "priv",
-   "score": 0.0,
+   "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 4008,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -31,6 +38,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 3574,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-evaluate-expr": {
@@ -38,6 +48,9 @@
    "v": "priv",
    "score": 0.0,
    "provider": "Mistral",
+   "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -47,6 +60,8 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -56,6 +71,8 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -65,6 +82,8 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -74,6 +93,8 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -83,6 +104,8 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -92,6 +115,8 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -101,6 +126,8 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -109,39 +136,51 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 10193,
    "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-rate-limiter-log": {
    "h": "bf48840ef5f8",
    "v": "priv",
-   "score": 1.0,
+   "score": 0.0,
    "provider": "Mistral",
+   "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-ttl-lru": {
    "h": "5dc6bf962b41",
    "v": "publ",
-   "score": 0.0,
+   "score": 1.0,
    "provider": "Mistral",
-   "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 30485,
    "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-inventory": {
    "h": "50c4fef1ef24",
    "v": "priv",
-   "score": 1.0,
+   "score": 0.0,
    "provider": "Mistral",
+   "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-mask-secrets": {
    "h": "0b802cf0137a",
    "v": "priv",
-   "score": 1.0,
+   "score": 0.0,
    "provider": "Mistral",
+   "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -150,6 +189,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 5234,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-paginate": {
@@ -157,14 +199,19 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 10468,
    "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-parse-duration": {
    "h": "7d2f96c9a827",
    "v": "publ",
-   "score": 1.0,
+   "score": 0.0,
    "provider": "Mistral",
+   "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -173,14 +220,20 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 5886,
    "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-search-index": {
    "h": "3fc4c534a420",
    "v": "priv",
-   "score": 1.0,
+   "score": 0.0,
    "provider": "Mistral",
+   "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-slugify": {
@@ -188,22 +241,30 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 6070,
    "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-sort-versions": {
    "h": "e34aa61843e7",
    "v": "priv",
-   "score": 1.0,
+   "score": 0.0,
    "provider": "Mistral",
+   "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-summarize-logs": {
    "h": "712019075476",
    "v": "priv",
-   "score": 1.0,
+   "score": 0.0,
    "provider": "Mistral",
+   "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -212,6 +273,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 743,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-token-bucket": {
@@ -219,6 +283,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 2124,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-top-customers": {
@@ -227,6 +294,8 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -235,6 +304,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 16132,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-wrap-text": {
@@ -243,6 +315,8 @@
    "score": 0.0,
    "provider": "Mistral",
    "truncated": true,
+   "cfg": "0a4c9327",
+   "tok": 32768,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -252,6 +326,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0179,
+   "cfg": "0a4c9327",
+   "tok": 2285,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -261,6 +337,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0125,
+   "cfg": "0a4c9327",
+   "tok": 2634,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -269,7 +347,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0012,
+   "brier": 0.0005,
+   "cfg": "0a4c9327",
+   "tok": 3467,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -278,7 +358,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0025,
+   "brier": 0.01,
+   "cfg": "0a4c9327",
+   "tok": 2087,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -288,6 +370,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 1210,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -297,6 +381,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 1150,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -306,6 +392,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 1403,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -314,7 +402,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0002,
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 1919,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -323,7 +413,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.005,
+   "brier": 0.0008,
+   "cfg": "0a4c9327",
+   "tok": 1574,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -332,7 +424,218 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 1395,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-auto-renewal": {
+   "h": "3e087ffec063",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0004,
+   "cfg": "0a4c9327",
+   "tok": 5988,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-bec-reply-to": {
+   "h": "2032b702a0a5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0022,
+   "cfg": "0a4c9327",
+   "tok": 2270,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-contractor-access": {
+   "h": "b7e390613d00",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 2185,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-duplicate-encoding": {
+   "h": "cb77a5971040",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0026,
+   "cfg": "0a4c9327",
+   "tok": 2265,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-expense-cap": {
+   "h": "aebb0f5d72e8",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 3691,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-fraud-rules": {
+   "h": "a0592e88c7ec",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0002,
+   "cfg": "0a4c9327",
+   "tok": 2929,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-hazmat-split": {
+   "h": "965c7970b711",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 2053,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "h": "96a270e00ef1",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.005,
+   "cfg": "0a4c9327",
+   "tok": 4802,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-insurance-oop": {
+   "h": "992734f451ab",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0004,
+   "cfg": "0a4c9327",
+   "tok": 3632,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "h": "cc22949cde32",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0005,
+   "cfg": "0a4c9327",
+   "tok": 1996,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-loan-dti": {
+   "h": "56f7d4035132",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0002,
+   "cfg": "0a4c9327",
+   "tok": 6229,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "h": "834e757cd044",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 4868,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-misleading-subject": {
+   "h": "449ecb23cd0a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0175,
+   "cfg": "0a4c9327",
+   "tok": 3107,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-refund-window": {
+   "h": "ebd11009bb29",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 2012,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-report-not-hate": {
+   "h": "f27dcdb47e4e",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
    "brier": 0.0003,
+   "cfg": "0a4c9327",
+   "tok": 3317,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "h": "1f342341050d",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.001,
+   "cfg": "0a4c9327",
+   "tok": 1107,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-semver": {
+   "h": "4bce67599f05",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 2477,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-sla-timezones": {
+   "h": "04ec9f2dab61",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 2942,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "h": "4824d643da57",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Mistral",
+   "brier": 0.0404,
+   "cfg": "0a4c9327",
+   "tok": 4629,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -342,6 +645,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0296,
+   "cfg": "0a4c9327",
+   "tok": 3228,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -350,7 +655,9 @@
    "v": "priv",
    "score": 0.5,
    "provider": "Mistral",
-   "brier": 0.4901,
+   "brier": 0.605,
+   "cfg": "0a4c9327",
+   "tok": 3331,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -359,7 +666,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0002,
+   "brier": 0.0007,
+   "cfg": "0a4c9327",
+   "tok": 2123,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -369,6 +678,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 1561,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -378,6 +689,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 2098,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -386,7 +699,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0002,
+   "brier": 0.0004,
+   "cfg": "0a4c9327",
+   "tok": 2383,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -395,7 +710,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0,
+   "brier": 0.0012,
+   "cfg": "0a4c9327",
+   "tok": 3223,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -404,7 +721,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0791,
+   "brier": 0.01,
+   "cfg": "0a4c9327",
+   "tok": 3576,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -413,7 +732,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0005,
+   "brier": 0.0004,
+   "cfg": "0a4c9327",
+   "tok": 1843,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -422,7 +743,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0001,
+   "brier": 0.0025,
+   "cfg": "0a4c9327",
+   "tok": 2467,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -431,7 +754,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0002,
+   "brier": 0.0004,
+   "cfg": "0a4c9327",
+   "tok": 1940,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -440,7 +765,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0,
+   "brier": 0.0025,
+   "cfg": "0a4c9327",
+   "tok": 2372,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -450,6 +777,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 2144,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -458,7 +787,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0025,
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 1280,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -467,7 +798,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0075,
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 2200,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -476,7 +809,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0017,
+   "brier": 0.0002,
+   "cfg": "0a4c9327",
+   "tok": 4275,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -485,7 +820,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0067,
+   "brier": 0.0014,
+   "cfg": "0a4c9327",
+   "tok": 1382,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -494,7 +831,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0004,
+   "brier": 0.0025,
+   "cfg": "0a4c9327",
+   "tok": 1893,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -503,7 +842,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0025,
+   "brier": 0.0001,
+   "cfg": "0a4c9327",
+   "tok": 2737,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -512,7 +853,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0,
+   "brier": 0.0026,
+   "cfg": "0a4c9327",
+   "tok": 3004,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -521,7 +864,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0026,
+   "brier": 0.011,
+   "cfg": "0a4c9327",
+   "tok": 2860,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -531,6 +876,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 811,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -539,7 +886,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0016,
+   "brier": 0.0025,
+   "cfg": "0a4c9327",
+   "tok": 1389,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -549,6 +898,8 @@
    "score": 1.0,
    "provider": "Mistral",
    "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 1783,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -557,7 +908,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.001,
+   "brier": 0.0026,
+   "cfg": "0a4c9327",
+   "tok": 1989,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -566,7 +919,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0002,
+   "brier": 0.0,
+   "cfg": "0a4c9327",
+   "tok": 2503,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -575,7 +930,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
-   "brier": 0.0067,
+   "brier": 0.01,
+   "cfg": "0a4c9327",
+   "tok": 2835,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -584,6 +941,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 7798,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-expense-thread": {
@@ -591,6 +951,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 2663,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-hard-family-deductible": {
@@ -598,6 +961,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 4885,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-hard-mortgage-extra": {
@@ -605,6 +971,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 9182,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-hard-payroll-holiday": {
@@ -612,6 +981,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 8033,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-hard-project-schedule": {
@@ -619,6 +991,8 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 6885,
    "mt": 32768,
    "at": "2026-10-11"
   },
@@ -627,6 +1001,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 2469,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-hard-saas-escalator": {
@@ -634,6 +1011,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 6526,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-hard-three-way-match": {
@@ -641,6 +1021,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 4494,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-hard-travel-per-diem": {
@@ -648,6 +1031,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 5611,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-insurance-eob": {
@@ -655,6 +1041,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 4477,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-inventory-reorder": {
@@ -662,6 +1051,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 3777,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-itinerary-timezones": {
@@ -669,6 +1061,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 4565,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-lease-amendment": {
@@ -676,6 +1071,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 3468,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-meeting-actions": {
@@ -683,6 +1081,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 1991,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-offer-comparison": {
@@ -690,6 +1091,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 4982,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-paystub": {
@@ -697,6 +1101,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 6807,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-recipe-scaling": {
@@ -704,6 +1111,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 2759,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-sales-footnotes": {
@@ -711,6 +1121,9 @@
    "v": "publ",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 3457,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-shift-schedule": {
@@ -718,6 +1131,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 5092,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-subscription-renewal": {
@@ -725,13 +1141,19 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 2828,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-ticket-sla": {
    "h": "cbe5fabaef6e",
    "v": "publ",
-   "score": 1.0,
+   "score": 0.9167,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 2918,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-transcript-gpa": {
@@ -739,6 +1161,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 2517,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-utility-bill": {
@@ -746,6 +1171,9 @@
    "v": "priv",
    "score": 1.0,
    "provider": "Mistral",
+   "cfg": "0a4c9327",
+   "tok": 2437,
+   "mt": 32768,
    "at": "2026-10-11"
   }
  }

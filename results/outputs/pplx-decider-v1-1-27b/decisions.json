@@ -10,6 +10,72 @@
    }
   }
  },
+ "decide-hard-incident-matrix": {
+  "output": "{\"severity\": {\"type\": \"score\", \"score\": 1.0008200393328857, \"legend\": {\"0\": \"SEV4\", \"1\": \"SEV3\", \"2\": \"SEV2\", \"3\": \"SEV1\"}, \"probabilities\": {\"0\": 2.691414483731855e-05, \"1\": 0.9992345614272268, \"2\": 0.0006300953781486913, \"3\": 0.00010842904978720928}, \"confidence\": 0.9991261323774395}, \"page\": {\"type\": \"noul\", \"noul\": 0.0005601332940758983}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "severity": "1",
+    "page": "false"
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 7.160497571336876e-05}, \"action_needed\": {\"type\": \"noul\", \"noul\": 0.00014637186813760403}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "phishing": "false",
+    "action_needed": "false"
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "{\"slot\": {\"type\": \"choice\", \"choice\": \"B\", \"probabilities\": {\"A\": 0.2381735343124486, \"B\": 0.34471602302237075, \"C\": 0.2863989580838983, \"D\": 0.13071148458128248}, \"confidence\": 0.12628803069649433}, \"raj_last\": {\"type\": \"noul\", \"noul\": 0.14115027675079342}}",
+  "score": 0.5,
+  "detail": {
+   "brier": 1.0302,
+   "picks": {
+    "slot": "B",
+    "raj_last": "false"
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "{\"outcome\": {\"type\": \"choice\", \"choice\": \"store_credit\", \"probabilities\": {\"full_refund\": 0.0005849040849071957, \"partial_refund\": 0.03256282809432533, \"store_credit\": 0.9302637933755871, \"nothing\": 0.03658847444518048}, \"confidence\": 0.9070183911674494}, \"defective\": {\"type\": \"noul\", \"noul\": 0.0007003281128072279}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0036,
+   "picks": {
+    "outcome": "store_credit",
+    "defective": "false"
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "{\"hardware\": {\"type\": \"noul\", \"noul\": 0.9990573657652512}, \"support\": {\"type\": \"noul\", \"noul\": 0.9995199700901493}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "hardware": "true",
+    "support": "true"
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "{\"tool\": {\"type\": \"choice\", \"choice\": \"calendar\", \"probabilities\": {\"web_search\": 2.0450489355918952e-05, \"calculator\": 8.885482101047252e-05, \"calendar\": 0.9995956159286534, \"email\": 7.510894772420921e-05, \"none\": 0.00021996981325612621}, \"confidence\": 0.9994945199108168}, \"confirm\": {\"type\": \"noul\", \"noul\": 0.7586374101171467}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0583,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "true"
+   }
+  }
+ },
  "decide-moderation-doxxing": {
   "output": "{\"policy\": {\"type\": \"choice\", \"choice\": \"harassment\", \"probabilities\": {\"none\": 0.010189055294869347, \"harassment\": 0.9893631012516022, \"hate\": 0.00034299399669884974, \"spam\": 4.632594273304705e-05, \"self_harm\": 5.852351409654885e-05}, \"confidence\": 0.9867038765645028}, \"personal_info\": {\"type\": \"noul\", \"noul\": 0.9980476471145783}}",
   "score": 1.0,

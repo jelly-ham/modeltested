@@ -1,6 +1,6 @@
 {
  "extract-expense-thread": {
-  "output": "{\"employee_id\":\"EMP-20417\",\"destination_city\":\"Lisbon\",\"trip_start\":\"2025-02-24\",\"trip_end\":\"2025-02-27\",\"approved_items\":[{\"date\":\"2025-02-24\",\"category\":\"airfare\",\"amount_usd\":1184.60},{\"date\":\"2025-02-24\",\"category\":\"ground_transport\",\"amount_usd\":38.88},{\"date\":\"2025-02-25\",\"category\":\"meals\",\"amount_usd\":229.39},{\"date\":\"2025-02-26\",\"category\":\"lodging\",\"amount_usd\":466.56},{\"date\":\"2025-02-27\",\"category\":\"ground_transport\",\"amount_usd\":44.82}],\"rejected_item_count\":1,\"per_diem_days\":3,\"per_diem_usd\":195.00,\"total_reimbursable_usd\":2159.25,\"approver_email\":\"priya.raman@corvane.com\"}",
+  "output": "{\"employee_id\": \"EMP-20417\", \"destination_city\": \"Lisbon\", \"trip_start\": \"2025-02-24\", \"trip_end\": \"2025-02-27\", \"approved_items\": [{\"date\": \"2025-02-24\", \"category\": \"airfare\", \"amount_usd\": 1184.6}, {\"date\": \"2025-02-24\", \"category\": \"ground_transport\", \"amount_usd\": 38.88}, {\"date\": \"2025-02-25\", \"category\": \"meals\", \"amount_usd\": 229.39}, {\"date\": \"2025-02-26\", \"category\": \"lodging\", \"amount_usd\": 466.56}, {\"date\": \"2025-02-27\", \"category\": \"ground_transport\", \"amount_usd\": 44.82}], \"rejected_item_count\": 1, \"per_diem_days\": 3, \"per_diem_usd\": 195.0, \"total_reimbursable_usd\": 2159.25, \"approver_email\": \"priya.raman@corvane.com\"}",
   "score": 1.0,
   "detail": {
    "matched": 24,
@@ -20,7 +20,7 @@
   }
  },
  "extract-lease-amendment": {
-  "output": "{\"tenants\":[\"Marcus Lin\",\"Sofia Lin\"],\"landlord\":\"Ridgeline Property Group LLC\",\"zip\":\"97205\",\"lease_end\":\"2025-11-30\",\"original_monthly_rent\":2150.00,\"monthly_rent_from_2025_06_01\":2236.00,\"late_fee_from_2025_06_01\":111.80,\"security_deposit\":2150.00,\"total_pet_deposits\":800.00,\"total_monthly_payment_july_2025\":2306.00,\"move_in_payment\":4700.00}",
+  "output": "{\"tenants\": [\"Marcus Lin\", \"Sofia Lin\"], \"landlord\": \"Ridgeline Property Group LLC\", \"zip\": \"97205\", \"lease_end\": \"2025-11-30\", \"original_monthly_rent\": 2150.00, \"monthly_rent_from_2025_06_01\": 2236.00, \"late_fee_from_2025_06_01\": 111.80, \"security_deposit\": 2150.00, \"total_pet_deposits\": 800.00, \"total_monthly_payment_july_2025\": 2306.00, \"move_in_payment\": 4700.00}",
   "score": 1.0,
   "detail": {
    "matched": 12,
@@ -40,12 +40,14 @@
   }
  },
  "extract-ticket-sla": {
-  "output": "{\"ticket_id\":\"48213\",\"account_id\":\"ACC-7731\",\"open_issue\":\"inventory_sync\",\"resolved_issues\":[\"billing_address\"],\"affected_orders\":[\"SO-99812\",\"SO-99820\",\"SO-99827\"],\"priority\":\"P2\",\"sla_due_local\":\"2025-09-15T15:30\",\"sla_due_utc\":\"2025-09-15T20:30:00Z\",\"reissued_invoice\":\"INV-2025-0812\"}",
-  "score": 1.0,
+  "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\"billing_address\", \"invoice_pdf\"],\n  \"affected_orders\": [\"SO-99812\", \"SO-99820\", \"SO-99827\"],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+  "score": 0.9167,
   "detail": {
    "matched": 11,
-   "total": 11,
-   "wrong": [],
+   "total": 12,
+   "wrong": [
+    "$.resolved_issues[1]"
+   ],
    "bare_json": true
   }
  }

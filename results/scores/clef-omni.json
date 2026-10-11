@@ -8,6 +8,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.1504,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-code-review-auth": {
@@ -16,6 +17,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0175,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-compliance-returns": {
@@ -24,6 +26,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0024,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-criticism-not-hate": {
@@ -32,6 +35,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0187,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-bank-overdrawn": {
@@ -40,6 +44,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0003,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-contract-autorenew": {
@@ -48,6 +53,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0005,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-invoice-missing-due": {
@@ -56,6 +62,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0031,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-doc-resume": {
@@ -64,6 +71,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0009,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-duplicate-ticket": {
@@ -72,6 +80,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0013,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-gdpr-erasure": {
@@ -80,6 +89,178 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0004,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-auto-renewal": {
+   "h": "3e087ffec063",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Cloudflare",
+   "brier": 0.499,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-bec-reply-to": {
+   "h": "2032b702a0a5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.061,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-contractor-access": {
+   "h": "b7e390613d00",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Cloudflare",
+   "brier": 0.3973,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-duplicate-encoding": {
+   "h": "cb77a5971040",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0008,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-expense-cap": {
+   "h": "aebb0f5d72e8",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Cloudflare",
+   "brier": 0.2636,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-fraud-rules": {
+   "h": "a0592e88c7ec",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Cloudflare",
+   "brier": 1.9128,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-hazmat-split": {
+   "h": "965c7970b711",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.1109,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "h": "96a270e00ef1",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "Cloudflare",
+   "brier": 0.8853,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-insurance-oop": {
+   "h": "992734f451ab",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Cloudflare",
+   "brier": 0.7081,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "h": "cc22949cde32",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0006,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-loan-dti": {
+   "h": "56f7d4035132",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0094,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "h": "834e757cd044",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "Cloudflare",
+   "brier": 1.285,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-misleading-subject": {
+   "h": "449ecb23cd0a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0011,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-refund-window": {
+   "h": "ebd11009bb29",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "Cloudflare",
+   "brier": 0.7195,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-report-not-hate": {
+   "h": "f27dcdb47e4e",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.1836,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "h": "1f342341050d",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0138,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-semver": {
+   "h": "4bce67599f05",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Cloudflare",
+   "brier": 1.5568,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-sla-timezones": {
+   "h": "04ec9f2dab61",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Cloudflare",
+   "brier": 0.8566,
+   "tok": 0,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "h": "4824d643da57",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0007,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-incident-docs": {
@@ -88,6 +269,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0194,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-incident-payments": {
@@ -96,6 +278,7 @@
    "score": 0.5,
    "provider": "Cloudflare",
    "brier": 0.9872,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-intent-upgrade": {
@@ -104,6 +287,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0001,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-language-shipping": {
@@ -112,6 +296,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0076,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-loan-dti": {
@@ -120,6 +305,7 @@
    "score": 0.0,
    "provider": "Cloudflare",
    "brier": 1.707,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-moderation-doxxing": {
@@ -128,6 +314,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0018,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-negated-billing": {
@@ -136,6 +323,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0026,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-password-reset-no-rush": {
@@ -144,6 +332,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.1949,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-phishing-legit-newsletter": {
@@ -152,6 +341,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0151,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-phishing-mailbox-full": {
@@ -160,6 +350,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0013,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-phishing-paypal": {
@@ -168,6 +359,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0013,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-card": {
@@ -176,6 +368,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0009,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-contact-only": {
@@ -184,6 +377,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.041,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-health": {
@@ -192,6 +386,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0018,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-pii-ssn-email": {
@@ -200,6 +395,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0028,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-refund-wrong-plan": {
@@ -208,6 +404,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0109,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-review-mixed": {
@@ -216,6 +413,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.001,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-review-sarcasm": {
@@ -224,6 +422,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0325,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-route-calculator": {
@@ -232,6 +431,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0005,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-route-calendar": {
@@ -240,6 +440,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0002,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-route-email": {
@@ -248,6 +449,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.001,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-route-none": {
@@ -256,6 +458,7 @@
    "score": 0.0,
    "provider": "Cloudflare",
    "brier": 1.9297,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-route-search": {
@@ -264,6 +467,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.004,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-screening-work-auth": {
@@ -272,6 +476,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0007,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-self-harm-signal": {
@@ -280,6 +485,7 @@
    "score": 0.0,
    "provider": "Cloudflare",
    "brier": 1.2147,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-spam-followers": {
@@ -288,6 +494,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0018,
+   "tok": 0,
    "at": "2026-10-11"
   },
   "decisions/decide-support-checkout-down": {
@@ -296,6 +503,7 @@
    "score": 1.0,
    "provider": "Cloudflare",
    "brier": 0.0041,
+   "tok": 0,
    "at": "2026-10-11"
   }
  }

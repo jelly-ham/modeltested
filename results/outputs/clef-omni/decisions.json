@@ -10,6 +10,72 @@
    }
   }
  },
+ "decide-hard-incident-matrix": {
+  "output": "{\"severity\": {\"type\": \"score\", \"score\": 2.0159, \"legend\": {\"0\": \"SEV4\", \"1\": \"SEV3\", \"2\": \"SEV2\", \"3\": \"SEV1\"}, \"probabilities\": {\"0\": 0.0079, \"1\": 0.1189, \"2\": 0.7225, \"3\": 0.1507}, \"confidence\": 0.4118}, \"page\": {\"type\": \"noul\", \"noul\": 0.4741}}",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.8853,
+   "picks": {
+    "severity": "2",
+    "page": "false"
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.0095}, \"action_needed\": {\"type\": \"noul\", \"noul\": 0.022}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0006,
+   "picks": {
+    "phishing": "false",
+    "action_needed": "false"
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "{\"slot\": {\"type\": \"choice\", \"choice\": \"B\", \"probabilities\": {\"A\": 0.2089, \"B\": 0.3048, \"C\": 0.2944, \"D\": 0.1919}, \"confidence\": 0.0134}, \"raj_last\": {\"type\": \"noul\", \"noul\": 0.0203}}",
+  "score": 0.5,
+  "detail": {
+   "brier": 1.285,
+   "picks": {
+    "slot": "B",
+    "raj_last": "false"
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "{\"outcome\": {\"type\": \"choice\", \"choice\": \"partial_refund\", \"probabilities\": {\"full_refund\": 0.0144, \"partial_refund\": 0.8193, \"store_credit\": 0.1251, \"nothing\": 0.0412}, \"confidence\": 0.5851}, \"defective\": {\"type\": \"noul\", \"noul\": 0.014}}",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.7195,
+   "picks": {
+    "outcome": "partial_refund",
+    "defective": "false"
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "{\"hardware\": {\"type\": \"noul\", \"noul\": 0.8939}, \"support\": {\"type\": \"noul\", \"noul\": 0.95}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0138,
+   "picks": {
+    "hardware": "true",
+    "support": "true"
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "{\"tool\": {\"type\": \"choice\", \"choice\": \"calendar\", \"probabilities\": {\"web_search\": 0.0027, \"calculator\": 0.0038, \"calendar\": 0.9881, \"email\": 0.0022, \"none\": 0.0032}, \"confidence\": 0.9705}, \"confirm\": {\"type\": \"noul\", \"noul\": 0.9757}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0007,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "true"
+   }
+  }
+ },
  "decide-moderation-doxxing": {
   "output": "{\"policy\": {\"type\": \"choice\", \"choice\": \"harassment\", \"probabilities\": {\"none\": 0.0197, \"harassment\": 0.9697, \"hate\": 0.0049, \"spam\": 0.0028, \"self_harm\": 0.0029}, \"confidence\": 0.9259}, \"personal_info\": {\"type\": \"noul\", \"noul\": 0.9668}}",
   "score": 1.0,

@@ -7,35 +7,35 @@
   }
  },
  "code-hard-ttl-lru": {
-  "output": "",
-  "score": 0.0,
-  "detail": {
-   "error": "NameError: name 'TTLCache' is not defined"
-  }
- },
- "code-parse-duration": {
-  "output": "```python\nimport re\n\n_DURATION_RE = re.compile(\n    r'\\A\\s*(?:([0-9]+)h)?\\s*(?:([0-9]+)m)?\\s*(?:([0-9]+)s)?\\s*\\Z',\n    re.IGNORECASE,\n)\n\ndef parse_duration(s: str) -> int:\n    if not isinstance(s, str):\n        raise ValueError(\"duration must be a string\")\n    if not s.strip():\n        raise ValueError(\"duration string is empty\")\n\n    match = _DURATION_RE.fullmatch(s)\n    if match is None:\n        raise ValueError(\"invalid duration string\")\n\n    hours = int(match.group(1)) if match.group(1) is not None else 0\n    minutes = int(match.group(2)) if match.group(2) is not None else 0\n    seconds = int(match.group(3)) if match.group(3) is not None else 0\n\n    return hours * 3600 + minutes * 60 + seconds\n```",
+  "output": "```python\nfrom collections import OrderedDict\nfrom typing import Any, Callable\n\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock: Callable[[], float]) -> None:\n        self._capacity = capacity\n        self._ttl = ttl\n        self._clock = clock\n        self._store: OrderedDict[Any, tuple[Any, float]] = OrderedDict()\n        self._hits = 0\n        self._misses = 0\n        self._evictions = 0\n        self._expirations = 0\n\n    def _purge_expired(self, now: float) -> None:\n        expired_keys = [k for k, (_, exp) in self._store.items() if now >= exp]\n        for k in expired_keys:\n            del self._store[k]\n        self._expirations += len(expired_keys)\n\n    def put(self, key: Any, value: Any) -> None:\n        if self._capacity <= 0:\n            return\n\n        now = self._clock()\n\n        if key in self._store:\n            self._store[key] = (value, now + self._ttl)\n            self._store.move_to_end(key)\n            return\n\n        if len(self._store) >= self._capacity:\n            self._purge_expired(now)\n            if len(self._store) >= self._capacity:\n                self._store.popitem(last=False)\n                self._evictions += 1\n\n        self._store[key] = (value, now + self._ttl)\n\n    def get(self, key: Any, default: Any = None) -> Any:\n        if self._capacity <= 0:\n            self._misses += 1\n            return default\n\n        now = self._clock()\n\n        try:\n            value, expiry = self._store[key]\n        except KeyError:\n            self._misses += 1\n            return default\n\n        if now >= expiry:\n            del self._store[key]\n            self._expirations += 1\n            self._misses += 1\n            return default\n\n        self._store.move_to_end(key)\n        self._hits += 1\n        return value\n\n    def __len__(self) -> int:\n        if self._capacity <= 0:\n            return 0\n\n        now = self._clock()\n        return sum(1 for _, (_, exp) in self._store.items() if now < exp)\n\n    def stats(self) -> dict[str, int]:\n        return {\n            \"hits\": self._hits,\n            \"misses\": self._misses,\n            \"evictions\": self._evictions,\n            \"expirations\": self._expirations,\n        }\n```",
   "score": 1.0,
   "detail": {
    "error": null
   }
  },
+ "code-parse-duration": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "NameError: name 'parse_duration' is not defined"
+  }
+ },
  "code-slugify": {
-  "output": "```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    if max_len <= 0:\n        return \"\"\n\n    # Transliterate accented characters to ASCII and drop other non-ASCII.\n    text = (\n        unicodedata.normalize(\"NFKD\", title)\n        .encode(\"ascii\", \"ignore\")\n        .decode(\"ascii\")\n    )\n\n    # Lowercase.\n    text = text.lower()\n\n    # Replace runs of characters other than a-z and 0-9 with a single \"-\".\n    slug = re.sub(r\"[^a-z0-9]+\", \"-\", text).strip(\"-\")\n\n    if len(slug) <= max_len:\n        return slug\n\n    words = slug.split(\"-\")\n\n    # If even the first word is too long, hard-cut it.\n    if len(words[0]) > max_len:\n        return words[0][:max_len]\n\n    # Keep the longest prefix of whole words within max_len.\n    result = words[0]\n    for word in words[1:]:\n        candidate = result + \"-\" + word\n        if len(candidate) <= max_len:\n            result = candidate\n        else:\n            break\n\n    return result.rstrip(\"-\")\n```",
+  "output": "```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # 1. Transliterate accented characters to ASCII and drop other non-ASCII\n    text = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii')\n    \n    # 2. Lowercase\n    text = text.lower()\n    \n    # 3. Replace every run of non [a-z0-9] with a single \"-\" and strip leading/trailing \"-\"\n    slug = re.sub(r'[^a-z0-9]+', '-', text).strip('-')\n    \n    if max_len < 0:\n        max_len = 0\n        \n    if len(slug) <= max_len:\n        return slug\n        \n    words = slug.split('-')\n    \n    # 4. If the first word alone exceeds max_len, hard-cut it\n    if len(words[0]) > max_len:\n        return words[0][:max_len]\n    \n    # Otherwise keep the longest prefix of whole words that fits\n    result = words[0]\n    for word in words[1:]:\n        candidate = result + '-' + word\n        if len(candidate) <= max_len:\n            result = candidate\n        else:\n            break\n            \n    # 5. Guarantee the result never ends with \"-\"\n    return result.rstrip('-')\n```",
   "score": 1.0,
   "detail": {
    "error": null
   }
  },
  "code-summarize-ranges": {
-  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    values = sorted(set(nums))\n    parts = []\n    i = 0\n    n = len(values)\n\n    while i < n:\n        j = i\n        while j + 1 < n and values[j + 1] == values[j] + 1:\n            j += 1\n\n        if j - i >= 2:\n            parts.append(f\"{values[i]}..{values[j]}\")\n        else:\n            parts.extend(str(values[k]) for k in range(i, j + 1))\n\n        i = j + 1\n\n    return \",\".join(parts)\n```",
+  "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    values = sorted(set(nums))\n    result: list[str] = []\n    i = 0\n    n = len(values)\n\n    while i < n:\n        j = i\n        while j + 1 < n and values[j + 1] == values[j] + 1:\n            j += 1\n\n        run_length = j - i + 1\n        if run_length >= 3:\n            result.append(f\"{values[i]}..{values[j]}\")\n        else:\n            for k in range(i, j + 1):\n                result.append(str(values[k]))\n\n        i = j + 1\n\n    return \",\".join(result)\n```",
   "score": 1.0,
   "detail": {
    "error": null
   }
  },
  "code-token-bucket": {
-  "output": "```python\nimport threading\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        self._capacity = float(capacity)\n        self._refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._tokens = float(capacity)\n        self._last_refill = clock()\n        self._lock = threading.Lock()\n\n    def _refill(self) -> None:\n        now = self._clock()\n        elapsed = now - self._last_refill\n        if elapsed > 0:\n            self._tokens = min(\n                self._capacity,\n                self._tokens + elapsed * self._refill_per_sec\n            )\n            self._last_refill = now\n\n    def allow(self, cost: float = 1) -> bool:\n        with self._lock:\n            self._refill()\n            if self._tokens >= cost:\n                self._tokens -= cost\n                return True\n            return False\n\n    @property\n    def tokens(self) -> float:\n        with self._lock:\n            self._refill()\n            return self._tokens\n```",
+  "output": "```python\nfrom collections.abc import Callable\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]) -> None:\n        self._capacity = float(capacity)\n        self._refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._tokens = float(capacity)\n        self._last_refill = float(clock())\n\n    def _refill(self) -> None:\n        now = float(self._clock())\n        elapsed = max(0.0, now - self._last_refill)\n        if elapsed > 0.0:\n            self._tokens = min(self._capacity, self._tokens + elapsed * self._refill_per_sec)\n            self._last_refill = now\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n```",
   "score": 1.0,
   "detail": {
    "error": null

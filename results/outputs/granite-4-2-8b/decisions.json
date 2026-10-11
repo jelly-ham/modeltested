@@ -10,6 +10,72 @@
    }
   }
  },
+ "decide-hard-incident-matrix": {
+  "output": "{\n  \"severity\": {\n    \"0\": 0.0,\n    \"1\": 1.0,\n    \"2\": 0.0,\n    \"3\": 0.0\n  },\n  \"page\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "severity": "1",
+    "page": "false"
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "{\n  \"phishing\": { \"true\": 0.02, \"false\": 0.98 },\n  \"action_needed\": { \"true\": 0.05, \"false\": 0.95 }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0029,
+   "picks": {
+    "phishing": "false",
+    "action_needed": "false"
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "{\n  \"slot\": {\n    \"A\": 0.0,\n    \"B\": 1.0,\n    \"C\": 0.0,\n    \"D\": 0.0\n  },\n  \"raj_last\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "slot": "B",
+    "raj_last": "true"
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "{\n  \"outcome\": {\n    \"full_refund\": 0.0,\n    \"partial_refund\": 0.0,\n    \"store_credit\": 1.0,\n    \"nothing\": 0.0\n  },\n  \"defective\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "outcome": "store_credit",
+    "defective": "false"
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "{\"hardware\": {\"true\": 0.99, \"false\": 0.01}, \"support\": {\"true\": 0.99, \"false\": 0.01}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0002,
+   "picks": {
+    "hardware": "true",
+    "support": "true"
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "{\n  \"tool\": {\n    \"web_search\": 0.01,\n    \"calculator\": 0.03,\n    \"calendar\": 0.9,\n    \"email\": 0.01,\n    \"none\": 0.05\n  },\n  \"confirm\": {\n    \"true\": 0.1,\n    \"false\": 0.9\n  }\n}",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.8168,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "false"
+   }
+  }
+ },
  "decide-moderation-doxxing": {
   "output": "{\n  \"policy\": {\n    \"none\": 0.0,\n    \"harassment\": 1.0,\n    \"hate\": 0.0,\n    \"spam\": 0.0,\n    \"self_harm\": 0.0\n  },\n  \"personal_info\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
   "score": 1.0,

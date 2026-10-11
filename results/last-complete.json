@@ -25,12 +25,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 83.8,
-    "public": 93.8,
-    "private": 81.0,
-    "done": 37,
-    "total": 37,
-    "calibration": 86.4
+    "score": 79.5,
+    "public": 85.7,
+    "private": 77.4,
+    "done": 56,
+    "total": 56,
+    "calibration": 82.8,
+    "hard": 71.1
    },
    "extract": {
     "score": 33.5,
@@ -70,12 +71,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 89.2,
-    "public": 100.0,
-    "private": 86.2,
-    "done": 37,
-    "total": 37,
-    "calibration": 92.2
+    "score": 83.0,
+    "public": 96.4,
+    "private": 78.6,
+    "done": 56,
+    "total": 56,
+    "calibration": 87.1,
+    "hard": 71.1
    },
    "extract": {
     "score": 39.8,
@@ -115,12 +117,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 93.2,
-    "public": 100.0,
-    "private": 91.4,
-    "done": 37,
-    "total": 37,
-    "calibration": 95.8
+    "score": 88.4,
+    "public": 92.9,
+    "private": 86.9,
+    "done": 56,
+    "total": 56,
+    "calibration": 90.7,
+    "hard": 78.9
    },
    "extract": {
     "score": 46.2,
@@ -164,12 +167,11 @@
     "total": 30
    },
    "decisions": {
-    "score": 71.6,
-    "public": 68.8,
-    "private": 72.4,
+    "score": null,
+    "public": null,
+    "private": null,
     "done": 37,
-    "total": 37,
-    "calibration": 77.0
+    "total": 56
    },
    "extract": {
     "score": 25.1,
@@ -209,12 +211,11 @@
     "total": 30
    },
    "decisions": {
-    "score": 59.5,
-    "public": 68.8,
-    "private": 56.9,
+    "score": null,
+    "public": null,
+    "private": null,
     "done": 37,
-    "total": 37,
-    "calibration": 65.3
+    "total": 56
    },
    "extract": {
     "score": 26.7,
@@ -254,12 +255,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 98.6,
-    "public": 100.0,
-    "private": 98.3,
-    "done": 37,
-    "total": 37,
-    "calibration": 98.1
+    "score": 92.0,
+    "public": 89.3,
+    "private": 92.9,
+    "done": 56,
+    "total": 56,
+    "calibration": 91.3,
+    "hard": 78.9
    },
    "extract": {
     "score": 57.5,
@@ -274,8 +276,8 @@
    "DekaLLM",
    "NextBit",
    "Novita",
-   "DeepInfra",
    "CoreWeave",
+   "DeepInfra",
    "SiliconFlow",
    "Parasail",
    "Venice"
@@ -307,12 +309,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 98.6,
-    "public": 100.0,
-    "private": 98.3,
-    "done": 37,
-    "total": 37,
-    "calibration": 98.8
+    "score": 92.9,
+    "public": 96.4,
+    "private": 91.7,
+    "done": 56,
+    "total": 56,
+    "calibration": 92.9,
+    "hard": 81.6
    },
    "extract": {
     "score": 65.0,
@@ -325,8 +328,8 @@
   "providers": [
    "Parasail",
    "DeepInfra",
-   "Novita",
    "SiliconFlow",
+   "Novita",
    "Crusoe"
   ]
  },
@@ -356,12 +359,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 85.1,
-    "public": 87.5,
-    "private": 84.5,
-    "done": 37,
-    "total": 37,
-    "calibration": 87.1
+    "score": 84.8,
+    "public": 92.9,
+    "private": 82.1,
+    "done": 56,
+    "total": 56,
+    "calibration": 86.7,
+    "hard": 84.2
    },
    "extract": {
     "score": 70.4,
@@ -402,12 +406,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 93.2,
+    "score": 94.6,
     "public": 100.0,
-    "private": 91.4,
-    "done": 37,
-    "total": 37,
-    "calibration": 93.2
+    "private": 92.9,
+    "done": 56,
+    "total": 56,
+    "calibration": 94.6,
+    "hard": 97.4
    },
    "extract": {
     "score": 86.8,
@@ -450,12 +455,11 @@
     "total": 30
    },
    "decisions": {
-    "score": 29.7,
-    "public": 12.5,
-    "private": 34.5,
+    "score": null,
+    "public": null,
+    "private": null,
     "done": 37,
-    "total": 37,
-    "calibration": 33.6
+    "total": 56
    },
    "extract": {
     "score": 31.1,
@@ -495,12 +499,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 90.5,
-    "public": 100.0,
-    "private": 87.9,
-    "done": 37,
-    "total": 37,
-    "calibration": 90.0
+    "score": 92.9,
+    "public": 96.4,
+    "private": 91.7,
+    "done": 56,
+    "total": 56,
+    "calibration": 92.6,
+    "hard": 97.4
    },
    "extract": {
     "score": 77.7,
@@ -541,12 +546,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 76.1,
-    "public": 77.1,
-    "private": 75.9,
-    "done": 37,
-    "total": 37,
-    "calibration": 78.9
+    "score": 68.2,
+    "public": 72.6,
+    "private": 66.7,
+    "done": 56,
+    "total": 56,
+    "calibration": 70.9,
+    "hard": 52.6
    },
    "extract": {
     "score": 26.2,
@@ -588,12 +594,11 @@
     "total": 30
    },
    "decisions": {
-    "score": 51.8,
-    "public": 39.6,
-    "private": 55.2,
+    "score": null,
+    "public": null,
+    "private": null,
     "done": 37,
-    "total": 37,
-    "calibration": 59.6
+    "total": 56
    },
    "extract": {
     "score": 28.3,
@@ -633,12 +638,11 @@
     "total": 30
    },
    "decisions": {
-    "score": 0.0,
-    "public": 0.0,
-    "private": 0.0,
+    "score": null,
+    "public": null,
+    "private": null,
     "done": 37,
-    "total": 37,
-    "calibration": 1.8
+    "total": 56
    },
    "extract": {
     "score": 9.3,
@@ -678,12 +682,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 45.5,
-    "public": 54.2,
-    "private": 43.1,
-    "done": 37,
-    "total": 37,
-    "calibration": 54.1
+    "score": 44.3,
+    "public": 41.7,
+    "private": 45.2,
+    "done": 56,
+    "total": 56,
+    "calibration": 54.3,
+    "hard": 42.1
    },
    "extract": {
     "score": 12.5,
@@ -723,12 +728,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 94.6,
-    "public": 100.0,
-    "private": 93.1,
-    "done": 37,
-    "total": 37,
-    "calibration": 94.3
+    "score": 85.7,
+    "public": 82.1,
+    "private": 86.9,
+    "done": 56,
+    "total": 56,
+    "calibration": 86.0,
+    "hard": 68.4
    },
    "extract": {
     "score": 44.9,
@@ -768,12 +774,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 81.5,
-    "public": 89.6,
-    "private": 79.3,
-    "done": 37,
-    "total": 37,
-    "calibration": 84.7
+    "score": 71.7,
+    "public": 69.0,
+    "private": 72.6,
+    "done": 56,
+    "total": 56,
+    "calibration": 74.9,
+    "hard": 52.6
    },
    "extract": {
     "score": 31.7,
@@ -813,12 +820,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 89.2,
-    "public": 100.0,
-    "private": 86.2,
-    "done": 37,
-    "total": 37,
-    "calibration": 90.2
+    "score": 83.9,
+    "public": 89.3,
+    "private": 82.1,
+    "done": 56,
+    "total": 56,
+    "calibration": 85.0,
+    "hard": 73.7
    },
    "extract": {
     "score": 43.2,
@@ -858,12 +866,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 81.5,
-    "public": 89.6,
-    "private": 79.3,
-    "done": 37,
-    "total": 37,
-    "calibration": 86.5
+    "score": 78.0,
+    "public": 79.8,
+    "private": 77.4,
+    "done": 56,
+    "total": 56,
+    "calibration": 82.9,
+    "hard": 71.1
    },
    "extract": {
     "score": 35.9,
@@ -906,12 +915,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 93.2,
-    "public": 100.0,
-    "private": 91.4,
-    "done": 37,
-    "total": 37,
-    "calibration": 93.7
+    "score": 84.8,
+    "public": 85.7,
+    "private": 84.5,
+    "done": 56,
+    "total": 56,
+    "calibration": 86.9,
+    "hard": 68.4
    },
    "extract": {
     "score": 45.2,
@@ -951,12 +961,11 @@
     "total": 30
    },
    "decisions": {
-    "score": 94.6,
-    "public": 100.0,
-    "private": 93.1,
-    "done": 37,
-    "total": 37,
-    "calibration": 94.4
+    "score": null,
+    "public": null,
+    "private": null,
+    "done": 55,
+    "total": 56
    },
    "extract": {
     "score": 47.0,
@@ -998,12 +1007,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 86.5,
-    "public": 100.0,
-    "private": 82.8,
-    "done": 37,
-    "total": 37,
-    "calibration": 87.7
+    "score": 80.4,
+    "public": 89.3,
+    "private": 77.4,
+    "done": 56,
+    "total": 56,
+    "calibration": 82.9,
+    "hard": 68.4
    },
    "extract": {
     "score": 71.6,
@@ -1044,12 +1054,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 90.5,
-    "public": 93.8,
-    "private": 89.7,
-    "done": 37,
-    "total": 37,
-    "calibration": 90.8
+    "score": 93.8,
+    "public": 96.4,
+    "private": 92.9,
+    "done": 56,
+    "total": 56,
+    "calibration": 93.7,
+    "hard": 100.0
    },
    "extract": {
     "score": 90.7,
@@ -1089,12 +1100,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 86.5,
-    "public": 100.0,
-    "private": 82.8,
-    "done": 37,
-    "total": 37,
-    "calibration": 87.5
+    "score": 75.0,
+    "public": 78.6,
+    "private": 73.8,
+    "done": 56,
+    "total": 56,
+    "calibration": 77.8,
+    "hard": 52.6
    },
    "extract": {
     "score": 26.2,
@@ -1134,12 +1146,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 75.7,
-    "public": 87.5,
-    "private": 72.4,
-    "done": 37,
-    "total": 37,
-    "calibration": 80.6
+    "score": 71.4,
+    "public": 75.0,
+    "private": 70.2,
+    "done": 56,
+    "total": 56,
+    "calibration": 75.9,
+    "hard": 63.2
    },
    "extract": {
     "score": 37.4,
@@ -1179,12 +1192,11 @@
     "total": 30
    },
    "decisions": {
-    "score": 83.8,
-    "public": 87.5,
-    "private": 82.8,
+    "score": null,
+    "public": null,
+    "private": null,
     "done": 37,
-    "total": 37,
-    "calibration": 84.5
+    "total": 56
    },
    "extract": {
     "score": 34.3,
@@ -1226,10 +1238,11 @@
    "decisions": {
     "score": 94.6,
     "public": 100.0,
-    "private": 93.1,
-    "done": 37,
-    "total": 37,
-    "calibration": 95.2
+    "private": 92.9,
+    "done": 56,
+    "total": 56,
+    "calibration": 95.3,
+    "hard": 94.7
    },
    "extract": {
     "score": 81.1,
@@ -1269,12 +1282,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 94.6,
+    "score": 95.5,
     "public": 100.0,
-    "private": 93.1,
-    "done": 37,
-    "total": 37,
-    "calibration": 94.7
+    "private": 94.0,
+    "done": 56,
+    "total": 56,
+    "calibration": 95.5,
+    "hard": 97.4
    },
    "extract": {
     "score": 87.0,
@@ -1314,12 +1328,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 91.9,
-    "public": 100.0,
-    "private": 89.7,
-    "done": 37,
-    "total": 37,
-    "calibration": 92.5
+    "score": 83.9,
+    "public": 85.7,
+    "private": 83.3,
+    "done": 56,
+    "total": 56,
+    "calibration": 85.6,
+    "hard": 68.4
    },
    "extract": {
     "score": 45.7,
@@ -1360,12 +1375,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 95.9,
+    "score": 96.4,
     "public": 100.0,
-    "private": 94.8,
-    "done": 37,
-    "total": 37,
-    "calibration": 97.2
+    "private": 95.2,
+    "done": 56,
+    "total": 56,
+    "calibration": 97.6,
+    "hard": 97.4
    },
    "extract": {
     "score": 78.6,
@@ -1410,9 +1426,10 @@
     "score": 100.0,
     "public": 100.0,
     "private": 100.0,
-    "done": 37,
-    "total": 37,
-    "calibration": 99.9
+    "done": 56,
+    "total": 56,
+    "calibration": 99.9,
+    "hard": 100.0
    },
    "extract": {
     "score": 99.5,
@@ -1425,8 +1442,8 @@
   "providers": [
    "DeepInfra",
    "AtlasCloud",
-   "SiliconFlow",
-   "Novita"
+   "Novita",
+   "SiliconFlow"
   ]
  },
  "qwen3-5-35b-a3b": {
@@ -1455,12 +1472,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 98.6,
+    "score": 99.1,
     "public": 100.0,
-    "private": 98.3,
-    "done": 37,
-    "total": 37,
-    "calibration": 99.1
+    "private": 98.8,
+    "done": 56,
+    "total": 56,
+    "calibration": 99.4,
+    "hard": 100.0
    },
    "extract": {
     "score": 95.4,
@@ -1503,12 +1521,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 95.9,
+    "score": 97.3,
     "public": 100.0,
-    "private": 94.8,
-    "done": 37,
-    "total": 37,
-    "calibration": 95.9
+    "private": 96.4,
+    "done": 56,
+    "total": 56,
+    "calibration": 97.3,
+    "hard": 100.0
    },
    "extract": {
     "score": 96.7,
@@ -1551,12 +1570,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 98.6,
+    "score": 99.1,
     "public": 100.0,
-    "private": 98.3,
-    "done": 37,
-    "total": 37,
-    "calibration": 98.8
+    "private": 98.8,
+    "done": 56,
+    "total": 56,
+    "calibration": 99.2,
+    "hard": 100.0
    },
    "extract": {
     "score": 96.7,
@@ -1568,8 +1588,8 @@
   },
   "providers": [
    "Chutes",
-   "DeepInfra",
    "SiliconFlow",
+   "DeepInfra",
    "Venice"
   ]
  },
@@ -1599,12 +1619,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 98.6,
+    "score": 99.1,
     "public": 100.0,
-    "private": 98.3,
-    "done": 37,
-    "total": 37,
-    "calibration": 98.7
+    "private": 98.8,
+    "done": 56,
+    "total": 56,
+    "calibration": 99.1,
+    "hard": 100.0
    },
    "extract": {
     "score": 92.7,
@@ -1649,12 +1670,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 97.3,
+    "score": 98.2,
     "public": 100.0,
-    "private": 96.6,
-    "done": 37,
-    "total": 37,
-    "calibration": 97.5
+    "private": 97.6,
+    "done": 56,
+    "total": 56,
+    "calibration": 98.3,
+    "hard": 100.0
    },
    "extract": {
     "score": 99.4,
@@ -1669,11 +1691,12 @@
    "Ionstream",
    "DeepInfra",
    "Reka",
-   "Chutes",
    "Mancer 2",
+   "Chutes",
+   "Parasail",
    "AkashML",
    "Venice",
-   "Parasail"
+   "CoreWeave"
   ]
  },
  "qwen3-coder-30b-a3b-instruct": {
@@ -1702,12 +1725,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 90.5,
-    "public": 100.0,
-    "private": 87.9,
-    "done": 37,
-    "total": 37,
-    "calibration": 91.8
+    "score": 81.2,
+    "public": 78.6,
+    "private": 82.1,
+    "done": 56,
+    "total": 56,
+    "calibration": 84.8,
+    "hard": 63.2
    },
    "extract": {
     "score": 46.0,
@@ -1747,12 +1771,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 91.9,
-    "public": 100.0,
-    "private": 89.7,
-    "done": 37,
-    "total": 37,
-    "calibration": 92.9
+    "score": 75.0,
+    "public": 71.4,
+    "private": 76.2,
+    "done": 56,
+    "total": 56,
+    "calibration": 76.2,
+    "hard": 42.1
    },
    "extract": {
     "score": 48.7,
@@ -1794,12 +1819,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 95.9,
-    "public": 100.0,
-    "private": 94.8,
-    "done": 37,
-    "total": 37,
-    "calibration": 95.0
+    "score": 96.4,
+    "public": 96.4,
+    "private": 96.4,
+    "done": 56,
+    "total": 56,
+    "calibration": 95.8,
+    "hard": 97.4
    },
    "extract": {
     "score": 93.2,
@@ -1839,12 +1865,13 @@
     "total": 30
    },
    "decisions": {
-    "score": 86.5,
-    "public": 100.0,
-    "private": 82.8,
-    "done": 37,
-    "total": 37,
-    "calibration": 88.6
+    "score": 78.6,
+    "public": 82.1,
+    "private": 77.4,
+    "done": 56,
+    "total": 56,
+    "calibration": 81.2,
+    "hard": 63.2
    },
    "extract": {
     "score": 41.4,

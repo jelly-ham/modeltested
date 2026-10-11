@@ -62,6 +62,72 @@
     }
    }
   },
+  "decide-hard-incident-matrix": {
+   "output": "{\"severity\":{\"0\":0.0,\"1\":1.0,\"2\":0.0,\"3\":0.0},\"page\":{\"true\":0.0,\"false\":1.0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "{\"phishing\": {\"true\": 0.01, \"false\": 0.99}, \"action_needed\": {\"true\": 0.01, \"false\": 0.99}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "{\n  \"slot\": {\n    \"A\": 0.0,\n    \"B\": 1.0,\n    \"C\": 0.0,\n    \"D\": 0.0\n  },\n  \"raj_last\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "slot": "B",
+     "raj_last": "true"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "{\"outcome\": {\"full_refund\": 0.0, \"partial_refund\": 0.0, \"store_credit\": 1.0, \"nothing\": 0.0}, \"defective\": {\"true\": 0.0, \"false\": 1.0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "{\n  \"hardware\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"support\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 1.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
   "decide-moderation-doxxing": {
    "output": "{\n  \"policy\": {\n    \"none\": 0.0,\n    \"harassment\": 1.0,\n    \"hate\": 0.0,\n    \"spam\": 0.0,\n    \"self_harm\": 0.0\n  },\n  \"personal_info\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
    "score": 1.0,

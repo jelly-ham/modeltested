@@ -10,6 +10,72 @@
    }
   }
  },
+ "decide-hard-incident-matrix": {
+  "output": "{\n  \"severity\": {\n    \"0\": 0.0,\n    \"1\": 0.8,\n    \"2\": 0.2,\n    \"3\": 0.0\n  },\n  \"page\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.04,
+   "picks": {
+    "severity": "1",
+    "page": "false"
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "{\n  \"phishing\": {\n    \"false\": 0.98,\n    \"true\": 0.02\n  },\n  \"action_needed\": {\n    \"false\": 0.99,\n    \"true\": 0.01\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0005,
+   "picks": {
+    "phishing": "false",
+    "action_needed": "false"
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "{\n  \"slot\": {\n    \"A\": 0.0,\n    \"B\": 0.0,\n    \"C\": 1.0,\n    \"D\": 0.0\n  },\n  \"raj_last\": {\n    \"true\": false,\n    \"false\": true\n  }\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "slot": "C",
+    "raj_last": null
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "{\"outcome\": {\"full_refund\": 0.0, \"partial_refund\": 1.0, \"store_credit\": 0.0, \"nothing\": 0.0}, \"defective\": {\"true\": 0.0, \"false\": 1.0}}",
+  "score": 0.5,
+  "detail": {
+   "brier": 1.0,
+   "picks": {
+    "outcome": "partial_refund",
+    "defective": "false"
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "{\"hardware\": {\"true\": 1.0, \"false\": 0.0}, \"support\": {\"true\": 1.0, \"false\": 0.0}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "hardware": "true",
+    "support": "true"
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "{\"tool\": {\"calendar\": 1.0}, \"confirm\": {\"true\": 0.8, \"false\": 0.2}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.04,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "true"
+   }
+  }
+ },
  "decide-moderation-doxxing": {
   "output": "{\n  \"policy\": {\n    \"harassment\": 1.0\n  },\n  \"personal_info\": {\n    \"true\": 1.0\n  }\n}",
   "score": 1.0,
