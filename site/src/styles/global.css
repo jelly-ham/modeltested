@@ -111,7 +111,7 @@ code, pre, .mono { font-family: var(--mono); }
 .hero-compact .hero-chart { flex: 1 1 320px; min-width: 0; display: block; }
 .cover-compact { height: 100%; padding: 14px 18px; border-radius: 12px; gap: 6px; }
 .featured.featured-compact { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-top: 18px; padding-top: 18px; }
-.featured-compact .cover-card { padding: 12px 14px; gap: 6px; aspect-ratio: auto; min-height: 112px; }
+.featured-compact .cover-card { padding: 12px 14px; gap: 6px; aspect-ratio: auto; height: 150px; overflow: hidden; }
 .featured-compact .card h2 { font-size: 15px; line-height: 1.35; }
 .featured-compact .card { gap: 7px; }
 .featured-compact .kicker { font-size: 11px; }

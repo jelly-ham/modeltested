@@ -22,7 +22,7 @@ const big = size === "card" ? 30 : 84;
   {cover.kind === "bars" && (
     <>
       <div class="lbl"><span>{cover.label}</span><span>/100</span></div>
-      <div style={`display: flex; flex-direction: column; gap: ${size === "card" ? 7 : size === "compact" ? 10 : 16}px`}>
+      <div style={`display: flex; flex-direction: column; gap: ${size === "card" ? 11 : size === "compact" ? 10 : 16}px`}>
         {cover.rows.slice(0, size === "card" ? 4 : 5).map((r, i) => size === "compact" ? (
           <div style="display: grid; grid-template-columns: minmax(0, 11fr) minmax(0, 9fr) 26px; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 500">
             <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{r.name}</span>
@@ -32,7 +32,7 @@ const big = size === "card" ? 30 : 84;
         ) : (
           <div class="bar-row">
             {size !== "card" && <div class="bar-head"><span>{r.name}</span><b>{whole(r.value)}</b></div>}
-            <div class="bar-track" style={size === "card" ? "height: 8px" : ""}><div style={`width: ${r.value}%; background: ${shades[i]}`}></div></div>
+            <div class="bar-track" style={size === "card" ? "height: 12px" : ""}><div style={`width: ${r.value}%; background: ${shades[i]}`}></div></div>
           </div>
         ))}
       </div>
