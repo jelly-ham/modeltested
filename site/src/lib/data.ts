@@ -31,6 +31,7 @@ export type Model = {
 export type DecisionRow = {
   slug: string; name: string; org: string | null; kind: "decision" | "local" | "reference";
   params_b: number | null; accuracy: number; calibration: number | null; hard?: number | null; rank: number; openrouter_id: string;
+  open_weights?: boolean; license?: string | null;
 };
 /** A quantized download (run on our Mac) next to the same model at full precision. */
 export type QuantRun = {
@@ -50,6 +51,7 @@ export const data = board as unknown as {
   references?: Model[];
   quantized?: QuantRun[];
   decisions?: DecisionRow[];
+  decisions_unsupported?: { name: string; openrouter_id: string; open_weights: boolean; reason: string | null }[];
   n_hard?: number;
   n_hard_decisions?: number;
   changelog: { date: string; slug: string; name: string; event: string; overall: number; rank: number; of: number }[];
@@ -132,7 +134,9 @@ export function questionTitle(id: string): string {
 const ORG_NAMES: Record<string, string> = {
   openai: "OpenAI", google: "Google", qwen: "Alibaba's Qwen team", "meta-llama": "Meta", mistralai: "Mistral AI",
   microsoft: "Microsoft", nvidia: "NVIDIA", "z-ai": "Zhipu AI", "ibm-granite": "IBM", deepseek: "DeepSeek",
-  moonshotai: "Moonshot AI", liquid: "Liquid AI", tencent: "Tencent", allenai: "Ai2", baidu: "Baidu", cohere: "Cohere",
+  moonshotai: "Moonshot AI", liquid: "Liquid AI", cloudflare: "Cloudflare", "nace-ai": "Nace AI", typesafe: "Typesafe",
+  jaredpalmer: "Jared Palmer", inception: "Inception", perplexity: "Perplexity", upstage: "Upstage", togethercomputer: "Together AI",
+  respan: "Respan", tencent: "Tencent", allenai: "Ai2", baidu: "Baidu", cohere: "Cohere",
 };
 export const orgName = (org: string | null) => (org ? ORG_NAMES[org] ?? org : null);
 

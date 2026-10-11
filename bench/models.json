@@ -12,7 +12,8 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "license": "Apache 2.0"
     },
     {
       "slug": "clef-flash",
@@ -26,7 +27,8 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "license": "Apache 2.0"
     },
     {
       "slug": "clef-omni",
@@ -40,7 +42,8 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "license": "Apache 2.0"
     },
     {
       "slug": "command-a",
@@ -98,7 +101,8 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "license": "custom license"
     },
     {
       "slug": "gemma-2-27b-it",
@@ -438,7 +442,8 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "license": "Apache 2.0"
     },
     {
       "slug": "laguna-s-2-1",
@@ -1530,7 +1535,8 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "license": "license not stated"
     }
   ],
   "ignored": {

@@ -72,6 +72,7 @@ def decision_board(doc: dict, by_suite: dict, summaries: list[dict]) -> list[dic
             continue
         kind = "decision" if s.get("kind") == "decision" else "reference" if s.get("status") == "reference" else "local"
         rows.append({"slug": s["slug"], "name": s["name"], "org": s.get("org"), "kind": kind, "params_b": s.get("params_b"),
+                     "open_weights": bool(s.get("hf_id")), "license": s.get("license"),
                      "accuracy": d["score"], "calibration": d.get("calibration"), "hard": d.get("hard"), "openrouter_id": s.get("openrouter_id")})
     rows.sort(key=lambda r: (-r["accuracy"], -(r["calibration"] or 0)))
     for i, r in enumerate(rows, 1):
@@ -159,6 +160,9 @@ def main(args) -> None:
         "quantized": quantized,
         # Reference (cloud) models get a write-up of their own, never a place on a board.
         "decisions": decision_board(doc, by_suite, summaries),
+        "decisions_unsupported": [{"name": m["name"], "openrouter_id": m["openrouter_id"], "open_weights": bool(m.get("hf_id")),
+                                   "reason": m.get("unsupported_reason")} for m in doc["models"]
+                                  if m.get("kind") == "decision" and m.get("status") == "unsupported"],
         "n_hard": sum(q.data.get("difficulty") == "hard" and q.suite in RANKED_SUITES for q in questions),
         "n_hard_decisions": sum(q.data.get("difficulty") == "hard" and q.suite == "decisions" for q in questions),
         "changelog": sorted(history, key=lambda h: h["date"], reverse=True)[:50],

@@ -1,6 +1,6 @@
 ---
 import Article from "../layouts/Article.astro";
-import { data, fmtDate, whole } from "../lib/data";
+import { data, fmtDate, whole, orgName } from "../lib/data";
 import { decisionPost, shortDate } from "../lib/posts";
 
 const rows = data.decisions ?? [];
@@ -11,6 +11,9 @@ const kindLabel = { decision: "Decision model", local: "Local LLM", reference: "
 const bestDecision = rows.find((r) => r.kind === "decision");
 const bestLocal = rows.find((r) => r.kind === "local");
 const showHard = rows.some((r) => r.hard != null);
+const unsupported = data.decisions_unsupported ?? [];
+const nOpen = decisionOnly().filter((r) => r.open_weights).length;
+function decisionOnly() { return rows.filter((r) => r.kind === "decision"); }
 const decisionRows = rows.filter((r) => r.kind === "decision");
 // Regular models you can run at home that beat the best dedicated decision model.
 const beaters = bestDecision ? rows.filter((r) => r.kind === "local" && r.accuracy > bestDecision.accuracy) : [];
@@ -44,6 +47,39 @@ const description = post?.dek ?? "Decision models tested on real classification,
           <li>"Calibration" shows how honest a model's confidence is: 100 means it is always right and always sure; low numbers mean it is often confidently wrong.</li>
         </ul>
       </div>
+      <h2 id="decision-models">Best decision models</h2>
+      <p class="sub" style="margin-top: -6px">
+        Only the dedicated decision models, ranked. {nOpen} of {decisionOnly().length} have open weights you can download; the rest are
+        available only through an API.
+      </p>
+      <div class="table-box">
+        <table style="min-width: 620px">
+          <thead><tr><th class="num">#</th><th>Model</th><th>Weights</th><th class="num">Accuracy</th>{showHard && <th class="num">Hard cases</th>}<th class="num">Calibration</th></tr></thead>
+          <tbody>
+            {decisionOnly().map((r, i) => (
+              <tr>
+                <td class="num" style="color: var(--faint)">{i + 1}</td>
+                <td><b>{r.name}</b><div class="sub" style="font-size: 13px">{orgName(r.org)}{r.params_b && <> · {r.params_b >= 10 ? Math.round(r.params_b) : Math.round(r.params_b * 10) / 10}B</>}</div></td>
+                <td>{r.open_weights ? <>Open<div class="sub" style="font-size: 13px">{r.license ?? ""}</div></> : <span class="sub">Closed (API only)</span>}</td>
+                <td class="num"><b>{whole(r.accuracy)}</b></td>
+                {showHard && <td class="num">{r.hard == null ? <span class="sub">–</span> : whole(r.hard)}</td>}
+                <td class="num">{whole(r.calibration)}</td>
+              </tr>
+            ))}
+            {unsupported.map((u) => (
+              <tr>
+                <td class="num" style="color: var(--faint)">–</td>
+                <td><b>{u.name}</b><div class="sub" style="font-size: 13px">{orgName(u.openrouter_id.split("/")[0])}</div></td>
+                <td>{u.open_weights ? "Open" : <span class="sub">Closed (API only)</span>}</td>
+                <td colspan={showHard ? 3 : 2} class="sub">Couldn't take the test: it only answers yes/no questions about a chat transcript.</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="all-models">Decision models vs. regular LLMs</h2>
+      <p class="sub" style="margin-top: -6px">Everyone who took the test, including free models you can run on your own computer.</p>
       <div class="table-box">
         <table style="min-width: 620px">
           <thead><tr><th class="num">#</th><th>Model</th><th>Type</th><th class="num">Accuracy</th>{showHard && <th class="num">Hard cases</th>}<th class="num">Calibration</th></tr></thead>
