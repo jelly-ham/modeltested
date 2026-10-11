@@ -1013,7 +1013,7 @@
     {
       "slug": "span-01",
       "name": "Span-01",
-      "status": "auto",
+      "status": "unsupported",
       "kind": "decision",
       "openrouter_id": "respan/span-01",
       "hf_id": null,
@@ -1022,12 +1022,13 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "unsupported_reason": "Respan only accepts yes/no questions about a chat transcript ({input, output} state); our decision tasks use multiple-choice questions and structured states."
     },
     {
       "slug": "span-01-lite",
       "name": "Span-01 Lite",
-      "status": "auto",
+      "status": "unsupported",
       "kind": "decision",
       "openrouter_id": "respan/span-01-lite",
       "hf_id": null,
@@ -1036,7 +1037,8 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "unsupported_reason": "Respan only accepts yes/no questions about a chat transcript ({input, output} state); our decision tasks use multiple-choice questions and structured states."
     },
     {
       "slug": "tev1-4b-experimental",
