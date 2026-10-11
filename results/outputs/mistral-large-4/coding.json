@@ -14,17 +14,17 @@
   }
  },
  "code-parse-duration": {
-  "output": "",
-  "score": 0.0,
+  "output": "```python\nimport re\n\n_DURATION_RE = re.compile(\n    r'\\A\\s*(?:([0-9]+)h)?\\s*(?:([0-9]+)m)?\\s*(?:([0-9]+)s)?\\s*\\Z',\n    re.IGNORECASE,\n)\n\ndef parse_duration(s: str) -> int:\n    if not isinstance(s, str):\n        raise ValueError(\"duration must be a string\")\n    if not s.strip():\n        raise ValueError(\"duration string is empty\")\n\n    match = _DURATION_RE.fullmatch(s)\n    if match is None:\n        raise ValueError(\"invalid duration string\")\n\n    hours = int(match.group(1)) if match.group(1) is not None else 0\n    minutes = int(match.group(2)) if match.group(2) is not None else 0\n    seconds = int(match.group(3)) if match.group(3) is not None else 0\n\n    return hours * 3600 + minutes * 60 + seconds\n```",
+  "score": 1.0,
   "detail": {
-   "error": "NameError: name 'parse_duration' is not defined"
+   "error": null
   }
  },
  "code-slugify": {
-  "output": "",
-  "score": 0.0,
+  "output": "```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    if max_len <= 0:\n        return \"\"\n\n    # Transliterate accented characters to ASCII and drop other non-ASCII.\n    text = (\n        unicodedata.normalize(\"NFKD\", title)\n        .encode(\"ascii\", \"ignore\")\n        .decode(\"ascii\")\n    )\n\n    # Lowercase.\n    text = text.lower()\n\n    # Replace runs of characters other than a-z and 0-9 with a single \"-\".\n    slug = re.sub(r\"[^a-z0-9]+\", \"-\", text).strip(\"-\")\n\n    if len(slug) <= max_len:\n        return slug\n\n    words = slug.split(\"-\")\n\n    # If even the first word is too long, hard-cut it.\n    if len(words[0]) > max_len:\n        return words[0][:max_len]\n\n    # Keep the longest prefix of whole words within max_len.\n    result = words[0]\n    for word in words[1:]:\n        candidate = result + \"-\" + word\n        if len(candidate) <= max_len:\n            result = candidate\n        else:\n            break\n\n    return result.rstrip(\"-\")\n```",
+  "score": 1.0,
   "detail": {
-   "error": "NameError: name 'slugify' is not defined"
+   "error": null
   }
  },
  "code-summarize-ranges": {

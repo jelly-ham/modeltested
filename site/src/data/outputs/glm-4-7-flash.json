@@ -22,10 +22,10 @@
    }
   },
   "code-slugify": {
-   "output": "",
+   "output": "```python\n\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters to ASCII, drop others\n    normalized = unicodedata.normalize('NFKD', title)\n    ascii_part = ''.join(c for c in normalized if ord(c) < 128)\n\n    # Step 2: Lowercase\n    slug = ascii_part.lower()\n\n    # Step 3: Replace runs of non-alnum with a single hyphen, strip\n    slug = re.sub(r'[^a-z0-9]+', '-', slug).strip('-')\n\n    # Early exit if already short enough\n    if len(slug) <= max_len:\n        return slug\n\n    # Step 4: Truncate if needed\n    words = slug.split('-')\n\n    # If the first word itself exceeds max_len, hard cut\n    if len(words[0]) > max_len:\n        return slug[:max_len].rstrip('-')\n\n    # Otherwise keep whole words as long as they fit\n    truncated_parts = []\n    total_len = 0\n    for i, word in enumerate(words):\n        if i == 0:\n            truncated_parts.append(word)\n            total_len = len(word)\n        else:\n            # Adding this word with a preceding hyphen would exceed?\n            if total_len + 1 + len(word) > max_len:\n                break\n            truncated_parts.append('-')\n            truncated_parts.append(word)\n            total_len += 1 + len(word)\n\n    slug = '-'.join(truncated_parts)\n    return slug\n\n```",
    "score": 0.0,
    "detail": {
-    "error": "NameError: name 'slugify' is not defined"
+    "error": "AssertionError"
    }
   },
   "code-summarize-ranges": {
@@ -50,6 +50,99 @@
    }
   }
  },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "```json\n{\n  \"doc_type\": {\n    \"invoice\": 0.99,\n    \"resume\": 0.01,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.0\n  },\n  \"missing_due_date\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0005,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "```json\n{\n  \"policy\": {\n    \"none\": 0,\n    \"harassment\": 1,\n    \"hate\": 0,\n    \"spam\": 0,\n    \"self_harm\": 0\n  },\n  \"personal_info\": {\n    \"true\": 1,\n    \"false\": 0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"risk\": {\n    \"0\": 0,\n    \"1\": 0,\n    \"2\": 0,\n    \"3\": 1\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "```json\n{\n  \"data_kind\": {\n    \"none\": 0,\n    \"contact\": 0,\n    \"financial\": 0.01,\n    \"government_id\": 0.99,\n    \"health\": 0\n  },\n  \"sensitive\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.99,\n    \"technical\": 0.0,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.01\n  },\n  \"refund\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"tone\": {\n    \"frustrated\": 0.01,\n    \"calm\": 0.99\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\n    \"positive\": 0.05,\n    \"neutral\": 0.10,\n    \"negative\": 0.85\n  },\n  \"defect\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"recommend\": {\n    \"true\": 0.02,\n    \"false\": 0.98\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0119,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "```json\n{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 1.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "```json\n{\n  \"1\": {\n    \"billing\": 0.1,\n    \"technical\": 0.9,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.0\n  },\n  \"2\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.0,\n    \"3\": 1.0\n  },\n  \"3\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}\n```",
+   "score": 0.0,
+   "detail": {
+    "brier": 2.0,
+    "picks": {
+     "department": null,
+     "urgency": null,
+     "outage": null
+    }
+   }
+  }
+ },
  "extract": {
   "extract-expense-thread": {
    "output": "```json\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}\n```",
@@ -62,10 +155,20 @@
    }
   },
   "extract-hard-saas-escalator": {
-   "output": "",
-   "score": 0.0,
+   "output": "```json\n{\n  \"year2_price_per_seat_month\": 46.53,\n  \"year3_price_per_seat_month\": 49.37,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 60302.88,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 37968.48,\n  \"year3_invoice\": 63983.52,\n  \"year3_discount_percent\": 10,\n  \"total_contract_value\": 220574.88,\n  \"contract_end_date\": \"2027-02-28\"\n}\n```",
+   "score": 0.3,
    "detail": {
-    "error": "no JSON object",
+    "matched": 3,
+    "total": 10,
+    "wrong": [
+     "$.addon_invoice",
+     "$.total_contract_value",
+     "$.year2_invoice",
+     "$.year2_price_per_seat_month",
+     "$.year3_discount_percent",
+     "$.year3_invoice",
+     "$.year3_price_per_seat_month"
+    ],
     "bare_json": false
    }
   },

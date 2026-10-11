@@ -27,10 +27,10 @@
   "coding/code-diff-dicts": {
    "h": "23e48c290b3c",
    "v": "priv",
-   "score": 0.0,
+   "score": 1.0,
    "provider": "DeepInfra",
-   "truncated": true,
-   "at": "2026-10-10"
+   "mt": 32768,
+   "at": "2026-10-11"
   },
   "coding/code-evaluate-expr": {
    "h": "9645efdf07a9",
@@ -38,7 +38,8 @@
    "score": 0.0,
    "provider": "DeepInfra",
    "truncated": true,
-   "at": "2026-10-10"
+   "mt": 32768,
+   "at": "2026-10-11"
   },
   "coding/code-hard-bool-expr": {
    "h": "a84a25915d0e",
@@ -46,6 +47,7 @@
    "score": 0.0,
    "provider": "DeepInfra",
    "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-csv-parser": {
@@ -54,6 +56,7 @@
    "score": 0.0,
    "provider": "DeepInfra",
    "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-ini-parser": {
@@ -61,15 +64,15 @@
    "v": "publ",
    "score": 0.0,
    "provider": "DeepInfra",
-   "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-json-path": {
    "h": "4b7ca7bd11df",
    "v": "priv",
-   "score": 0.0,
+   "score": 1.0,
    "provider": "DeepInfra",
-   "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-ledger": {
@@ -82,9 +85,9 @@
   "coding/code-hard-meeting-slots": {
    "h": "0def4e647232",
    "v": "priv",
-   "score": 0.0,
+   "score": 1.0,
    "provider": "DeepInfra",
-   "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-next-cron": {
@@ -93,6 +96,7 @@
    "score": 0.0,
    "provider": "DeepInfra",
    "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-normalize-path": {
@@ -100,7 +104,7 @@
    "v": "priv",
    "score": 0.0,
    "provider": "DeepInfra",
-   "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "coding/code-hard-rate-limiter-log": {
@@ -157,10 +161,10 @@
   "coding/code-parse-query": {
    "h": "c758323f80cf",
    "v": "priv",
-   "score": 0.0,
+   "score": 1.0,
    "provider": "DeepInfra",
-   "truncated": true,
-   "at": "2026-10-10"
+   "mt": 32768,
+   "at": "2026-10-11"
   },
   "coding/code-search-index": {
    "h": "3fc4c534a420",
@@ -223,10 +227,82 @@
   "coding/code-wrap-text": {
    "h": "b079bee015b9",
    "v": "priv",
-   "score": 0.0,
+   "score": 1.0,
    "provider": "DeepInfra",
-   "truncated": true,
-   "at": "2026-10-10"
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "h": "caa2741573fc",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "brier": 0.0,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "h": "5301594c3843",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "brier": 0.0,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-paypal": {
+   "h": "3483ab984a02",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "brier": 0.005,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "h": "2285b10e744d",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "brier": 0.04,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "h": "655c40f0c349",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "brier": 0.0,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-review-mixed": {
+   "h": "9e41737cefd0",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "brier": 0.02,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-calendar": {
+   "h": "cb843c555d6c",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "brier": 0.0,
+   "mt": 32768,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-support-checkout-down": {
+   "h": "5d379850ce99",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "DeepInfra",
+   "brier": 0.06,
+   "mt": 32768,
+   "at": "2026-10-11"
   },
   "extract/extract-addresses": {
    "h": "4fdc9cdc8fc4",
@@ -316,9 +392,9 @@
   "extract/extract-hard-saas-escalator": {
    "h": "95f3efe03d45",
    "v": "publ",
-   "score": 0.0,
+   "score": 0.7,
    "provider": "DeepInfra",
-   "truncated": true,
+   "mt": 32768,
    "at": "2026-10-11"
   },
   "extract/extract-hard-three-way-match": {

@@ -1,5 +1,302 @@
 {
  "model": "clef-flash",
  "runner_version": 1,
- "items": {}
+ "items": {
+  "decisions/decide-churn-threat": {
+   "h": "d6335aa9dc79",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0062,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-code-review-auth": {
+   "h": "23453bb85f69",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0384,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-compliance-returns": {
+   "h": "0a4dcd13b9e5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.073,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-criticism-not-hate": {
+   "h": "0a90865e89ae",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0004,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-bank-overdrawn": {
+   "h": "8603b122a7d1",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0077,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-contract-autorenew": {
+   "h": "611b0ee529a3",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0026,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "h": "caa2741573fc",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0061,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-doc-resume": {
+   "h": "f02928ab84f6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0032,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-duplicate-ticket": {
+   "h": "c9625a8d1dfd",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0094,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-gdpr-erasure": {
+   "h": "71059f428f66",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0045,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-incident-docs": {
+   "h": "4c63e3a29e86",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0266,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-incident-payments": {
+   "h": "2536c0ad4a10",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "Cloudflare",
+   "brier": 0.7442,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-intent-upgrade": {
+   "h": "d9a0553519c7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0104,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-language-shipping": {
+   "h": "a620e343f0e7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0024,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-loan-dti": {
+   "h": "7b196804131f",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "PrimeIntellect",
+   "brier": 1.2107,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "h": "5301594c3843",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0097,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-negated-billing": {
+   "h": "07fe2078d376",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0032,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-password-reset-no-rush": {
+   "h": "41b8d2f2f1b3",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0164,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-legit-newsletter": {
+   "h": "5f9846221479",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.2369,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-mailbox-full": {
+   "h": "888daa8ba685",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0044,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-paypal": {
+   "h": "3483ab984a02",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0064,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-card": {
+   "h": "a5f51b6888c1",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0035,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-contact-only": {
+   "h": "78e062b32aee",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0111,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-health": {
+   "h": "2202c616180c",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0062,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "h": "2285b10e744d",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0052,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "h": "655c40f0c349",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0161,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-review-mixed": {
+   "h": "9e41737cefd0",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0098,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-review-sarcasm": {
+   "h": "c54f7879f164",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.1928,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-calculator": {
+   "h": "fecbfc72964a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0007,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-calendar": {
+   "h": "cb843c555d6c",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0067,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-email": {
+   "h": "0cc2c5dfb624",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0148,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-none": {
+   "h": "83d5627c2104",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Cloudflare",
+   "brier": 0.9109,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-route-search": {
+   "h": "c4689a70b581",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0069,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-screening-work-auth": {
+   "h": "b2a2a46cb642",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Cloudflare",
+   "brier": 0.0021,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-self-harm-signal": {
+   "h": "6dedfd528895",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Cloudflare",
+   "brier": 1.9158,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-spam-followers": {
+   "h": "91bbd39166b5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0033,
+   "at": "2026-10-11"
+  },
+  "decisions/decide-support-checkout-down": {
+   "h": "5d379850ce99",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "PrimeIntellect",
+   "brier": 0.0145,
+   "at": "2026-10-11"
+  }
+ }
 }

@@ -1,10 +1,10 @@
 {
  "coding": {
   "code-hard-ini-parser": {
-   "output": "",
+   "output": "```python\nimport re\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    sections = {}\n    default_dict = {}\n    current_section = None\n    current_key = None\n    current_value = None\n    previous_line_was_key = False\n    lines = text.splitlines()\n\n    def interpolate(text, current_section, default_dict, sections, path=None):\n        if path is None:\n            path = []\n        match = re.search(r'\\$\\{([^}]*)\\}', text)\n        if not match:\n            return text\n        key_part = match.group(1)\n        if ':' in key_part:\n            ref_section, ref_key = key_part.split(':', 1)\n        else:\n            ref_section = current_section\n            ref_key = key_part\n        if (ref_section, ref_key) in path:\n            raise ValueError(f\"Cycle detected in interpolation: {ref_key} in {ref_section}\")\n        new_path = path + [(ref_section, ref_key)]\n        if ref_section == 'DEFAULT':\n            if ref_key in default_dict:\n                replacement = default_dict[ref_key]\n            else:\n                raise KeyError(f\"Key {ref_key} not found in DEFAULT section\")\n        else:\n            if ref_section not in sections:\n                raise KeyError(f\"Section {ref_section} not found\")\n            if ref_key in sections[ref_section]:\n                replacement = sections[ref_section][ref_key]\n            else:\n                if ref_key in default_dict:\n                    replacement = default_dict[ref_key]\n                else:\n                    raise KeyError(f\"Key {ref_key} not found in section {ref_section} or DEFAULT\")\n        new_text = text[:match.start()] + replacement + text[match.end():]\n        return interpolate(new_text, current_section, default_dict, sections, new_path)\n\n    for line in lines:\n        stripped_line = line.strip()\n        if not stripped_line or stripped_line.startswith(';') or stripped_line.startswith('#'):\n            previous_line_was_key = False\n            continue\n        section_match = re.match(r'^\\s*\\[([^\\]]+)\\]\\s*$', line)\n        if section_match:\n            section_name = section_match.group(1).strip()\n            if section_name == 'DEFAULT':\n                current_section = 'DEFAULT'\n                current_key = None\n                current_value = None\n            else:\n                current_section = section_name\n                if current_section not in sections:\n                    sections[current_section] = {}\n                current_key = None\n                current_value = None\n            previous_line_was_key = False\n            continue\n        if line.lstrip() != line:\n            if current_key is not None:\n                current_value += '\\n' + line.strip()\n                previous_line_was_key = False\n                continue\n            else:\n                raise ValueError(\"Continuation line without previous key\")\n        if current_key is not None:\n            if current_section == 'DEFAULT':\n                default_dict[current_key] = current_value\n            else:\n                sections[current_section][current_key] = current_value\n            current_key = None\n            current_value = None\n        main_part = line\n        comment_pos = -1\n        for i in range(len(main_part)):\n            if i + 1 < len(main_part) and main_part[i] == ' ' and main_part[i+1] in (';', '#'):\n                comment_pos = i\n                break\n        if comment_pos != -1:\n            main_part = main_part[:comment_pos]\n        split_pos = None\n        for i, c in enumerate(main_part):\n            if c in ('=', ':'):\n                split_pos = i\n                break\n        if split_pos is None:\n            raise ValueError(\"Invalid key line\")\n        key_str = main_part[:split_pos].strip().lower()\n        value_str = main_part[split_pos+1:].strip()\n        if value_str.startswith('\"') and value_str.endswith('\"'):\n            value = value_str[1:-1]\n        else:\n            value = value_str\n        try:\n            interpolated_value = interpolate(value, current_section, default_dict, sections)\n        except KeyError as e:\n            raise e\n        except ValueError as e:\n            raise e\n        current_key = key_str\n        current_value = interpolated_value\n        previous_line_was_key = True\n\n    if current_key is not None:\n        if current_section == 'DEFAULT':\n            default_dict[current_key] = current_value\n        else:\n            sections[current_section][current_key] = current_value\n\n    result = {}\n    for section in sections:\n        merged = {}\n        merged.update(default_dict)\n        merged.update(sections[section])\n        result[section] = merged\n\n    return result\n```",
    "score": 0.0,
    "detail": {
-    "error": "NameError: name 'parse_ini' is not defined"
+    "error": "KeyError: 'Key port not found in section web or DEFAULT'"
    }
   },
   "code-hard-ttl-lru": {
@@ -50,6 +50,99 @@
    }
   }
  },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\n  \"doc_type\": {\n    \"invoice\": 1.0,\n    \"resume\": 0.0,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.0\n  },\n  \"missing_due_date\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\"policy\": {\"none\": 0.0, \"harassment\": 1.0, \"hate\": 0.0, \"spam\": 0.0, \"self_harm\": 0.0}, \"personal_info\": {\"true\": 1.0, \"false\": 0.0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\"phishing\": {\"true\": 0.95, \"false\": 0.05}, \"risk\": {\"0\": 0, \"1\": 0, \"2\": 0.05, \"3\": 0.95}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.005,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\n  \"data_kind\": {\n    \"none\": 0.0,\n    \"contact\": 0.0,\n    \"financial\": 0.2,\n    \"government_id\": 0.8,\n    \"health\": 0.0\n  },\n  \"sensitive\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.04,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\n  \"department\": {\n    \"billing\": 1.0,\n    \"technical\": 0.0,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.0\n  },\n  \"refund\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"tone\": {\n    \"frustrated\": 0.0,\n    \"calm\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\n    \"positive\": 0.1,\n    \"neutral\": 0.1,\n    \"negative\": 0.8\n  },\n  \"defect\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"recommend\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.02,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 1.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.3,\n    \"technical\": 0.7,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.0\n  },\n  \"urgency\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.0,\n    \"3\": 1.0\n  },\n  \"outage\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.06,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
  "extract": {
   "extract-expense-thread": {
    "output": "{\"employee_id\": \"EMP-20417\", \"destination_city\": \"Lisbon\", \"trip_start\": \"2025-02-24\", \"trip_end\": \"2025-02-27\", \"approved_items\": [{\"date\": \"2025-02-24\", \"category\": \"airfare\", \"amount_usd\": 1184.6}, {\"date\": \"2025-02-24\", \"category\": \"ground_transport\", \"amount_usd\": 38.88}, {\"date\": \"2025-02-25\", \"category\": \"meals\", \"amount_usd\": 229.39}, {\"date\": \"2025-02-26\", \"category\": \"lodging\", \"amount_usd\": 466.56}, {\"date\": \"2025-02-27\", \"category\": \"ground_transport\", \"amount_usd\": 44.82}], \"rejected_item_count\": 1, \"per_diem_days\": 3, \"per_diem_usd\": 195, \"total_reimbursable_usd\": 2159.25, \"approver_email\": \"priya.raman@corvane.com\"}",
@@ -62,11 +155,17 @@
    }
   },
   "extract-hard-saas-escalator": {
-   "output": "",
-   "score": 0.0,
+   "output": "{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 64800.00,\n  \"year2_invoice\": 68040.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38556.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15.00,\n  \"total_contract_value\": 306342.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 0.7,
    "detail": {
-    "error": "no JSON object",
-    "bare_json": false
+    "matched": 7,
+    "total": 10,
+    "wrong": [
+     "$.total_contract_value",
+     "$.year1_invoice",
+     "$.year2_invoice"
+    ],
+    "bare_json": true
    }
   },
   "extract-invoice-email": {

@@ -1,0 +1,58 @@
+{
+ "decide-doc-invoice-missing-due": {
+  "output": "```json\n{\n  \"doc_type\": {\n    \"invoice\": 0.95,\n    \"resume\": 0.01,\n    \"contract\": 0.02,\n    \"bank_statement\": 0.01,\n    \"other\": 0.01\n  },\n  \"missing_due_date\": {\n    \"true\": 0.9,\n    \"false\": 0.1\n  }\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0116,
+   "picks": {
+    "doc_type": "invoice",
+    "missing_due_date": "true"
+   }
+  }
+ },
+ "decide-phishing-paypal": {
+  "output": "```json\n{\n  \"phishing\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"risk\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.0,\n    \"3\": 1.0\n  }\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "phishing": "true",
+    "risk": "3"
+   }
+  }
+ },
+ "decide-pii-ssn-email": {
+  "output": "```json\n{\n  \"data_kind\": {\n    \"none\": 0.0,\n    \"contact\": 0.2,\n    \"financial\": 0.1,\n    \"government_id\": 0.7,\n    \"health\": 0.0\n  },\n  \"sensitive\": {\n    \"true\": 0.7,\n    \"false\": 0.3\n  }\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.16,
+   "picks": {
+    "data_kind": "government_id",
+    "sensitive": "true"
+   }
+  }
+ },
+ "decide-refund-wrong-plan": {
+  "output": "```json\n{\n  \"department\": {\n    \"billing\": 0.9,\n    \"technical\": 0.05,\n    \"account\": 0.05,\n    \"shipping\": 0,\n    \"sales\": 0\n  },\n  \"refund\": {\n    \"true\": 1,\n    \"false\": 0\n  },\n  \"tone\": {\n    \"frustrated\": 0.1,\n    \"calm\": 0.9\n  }\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0117,
+   "picks": {
+    "department": "billing",
+    "refund": "true",
+    "tone": "calm"
+   }
+  }
+ },
+ "decide-route-calendar": {
+  "output": "```json\n{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 0.95,\n    \"email\": 0.05,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 0.8,\n    \"false\": 0.2\n  }\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0425,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "true"
+   }
+  }
+ }
+}

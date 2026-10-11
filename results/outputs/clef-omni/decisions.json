@@ -1,0 +1,93 @@
+{
+ "decide-doc-invoice-missing-due": {
+  "output": "{\"doc_type\": {\"type\": \"choice\", \"choice\": \"invoice\", \"probabilities\": {\"invoice\": 0.9505, \"resume\": 0.0178, \"contract\": 0.0108, \"bank_statement\": 0.0127, \"other\": 0.0082}, \"confidence\": 0.8801}, \"missing_due_date\": {\"type\": \"noul\", \"noul\": 0.9612}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0031,
+   "picks": {
+    "doc_type": "invoice",
+    "missing_due_date": "true"
+   }
+  }
+ },
+ "decide-moderation-doxxing": {
+  "output": "{\"policy\": {\"type\": \"choice\", \"choice\": \"harassment\", \"probabilities\": {\"none\": 0.0197, \"harassment\": 0.9697, \"hate\": 0.0049, \"spam\": 0.0028, \"self_harm\": 0.0029}, \"confidence\": 0.9259}, \"personal_info\": {\"type\": \"noul\", \"noul\": 0.9668}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0018,
+   "picks": {
+    "policy": "harassment",
+    "personal_info": "true"
+   }
+  }
+ },
+ "decide-phishing-paypal": {
+  "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.9735}, \"risk\": {\"type\": \"score\", \"score\": 2.9439, \"legend\": {\"0\": \"No risk: legitimate\", \"1\": \"Low\", \"2\": \"Medium\", \"3\": \"High: clearly phishing\"}, \"probabilities\": {\"0\": 0.0092, \"1\": 0.0087, \"2\": 0.0111, \"3\": 0.971}, \"confidence\": 0.9241}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0013,
+   "picks": {
+    "phishing": "true",
+    "risk": "3"
+   }
+  }
+ },
+ "decide-pii-ssn-email": {
+  "output": "{\"data_kind\": {\"type\": \"choice\", \"choice\": \"government_id\", \"probabilities\": {\"none\": 0.0133, \"contact\": 0.0155, \"financial\": 0.0143, \"government_id\": 0.939, \"health\": 0.0179}, \"confidence\": 0.8534}, \"sensitive\": {\"type\": \"noul\", \"noul\": 0.9781}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0028,
+   "picks": {
+    "data_kind": "government_id",
+    "sensitive": "true"
+   }
+  }
+ },
+ "decide-refund-wrong-plan": {
+  "output": "{\"department\": {\"type\": \"choice\", \"choice\": \"billing\", \"probabilities\": {\"billing\": 0.9784, \"technical\": 0.0022, \"account\": 0.0071, \"shipping\": 0.0014, \"sales\": 0.0109}, \"confidence\": 0.9467}, \"refund\": {\"type\": \"noul\", \"noul\": 0.8738}, \"tone\": {\"type\": \"choice\", \"choice\": \"calm\", \"probabilities\": {\"frustrated\": 0.0064, \"calm\": 0.9936}, \"confidence\": 0.9747}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0109,
+   "picks": {
+    "department": "billing",
+    "refund": "true",
+    "tone": "calm"
+   }
+  }
+ },
+ "decide-review-mixed": {
+  "output": "{\"sentiment\": {\"type\": \"choice\", \"choice\": \"negative\", \"probabilities\": {\"positive\": 0.0119, \"neutral\": 0.0167, \"negative\": 0.9714}, \"confidence\": 0.916}, \"defect\": {\"type\": \"noul\", \"noul\": 0.9736}, \"recommend\": {\"type\": \"noul\", \"noul\": 0.013}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.001,
+   "picks": {
+    "sentiment": "negative",
+    "defect": "true",
+    "recommend": "false"
+   }
+  }
+ },
+ "decide-route-calendar": {
+  "output": "{\"tool\": {\"type\": \"choice\", \"choice\": \"calendar\", \"probabilities\": {\"web_search\": 0.0003, \"calculator\": 0.0003, \"calendar\": 0.9947, \"email\": 0.0015, \"none\": 0.0032}, \"confidence\": 0.9867}, \"confirm\": {\"type\": \"noul\", \"noul\": 0.9865}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0002,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "true"
+   }
+  }
+ },
+ "decide-support-checkout-down": {
+  "output": "{\"department\": {\"type\": \"choice\", \"choice\": \"technical\", \"probabilities\": {\"billing\": 0.0635, \"technical\": 0.9179, \"account\": 0.0082, \"shipping\": 0.0041, \"sales\": 0.0063}, \"confidence\": 0.8083}, \"urgency\": {\"type\": \"score\", \"score\": 2.9622, \"legend\": {\"0\": \"Can wait a week or more\", \"1\": \"Within a few days\", \"2\": \"Today\", \"3\": \"Immediately: business is blocked\"}, \"probabilities\": {\"0\": 0.0048, \"1\": 0.0038, \"2\": 0.0157, \"3\": 0.9757}, \"confidence\": 0.9363}, \"outage\": {\"type\": \"noul\", \"noul\": 0.9825}}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0041,
+   "picks": {
+    "department": "technical",
+    "urgency": "3",
+    "outage": "true"
+   }
+  }
+ }
+}

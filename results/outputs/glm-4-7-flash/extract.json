@@ -10,10 +10,20 @@
   }
  },
  "extract-hard-saas-escalator": {
-  "output": "",
-  "score": 0.0,
+  "output": "```json\n{\n  \"year2_price_per_seat_month\": 46.53,\n  \"year3_price_per_seat_month\": 49.37,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 60302.88,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 37968.48,\n  \"year3_invoice\": 63983.52,\n  \"year3_discount_percent\": 10,\n  \"total_contract_value\": 220574.88,\n  \"contract_end_date\": \"2027-02-28\"\n}\n```",
+  "score": 0.3,
   "detail": {
-   "error": "no JSON object",
+   "matched": 3,
+   "total": 10,
+   "wrong": [
+    "$.addon_invoice",
+    "$.total_contract_value",
+    "$.year2_invoice",
+    "$.year2_price_per_seat_month",
+    "$.year3_discount_percent",
+    "$.year3_invoice",
+    "$.year3_price_per_seat_month"
+   ],
    "bare_json": false
   }
  },

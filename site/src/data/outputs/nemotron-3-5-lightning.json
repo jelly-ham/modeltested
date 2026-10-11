@@ -8,10 +8,10 @@
    }
   },
   "code-hard-ttl-lru": {
-   "output": "",
+   "output": "```python\nfrom __future__ import annotations\nfrom typing import Any\n\n\nclass TTLCache:\n    \"\"\"LRU cache with per-entry TTL expiration.\n\n    Args:\n        capacity: Maximum number of entries. If 0 the cache never stores anything.\n        ttl: Time-to-live in seconds; an entry expires when ``now >= expiry``.\n        clock: Zero-argument callable returning the current time in seconds.\n    \"\"\"\n\n    def __init__(self, capacity: int, ttl: float, clock: Any) -> None:\n        if capacity < 0:\n            raise ValueError(\"capacity must be non-negative\")\n        if ttl < 0:\n            raise ValueError(\"ttl must be non-negative\")\n        self._capacity = capacity\n        self._ttl = ttl\n        self._clock = clock\n        # Ordered dict preserves insertion/access order for LRU.\n        # Each value is a tuple (stored_value, expiry_time).\n        self._data: dict[str, tuple[Any, float]] = {}\n        # Stats counters.\n        self._hits = 0\n        self._misses = 0\n        self._evictions = 0\n        self._expirations = 0\n\n    # ------------------------------------------------------------------\n    # Helper: purge all entries that have expired as of the current clock.\n    # ------------------------------------------------------------------\n    def _expire_stale(self) -> None:\n        now = self._clock()\n        # Remove every entry whose expiry time has been reached.\n        expired_keys = [k for k, (_, exp) in self._data.items() if exp <= now]\n        for k in expired_keys:\n            self._expirations += 1\n            del self._data[k]\n\n    # ------------------------------------------------------------------\n    # put\n    # ------------------------------------------------------------------\n    def put(self, key: str, value: Any) -> None:\n        # capacity 0: nothing is stored.\n        if self._capacity == 0:\n            return\n\n        now = self._clock()\n\n        # If the key already exists, refresh it and move it to the front\n        # (most-recently used).  We treat it as an update rather than an\n        # insertion for capacity purposes.\n        if key in self._data:\n            # Bump the expiry to now + ttl.\n            self._data[key] = (value, now + self._ttl)\n            # Move the key to the end of the ordered dict (most recent).\n            # OrderedDict.move_to_end is O(1).\n            self._data.move_to_end(key)\n            return\n\n        # Key is new – first purge expired entries to free space.\n        self._expire_stale()\n\n        # If we are still at capacity, evict the least recently used entry.\n        if len(self._data) >= self._capacity:\n            # popitem(last=False) removes the LRU (first) item.\n            lru_key, _ = self._data.popitem(last=False)\n            self._evictions += 1\n\n        # Insert the new entry with expiry now + ttl.\n        self._data[key] = (value, now + self._ttl)\n        # It is already at the end (most recent) because we inserted after\n        # evicting, but we explicitly move it to be safe.\n        self._data.move_to_end(key)\n\n    # ------------------------------------------------------------------\n    # get\n    # ------------------------------------------------------------------\n    def get(self, key: str, default: Any = None) -> Any:\n        if self._capacity == 0:\n            self._misses += 1\n            return default\n\n        now = self._clock()\n\n        if key not in self._data:\n            self._misses += 1\n            return default\n\n        value, expiry = self._data[key]\n\n        # Entry expired?\n        if now >= expiry:\n            # Remove it, count as an expiration AND a miss.\n            self._expirations += 1\n            del self._data[key]\n            self._misses += 1\n            return default\n\n        # Entry is valid – promote to most-recently used.\n        self._data.move_to_end(key)\n        self._hits += 1\n        return value\n\n    # ------------------------------------------------------------------\n    # __len__\n    # ------------------------------------------------------------------\n    def __len__(self) -> int:\n        # Count only non‑expired entries.\n        now = self._clock()\n        count = 0\n        for _key, (_, exp) in self._data.items():\n            if exp > now:\n                count += 1\n        return count\n\n    # ------------------------------------------------------------------\n    # stats\n    # ------------------------------------------------------------------\n    def stats(self) -> dict[str, int]:\n        return {\n            \"hits\": self._hits,\n            \"misses\": self._misses,\n            \"evictions\": self._evictions,\n            \"expirations\": self._expirations,\n        }\n```",
    "score": 0.0,
    "detail": {
-    "error": "NameError: name 'TTLCache' is not defined"
+    "error": "AttributeError: 'dict' object has no attribute 'move_to_end'"
    }
   },
   "code-parse-duration": {
@@ -22,10 +22,10 @@
    }
   },
   "code-slugify": {
-   "output": "",
-   "score": 0.0,
+   "output": "```python\nimport unicodedata\nimport re\n\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters to ASCII and drop other non-ASCII.\n    normalized = unicodedata.normalize(\"NFKD\", title)\n    ascii_only = normalized.encode(\"ascii\", \"ignore\").decode(\"ascii\")\n\n    # Step 2: Lowercase.\n    lowered = ascii_only.lower()\n\n    # Step 3: Replace every run of non-alphanumeric characters with a single \"-\"\n    # and strip leading/trailing \"-\".\n    replaced = re.sub(r'[^a-z0-9]+', '-', lowered)\n    stripped = replaced.strip('-')\n\n    # If the result is empty, return an empty string.\n    if not stripped:\n        return ''\n\n    # Step 4: If longer than max_len, shorten without cutting a word.\n    if len(stripped) > max_len:\n        words = stripped.split('-')\n        # Collect whole words from the start whose total length (including separators)\n        # does not exceed max_len.\n        selected = []\n        current_len = 0\n        for word in words:\n            # Adding a word: if we already have words, we need a '-' separator.\n            added_len = len(word) + (1 if selected else 0)\n            if current_len + added_len <= max_len:\n                selected.append(word)\n                current_len += added_len\n            else:\n                break\n\n        if selected:\n            slug = '-'.join(selected)\n        else:\n            # Even the first word is too long; hard-cut it to max_len characters.\n            slug = stripped[:max_len]\n    else:\n        slug = stripped\n\n    # Step 5: The result never ends with \"-\".\n    slug = slug.rstrip('-')\n\n    return slug\n```",
+   "score": 1.0,
    "detail": {
-    "error": "NameError: name 'slugify' is not defined"
+    "error": null
    }
   },
   "code-summarize-ranges": {
@@ -50,6 +50,99 @@
    }
   }
  },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\n  \"doc_type\": {\n    \"invoice\": 1.0,\n    \"resume\": 0.0,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.0\n  },\n  \"missing_due_date\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\"policy\":{\"none\":0.0,\"harassment\":1.0,\"hate\":0.0,\"spam\":0.0,\"self_harm\":0.0},\"personal_info\":{\"true\":1.0,\"false\":0.0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\n  \"phishing\": {\n    \"false\": 0.05,\n    \"true\": 0.95\n  },\n  \"risk\": {\n    \"0\": 0.02,\n    \"1\": 0.03,\n    \"2\": 0.15,\n    \"3\": 0.8\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0344,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\n  \"data_kind\": {\n    \"government_id\": 1.0\n  },\n  \"sensitive\": {\n    \"true\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\n  \"department\": {\"billing\": 1, \"technical\": 0, \"account\": 0, \"shipping\": 0, \"sales\": 0},\n  \"refund\": {\"true\": 1, \"false\": 0},\n  \"tone\": {\"frustrated\": 0, \"calm\": 1}\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\n    \"positive\": 0.1,\n    \"neutral\": 0.2,\n    \"negative\": 0.7\n  },\n  \"defect\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  },\n  \"recommend\": {\n    \"true\": 0.1,\n    \"false\": 0.9\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.055,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\"tool\":{\"web_search\":0,\"calculator\":0,\"calendar\":1,\"email\":0,\"none\":0},\"confirm\":{\"true\":1,\"false\":0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\n  \"department\": {\n    \"technical\": 0.8,\n    \"billing\": 0.15,\n    \"account\": 0.02,\n    \"shipping\": 0.02,\n    \"sales\": 0.01\n  },\n  \"urgency\": {\n    \"3\": 0.95,\n    \"2\": 0.05,\n    \"1\": 0,\n    \"0\": 0\n  },\n  \"outage\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0228,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
  "extract": {
   "extract-expense-thread": {
    "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.6\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.89\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 228.93\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 461.76\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.67\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195,\n  \"total_reimbursable_usd\": 2583.84,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
@@ -68,11 +161,23 @@
    }
   },
   "extract-hard-saas-escalator": {
-   "output": "",
-   "score": 0.0,
+   "output": "{\n  \"year1_price_per_seat_month\": 45.00,\n  \"year2_price_per_seat_month\": 46.53,\n  \"year3_price_per_seat_month\": 47.41,\n  \"year1_invoice\": 5400.00,\n  \"year2_invoice\": 5425.48,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 7308.84,\n  \"year3_invoice\": 5945.85,\n  \"year3_discount_percent\": 10.00,\n  \"total_contract_value\": 22515.14,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 0.1818,
    "detail": {
-    "error": "no JSON object",
-    "bare_json": false
+    "matched": 2,
+    "total": 11,
+    "wrong": [
+     "$.addon_invoice",
+     "$.total_contract_value",
+     "$.year1_invoice",
+     "$.year1_price_per_seat_month",
+     "$.year2_invoice",
+     "$.year2_price_per_seat_month",
+     "$.year3_discount_percent",
+     "$.year3_invoice",
+     "$.year3_price_per_seat_month"
+    ],
+    "bare_json": true
    }
   },
   "extract-invoice-email": {

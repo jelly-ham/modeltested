@@ -1,18 +1,26 @@
 {
  "extract-expense-thread": {
-  "output": "",
-  "score": 0.0,
+  "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\"date\": \"2025-02-24\", \"category\": \"airfare\", \"amount_usd\": 1184.60},\n    {\"date\": \"2025-02-24\", \"category\": \"ground_transport\", \"amount_usd\": 38.88},\n    {\"date\": \"2025-02-25\", \"category\": \"meals\", \"amount_usd\": 229.39},\n    {\"date\": \"2025-02-26\", \"category\": \"lodging\", \"amount_usd\": 466.56},\n    {\"date\": \"2025-02-27\", \"category\": \"ground_transport\", \"amount_usd\": 44.82}\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+  "score": 1.0,
   "detail": {
-   "error": "no JSON object",
-   "bare_json": false
+   "matched": 24,
+   "total": 24,
+   "wrong": [],
+   "bare_json": true
   }
  },
  "extract-hard-saas-escalator": {
-  "output": "",
-  "score": 0.0,
+  "output": "{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58200.00,\n  \"year2_invoice\": 61236.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 67473.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15.00,\n  \"total_contract_value\": 321855.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+  "score": 0.7,
   "detail": {
-   "error": "no JSON object",
-   "bare_json": false
+   "matched": 7,
+   "total": 10,
+   "wrong": [
+    "$.addon_invoice",
+    "$.total_contract_value",
+    "$.year1_invoice"
+   ],
+   "bare_json": true
   }
  },
  "extract-invoice-email": {
@@ -28,11 +36,15 @@
   }
  },
  "extract-lease-amendment": {
-  "output": "",
-  "score": 0.0,
+  "output": "{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150,\n  \"monthly_rent_from_2025_06_01\": 2236,\n  \"late_fee_from_2025_06_01\": 111.8,\n  \"security_deposit\": 2150,\n  \"total_pet_deposits\": 800,\n  \"total_monthly_payment_july_2025\": 2306,\n  \"move_in_payment\": 5750\n}",
+  "score": 0.9167,
   "detail": {
-   "error": "no JSON object",
-   "bare_json": false
+   "matched": 11,
+   "total": 12,
+   "wrong": [
+    "$.move_in_payment"
+   ],
+   "bare_json": true
   }
  },
  "extract-meeting": {

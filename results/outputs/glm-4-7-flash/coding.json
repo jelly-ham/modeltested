@@ -21,10 +21,10 @@
   }
  },
  "code-slugify": {
-  "output": "",
+  "output": "```python\n\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # Step 1: Transliterate accented characters to ASCII, drop others\n    normalized = unicodedata.normalize('NFKD', title)\n    ascii_part = ''.join(c for c in normalized if ord(c) < 128)\n\n    # Step 2: Lowercase\n    slug = ascii_part.lower()\n\n    # Step 3: Replace runs of non-alnum with a single hyphen, strip\n    slug = re.sub(r'[^a-z0-9]+', '-', slug).strip('-')\n\n    # Early exit if already short enough\n    if len(slug) <= max_len:\n        return slug\n\n    # Step 4: Truncate if needed\n    words = slug.split('-')\n\n    # If the first word itself exceeds max_len, hard cut\n    if len(words[0]) > max_len:\n        return slug[:max_len].rstrip('-')\n\n    # Otherwise keep whole words as long as they fit\n    truncated_parts = []\n    total_len = 0\n    for i, word in enumerate(words):\n        if i == 0:\n            truncated_parts.append(word)\n            total_len = len(word)\n        else:\n            # Adding this word with a preceding hyphen would exceed?\n            if total_len + 1 + len(word) > max_len:\n                break\n            truncated_parts.append('-')\n            truncated_parts.append(word)\n            total_len += 1 + len(word)\n\n    slug = '-'.join(truncated_parts)\n    return slug\n\n```",
   "score": 0.0,
   "detail": {
-   "error": "NameError: name 'slugify' is not defined"
+   "error": "AssertionError"
   }
  },
  "code-summarize-ranges": {
