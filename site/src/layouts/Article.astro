@@ -51,9 +51,9 @@ const share = [
     </div>
   </div>
   <script is:inline>
-    // Page views (worker/index.js). One count per reader per page per day; shown once it's worth showing.
+    // Page views (worker/index.js). One count per reader per page per day; shown once a page has more than 100.
     (() => {
-      const MIN_VIEWS = 50;
+      const MIN_VIEWS = 101; // shown only above 100
       const el = document.querySelector("[data-views]");
       if (!el) return;
       const path = location.pathname, key = "mt-viewed:" + path;
