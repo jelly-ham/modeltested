@@ -145,8 +145,8 @@
    "NextBit"
   ],
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.43,
+   "decisions": 0.24
   }
  },
  "gemma-3-12b-it": {
@@ -195,8 +195,8 @@
    "DeepInfra"
   ],
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.07,
+   "decisions": 0.03
   }
  },
  "gemma-3-27b-it": {
@@ -249,8 +249,8 @@
    "Novita"
   ],
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.17,
+   "decisions": 0.06
   }
  },
  "gemma-3-4b-it": {
@@ -402,8 +402,8 @@
    "Venice"
   ],
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.15,
+   "decisions": 0.05
   }
  },
  "gemma-4-31b-it": {
@@ -456,8 +456,8 @@
    "Crusoe"
   ],
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.4,
+   "decisions": 0.12
   }
  },
  "glm-4-5-air": {
@@ -661,8 +661,8 @@
    "Venice"
   ],
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 2.93,
+   "decisions": 0.53
   }
  },
  "gpt-oss-120b": {
@@ -3340,6 +3340,56 @@
   "cost": {
    "tasks": 0.05,
    "decisions": 0.03
+  }
+ },
+ "ternary-bonsai-2-27b": {
+  "slug": "ternary-bonsai-2-27b",
+  "name": "Ternary Bonsai 2 27B",
+  "org": "prism-ml",
+  "openrouter_id": "prism-ml/ternary-bonsai-2-27b",
+  "hf_id": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+  "params_b": 27.78,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 82.1,
+  "hard": 68.3,
+  "suites": {
+   "coding": {
+    "score": 73.3,
+    "public": 85.7,
+    "private": 69.6,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 97.3,
+    "public": 96.4,
+    "private": 97.6,
+    "done": 56,
+    "total": 56,
+    "calibration": 97.0,
+    "hard": 94.7
+   },
+   "extract": {
+    "score": 90.9,
+    "public": 97.5,
+    "private": 89.1,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Darkbloom"
+  ],
+  "cost": {
+   "tasks": 5.14,
+   "decisions": 0.32
   }
  }
 }

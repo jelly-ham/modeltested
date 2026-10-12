@@ -1,1 +1,1462 @@
-{}
+{
+ "clef": {
+  "decisions/decide-hard-refund-window": {
+   "cost": 0.0001111,
+   "ptok": 463,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 0.0001135,
+   "ptok": 473,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 9.94e-05,
+   "ptok": 414,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 9e-05,
+   "ptok": 375,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 0.0001018,
+   "ptok": 424,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 8.3e-05,
+   "ptok": 346,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 0.0001111,
+   "ptok": 463,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 8.35e-05,
+   "ptok": 348,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 7.94e-05,
+   "ptok": 331,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 8.52e-05,
+   "ptok": 355,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 7.22e-05,
+   "ptok": 301,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 8.35e-05,
+   "ptok": 348,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 8.42e-05,
+   "ptok": 351,
+   "tok": 0,
+   "at": "2026-10-12"
+  }
+ },
+ "clef-flash": {
+  "decisions/decide-hard-refund-window": {
+   "cost": 1.76e-05,
+   "ptok": 463,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 1.8e-05,
+   "ptok": 473,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 1.57e-05,
+   "ptok": 414,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 1.43e-05,
+   "ptok": 375,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 1.31e-05,
+   "ptok": 346,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 1.76e-05,
+   "ptok": 463,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 1.6e-05,
+   "ptok": 421,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 1.32e-05,
+   "ptok": 348,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 1.26e-05,
+   "ptok": 331,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 1.35e-05,
+   "ptok": 355,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 1.14e-05,
+   "ptok": 301,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 1.32e-05,
+   "ptok": 348,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 1.33e-05,
+   "ptok": 351,
+   "tok": 0,
+   "at": "2026-10-12"
+  }
+ },
+ "d1": {
+  "decisions/decide-hard-refund-window": {
+   "cost": 1.84e-05,
+   "ptok": 459,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 2.06e-05,
+   "ptok": 515,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 1.3e-05,
+   "ptok": 325,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 1.39e-05,
+   "ptok": 347,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 1.44e-05,
+   "ptok": 360,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 1.24e-05,
+   "ptok": 311,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 1.27e-05,
+   "ptok": 317,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 1.18e-05,
+   "ptok": 295,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 7.9e-06,
+   "ptok": 197,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 6.8e-06,
+   "ptok": 170,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 8.9e-06,
+   "ptok": 222,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 7.6e-06,
+   "ptok": 189,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 8e-06,
+   "ptok": 199,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 8.2e-06,
+   "ptok": 205,
+   "tok": 0,
+   "at": "2026-10-12"
+  }
+ },
+ "drex-v1-5": {
+  "decisions/decide-hard-refund-window": {
+   "cost": 1.07e-05,
+   "ptok": 268,
+   "tok": 103,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 1.08e-05,
+   "ptok": 270,
+   "tok": 135,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 8.3e-06,
+   "ptok": 208,
+   "tok": 102,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 7.2e-06,
+   "ptok": 180,
+   "tok": 45,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 9.3e-06,
+   "ptok": 232,
+   "tok": 97,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 6.1e-06,
+   "ptok": 152,
+   "tok": 43,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 7.1e-06,
+   "ptok": 178,
+   "tok": 224,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 6.6e-06,
+   "ptok": 166,
+   "tok": 163,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 5.6e-06,
+   "ptok": 141,
+   "tok": 115,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 5e-06,
+   "ptok": 125,
+   "tok": 101,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 5.8e-06,
+   "ptok": 146,
+   "tok": 108,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 3.9e-06,
+   "ptok": 98,
+   "tok": 133,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 5.6e-06,
+   "ptok": 140,
+   "tok": 110,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 3.9e-06,
+   "ptok": 98,
+   "tok": 109,
+   "at": "2026-10-12"
+  }
+ },
+ "gemma-2-27b-it": {
+  "coding/code-hard-ini-parser": {
+   "cost": 0.0006513,
+   "ptok": 414,
+   "tok": 588,
+   "at": "2026-10-12"
+  },
+  "coding/code-hard-ttl-lru": {
+   "cost": 0.0004628,
+   "ptok": 324,
+   "tok": 388,
+   "at": "2026-10-12"
+  },
+  "coding/code-parse-duration": {
+   "cost": 0.0002925,
+   "ptok": 220,
+   "tok": 230,
+   "at": "2026-10-12"
+  },
+  "coding/code-summarize-ranges": {
+   "cost": 0.0002425,
+   "ptok": 165,
+   "tok": 208,
+   "at": "2026-10-12"
+  },
+  "coding/code-top-customers": {
+   "cost": 0.0002717,
+   "ptok": 217,
+   "tok": 201,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 0.0002769,
+   "ptok": 218,
+   "tok": 208,
+   "at": "2026-10-12"
+  },
+  "coding/code-token-bucket": {
+   "cost": 0.0002717,
+   "ptok": 202,
+   "tok": 216,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "cost": 0.000301,
+   "ptok": 378,
+   "tok": 85,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 0.0002964,
+   "ptok": 389,
+   "tok": 67,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 0.0002723,
+   "ptok": 320,
+   "tok": 99,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 0.0002294,
+   "ptok": 290,
+   "tok": 63,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 0.0002737,
+   "ptok": 341,
+   "tok": 80,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 0.0001976,
+   "ptok": 253,
+   "tok": 51,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 0.0002626,
+   "ptok": 311,
+   "tok": 93,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 0.0002639,
+   "ptok": 282,
+   "tok": 124,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 0.0002216,
+   "ptok": 251,
+   "tok": 90,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 0.0002106,
+   "ptok": 238,
+   "tok": 86,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 0.0002457,
+   "ptok": 261,
+   "tok": 117,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 0.0001944,
+   "ptok": 219,
+   "tok": 80,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 0.0002223,
+   "ptok": 250,
+   "tok": 92,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 0.000195,
+   "ptok": 214,
+   "tok": 86,
+   "at": "2026-10-12"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "cost": 0.0005109,
+   "ptok": 596,
+   "tok": 190,
+   "at": "2026-10-12"
+  },
+  "extract/extract-expense-thread": {
+   "cost": 0.0007358,
+   "ptok": 740,
+   "tok": 392,
+   "at": "2026-10-12"
+  },
+  "extract/extract-lease-amendment": {
+   "cost": 0.0005037,
+   "ptok": 565,
+   "tok": 210,
+   "at": "2026-10-12"
+  },
+  "extract/extract-ticket-sla": {
+   "cost": 0.0005369,
+   "ptok": 623,
+   "tok": 203,
+   "at": "2026-10-12"
+  },
+  "extract/extract-sales-footnotes": {
+   "cost": 0.0004193,
+   "ptok": 475,
+   "tok": 170,
+   "at": "2026-10-12"
+  }
+ },
+ "gemma-3-12b-it": {
+  "coding/code-hard-ini-parser": {
+   "cost": 0.0001596,
+   "ptok": 413,
+   "tok": 926,
+   "at": "2026-10-12"
+  },
+  "coding/code-hard-ttl-lru": {
+   "cost": 0.0001131,
+   "ptok": 325,
+   "tok": 646,
+   "at": "2026-10-12"
+  },
+  "coding/code-parse-duration": {
+   "cost": 6.45e-05,
+   "ptok": 220,
+   "tok": 357,
+   "at": "2026-10-12"
+  },
+  "coding/code-summarize-ranges": {
+   "cost": 3.89e-05,
+   "ptok": 166,
+   "tok": 204,
+   "at": "2026-10-12"
+  },
+  "coding/code-top-customers": {
+   "cost": 5.63e-05,
+   "ptok": 217,
+   "tok": 303,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 4.31e-05,
+   "ptok": 218,
+   "tok": 215,
+   "at": "2026-10-12"
+  },
+  "coding/code-token-bucket": {
+   "cost": 4.56e-05,
+   "ptok": 202,
+   "tok": 237,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "cost": 3.32e-05,
+   "ptok": 376,
+   "tok": 96,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 3.22e-05,
+   "ptok": 390,
+   "tok": 85,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 3.12e-05,
+   "ptok": 321,
+   "tok": 101,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 2.5e-05,
+   "ptok": 291,
+   "tok": 70,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 3.1e-05,
+   "ptok": 341,
+   "tok": 93,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 2.3e-05,
+   "ptok": 253,
+   "tok": 69,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 3.78e-05,
+   "ptok": 311,
+   "tok": 148,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 3.42e-05,
+   "ptok": 283,
+   "tok": 134,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 2.79e-05,
+   "ptok": 252,
+   "tok": 102,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 2.74e-05,
+   "ptok": 238,
+   "tok": 103,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 2.93e-05,
+   "ptok": 262,
+   "tok": 108,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 2.47e-05,
+   "ptok": 219,
+   "tok": 92,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 2.74e-05,
+   "ptok": 252,
+   "tok": 99,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 2.67e-05,
+   "ptok": 214,
+   "tok": 107,
+   "at": "2026-10-12"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "cost": 5.92e-05,
+   "ptok": 598,
+   "tok": 195,
+   "at": "2026-10-12"
+  },
+  "extract/extract-expense-thread": {
+   "cost": 9.74e-05,
+   "ptok": 751,
+   "tok": 399,
+   "at": "2026-10-12"
+  },
+  "extract/extract-lease-amendment": {
+   "cost": 6.25e-05,
+   "ptok": 566,
+   "tok": 228,
+   "at": "2026-10-12"
+  },
+  "extract/extract-ticket-sla": {
+   "cost": 6.13e-05,
+   "ptok": 626,
+   "tok": 200,
+   "at": "2026-10-12"
+  },
+  "extract/extract-sales-footnotes": {
+   "cost": 5.07e-05,
+   "ptok": 477,
+   "tok": 179,
+   "at": "2026-10-12"
+  }
+ },
+ "gemma-3-27b-it": {
+  "coding/code-hard-ini-parser": {
+   "cost": 0.0004965,
+   "ptok": 413,
+   "tok": 1030,
+   "at": "2026-10-12"
+  },
+  "coding/code-hard-ttl-lru": {
+   "cost": 0.0003203,
+   "ptok": 325,
+   "tok": 981,
+   "at": "2026-10-12"
+  },
+  "coding/code-parse-duration": {
+   "cost": 0.0001165,
+   "ptok": 220,
+   "tok": 315,
+   "at": "2026-10-12"
+  },
+  "coding/code-summarize-ranges": {
+   "cost": 0.0001072,
+   "ptok": 166,
+   "tok": 313,
+   "at": "2026-10-12"
+  },
+  "coding/code-top-customers": {
+   "cost": 0.0001636,
+   "ptok": 217,
+   "tok": 325,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 0.0001278,
+   "ptok": 218,
+   "tok": 368,
+   "at": "2026-10-12"
+  },
+  "coding/code-token-bucket": {
+   "cost": 9.57e-05,
+   "ptok": 202,
+   "tok": 265,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "cost": 6.64e-05,
+   "ptok": 376,
+   "tok": 96,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 6.63e-05,
+   "ptok": 390,
+   "tok": 91,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 5.46e-05,
+   "ptok": 321,
+   "tok": 105,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 5.01e-05,
+   "ptok": 291,
+   "tok": 70,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 6.08e-05,
+   "ptok": 341,
+   "tok": 89,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 3.78e-05,
+   "ptok": 253,
+   "tok": 67,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 9.33e-05,
+   "ptok": 311,
+   "tok": 152,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 6.85e-05,
+   "ptok": 283,
+   "tok": 134,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 5.23e-05,
+   "ptok": 252,
+   "tok": 107,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 6.72e-05,
+   "ptok": 238,
+   "tok": 107,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 7.01e-05,
+   "ptok": 262,
+   "tok": 115,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 4.29e-05,
+   "ptok": 219,
+   "tok": 93,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 5.23e-05,
+   "ptok": 252,
+   "tok": 107,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 5.41e-05,
+   "ptok": 214,
+   "tok": 109,
+   "at": "2026-10-12"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "cost": 0.0001039,
+   "ptok": 598,
+   "tok": 187,
+   "at": "2026-10-12"
+  },
+  "extract/extract-expense-thread": {
+   "cost": 0.0001696,
+   "ptok": 751,
+   "tok": 315,
+   "at": "2026-10-12"
+  },
+  "extract/extract-lease-amendment": {
+   "cost": 0.0001226,
+   "ptok": 566,
+   "tok": 220,
+   "at": "2026-10-12"
+  },
+  "extract/extract-ticket-sla": {
+   "cost": 0.0001056,
+   "ptok": 626,
+   "tok": 185,
+   "at": "2026-10-12"
+  },
+  "extract/extract-sales-footnotes": {
+   "cost": 9.22e-05,
+   "ptok": 477,
+   "tok": 180,
+   "at": "2026-10-12"
+  }
+ },
+ "gemma-3-4b-it": {
+  "coding/code-parse-duration": {
+   "cost": 3.69e-05,
+   "ptok": 220,
+   "tok": 259,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 4.18e-05,
+   "ptok": 218,
+   "tok": 309,
+   "at": "2026-10-12"
+  },
+  "coding/code-token-bucket": {
+   "cost": 3.36e-05,
+   "ptok": 202,
+   "tok": 235,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "cost": 2.8e-05,
+   "ptok": 376,
+   "tok": 92,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 2.47e-05,
+   "ptok": 341,
+   "tok": 77,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 3.06e-05,
+   "ptok": 311,
+   "tok": 151,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 1.88e-05,
+   "ptok": 238,
+   "tok": 69,
+   "at": "2026-10-12"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "cost": 4.88e-05,
+   "ptok": 598,
+   "tok": 189,
+   "at": "2026-10-12"
+  },
+  "extract/extract-ticket-sla": {
+   "cost": 5.31e-05,
+   "ptok": 626,
+   "tok": 218,
+   "at": "2026-10-12"
+  }
+ },
+ "gemma-4-26b-a4b-it": {
+  "coding/code-hard-ini-parser": {
+   "cost": 0.0,
+   "ptok": 434,
+   "tok": 3785,
+   "at": "2026-10-12"
+  },
+  "coding/code-hard-ttl-lru": {
+   "cost": 0.0002788,
+   "ptok": 329,
+   "tok": 785,
+   "at": "2026-10-12"
+  },
+  "coding/code-parse-duration": {
+   "cost": 0.000317,
+   "ptok": 224,
+   "tok": 920,
+   "at": "2026-10-12"
+  },
+  "coding/code-summarize-ranges": {
+   "cost": 9.73e-05,
+   "ptok": 170,
+   "tok": 264,
+   "at": "2026-10-12"
+  },
+  "coding/code-top-customers": {
+   "cost": 0.0001211,
+   "ptok": 221,
+   "tok": 526,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 0.0001604,
+   "ptok": 222,
+   "tok": 468,
+   "at": "2026-10-12"
+  },
+  "coding/code-token-bucket": {
+   "cost": 0.0001372,
+   "ptok": 206,
+   "tok": 276,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "cost": 5.34e-05,
+   "ptok": 380,
+   "tok": 64,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 8.32e-05,
+   "ptok": 394,
+   "tok": 80,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 6.99e-05,
+   "ptok": 325,
+   "tok": 69,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 6.51e-05,
+   "ptok": 295,
+   "tok": 67,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 4.58e-05,
+   "ptok": 345,
+   "tok": 76,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 2.06e-05,
+   "ptok": 257,
+   "tok": 39,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 6.58e-05,
+   "ptok": 315,
+   "tok": 142,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 3.67e-05,
+   "ptok": 287,
+   "tok": 59,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 3.85e-05,
+   "ptok": 256,
+   "tok": 70,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 4.13e-05,
+   "ptok": 242,
+   "tok": 65,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 6.3e-05,
+   "ptok": 266,
+   "tok": 71,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 4.66e-05,
+   "ptok": 223,
+   "tok": 81,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 4.31e-05,
+   "ptok": 256,
+   "tok": 67,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 4.06e-05,
+   "ptok": 218,
+   "tok": 70,
+   "at": "2026-10-12"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "cost": 0.0001523,
+   "ptok": 602,
+   "tok": 185,
+   "at": "2026-10-12"
+  },
+  "extract/extract-expense-thread": {
+   "cost": 0.0001861,
+   "ptok": 755,
+   "tok": 394,
+   "at": "2026-10-12"
+  },
+  "extract/extract-lease-amendment": {
+   "cost": 0.0001182,
+   "ptok": 570,
+   "tok": 223,
+   "at": "2026-10-12"
+  },
+  "extract/extract-ticket-sla": {
+   "cost": 0.0001045,
+   "ptok": 630,
+   "tok": 202,
+   "at": "2026-10-12"
+  },
+  "extract/extract-sales-footnotes": {
+   "cost": 9.12e-05,
+   "ptok": 481,
+   "tok": 189,
+   "at": "2026-10-12"
+  }
+ },
+ "gemma-4-31b-it": {
+  "coding/code-hard-ini-parser": {
+   "cost": 0.0015447,
+   "ptok": 417,
+   "tok": 1232,
+   "at": "2026-10-12"
+  },
+  "coding/code-hard-ttl-lru": {
+   "cost": 0.0002914,
+   "ptok": 329,
+   "tok": 606,
+   "at": "2026-10-12"
+  },
+  "coding/code-parse-duration": {
+   "cost": 0.0002236,
+   "ptok": 224,
+   "tok": 476,
+   "at": "2026-10-12"
+  },
+  "coding/code-summarize-ranges": {
+   "cost": 0.0001243,
+   "ptok": 170,
+   "tok": 248,
+   "at": "2026-10-12"
+  },
+  "coding/code-top-customers": {
+   "cost": 0.0001872,
+   "ptok": 221,
+   "tok": 387,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 0.0001793,
+   "ptok": 222,
+   "tok": 366,
+   "at": "2026-10-12"
+  },
+  "coding/code-token-bucket": {
+   "cost": 0.0004055,
+   "ptok": 206,
+   "tok": 251,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "cost": 9.16e-05,
+   "ptok": 380,
+   "tok": 87,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 8.79e-05,
+   "ptok": 394,
+   "tok": 73,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 8.52e-05,
+   "ptok": 325,
+   "tok": 92,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 6.32e-05,
+   "ptok": 295,
+   "tok": 63,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 8.64e-05,
+   "ptok": 345,
+   "tok": 87,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 6.22e-05,
+   "ptok": 257,
+   "tok": 60,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 0.0001031,
+   "ptok": 315,
+   "tok": 140,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 9.27e-05,
+   "ptok": 287,
+   "tok": 125,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 0.00026,
+   "ptok": 256,
+   "tok": 100,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 0.0002635,
+   "ptok": 242,
+   "tok": 82,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 7.29e-05,
+   "ptok": 266,
+   "tok": 98,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 5.96e-05,
+   "ptok": 223,
+   "tok": 81,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 0.000272,
+   "ptok": 256,
+   "tok": 80,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 7.15e-05,
+   "ptok": 218,
+   "tok": 98,
+   "at": "2026-10-12"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "cost": 0.0006365,
+   "ptok": 602,
+   "tok": 185,
+   "at": "2026-10-12"
+  },
+  "extract/extract-expense-thread": {
+   "cost": 0.0002703,
+   "ptok": 755,
+   "tok": 393,
+   "at": "2026-10-12"
+  },
+  "extract/extract-lease-amendment": {
+   "cost": 0.0006345,
+   "ptok": 570,
+   "tok": 223,
+   "at": "2026-10-12"
+  },
+  "extract/extract-ticket-sla": {
+   "cost": 0.0001749,
+   "ptok": 630,
+   "tok": 202,
+   "at": "2026-10-12"
+  },
+  "extract/extract-sales-footnotes": {
+   "cost": 0.0001474,
+   "ptok": 481,
+   "tok": 189,
+   "at": "2026-10-12"
+  }
+ },
+ "glm-4-7-flash": {
+  "coding/code-hard-ini-parser": {
+   "cost": 0.0131348,
+   "ptok": 396,
+   "tok": 32768,
+   "at": "2026-10-12"
+  },
+  "coding/code-hard-ttl-lru": {
+   "cost": 0.0032529,
+   "ptok": 312,
+   "tok": 8078,
+   "at": "2026-10-12"
+  },
+  "coding/code-parse-duration": {
+   "cost": 0.0041816,
+   "ptok": 202,
+   "tok": 10419,
+   "at": "2026-10-12"
+  },
+  "coding/code-summarize-ranges": {
+   "cost": 0.0008265,
+   "ptok": 157,
+   "tok": 2039,
+   "at": "2026-10-12"
+  },
+  "coding/code-top-customers": {
+   "cost": 0.001654,
+   "ptok": 197,
+   "tok": 4101,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 0.0046178,
+   "ptok": 199,
+   "tok": 11510,
+   "at": "2026-10-12"
+  },
+  "coding/code-token-bucket": {
+   "cost": 0.0007332,
+   "ptok": 185,
+   "tok": 1801,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "cost": 0.0004899,
+   "ptok": 346,
+   "tok": 1174,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 0.0005693,
+   "ptok": 363,
+   "tok": 1360,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 0.0009006,
+   "ptok": 295,
+   "tok": 2200,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 0.0003842,
+   "ptok": 268,
+   "tok": 914,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 0.0010821,
+   "ptok": 295,
+   "tok": 2654,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 0.0005106,
+   "ptok": 243,
+   "tok": 1234,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 0.0005933,
+   "ptok": 301,
+   "tok": 1431,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 0.0003615,
+   "ptok": 274,
+   "tok": 856,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 0.0008228,
+   "ptok": 241,
+   "tok": 2015,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 0.0002486,
+   "ptok": 224,
+   "tok": 592,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 0.0004233,
+   "ptok": 238,
+   "tok": 1017,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 0.0003566,
+   "ptok": 205,
+   "tok": 856,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 0.0003939,
+   "ptok": 235,
+   "tok": 944,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 0.0002605,
+   "ptok": 205,
+   "tok": 625,
+   "at": "2026-10-12"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "cost": 0.0029566,
+   "ptok": 513,
+   "tok": 7302,
+   "at": "2026-10-12"
+  },
+  "extract/extract-expense-thread": {
+   "cost": 0.0012527,
+   "ptok": 646,
+   "tok": 3019,
+   "at": "2026-10-12"
+  },
+  "extract/extract-lease-amendment": {
+   "cost": 0.0007963,
+   "ptok": 487,
+   "tok": 1910,
+   "at": "2026-10-12"
+  },
+  "extract/extract-ticket-sla": {
+   "cost": 0.0007682,
+   "ptok": 542,
+   "tok": 1826,
+   "at": "2026-10-12"
+  },
+  "extract/extract-sales-footnotes": {
+   "cost": 0.0010396,
+   "ptok": 408,
+   "tok": 2528,
+   "at": "2026-10-12"
+  }
+ },
+ "gpt-6-luna-decisions": {
+  "decisions/decide-hard-refund-window": {
+   "cost": 4.68e-05,
+   "ptok": 468,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 4.84e-05,
+   "ptok": 484,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 4.19e-05,
+   "ptok": 419,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 4.54e-05,
+   "ptok": 454,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 4.26e-05,
+   "ptok": 426,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 4.21e-05,
+   "ptok": 421,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 4.93e-05,
+   "ptok": 493,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 4.79e-05,
+   "ptok": 479,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 3.67e-05,
+   "ptok": 367,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 3.53e-05,
+   "ptok": 353,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 3.59e-05,
+   "ptok": 359,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 3.26e-05,
+   "ptok": 326,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 3.63e-05,
+   "ptok": 363,
+   "tok": 0,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 4.63e-05,
+   "ptok": 463,
+   "tok": 0,
+   "at": "2026-10-12"
+  }
+ },
+ "gpt-oss-20b": {
+  "coding/code-hard-ini-parser": {
+   "cost": 0.0009334,
+   "ptok": 449,
+   "tok": 6571,
+   "at": "2026-10-12"
+  },
+  "coding/code-hard-ttl-lru": {
+   "cost": 0.0004655,
+   "ptok": 372,
+   "tok": 5098,
+   "at": "2026-10-12"
+  },
+  "coding/code-parse-duration": {
+   "cost": 0.0003144,
+   "ptok": 264,
+   "tok": 3441,
+   "at": "2026-10-12"
+  },
+  "coding/code-summarize-ranges": {
+   "cost": 9.58e-05,
+   "ptok": 206,
+   "tok": 640,
+   "at": "2026-10-12"
+  },
+  "coding/code-top-customers": {
+   "cost": 0.0001386,
+   "ptok": 258,
+   "tok": 1488,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 0.0001988,
+   "ptok": 246,
+   "tok": 1367,
+   "at": "2026-10-12"
+  }
+ }
+}

@@ -1,6 +1,63 @@
 {
+ "extract-expense-thread": {
+  "output": "```json\n{\n  \"employee_name\": \"Dana Smith\",\n  \"report_period_start\": \"2023-09-01\",\n  \"report_period_end\": \"2023-09-30\",\n  \"expenses\": [\n    {\n      \"expense_date\": \"2023-09-15\",\n      \"category\": \"Food\",\n      \"description\": \"Lunch with client at downtown café\",\n      \"receipt_url\": \"https://company.com/receipts/r12345.pdf\",\n      \"pretax_amount\": 42.00,\n      \"tax_name\": \"Sales Tax\",\n      \"tax_amount\": 3.30,\n      \"foreign_currency_details\": {\n        \"amount\": 42.00,\n        \"currency_code\": \"EUR\",\n        \"rate\": 0.85,\n        \"date\": \"2023-09-15\"\n      }\n    }\n  ]\n}\n```\n\n",
+  "score": 0.0,
+  "detail": {
+   "matched": 0,
+   "total": 38,
+   "wrong": [
+    "$.approved_items[0].amount_usd",
+    "$.approved_items[0].category",
+    "$.approved_items[0].date",
+    "$.approved_items[1].amount_usd",
+    "$.approved_items[1].category",
+    "$.approved_items[1].date",
+    "$.approved_items[2].amount_usd",
+    "$.approved_items[2].category",
+    "$.approved_items[2].date",
+    "$.approved_items[3].amount_usd",
+    "$.approved_items[3].category",
+    "$.approved_items[3].date",
+    "$.approved_items[4].amount_usd",
+    "$.approved_items[4].category",
+    "$.approved_items[4].date",
+    "$.approver_email",
+    "$.destination_city",
+    "$.employee_id",
+    "$.employee_name",
+    "$.expenses[0].category",
+    "$.expenses[0].description",
+    "$.expenses[0].expense_date",
+    "$.expenses[0].foreign_currency_details.amount",
+    "$.expenses[0].foreign_currency_details.currency_code",
+    "$.expenses[0].foreign_currency_details.date",
+    "$.expenses[0].foreign_currency_details.rate",
+    "$.expenses[0].pretax_amount",
+    "$.expenses[0].receipt_url",
+    "$.expenses[0].tax_amount",
+    "$.expenses[0].tax_name",
+    "$.per_diem_days",
+    "$.per_diem_usd",
+    "$.rejected_item_count",
+    "$.report_period_end",
+    "$.report_period_start",
+    "$.total_reimbursable_usd",
+    "$.trip_end",
+    "$.trip_start"
+   ],
+   "bare_json": false
+  }
+ },
  "extract-hard-saas-escalator": {
   "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
+ "extract-ticket-sla": {
+  "output": "The comprehensive solution addressing all critical issues, aligning with best practices and organizational requirements, is as follows:\n\n\\boxed{Comprehensive_Zero_Trust_Security_Framework_with_Real-Time_Threat_Hunting_and_Automated_Response_Playbooks}}\n\n**Note:** The final answer provided is a placeholder representation of a highly complex, multi-layered, and continuously evolving security framework designed to address the full spectrum of contemporary cybersecurity threats, vulnerabilities, and attack vectors in a real-time, proactive, and defensively aggressive manner.\n\n",
   "score": 0.0,
   "detail": {
    "error": "no JSON object",

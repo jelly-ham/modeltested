@@ -58,6 +58,17 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-hard-csv-parser": {
+   "h": "78842db66786",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "tok": 25383,
+   "ptok": 246,
+   "cost": 0.0051012,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "coding/code-hard-ini-parser": {
    "h": "6a135218f939",
    "v": "publ",
@@ -81,6 +92,17 @@
    "mt": 32768,
    "at": "2026-10-12"
   },
+  "coding/code-hard-ledger": {
+   "h": "a48727466d95",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "tok": 22127,
+   "ptok": 319,
+   "cost": 0.0044573,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "coding/code-hard-meeting-slots": {
    "h": "0def4e647232",
    "v": "priv",
@@ -91,6 +113,17 @@
    "cost": 0.0049354,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "coding/code-hard-normalize-path": {
+   "h": "78e2f4f44780",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "tok": 31622,
+   "ptok": 194,
+   "cost": 0.0063438,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "coding/code-hard-rate-limiter-log": {
    "h": "bf48840ef5f8",
@@ -159,6 +192,17 @@
    "cost": 0.0047865,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "coding/code-parse-query": {
+   "h": "c758323f80cf",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "tok": 30990,
+   "ptok": 188,
+   "cost": 0.0062168,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "coding/code-search-index": {
    "h": "3fc4c534a420",
@@ -248,6 +292,18 @@
    "cost": 0.0038434,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "coding/code-wrap-text": {
+   "h": "b079bee015b9",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "truncated": true,
+   "tok": 32768,
+   "ptok": 218,
+   "cost": 0.0065754,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-churn-threat": {
    "h": "d6335aa9dc79",
@@ -490,6 +546,18 @@
    "mt": 32768,
    "at": "2026-10-12"
   },
+  "decisions/decide-hard-report-not-hate": {
+   "h": "f27dcdb47e4e",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 16356,
+   "ptok": 267,
+   "cost": 0.0032979,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-hard-review-mixed": {
    "h": "1f342341050d",
    "v": "publ",
@@ -500,6 +568,31 @@
    "tok": 32768,
    "ptok": 258,
    "cost": 0.0065794,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-semver": {
+   "h": "4bce67599f05",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 15270,
+   "ptok": 260,
+   "cost": 0.00308,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-sla-timezones": {
+   "h": "04ec9f2dab61",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "truncated": true,
+   "brier": 2.0,
+   "tok": 32768,
+   "ptok": 352,
+   "cost": 0.0065888,
    "mt": 32768,
    "at": "2026-10-12"
   },
@@ -851,6 +944,17 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "extract/extract-expense-thread": {
+   "h": "b5a830bf8bd2",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "tok": 780,
+   "ptok": 719,
+   "cost": 0.0002279,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "extract/extract-hard-family-deductible": {
    "h": "81246a09d54a",
    "v": "priv",
@@ -961,6 +1065,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "extract/extract-itinerary-timezones": {
+   "h": "805b94273c69",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "truncated": true,
+   "tok": 32768,
+   "ptok": 487,
+   "cost": 0.0066023,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "extract/extract-meeting-actions": {
    "h": "0d64413c903c",
    "v": "priv",
@@ -1026,6 +1142,17 @@
    "cost": 0.0032942,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "extract/extract-ticket-sla": {
+   "h": "cbe5fabaef6e",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "tok": 2017,
+   "ptok": 588,
+   "cost": 0.0004622,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "extract/extract-transcript-gpa": {
    "h": "dec2498fa382",

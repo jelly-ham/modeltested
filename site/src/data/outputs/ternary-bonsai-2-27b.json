@@ -1,0 +1,269 @@
+{
+ "coding": {
+  "code-hard-ini-parser": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'parse_ini' is not defined"
+   },
+   "reasoning_tail": "licate key, earlier value not returned; should earlier unused value raise? Rule 7 later value wins. If earlier value has missing reference, is it a value? It is overwritten, not in output. Should parse raise? Likely not. So validation should be of final values, not raw overwritten. For DEFAULT, if all default keys are shadowed by sections, final output doesn't include them. Should they validate? Probably not. If no other sections, final output doesn't include them. But DEFAULT values are not final values of any returned section. So current observable approach aligns: validate final output values and values referenced by them. If a reference in an owned section value points to a default value, that default value becomes part of output, so validate. Good.\n\nIf only DEFAULT with cycle, no final output value. Should no raise. I think acceptable. But spec says DEFAULT not returned, so its values may be irrelevant. Good.\n\nNow, what about a section owns a key that references a default key that is also owned by section? The reference resolves default, not own, if same key? If section own a = ${b}, b default. b resolved. If b also owned? own wins for output, but reference `${b}` in a resolves default if not in a? If a section has b own and a refs b, same-section reference uses own b, not default. If reference `${DEFAULT:b}` uses default. Good.\n\nNow, if section owns a key that references a default key, and that default key has cycle with another default key, it will raise when resolving output. Good.\n\nNow, if section owns no keys but DEFAULT has a key with missing ref, output inherits it, raises. Good.\n\nNow, one more semantic: Interpolation `${key}` refers to a key of the same section (including inherited DEFAULT keys). Does this mean if the key is defined in the same section, it uses that section's value (before or after interpolation)? Recursive, so after. If the key is inherited DEFAULT, uses DEFAULT. Good.\n\nNow, what if same key appears twice in section, and first value references second, later value references first. Later wins for key. But first value ignored. Does reference in later value to key use later value (self) or earlier? Since later value wins, key value is later. If later value references itself, cycle. If earlier value references later, but earlier ignored. Our raw final later, so okay. If later value references a key that was overwritten by same key? It's self. Good.\n\nNow, if a key line appears before any section header, raise ValueError. What if the line is a section header with invalid name? e.g. `[]` before section. Our header detection len>2; for `[]` len=2, not header, current None, not comment -> raise ValueError. Good. For `[ ]` stripped `[ ]` len=3, section strip empty -> raise. Good.\n\nNow, if malformed line inside section: `key =` okay. `key` no separator raise. `  key` continuation if prev_key exists; if prev_key None raise. If prev_key exists, `  key` is continuation text `key`, appended. Is that intended? Yes, continuation line starts whitespace, even if looks like key. Good.\n\nNow, if line inside section is `key:value` with key containing colon? split first colon. Key before colon. Good.\n\nNow, if line inside section is `key = : value` split first =, value `: value`. Good.\n\nNow, if line inside section is `key : = value` split first :, value `= value`. Good.\n\nNow, if line has tab separator? okay.\n\nNow, about lowercasing keys: If key contains Unicode, `.lower()` may change length. Fine.\n\nNow, reference key lower: If reference key contains spaces, `.strip().lower()`. If key has internal spaces, preserve. If reference `${my key}` inner strip then lower -> `my key`. Good. If reference `${section: my key}` -> key `my key`. Good.\n\nNow, reference section with internal spaces: `{my section:key}` inner no colon? Actually has colon. sec_part `my section`, strip -> `my section`. Good. If section header `[my section]` stored with spaces. Good.\n\nNow, if reference `${  my section : key  }` inner strip -> `my section : key`; sec_part `my section ` strip -> `my section`, key_part ` key ` strip lower. Good.\n\nNow, should reference section be case-sensitive but maybe strip? yes.\n\nNow, possible issue: Regex `[^}]` stops at first }. If value contains `}` inside reference? Not allowed. If `${a} }`, matches a. Good.\n\nNow, if value contains `${` without closing, regex no match, literal. Good.\n\nNow, if value contains `${a}` and a literal value contains `}`, resolved value could contain `}`; we don't rescan. Good.\n\nNow, if value contains nested `${${a}}`? Regex matches first `${` with `}\n`? Let's see `[^}]` non-greedy no braces, for `${${a}}` at first ${, inside `{a}}`? It will stop at first } after `${a`? String: ` $ { $ { a } }`. Regex from index 0: `[^}]*` can match `${a` (no }) then } at after a, group `${a`. That is reference key `${a`? inner contains $. Could resolve key `${a` lower. Not specified. Fine.\n\nNow, performance: fine.\n\nNow, let's think if final pass quote removal after continuations could conflict with literal flags for values that were intentionally unquoted but start/end quote due to data. If user wants value `\"foo\"` to be literal? In this dialect, that's the syntax for literal, so okay.\n\nNow, should we strip the final value after removing quotes? No, quoted inside exact no strip. For unquoted, each line stripped, final no extra. If continuation line is empty? ignored. If initial value empty and continuation nonempty, final stripped. Good.\n\nNow, what if continuation line after key with initial value `abc` is `   ` (spaces) ignored. Good.\n\nNow, what if continuation line after key with initial value `abc` is `   \"def\"` and previous value not quoted. We append `\"def\"`, final not quoted? starts abc. Good.\n\nNow, what if continuation line after key with initial value `abc` is `   def ; comment`, our helper cuts -> def. Good.\n\nNow, let's consider if a continuation line should be allowed to have inline comment and we strip. Our `_remove_inline_comment` strips the entire line after cut"
+  },
+  "code-hard-ttl-lru": {
+   "output": "\n\n```python\nfrom collections import OrderedDict\n\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self._capacity = max(0, capacity)\n        self._ttl = ttl\n        self._clock = clock\n        self._store = OrderedDict()\n        self._stats = {\n            \"hits\": 0,\n            \"misses\": 0,\n            \"evictions\": 0,\n            \"expirations\": 0,\n        }\n\n    def put(self, key, value) -> None:\n        now = self._clock()\n\n        if self._capacity == 0:\n            return\n\n        if key in self._store:\n            self._store[key] = (value, now + self._ttl)\n            self._store.move_to_end(key)\n            return\n\n        if len(self._store) + 1 > self._capacity:\n            self._purge_expired(now)\n            if len(self._store) >= self._capacity:\n                self._store.popitem(last=False)\n                self._stats[\"evictions\"] += 1\n\n        self._store[key] = (value, now + self._ttl)\n\n    def get(self, key, default=None):\n        now = self._clock()\n\n        if key not in self._store:\n            self._stats[\"misses\"] += 1\n            return default\n\n        value, expiry = self._store[key]\n\n        if now >= expiry:\n            del self._store[key]\n            self._stats[\"misses\"] += 1\n            self._stats[\"expirations\"] += 1\n            return default\n\n        self._store.move_to_end(key)\n        self._stats[\"hits\"] += 1\n        return value\n\n    def __len__(self) -> int:\n        now = self._clock()\n        return sum(1 for _, expiry in self._store.values() if now < expiry)\n\n    def stats(self) -> dict:\n        return {\n            \"hits\": self._stats[\"hits\"],\n            \"misses\": self._stats[\"misses\"],\n            \"evictions\": self._stats[\"evictions\"],\n            \"expirations\": self._stats[\"expirations\"],\n        }\n\n    def _purge_expired(self, now) -> None:\n        expired = [key for key, (_, expiry) in self._store.items() if now >= expiry]\n        if expired:\n            for key in expired:\n                del self._store[key]\n            self._stats[\"expirations\"] += len(expired)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-parse-duration": {
+   "output": "\n\n```python\nimport re\n\n_DURATION_RE = re.compile(\n    r\"(?:\\s*([0-9]+)h)?(?:\\s*([0-9]+)m)?(?:\\s*([0-9]+)s)?\\s*\",\n    re.IGNORECASE | re.ASCII,\n)\n\ndef parse_duration(s: str) -> int:\n    if not s.strip():\n        raise ValueError(\"duration string must not be empty\")\n\n    match = _DURATION_RE.fullmatch(s)\n    if match is None:\n        raise ValueError(f\"invalid duration string: {s!r}\")\n\n    hours, minutes, seconds = match.groups()\n\n    return (\n        (int(hours) if hours is not None else 0) * 3600\n        + (int(minutes) if minutes is not None else 0) * 60\n        + (int(seconds) if seconds is not None else 0)\n    )\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-slugify": {
+   "output": "\n\n```python\nimport re\nimport unicodedata\n\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    normalized = unicodedata.normalize(\"NFD\", title)\n    ascii_text = \"\".join(ch for ch in normalized if ch.isascii())\n\n    slug = re.sub(r\"[^a-z0-9]+\", \"-\", ascii_text.lower()).strip(\"-\")\n\n    if not slug or max_len <= 0:\n        return \"\"\n\n    if len(slug) <= max_len:\n        return slug\n\n    words = slug.split(\"-\")\n\n    if len(words[0]) > max_len:\n        return words[0][:max_len]\n\n    kept = [words[0]]\n    current_len = len(words[0])\n\n    for word in words[1:]:\n        candidate_len = current_len + 1 + len(word)\n        if candidate_len <= max_len:\n            kept.append(word)\n            current_len = candidate_len\n        else:\n            break\n\n    return \"-\".join(kept)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "\n\n```python\ndef summarize_ranges(nums: list[int]) -> str:\n    unique = sorted(set(nums))\n    if not unique:\n        return \"\"\n\n    parts = []\n    i = 0\n    n = len(unique)\n\n    while i < n:\n        start = unique[i]\n        end = start\n        j = i + 1\n\n        while j < n and unique[j] == end + 1:\n            end = unique[j]\n            j += 1\n\n        length = end - start + 1\n\n        if length >= 3:\n            parts.append(f\"{start}..{end}\")\n        elif length == 2:\n            parts.append(f\"{start},{end}\")\n        else:\n            parts.append(f\"{start}\")\n\n        i = j\n\n    return \",\".join(parts)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "\n\n```python\nfrom collections.abc import Callable\n\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]) -> None:\n        self._capacity = float(capacity)\n        self._refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._tokens = self._capacity\n        self._last_time = self._clock()\n\n    def _refill(self) -> float:\n        now = self._clock()\n        elapsed = now - self._last_time\n\n        if elapsed > 0.0:\n            self._tokens = min(self._capacity, self._tokens + elapsed * self._refill_per_sec)\n            self._last_time = now\n\n        return self._tokens\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n\n        if cost <= 0.0:\n            return True\n\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "\n\n```python\nimport re\n\n_AMOUNT_RE = re.compile(\n    r\"^\\s*(?P<sign1>[+-]?)\\s*(?:\\$)?\\s*(?P<sign2>[+-]?)\\s*\"\n    r\"(?P<number>\\d{1,3}(?:,\\d{3})*(?:\\.\\d*)?|\\d+(?:\\.\\d*)?|\\.\\d+)\\s*$\"\n)\n\n\ndef _parse_amount(value: object) -> float | None:\n    if not isinstance(value, str):\n        return None\n\n    match = _AMOUNT_RE.fullmatch(value)\n    if match is None:\n        return None\n\n    sign1 = match.group(\"sign1\")\n    sign2 = match.group(\"sign2\")\n\n    if sign1 and sign2:\n        return None\n\n    number = match.group(\"number\").replace(\",\", \"\")\n\n    try:\n        amount = float(number)\n    except (ValueError, OverflowError):\n        return None\n\n    sign = sign1 or sign2\n    if sign == \"-\":\n        return -amount\n\n    return amount\n\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    if n <= 0:\n        return []\n\n    totals: dict[str, float] = {}\n    display_names: dict[str, str] = {}\n\n    for row in rows:\n        if not isinstance(row, dict):\n            continue\n\n        customer = row.get(\"customer\")\n        if not isinstance(customer, str):\n            continue\n\n        name = customer.strip()\n        if not name:\n            continue\n\n        amount = _parse_amount(row.get(\"amount\"))\n        if amount is None:\n            continue\n\n        key = name.casefold()\n        if key not in display_names:\n            display_names[key] = name\n\n        totals[key] = totals.get(key, 0.0) + amount\n\n    results = []\n    for key, total in totals.items():\n        rounded_total = round(total, 2)\n        if rounded_total == 0:\n            rounded_total = 0.0\n        results.append((display_names[key], rounded_total))\n\n    results.sort(key=lambda item: (-item[1], item[0]))\n    return results[:n]\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "\n\n{\n  \"doc_type\": {\n    \"invoice\": 1.0,\n    \"resume\": 0.0,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.0\n  },\n  \"missing_due_date\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-hard-incident-matrix": {
+   "output": "\n\n{\n  \"severity\": {\n    \"0\": 0,\n    \"1\": 1,\n    \"2\": 0,\n    \"3\": 0\n  },\n  \"page\": {\n    \"true\": 0,\n    \"false\": 1\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "\n\n{\n  \"phishing\": {\n    \"true\": 0.01,\n    \"false\": 0.99\n  },\n  \"action_needed\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0026,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "\n\n{\n  \"slot\": {\n    \"A\": 0.0,\n    \"B\": 1.0,\n    \"C\": 0.0,\n    \"D\": 0.0\n  },\n  \"raj_last\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "slot": "B",
+     "raj_last": "true"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "\n\n{\n  \"outcome\": {\n    \"full_refund\": 0.0,\n    \"partial_refund\": 0.0,\n    \"store_credit\": 1.0,\n    \"nothing\": 0.0\n  },\n  \"defective\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "\n\n{\n  \"hardware\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  },\n  \"support\": {\n    \"true\": 0.85,\n    \"false\": 0.15\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.025,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "\n\n{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.02,\n    \"calendar\": 0.98,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  }\n}",
+   "score": 0.5,
+   "detail": {
+    "brier": 0.9029,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "false"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "\n\n{\"policy\":{\"none\":0.02,\"harassment\":0.98,\"hate\":0.00,\"spam\":0.00,\"self_harm\":0.00},\"personal_info\":{\"true\":0.97,\"false\":0.03}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0013,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "\n\n{\n  \"phishing\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"risk\": {\n    \"0\": 0.001,\n    \"1\": 0.004,\n    \"2\": 0.045,\n    \"3\": 0.95\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0024,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "\n\n{\"data_kind\":{\"none\":0.02,\"contact\":0.1,\"financial\":0.03,\"government_id\":0.85,\"health\":0.0},\"sensitive\":{\"true\":0.99,\"false\":0.01}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.017,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "\n\n{\n  \"department\": {\n    \"billing\": 0.95,\n    \"technical\": 0.01,\n    \"account\": 0.01,\n    \"shipping\": 0.00,\n    \"sales\": 0.03\n  },\n  \"refund\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"tone\": {\n    \"frustrated\": 0.05,\n    \"calm\": 0.95\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0029,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "\n\n{\n  \"sentiment\": {\n    \"positive\": 0.1,\n    \"neutral\": 0.0,\n    \"negative\": 0.9\n  },\n  \"defect\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  },\n  \"recommend\": {\n    \"true\": 0.02,\n    \"false\": 0.98\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.007,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "\n\n{\n  \"tool\": {\n    \"web_search\": 0.02,\n    \"calculator\": 0.0,\n    \"calendar\": 0.94,\n    \"email\": 0.03,\n    \"none\": 0.01\n  },\n  \"confirm\": {\n    \"true\": 0.88,\n    \"false\": 0.12\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0169,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "\n\n{\n  \"department\": {\n    \"billing\": 0.04,\n    \"technical\": 0.95,\n    \"account\": 0.005,\n    \"shipping\": 0.005,\n    \"sales\": 0.005\n  },\n  \"urgency\": {\n    \"0\": 0,\n    \"1\": 0,\n    \"2\": 0.03,\n    \"3\": 0.97\n  },\n  \"outage\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0024,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "\n\n{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 65.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+   "score": 0.9583,
+   "detail": {
+    "matched": 23,
+    "total": 24,
+    "wrong": [
+     "$.per_diem_usd"
+    ],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "\n\n{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 61236.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38556.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 293058.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "\n\n{\n  \"tenants\": [\n    \"Marcus Lin\",\n    \"Sofia Lin\"\n  ],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2236.00,\n  \"late_fee_from_2025_06_01\": 111.80,\n  \"security_deposit\": 2150.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2306.00,\n  \"move_in_payment\": 4700.00\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "\n\n{\n  \"q3_total_usd\": 15346000,\n  \"q2_total_usd\": 14464000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 9,
+    "total": 9,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "\n\n{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\n    \"billing_address\",\n    \"invoice_pdf\"\n  ],\n  \"affected_orders\": [\n    \"SO-99812\",\n    \"SO-99820\",\n    \"SO-99827\"\n  ],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+   "score": 0.9167,
+   "detail": {
+    "matched": 11,
+    "total": 12,
+    "wrong": [
+     "$.resolved_issues[1]"
+    ],
+    "bare_json": true
+   }
+  }
+ }
+}
