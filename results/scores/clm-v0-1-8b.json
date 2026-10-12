@@ -1,0 +1,566 @@
+{
+ "model": "clm-v0-1-8b",
+ "runner_version": 1,
+ "items": {
+  "decisions/decide-churn-threat": {
+   "h": "d6335aa9dc79",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1017,
+   "tok": 0,
+   "ptok": 102,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-code-review-auth": {
+   "h": "23453bb85f69",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1691,
+   "tok": 0,
+   "ptok": 97,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-compliance-returns": {
+   "h": "0a4dcd13b9e5",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.8338,
+   "tok": 0,
+   "ptok": 127,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-criticism-not-hate": {
+   "h": "0a90865e89ae",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.8795,
+   "tok": 0,
+   "ptok": 102,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-bank-overdrawn": {
+   "h": "8603b122a7d1",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.765,
+   "tok": 0,
+   "ptok": 178,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-contract-autorenew": {
+   "h": "611b0ee529a3",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.8788,
+   "tok": 0,
+   "ptok": 127,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "h": "caa2741573fc",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1795,
+   "tok": 0,
+   "ptok": 231,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-resume": {
+   "h": "f02928ab84f6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.004,
+   "tok": 0,
+   "ptok": 171,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-duplicate-ticket": {
+   "h": "c9625a8d1dfd",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.7647,
+   "tok": 0,
+   "ptok": 100,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-gdpr-erasure": {
+   "h": "71059f428f66",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.0629,
+   "tok": 0,
+   "ptok": 120,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-auto-renewal": {
+   "h": "3e087ffec063",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.5395,
+   "tok": 0,
+   "ptok": 332,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-bec-reply-to": {
+   "h": "2032b702a0a5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.2246,
+   "tok": 0,
+   "ptok": 340,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-contractor-access": {
+   "h": "b7e390613d00",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.0437,
+   "tok": 0,
+   "ptok": 339,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-duplicate-encoding": {
+   "h": "cb77a5971040",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.2933,
+   "tok": 0,
+   "ptok": 310,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-expense-cap": {
+   "h": "aebb0f5d72e8",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.4224,
+   "tok": 0,
+   "ptok": 352,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-fraud-rules": {
+   "h": "a0592e88c7ec",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1119,
+   "tok": 0,
+   "ptok": 335,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-hazmat-split": {
+   "h": "965c7970b711",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.4728,
+   "tok": 0,
+   "ptok": 323,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "h": "96a270e00ef1",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.3814,
+   "tok": 0,
+   "ptok": 489,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-insurance-oop": {
+   "h": "992734f451ab",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.9743,
+   "tok": 0,
+   "ptok": 333,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "h": "cc22949cde32",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.4914,
+   "tok": 0,
+   "ptok": 374,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-loan-dti": {
+   "h": "56f7d4035132",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 1.1963,
+   "tok": 0,
+   "ptok": 409,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "h": "834e757cd044",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.5773,
+   "tok": 0,
+   "ptok": 398,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-misleading-subject": {
+   "h": "449ecb23cd0a",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 1.0866,
+   "tok": 0,
+   "ptok": 192,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "h": "ebd11009bb29",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.9227,
+   "tok": 0,
+   "ptok": 460,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-report-not-hate": {
+   "h": "f27dcdb47e4e",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.814,
+   "tok": 0,
+   "ptok": 169,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "h": "1f342341050d",
+   "v": "publ",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.3688,
+   "tok": 0,
+   "ptok": 313,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-semver": {
+   "h": "4bce67599f05",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 1.1222,
+   "tok": 0,
+   "ptok": 232,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-sla-timezones": {
+   "h": "04ec9f2dab61",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.2251,
+   "tok": 0,
+   "ptok": 420,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "h": "4824d643da57",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1688,
+   "tok": 0,
+   "ptok": 341,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-incident-docs": {
+   "h": "4c63e3a29e86",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.0495,
+   "tok": 0,
+   "ptok": 125,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-incident-payments": {
+   "h": "2536c0ad4a10",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.8814,
+   "tok": 0,
+   "ptok": 164,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-intent-upgrade": {
+   "h": "d9a0553519c7",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.169,
+   "tok": 0,
+   "ptok": 93,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-language-shipping": {
+   "h": "a620e343f0e7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.06,
+   "tok": 0,
+   "ptok": 78,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-loan-dti": {
+   "h": "7b196804131f",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.7373,
+   "tok": 0,
+   "ptok": 223,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "h": "5301594c3843",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1934,
+   "tok": 0,
+   "ptok": 170,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-negated-billing": {
+   "h": "07fe2078d376",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.2975,
+   "tok": 0,
+   "ptok": 40,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-password-reset-no-rush": {
+   "h": "41b8d2f2f1b3",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 1.021,
+   "tok": 0,
+   "ptok": 65,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-legit-newsletter": {
+   "h": "5f9846221479",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.0332,
+   "tok": 0,
+   "ptok": 92,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-mailbox-full": {
+   "h": "888daa8ba685",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.0544,
+   "tok": 0,
+   "ptok": 122,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "h": "3483ab984a02",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.0596,
+   "tok": 0,
+   "ptok": 130,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-card": {
+   "h": "a5f51b6888c1",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.3497,
+   "tok": 0,
+   "ptok": 115,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-contact-only": {
+   "h": "78e062b32aee",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.7817,
+   "tok": 0,
+   "ptok": 107,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-health": {
+   "h": "2202c616180c",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1261,
+   "tok": 0,
+   "ptok": 99,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "h": "2285b10e744d",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.5755,
+   "tok": 0,
+   "ptok": 200,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "h": "655c40f0c349",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1019,
+   "tok": 0,
+   "ptok": 193,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "h": "9e41737cefd0",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.072,
+   "tok": 0,
+   "ptok": 195,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-sarcasm": {
+   "h": "c54f7879f164",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1697,
+   "tok": 0,
+   "ptok": 100,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calculator": {
+   "h": "fecbfc72964a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.125,
+   "tok": 0,
+   "ptok": 79,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "h": "cb843c555d6c",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.1887,
+   "tok": 0,
+   "ptok": 161,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-email": {
+   "h": "0cc2c5dfb624",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.2751,
+   "tok": 0,
+   "ptok": 83,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-none": {
+   "h": "83d5627c2104",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "clm/Q8_0",
+   "brier": 0.2844,
+   "tok": 0,
+   "ptok": 33,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-search": {
+   "h": "c4689a70b581",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.9329,
+   "tok": 0,
+   "ptok": 77,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-screening-work-auth": {
+   "h": "b2a2a46cb642",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "clm/Q8_0",
+   "brier": 0.3333,
+   "tok": 0,
+   "ptok": 146,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-self-harm-signal": {
+   "h": "6dedfd528895",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.3794,
+   "tok": 0,
+   "ptok": 112,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-spam-followers": {
+   "h": "91bbd39166b5",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "clm/Q8_0",
+   "brier": 1.0457,
+   "tok": 0,
+   "ptok": 101,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "h": "5d379850ce99",
+   "v": "publ",
+   "score": 0.6667,
+   "provider": "clm/Q8_0",
+   "brier": 0.5457,
+   "tok": 0,
+   "ptok": 274,
+   "at": "2026-10-12"
+  }
+ }
+}
