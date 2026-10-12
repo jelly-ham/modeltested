@@ -32,7 +32,7 @@ const share = [
           {crumbs.map((c, i) => <>{i > 0 && " / "}<a href={c.href}>{c.label}</a></>)}
         </nav>
       )}
-      <div class="kicker">{kicker}</div>
+      <div class="kicker">{kicker}<span data-views hidden></span></div>
       <h1>{heading}</h1>
       <p class="dek">{dek}</p>
     </header>
@@ -50,4 +50,24 @@ const share = [
       <Sidebar toc={toc} />
     </div>
   </div>
+  <script is:inline>
+    // Page views (worker/index.js). One count per reader per page per day; shown once it's worth showing.
+    (() => {
+      const MIN_VIEWS = 50;
+      const el = document.querySelector("[data-views]");
+      if (!el) return;
+      const path = location.pathname, key = "mt-viewed:" + path;
+      let last = 0;
+      try { last = Number(localStorage.getItem(key)) || 0; } catch (e) {}
+      const isNew = Date.now() - last > 864e5;
+      fetch("/api/views?path=" + encodeURIComponent(path), { method: isNew ? "POST" : "GET" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (!d) return;
+          if (isNew) try { localStorage.setItem(key, String(Date.now())); } catch (e) {}
+          if (d.views >= MIN_VIEWS) { el.textContent = " · " + d.views.toLocaleString("en-US") + " views"; el.hidden = false; }
+        })
+        .catch(() => {});
+    })();
+  </script>
 </Base>
