@@ -44,6 +44,10 @@
   "providers": [
    "Cohere"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 4.66,
    "decisions": 1.52
@@ -94,6 +98,10 @@
   "providers": [
    "Mistral"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.75,
    "decisions": 0.26
@@ -144,6 +152,10 @@
   "providers": [
    "NextBit"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.43,
    "decisions": 0.24
@@ -194,6 +206,10 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.07,
    "decisions": 0.03
@@ -248,6 +264,10 @@
    "DeepInfra",
    "Novita"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.17,
    "decisions": 0.06
@@ -298,6 +318,10 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -346,6 +370,10 @@
   "providers": [
    "ollama/Q4_K_M"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": null
  },
  "gemma-4-26b-a4b-it": {
@@ -401,6 +429,10 @@
    "Parasail",
    "Venice"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.15,
    "decisions": 0.05
@@ -455,6 +487,10 @@
    "Novita",
    "Crusoe"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.4,
    "decisions": 0.12
@@ -507,6 +543,10 @@
    "SiliconFlow",
    "Z.AI"
   ],
+  "truncated": {
+   "n": 5,
+   "of": 54
+  },
   "cost": {
    "tasks": 7.1,
    "decisions": 0.96
@@ -558,6 +598,10 @@
    "Z.AI",
    "Novita"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 4.59,
    "decisions": 1.38
@@ -609,6 +653,10 @@
    "Novita",
    "Z.AI"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 4.6,
    "decisions": 0.55
@@ -660,6 +708,10 @@
    "Novita",
    "Venice"
   ],
+  "truncated": {
+   "n": 1,
+   "of": 54
+  },
   "cost": {
    "tasks": 2.93,
    "decisions": 0.53
@@ -714,6 +766,10 @@
    "Crusoe",
    "Mancer 2"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.31,
    "decisions": 0.09
@@ -767,9 +823,13 @@
    "DeepInfra",
    "SiliconFlow"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.27,
+   "decisions": 0.05
   }
  },
  "granite-4-0-h-micro-mac": {
@@ -815,6 +875,10 @@
   "providers": [
    "ollama/Q4_K_M"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": null
  },
  "granite-4-2-8b": {
@@ -863,9 +927,13 @@
    "DeepInfra",
    "CoreWeave"
   ],
+  "truncated": {
+   "n": 4,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 3.85,
+   "decisions": 0.6
   }
  },
  "hunyuan-a13b-instruct": {
@@ -913,6 +981,10 @@
   "providers": [
    "SiliconFlow"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 2.97,
    "decisions": 0.26
@@ -963,6 +1035,10 @@
   "providers": [
    "Poolside"
   ],
+  "truncated": {
+   "n": 1,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.29,
    "decisions": 0.04
@@ -1013,6 +1089,10 @@
   "providers": [
    "Poolside"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.89,
    "decisions": 0.09
@@ -1063,6 +1143,10 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.72,
    "decisions": 0.08
@@ -1113,6 +1197,10 @@
   "providers": [
    "Novita"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.23,
    "decisions": 0.02
@@ -1163,6 +1251,10 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.26,
    "decisions": 0.14
@@ -1215,9 +1307,13 @@
    "DeepInfra",
    "Novita"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.15,
+   "decisions": 0.08
   }
  },
  "llama-3-1-8b-q4-mac": {
@@ -1263,6 +1359,10 @@
   "providers": [
    "ollama/Q4_K_M"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": null
  },
  "llama-3-2-1b-q4-mac": {
@@ -1308,6 +1408,10 @@
   "providers": [
    "ollama/Q4_K_M"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": null
  },
  "llama-3-2-3b-instruct": {
@@ -1355,9 +1459,13 @@
   "providers": [
    "Parasail"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.14,
+   "decisions": 0.04
   }
  },
  "llama-3-3-70b-instruct": {
@@ -1406,6 +1514,10 @@
    "AkashML",
    "CoreWeave"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.37,
    "decisions": 0.17
@@ -1456,6 +1568,10 @@
   "providers": [
    "ollama/Q4_K_M"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": null
  },
  "llama-4-scout": {
@@ -1503,6 +1619,10 @@
   "providers": [
    "Novita"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.26,
    "decisions": 0.1
@@ -1553,9 +1673,13 @@
   "providers": [
    "Mistral"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.15,
+   "decisions": 0.07
   }
  },
  "ministral-3b-2512": {
@@ -1603,9 +1727,13 @@
   "providers": [
    "Mistral"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.07,
+   "decisions": 0.04
   }
  },
  "ministral-8b-2512": {
@@ -1653,9 +1781,13 @@
   "providers": [
    "Mistral"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.11,
+   "decisions": 0.06
   }
  },
  "mistral-nemo": {
@@ -1706,9 +1838,13 @@
    "DeepInfra",
    "Parasail"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.01,
+   "decisions": 0.01
   }
  },
  "mistral-small-24b-instruct-2501": {
@@ -1756,9 +1892,13 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.05,
+   "decisions": 0.03
   }
  },
  "mistral-small-2603": {
@@ -1806,6 +1946,10 @@
   "providers": [
    "Mistral"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.24,
    "decisions": 0.08
@@ -1858,8 +2002,12 @@
    "DeepInfra",
    "Venice"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
+   "tasks": 0.13,
    "decisions": null
   }
  },
@@ -1908,6 +2056,10 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 2,
+   "of": 54
+  },
   "cost": {
    "tasks": 5.15,
    "decisions": 1.33
@@ -1959,9 +2111,13 @@
    "DeepInfra",
    "CoreWeave"
   ],
+  "truncated": {
+   "n": 7,
+   "of": 54
+  },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 1.26,
+   "decisions": 0.16
   }
  },
  "nemotron-3-nano-30b-a3b": {
@@ -2009,6 +2165,10 @@
   "providers": [
    "Nebius"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2059,6 +2219,10 @@
   "providers": [
    "DekaLLM"
   ],
+  "truncated": {
+   "n": 3,
+   "of": 54
+  },
   "cost": {
    "tasks": 1.71,
    "decisions": 0.23
@@ -2109,6 +2273,10 @@
   "providers": [
    "Nex AGI"
   ],
+  "truncated": {
+   "n": 18,
+   "of": 54
+  },
   "cost": {
    "tasks": 1.7,
    "decisions": 0.03
@@ -2159,6 +2327,10 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2209,6 +2381,10 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.25,
    "decisions": 0.13
@@ -2259,6 +2435,10 @@
   "providers": [
    "Phala"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2307,6 +2487,10 @@
   "providers": [
    "ollama/Q4_K_M"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": null
  },
  "qwen2-5-vl-72b-instruct": {
@@ -2354,6 +2538,10 @@
   "providers": [
    "Parasail"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.45,
    "decisions": 0.28
@@ -2404,6 +2592,10 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 3,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2454,6 +2646,10 @@
   "providers": [
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 5,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2505,6 +2701,10 @@
    "SiliconFlow",
    "Nebius"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2557,6 +2757,10 @@
    "DeepInfra",
    "Tenstorrent"
   ],
+  "truncated": {
+   "n": 11,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2609,6 +2813,10 @@
    "SiliconFlow",
    "Novita"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 16.36,
    "decisions": 6.0
@@ -2662,6 +2870,10 @@
    "Novita",
    "SiliconFlow"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2715,6 +2927,10 @@
    "AtlasCloud",
    "SiliconFlow"
   ],
+  "truncated": {
+   "n": 1,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2768,6 +2984,10 @@
    "Venice",
    "DeepInfra"
   ],
+  "truncated": {
+   "n": 3,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2821,6 +3041,10 @@
    "DeepInfra",
    "Venice"
   ],
+  "truncated": {
+   "n": 1,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2876,6 +3100,10 @@
    "CoreWeave",
    "AtlasCloud"
   ],
+  "truncated": {
+   "n": 2,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2935,6 +3163,10 @@
    "Venice",
    "CoreWeave"
   ],
+  "truncated": {
+   "n": 5,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -2985,6 +3217,10 @@
   "providers": [
    "SiliconFlow"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -3035,6 +3271,10 @@
   "providers": [
    "Parasail"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.43,
    "decisions": 0.09
@@ -3085,6 +3325,10 @@
   "providers": [
    "Parasail"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.46,
    "decisions": 0.12
@@ -3135,6 +3379,10 @@
   "providers": [
    "Google"
   ],
+  "truncated": {
+   "n": 22,
+   "of": 54
+  },
   "cost": {
    "tasks": 28.19,
    "decisions": 13.04
@@ -3187,6 +3435,10 @@
    "DeepInfra",
    "SiliconFlow"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -3237,6 +3489,10 @@
   "providers": [
    "SiliconFlow"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -3287,6 +3543,10 @@
   "providers": [
    "Parasail"
   ],
+  "truncated": {
+   "n": 6,
+   "of": 54
+  },
   "cost": {
    "tasks": null,
    "decisions": null
@@ -3337,9 +3597,67 @@
   "providers": [
    "Reka"
   ],
+  "truncated": {
+   "n": 0,
+   "of": 54
+  },
   "cost": {
    "tasks": 0.05,
    "decisions": 0.03
+  }
+ },
+ "reka-flash-3": {
+  "slug": "reka-flash-3",
+  "name": "Reka Flash 3",
+  "org": "rekaai",
+  "openrouter_id": "rekaai/reka-flash-3",
+  "hf_id": "RekaAI/reka-flash-3",
+  "params_b": 20.91,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-11",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 0.1,
+  "hard": 0.0,
+  "suites": {
+   "coding": {
+    "score": 0.0,
+    "public": 0.0,
+    "private": 0.0,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 0.0,
+    "public": 0.0,
+    "private": 0.0,
+    "done": 56,
+    "total": 56,
+    "calibration": 0.0,
+    "hard": 0.0
+   },
+   "extract": {
+    "score": 0.1,
+    "public": 0.0,
+    "private": 0.2,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Reka"
+  ],
+  "truncated": {
+   "n": 8,
+   "of": 54
+  },
+  "cost": {
+   "tasks": 3.27,
+   "decisions": 2.88
   }
  },
  "ternary-bonsai-2-27b": {
@@ -3387,6 +3705,10 @@
   "providers": [
    "Darkbloom"
   ],
+  "truncated": {
+   "n": 4,
+   "of": 54
+  },
   "cost": {
    "tasks": 5.14,
    "decisions": 0.32

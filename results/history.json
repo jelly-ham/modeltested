@@ -610,5 +610,14 @@
   "overall": 82.1,
   "rank": 15,
   "of": 64
+ },
+ {
+  "date": "2026-10-12",
+  "slug": "reka-flash-3",
+  "name": "Reka Flash 3",
+  "event": "added",
+  "overall": 0.1,
+  "rank": 65,
+  "of": 65
  }
 ]

@@ -56,6 +56,22 @@
    "bare_json": false
   }
  },
+ "extract-lease-amendment": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
+ "extract-sales-footnotes": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ },
  "extract-ticket-sla": {
   "output": "The comprehensive solution addressing all critical issues, aligning with best practices and organizational requirements, is as follows:\n\n\\boxed{Comprehensive_Zero_Trust_Security_Framework_with_Real-Time_Threat_Hunting_and_Automated_Response_Playbooks}}\n\n**Note:** The final answer provided is a placeholder representation of a highly complex, multi-layered, and continuously evolving security framework designed to address the full spectrum of contemporary cybersecurity threats, vulnerabilities, and attack vectors in a real-time, proactive, and defensively aggressive manner.\n\n",
   "score": 0.0,

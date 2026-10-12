@@ -193,6 +193,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 1,
+    "of": 54
+   },
    "cost": {
     "tasks": null,
     "decisions": null
@@ -269,6 +273,10 @@
      "mac-128": "MXFP4"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.31,
     "decisions": 0.09
@@ -344,6 +352,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 2,
+    "of": 54
+   },
    "cost": {
     "tasks": 5.15,
     "decisions": 1.33
@@ -418,6 +430,10 @@
      "mac-96": null,
      "mac-128": "Q4_K_M"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": 0.72,
@@ -495,6 +511,10 @@
      "mac-128": "Q6_K"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 4.59,
     "decisions": 1.38
@@ -569,6 +589,10 @@
      "mac-96": null,
      "mac-128": "Q5_K_M"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": 0.23,
@@ -647,6 +671,10 @@
      "mac-128": "Q5_K_M"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 16.36,
     "decisions": 6.0
@@ -722,9 +750,13 @@
      "mac-128": "MXFP4"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 0.27,
+    "decisions": 0.05
    },
    "rank": 8
   },
@@ -799,6 +831,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -884,6 +920,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 5,
+    "of": 54
+   },
    "cost": {
     "tasks": null,
     "decisions": null
@@ -961,6 +1001,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 1,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -1042,6 +1086,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 2,
+    "of": 54
+   },
    "cost": {
     "tasks": null,
     "decisions": null
@@ -1116,6 +1164,10 @@
      "mac-96": null,
      "mac-128": "Q5_K_M"
     }
+   },
+   "truncated": {
+    "n": 3,
+    "of": 54
    },
    "cost": {
     "tasks": 1.71,
@@ -1192,6 +1244,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.89,
     "decisions": 0.09
@@ -1263,6 +1319,10 @@
      "mac-96": "TQ2_0",
      "mac-128": "TQ2_0"
     }
+   },
+   "truncated": {
+    "n": 4,
+    "of": 54
    },
    "cost": {
     "tasks": 5.14,
@@ -1338,6 +1398,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -1418,6 +1482,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.4,
     "decisions": 0.12
@@ -1494,9 +1562,13 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 4,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 3.85,
+    "decisions": 0.6
    },
    "rank": 18
   },
@@ -1568,6 +1640,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 5,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -1643,6 +1719,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -1721,6 +1801,10 @@
      "mac-128": "Q6_K"
     }
    },
+   "truncated": {
+    "n": 5,
+    "of": 54
+   },
    "cost": {
     "tasks": 7.1,
     "decisions": 0.96
@@ -1797,6 +1881,10 @@
      "mac-128": "Q6_K"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 4.6,
     "decisions": 0.55
@@ -1871,6 +1959,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 3,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -1947,6 +2039,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 1,
+    "of": 54
    },
    "cost": {
     "tasks": 2.93,
@@ -2025,6 +2121,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 3,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -2109,6 +2209,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.15,
     "decisions": 0.05
@@ -2186,6 +2290,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 11,
+    "of": 54
+   },
    "cost": {
     "tasks": null,
     "decisions": null
@@ -2260,6 +2368,10 @@
      "mac-96": null,
      "mac-128": "Q5_K_M"
     }
+   },
+   "truncated": {
+    "n": 1,
+    "of": 54
    },
    "cost": {
     "tasks": 0.29,
@@ -2337,9 +2449,13 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 7,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 1.26,
+    "decisions": 0.16
    },
    "rank": 29
   },
@@ -2411,6 +2527,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 18,
+    "of": 54
    },
    "cost": {
     "tasks": 1.7,
@@ -2487,6 +2607,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.43,
     "decisions": 0.09
@@ -2561,6 +2685,10 @@
      "mac-96": "Q6_K",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": 0.46,
@@ -2637,6 +2765,10 @@
      "mac-128": "Q5_K_M"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.75,
     "decisions": 0.26
@@ -2711,6 +2843,10 @@
      "mac-96": "Q6_K",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": 2.97,
@@ -2787,6 +2923,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": null,
     "decisions": null
@@ -2862,6 +3002,10 @@
      "mac-128": "Q5_K_M"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.24,
     "decisions": 0.08
@@ -2936,6 +3080,10 @@
      "mac-96": "Q6_K",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": 0.25,
@@ -3014,6 +3162,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": null,
     "decisions": null
@@ -3090,6 +3242,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.37,
     "decisions": 0.17
@@ -3164,6 +3320,10 @@
      "mac-96": "Q4_K_M",
      "mac-128": "Q6_K"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": 4.66,
@@ -3240,9 +3400,13 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 0.15,
+    "decisions": 0.07
    },
    "rank": 41
   },
@@ -3317,8 +3481,12 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
+    "tasks": 0.13,
     "decisions": null
    },
    "rank": 42
@@ -3392,9 +3560,13 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 0.05,
+    "decisions": 0.03
    },
    "rank": 43
   },
@@ -3470,6 +3642,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": 0.17,
@@ -3547,6 +3723,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": null,
     "decisions": null
@@ -3621,6 +3801,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 6,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -3697,6 +3881,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.26,
     "decisions": 0.14
@@ -3772,9 +3960,13 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 0.11,
+    "decisions": 0.06
    },
    "rank": 48
   },
@@ -3846,6 +4038,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": 0.07,
@@ -3922,6 +4118,10 @@
      "mac-128": "Q6_K"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.26,
     "decisions": 0.1
@@ -3996,6 +4196,10 @@
      "mac-96": "Q6_K",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 22,
+    "of": 54
    },
    "cost": {
     "tasks": 28.19,
@@ -4072,6 +4276,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": null,
     "decisions": null
@@ -4146,6 +4354,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -4222,6 +4434,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.43,
     "decisions": 0.24
@@ -4293,6 +4509,10 @@
      "mac-96": "Q4_K_M",
      "mac-128": "Q4_K_M"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": null,
    "rank": 55
@@ -4369,9 +4589,13 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 0.01,
+    "decisions": 0.01
    },
    "rank": 56
   },
@@ -4438,6 +4662,10 @@
      "mac-96": "Q4_K_M",
      "mac-128": "Q4_K_M"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": null,
    "rank": 57
@@ -4511,9 +4739,13 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 0.07,
+    "decisions": 0.04
    },
    "rank": 58
   },
@@ -4588,9 +4820,13 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 0.15,
+    "decisions": 0.08
    },
    "rank": 59
   },
@@ -4662,6 +4898,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -4738,6 +4978,10 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
     "tasks": 0.45,
     "decisions": 0.28
@@ -4812,6 +5056,10 @@
      "mac-96": "Q8_0",
      "mac-128": "Q8_0"
     }
+   },
+   "truncated": {
+    "n": 0,
+    "of": 54
    },
    "cost": {
     "tasks": 0.05,
@@ -4888,9 +5136,13 @@
      "mac-128": "Q8_0"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 0.14,
+    "decisions": 0.04
    },
    "rank": 63
   },
@@ -4958,13 +5210,94 @@
      "mac-128": "Q4_K_M"
     }
    },
+   "truncated": {
+    "n": 0,
+    "of": 54
+   },
    "cost": null,
    "rank": 64
+  },
+  {
+   "slug": "reka-flash-3",
+   "name": "Reka Flash 3",
+   "org": "rekaai",
+   "openrouter_id": "rekaai/reka-flash-3",
+   "hf_id": "RekaAI/reka-flash-3",
+   "params_b": 20.91,
+   "active_params_b": null,
+   "ollama": null,
+   "license": null,
+   "added": "2026-10-11",
+   "kind": null,
+   "status": "auto",
+   "base": null,
+   "quant": null,
+   "overall": 0.1,
+   "hard": 0.0,
+   "suites": {
+    "coding": {
+     "score": 0.0,
+     "public": 0.0,
+     "private": 0.0,
+     "done": 30,
+     "total": 30
+    },
+    "decisions": {
+     "score": 0.0,
+     "public": 0.0,
+     "private": 0.0,
+     "done": 56,
+     "total": 56,
+     "calibration": 0.0,
+     "hard": 0.0
+    },
+    "extract": {
+     "score": 0.1,
+     "public": 0.0,
+     "private": 0.2,
+     "done": 24,
+     "total": 24
+    }
+   },
+   "providers": [
+    "Reka"
+   ],
+   "memory": {
+    "context": 8192,
+    "kv_cache_gb": 1.11,
+    "need_gb": {
+     "Q4_K_M": 14.4,
+     "Q5_K_M": 16.6,
+     "Q6_K": 18.9,
+     "Q8_0": 23.9
+    },
+    "best_quant_by_tier": {
+     "gpu-8": null,
+     "gpu-12": null,
+     "gpu-16": "Q4_K_M",
+     "gpu-24": "Q6_K",
+     "gpu-32": "Q8_0",
+     "mac-16": null,
+     "mac-24": "Q4_K_M",
+     "mac-32": "Q6_K",
+     "mac-48": "Q8_0",
+     "mac-64": "Q8_0",
+     "mac-96": "Q8_0",
+     "mac-128": "Q8_0"
+    }
+   },
+   "truncated": {
+    "n": 8,
+    "of": 54
+   },
+   "cost": {
+    "tasks": 3.27,
+    "decisions": 2.88
+   },
+   "rank": 65
   }
  ],
- "pending": [
-  "reka-flash-3"
- ],
+ "pending": [],
  "references": [
   {
    "slug": "mistral-large-4",
@@ -5034,6 +5367,10 @@
      "mac-96": null,
      "mac-128": null
     }
+   },
+   "truncated": {
+    "n": 12,
+    "of": 54
    },
    "cost": {
     "tasks": null,
@@ -5638,7 +5975,7 @@
    "private": 92.9,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.05,
    "rank": 21
   },
   {
@@ -5678,7 +6015,7 @@
    "private": 92.9,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.0,
    "rank": 23
   },
   {
@@ -5758,7 +6095,7 @@
    "private": 91.7,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.6,
    "rank": 27
   },
   {
@@ -5778,7 +6115,7 @@
    "private": 92.9,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.02,
    "rank": 28
   },
   {
@@ -5898,7 +6235,7 @@
    "private": 88.1,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.01,
    "rank": 34
   },
   {
@@ -6098,7 +6435,7 @@
    "private": 86.9,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.07,
    "rank": 44
   },
   {
@@ -6158,7 +6495,7 @@
    "private": 84.5,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.03,
    "rank": 47
   },
   {
@@ -6198,7 +6535,7 @@
    "private": 82.1,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.01,
    "rank": 49
   },
   {
@@ -6258,7 +6595,7 @@
    "private": 82.1,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.06,
    "rank": 52
   },
   {
@@ -6438,7 +6775,7 @@
    "private": 77.4,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.16,
    "rank": 61
   },
   {
@@ -6518,7 +6855,7 @@
    "private": 77.4,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.01,
    "rank": 65
   },
   {
@@ -6598,7 +6935,7 @@
    "private": 72.6,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.04,
    "rank": 69
   },
   {
@@ -6638,7 +6975,7 @@
    "private": 66.7,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.08,
    "rank": 71
   },
   {
@@ -6718,7 +7055,7 @@
    "private": 45.2,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.04,
    "rank": 75
   },
   {
@@ -6760,6 +7097,26 @@
    "added": "2026-10-11",
    "cost_per_1k": 0.03,
    "rank": 77
+  },
+  {
+   "slug": "reka-flash-3",
+   "name": "Reka Flash 3",
+   "org": "rekaai",
+   "kind": "local",
+   "params_b": 20.91,
+   "open_weights": true,
+   "license": null,
+   "accuracy": 0.0,
+   "calibration": 0.0,
+   "hard": 0.0,
+   "openrouter_id": "rekaai/reka-flash-3",
+   "hf_id": "RekaAI/reka-flash-3",
+   "public": 0.0,
+   "private": 0.0,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
+   "cost_per_1k": 2.88,
+   "rank": 78
   }
  ],
  "decisions_unsupported": [
@@ -6850,6 +7207,15 @@
    "overall": 82.1,
    "rank": 15,
    "of": 64
+  },
+  {
+   "date": "2026-10-12",
+   "slug": "reka-flash-3",
+   "name": "Reka Flash 3",
+   "event": "added",
+   "overall": 0.1,
+   "rank": 65,
+   "of": 65
   },
   {
    "date": "2026-10-11",
@@ -7218,15 +7584,6 @@
    "event": "added",
    "overall": 76.3,
    "rank": 12,
-   "of": 31
-  },
-  {
-   "date": "2026-10-10",
-   "slug": "qwen3-5-9b",
-   "name": "Qwen3.5-9B",
-   "event": "added",
-   "overall": 74.1,
-   "rank": 13,
    "of": 31
   }
  ]
