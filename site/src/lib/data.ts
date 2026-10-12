@@ -28,6 +28,7 @@ export type Model = {
   providers: string[];
   /** API cost in dollars per 1,000 tasks at OpenRouter prices; null when not measured or run locally. */
   cost?: { tasks: number | null; decisions: number | null } | null;
+  truncated?: { n: number; of: number };
   memory: { context: number; kv_cache_gb: number; need_gb: Record<string, number>; best_quant_by_tier: Record<string, string | null> } | null;
 };
 export type DecisionRow = {

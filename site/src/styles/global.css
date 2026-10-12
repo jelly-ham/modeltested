@@ -135,6 +135,8 @@ code, pre, .mono { font-family: var(--mono); }
 .crumbs a { color: var(--faint); }
 .banner { margin-top: 36px; border-radius: 16px; padding: clamp(24px, 4vw, 48px); }
 .short { border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; margin-bottom: 36px; }
+.note-box { border-left: 3px solid var(--blue); background: var(--surface); padding: 14px 18px; margin: 0 0 22px; font-size: 15px; line-height: 1.6; color: var(--text-2); }
+.note-box strong { color: var(--ink); }
 .short strong { display: block; font-size: 15px; margin-bottom: 10px; }
 .short ul { margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.7; color: var(--text-2); }
 

@@ -56,6 +56,10 @@ def model_summary(model: dict, by_suite: dict) -> dict:
                  for r in [items.get(q.key)] if r and r.get("h") == q.hash]
     n_hard = sum(q.data.get("difficulty") == "hard" for k, qs in by_suite.items() if k in RANKED_SUITES for q in qs)
     hard = round(100 * _mean(hard_rows), 1) if n_hard and len(hard_rows) == n_hard else None
+    # Answers cut off at the token limit (usually a thinking model that never stopped thinking).
+    ranked_rows = [items[q.key] for k, qs in by_suite.items() if k in RANKED_SUITES for q in qs
+                   if items.get(q.key, {}).get("h") == q.hash]
+    truncated = {"n": sum(1 for r in ranked_rows if r.get("truncated")), "of": len(ranked_rows)}
     keep = ("slug", "name", "org", "openrouter_id", "hf_id", "params_b", "active_params_b", "ollama", "license", "added", "kind", "status",
             "base", "quant")
     return {
@@ -65,6 +69,7 @@ def model_summary(model: dict, by_suite: dict) -> dict:
         "suites": suites,
         "providers": [p for p, _ in providers.most_common()],
         "memory": memory.estimate(model),
+        "truncated": truncated,
         # API cost per 1,000 tasks at OpenRouter prices; local (Mac) runs have none.
         "cost": None if model.get("status") == "local" else costs.per_1k(
             model, [q for qs in by_suite.values() for q in qs if not q.private], _SAMPLED_COSTS),
