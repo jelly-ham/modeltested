@@ -199,7 +199,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 4.69
    },
    "rank": 1
   },
@@ -838,7 +838,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 5.92
    },
    "rank": 9
   },
@@ -926,7 +926,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 1.54
    },
    "rank": 10
   },
@@ -1008,7 +1008,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 3.92
    },
    "rank": 11
   },
@@ -1092,7 +1092,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 2.0
    },
    "rank": 12
   },
@@ -1726,7 +1726,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 0.94
    },
    "rank": 20
   },
@@ -2128,7 +2128,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 0.58
    },
    "rank": 25
   },
@@ -2929,7 +2929,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 0.04
    },
    "rank": 35
   },
@@ -3168,7 +3168,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 0.11
    },
    "rank": 38
   },
@@ -3808,7 +3808,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 0.12
    },
    "rank": 46
   },
@@ -4905,7 +4905,7 @@
    },
    "cost": {
     "tasks": null,
-    "decisions": null
+    "decisions": 0.02
    },
    "rank": 60
   },
@@ -5575,7 +5575,7 @@
    "private": 100.0,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 5.92,
    "rank": 1
   },
   {
@@ -5595,7 +5595,7 @@
    "private": 98.8,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 3.92,
    "rank": 2
   },
   {
@@ -5615,7 +5615,7 @@
    "private": 98.8,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 4.69,
    "rank": 3
   },
   {
@@ -5655,7 +5655,7 @@
    "private": 98.8,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 2.0,
    "rank": 5
   },
   {
@@ -5755,7 +5755,7 @@
    "private": 97.6,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 1.54,
    "rank": 10
   },
   {
@@ -5795,7 +5795,7 @@
    "private": 96.4,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.58,
    "rank": 12
   },
   {
@@ -5875,7 +5875,7 @@
    "private": 96.4,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.94,
    "rank": 16
   },
   {
@@ -5895,7 +5895,7 @@
    "private": 96.4,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.05,
    "rank": 17
   },
   {
@@ -6395,7 +6395,7 @@
    "private": 86.9,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.05,
    "rank": 42
   },
   {
@@ -6455,7 +6455,7 @@
    "private": 83.3,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.02,
    "rank": 45
   },
   {
@@ -6735,7 +6735,7 @@
    "private": 82.1,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.04,
    "rank": 59
   },
   {
@@ -6835,7 +6835,7 @@
    "private": 77.4,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.12,
    "rank": 64
   },
   {
@@ -6895,7 +6895,7 @@
    "private": 76.2,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.11,
    "rank": 67
   },
   {
@@ -6995,7 +6995,7 @@
    "private": 69.0,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.02,
    "rank": 72
   },
   {

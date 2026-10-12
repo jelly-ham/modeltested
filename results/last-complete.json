@@ -324,7 +324,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 0.02
   }
  },
  "gemma-3-4b-q4-mac": {
@@ -2876,7 +2876,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 5.92
   }
  },
  "qwen3-5-35b-a3b": {
@@ -2933,7 +2933,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 3.92
   }
  },
  "qwen3-5-9b": {
@@ -2990,7 +2990,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 0.58
   }
  },
  "qwen3-6-27b": {
@@ -3047,7 +3047,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 4.69
   }
  },
  "qwen3-6-35b-a3b": {
@@ -3106,7 +3106,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 2.0
   }
  },
  "qwen3-8-27b": {
@@ -3169,7 +3169,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 1.54
   }
  },
  "qwen3-coder-30b-a3b-instruct": {
@@ -3223,7 +3223,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 0.04
   }
  },
  "qwen3-coder-next": {
@@ -3441,7 +3441,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 0.11
   }
  },
  "qwen3-vl-30b-a3b-thinking": {
@@ -3495,7 +3495,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 0.94
   }
  },
  "qwen3-vl-8b-instruct": {
@@ -3549,7 +3549,7 @@
   },
   "cost": {
    "tasks": null,
-   "decisions": null
+   "decisions": 0.12
   }
  },
  "reka-edge": {
