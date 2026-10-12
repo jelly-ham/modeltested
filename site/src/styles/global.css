@@ -195,3 +195,8 @@ details.answer pre { background: var(--surface); color: var(--ink); border: 1px 
 .hw-chip:hover { border-color: var(--blue); color: var(--blue); }
 .hw-chip .n { font-family: var(--mono); font-size: 12px; color: var(--blue); background: var(--panel); border-radius: 4px; padding: 1px 6px; }
 .hw-chip.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+/* Charts and images inside articles */
+main img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; margin: 8px 0 28px; }
+/* Markdown tables in articles scroll inside themselves on narrow screens */
+main :not(.table-box) > table { display: block; overflow-x: auto; max-width: 100%; }

@@ -21,6 +21,8 @@ We measured it. For every model we recorded the input tokens, output tokens and 
 - **The cheapest decision models are hard to beat on price,** at under a cent per 1,000 calls. But some LLMs are close: Ling 3.0 Flash VL was more accurate than every decision model and cost less than the best one.
 - **Thinking can go badly wrong.** One model averaged over 10,000 output tokens per call, cost $13 per 1,000 calls, and got only 41% right.
 
+![Scatter chart: accuracy against cost per 1,000 calls for 76 models. Decision models cluster at the cheap end around 83 to 96 percent; LLMs that reason first reach 96 to 100 percent at higher cost; LLMs that answer directly sit mostly between 68 and 94 percent.](/charts/decision-cost-accuracy-vs-cost.png)
+
 ## Decision models
 
 Accuracy is on all 56 situations; tokens and cost are averages per call on the 14 public ones. "Per 1,000 calls" means 1,000 situations, each with one to three questions.
@@ -59,6 +61,8 @@ Solar Decide reports about 1,000 input tokens for the same questions others coun
 Across all 62 regular models we priced: the 29 that reason before answering had a median of 817 output tokens, 96% accuracy and $0.55 per 1,000 calls. The 33 that answer straight away had a median of 80 output tokens, 83% accuracy and $0.06 per 1,000 calls.
 
 ## Where the money goes
+
+![Bar chart of median output tokens per call: decision models 2, LLMs that answer directly 80, LLMs that reason first 817.](/charts/decision-cost-output-tokens.png)
 
 Output tokens. Every model reads roughly the same question, so input costs land in a narrow band. What separates a $0.01 model from a $5 one is how much it writes before the answer.
 
