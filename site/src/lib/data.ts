@@ -31,7 +31,8 @@ export type Model = {
 export type DecisionRow = {
   slug: string; name: string; org: string | null; kind: "decision" | "local" | "reference";
   params_b: number | null; accuracy: number; calibration: number | null; hard?: number | null; rank: number; openrouter_id: string;
-  open_weights?: boolean; license?: string | null;
+  open_weights?: boolean; license?: string | null; hf_id?: string | null; public?: number | null; private?: number | null;
+  tested_on?: "openrouter" | "mac"; added?: string | null;
 };
 /** A quantized download (run on our Mac) next to the same model at full precision. */
 export type QuantRun = {
@@ -94,6 +95,9 @@ export function minTiers(m: Model): { gpu: Tier | null; mac: Tier | null } {
   const fit = (kind: string) => tiers.find((t) => t.kind === kind && m.memory?.best_quant_by_tier[t.id]) ?? null;
   return { gpu: fit("gpu"), mac: fit("mac") };
 }
+
+/** Decision models get their own review page; local LLMs use the normal model page. */
+export const decisionHref = (r: DecisionRow) => (r.kind === "decision" ? `/decision-models/${r.slug}/` : r.kind === "local" ? `/models/${r.slug}/` : null);
 
 export const isLocalRun = (m: Model) => m.status === "local";
 export const quantRunFor = (m: Model) => (data.quantized ?? []).find((q) => q.base === m.slug);

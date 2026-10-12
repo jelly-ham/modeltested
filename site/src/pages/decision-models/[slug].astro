@@ -1,0 +1,135 @@
+---
+import Article from "../../layouts/Article.astro";
+import { data, whole, orgName, questionTitle, decisionHref, type DecisionRow } from "../../lib/data";
+import { shortDate } from "../../lib/posts";
+import publicQs from "../../data/public-questions.json";
+
+export function getStaticPaths() {
+  return (data.decisions ?? []).filter((r) => r.kind === "decision").map((r) => ({ params: { slug: r.slug }, props: { row: r } }));
+}
+
+const { row } = Astro.props as { row: DecisionRow };
+const all = data.decisions ?? [];
+const decisionModels = all.filter((r) => r.kind === "decision");
+const rankAmong = decisionModels.findIndex((r) => r.slug === row.slug) + 1;
+const bestDecision = decisionModels[0];
+const bestLocal = all.find((r) => r.kind === "local");
+const beatenBy = all.filter((r) => r.kind === "local" && r.accuracy > row.accuracy).length;
+const size = row.params_b ? `${row.params_b >= 10 ? Math.round(row.params_b) : Math.round(row.params_b * 10) / 10}B` : null;
+const maker = orgName(row.org);
+
+const outputsFiles = import.meta.glob("../../data/outputs/*.json", { eager: true, import: "default" }) as Record<string, Record<string, Record<string, { output: string; score: number; detail: any }>>>;
+const outputs = (outputsFiles[`../../data/outputs/${row.slug}.json`] ?? {}).decisions ?? {};
+const label = (spec: any, key: string | null) => {
+  if (key == null) return "no answer";
+  if (spec.type === "noul") return key === "true" ? "Yes" : "No";
+  if (spec.type === "score") return spec.criteria[Number(key)] ?? key;
+  return spec.criteria?.[key] ?? key;
+};
+const expectedKey = (spec: any, e: any) => (spec.type === "noul" ? (e ? "true" : "false") : String(e));
+const samples = publicQs.questions
+  .filter((q: any) => q.suite === "decisions" && outputs[q.id])
+  .map((q: any) => ({ q, out: outputs[q.id] }));
+
+function pageTitle(name: string): string {
+  const options = [": Decision Model Benchmarks and Accuracy", ": Decision Model Benchmarks", " Benchmarks"];
+  return options.map((o) => name + o).find((t) => t.length <= 60) ?? name;
+}
+const verdictLine = rankAmong === 1
+  ? "the most accurate decision model we've tested"
+  : `#${rankAmong} of the ${decisionModels.length} decision models we've tested`;
+const dek = `It got ${whole(row.accuracy)}% of our calls right and ${whole(row.hard)}% of the hard ones. ${row.open_weights ? "Open weights you can download." : "Available only through an API."}`;
+const cover = { kind: "compare" as const, label: `${row.name} · scores`, items: [
+  { label: "Accuracy", value: Math.round(row.accuracy) },
+  ...(row.hard != null ? [{ label: "Hard cases", value: Math.round(row.hard) }] : []),
+  ...(row.calibration != null ? [{ label: "Calibration", value: Math.round(row.calibration) }] : []),
+] };
+const others = decisionModels.filter((r) => r.slug !== row.slug && Math.abs(decisionModels.indexOf(r) + 1 - rankAmong) <= 2);
+---
+<Article
+  seoTitle={pageTitle(row.name)}
+  description={dek}
+  heading={`${row.name} review: ${verdictLine}`}
+  dek={dek}
+  kicker={`Decision models · updated ${shortDate(data.generated)}`}
+  crumbs={[{ href: "/", label: "Home" }, { href: "/best-decision-models/", label: "Decision models" }]}
+  cover={cover}
+  nav="rankings"
+>
+  <div class="short">
+    <strong>The short version</strong>
+    <ul>
+      <li>{row.name} is a decision model{maker && ` from ${maker}`}{size && `, about ${size} parameters`}. You give it a situation and multiple-choice questions, and it returns a probability for every option.</li>
+      <li>In our tests it's {verdictLine}: right on {whole(row.accuracy)}% of calls, {whole(row.hard)}% of the hard cases, calibration {whole(row.calibration)}.</li>
+      <li>{row.open_weights ? `It has open weights${row.license ? ` (${row.license})` : ""}, so you can download and run it yourself.` : "It's closed: you can only use it through an API."}</li>
+      {beatenBy > 0 && bestLocal && <li>{beatenBy} regular models you can run at home did better, led by <a href={`/models/${bestLocal.slug}/`}>{bestLocal.name}</a> ({whole(bestLocal.accuracy)}%).</li>}
+    </ul>
+  </div>
+
+  <div class="prose">
+    <h2 id="results">How it did</h2>
+    <p>
+      Our decision test has {data.suites.find((s) => s.id === "decisions") ? (data.suites.find((s) => s.id === "decisions")!.n_public + data.suites.find((s) => s.id === "decisions")!.n_private) : ""} situations:
+      routing support tickets, spotting phishing, picking the right tool, applying a refund or expense policy, triaging incidents.
+      {data.n_hard_decisions ? ` ${data.n_hard_decisions} of them are hard cases that need a little date, time-zone or money math.` : ""}
+      {bestDecision && bestDecision.slug !== row.slug && ` The best decision model, ${bestDecision.name}, got ${whole(bestDecision.accuracy)}%.`}
+    </p>
+  </div>
+  <div class="table-box">
+    <table>
+      <thead><tr><th>Measure</th><th class="num">{row.name}</th>{bestDecision && bestDecision.slug !== row.slug && <th class="num">{bestDecision.name}</th>}</tr></thead>
+      <tbody>
+        {[["Accuracy", "accuracy"], ["Hard cases", "hard"], ["Calibration", "calibration"], ["Public questions", "public"], ["Secret questions", "private"]].map(([name, k]) => (
+          <tr><td>{name}</td><td class="num"><b>{whole((row as any)[k])}</b></td>{bestDecision && bestDecision.slug !== row.slug && <td class="num">{whole((bestDecision as any)[k])}</td>}</tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="sub">Calibration shows how honest its confidence is: 100 means always right and always sure. {row.tested_on === "mac"
+    ? "We ran it ourselves on a Mac mini (M4, 16 GB), with the encoder in llama.cpp instead of the reference GPU setup, so scores may differ slightly from the official setup."
+    : "We called it through OpenRouter's Decisions API."}</p>
+
+  <div class="prose">
+    <h2 id="try">How to try it</h2>
+    <ul>
+      {row.openrouter_id && <li>Through OpenRouter: <a href={`https://openrouter.ai/${row.openrouter_id}`} rel="noopener" target="_blank"><code>{row.openrouter_id}</code></a> (Decisions API).</li>}
+      {row.open_weights && row.hf_id && <li>Download the weights from Hugging Face: <a href={`https://huggingface.co/${row.hf_id}`} rel="noopener" target="_blank">{row.hf_id}</a>.</li>}
+    </ul>
+  </div>
+
+  {samples.length > 0 && (
+    <>
+      <div class="prose"><h2 id="answers">Its actual answers</h2><p>What {row.name} picked on our public questions, next to the right answer.</p></div>
+      {samples.map(({ q, out }: any) => (
+        <details class="answer">
+          <summary>
+            <span>{questionTitle(q.id)}</span>
+            <span class={out.score === 1 ? "tag-ok" : "tag-no"}>{Math.round(out.score * 100)}% right</span>
+          </summary>
+          <div class="table-box" style="margin: 12px 0">
+            <table>
+              <thead><tr><th>Question</th><th>It picked</th><th>Right answer</th></tr></thead>
+              <tbody>
+                {Object.entries(q.questions).map(([qid, spec]: [string, any]) => {
+                  const pick = out.detail?.picks?.[qid] ?? null;
+                  const gold = expectedKey(spec, q.expected[qid]);
+                  return <tr><td>{spec.instructions}</td><td class={pick === gold ? "yes" : "no"}>{label(spec, pick)}</td><td>{label(spec, gold)}</td></tr>;
+                })}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      ))}
+    </>
+  )}
+
+  <div slot="tags" class="chips"><a class="chip" href="/topics/decision-models/">Decision models</a><a class="chip" href="/topics/rankings/">Rankings</a></div>
+  {others.length > 0 && (
+    <section slot="after" style="margin-top: 48px">
+      <h2 class="section-title" style="margin-bottom: 16px">Decision models that scored about the same</h2>
+      <div class="side-list">
+        {others.map((r) => <a href={decisionHref(r)!}>{r.name} · {whole(r.accuracy)}%</a>)}
+      </div>
+    </section>
+  )}
+</Article>

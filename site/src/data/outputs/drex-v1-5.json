@@ -1,0 +1,161 @@
+{
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\"doc_type\": {\"type\": \"choice\", \"choice\": \"invoice\", \"probabilities\": {\"invoice\": 0.9993, \"resume\": 0, \"contract\": 0.0002, \"bank_statement\": 0.0001, \"other\": 0.0004}, \"confidence\": 0.9991}, \"missing_due_date\": {\"type\": \"noul\", \"noul\": 0.9708}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0009,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-hard-incident-matrix": {
+   "output": "{\"severity\": {\"type\": \"score\", \"score\": 1.008, \"legend\": {\"0\": \"SEV4\", \"1\": \"SEV3\", \"2\": \"SEV2\", \"3\": \"SEV1\"}, \"probabilities\": {\"0\": 0.0014, \"1\": 0.9906, \"2\": 0.0066, \"3\": 0.0014}, \"confidence\": 0.9892}, \"page\": {\"type\": \"noul\", \"noul\": 0.0311}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.001,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.0032}, \"action_needed\": {\"type\": \"noul\", \"noul\": 0.0493}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0024,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "{\"slot\": {\"type\": \"choice\", \"choice\": \"C\", \"probabilities\": {\"A\": 0.0139, \"B\": 0.2703, \"C\": 0.5997, \"D\": 0.1161}, \"confidence\": 0.4663}, \"raj_last\": {\"type\": \"noul\", \"noul\": 0.2262}}",
+   "score": 0.0,
+   "detail": {
+    "brier": 1.0517,
+    "picks": {
+     "slot": "C",
+     "raj_last": "false"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "{\"outcome\": {\"type\": \"choice\", \"choice\": \"store_credit\", \"probabilities\": {\"full_refund\": 0.0069, \"partial_refund\": 0.0769, \"store_credit\": 0.5339, \"nothing\": 0.3823}, \"confidence\": 0.3785}, \"defective\": {\"type\": \"noul\", \"noul\": 0.0076}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.1847,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "{\"hardware\": {\"type\": \"noul\", \"noul\": 0.9979}, \"support\": {\"type\": \"noul\", \"noul\": 0.9917}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "{\"tool\": {\"type\": \"choice\", \"choice\": \"calendar\", \"probabilities\": {\"web_search\": 0, \"calculator\": 0, \"calendar\": 0.9978, \"email\": 0.0002, \"none\": 0.0019}, \"confidence\": 0.9972}, \"confirm\": {\"type\": \"noul\", \"noul\": 0.9965}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\"policy\": {\"type\": \"choice\", \"choice\": \"harassment\", \"probabilities\": {\"none\": 0.0418, \"harassment\": 0.9575, \"hate\": 0.0004, \"spam\": 0.0001, \"self_harm\": 0.0001}, \"confidence\": 0.9469}, \"personal_info\": {\"type\": \"noul\", \"noul\": 0.9884}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0019,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.9994}, \"risk\": {\"type\": \"score\", \"score\": 2.9939, \"legend\": {\"0\": \"No risk: legitimate\", \"1\": \"Low\", \"2\": \"Medium\", \"3\": \"High: clearly phishing\"}, \"probabilities\": {\"0\": 0.0004, \"1\": 0.0009, \"2\": 0.0032, \"3\": 0.9955}, \"confidence\": 0.9939}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\"data_kind\": {\"type\": \"choice\", \"choice\": \"government_id\", \"probabilities\": {\"none\": 0.0001, \"contact\": 0.0002, \"financial\": 0.0004, \"government_id\": 0.9992, \"health\": 0.0002}, \"confidence\": 0.999}, \"sensitive\": {\"type\": \"noul\", \"noul\": 0.9641}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0013,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\"department\": {\"type\": \"choice\", \"choice\": \"billing\", \"probabilities\": {\"billing\": 0.9953, \"technical\": 0.0009, \"account\": 0.0016, \"shipping\": 0.0002, \"sales\": 0.0021}, \"confidence\": 0.9941}, \"refund\": {\"type\": \"noul\", \"noul\": 0.9911}, \"tone\": {\"type\": \"choice\", \"choice\": \"calm\", \"probabilities\": {\"frustrated\": 0.0049, \"calm\": 0.9951}, \"confidence\": 0.9902}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\"sentiment\": {\"type\": \"choice\", \"choice\": \"negative\", \"probabilities\": {\"positive\": 0.0128, \"neutral\": 0.0066, \"negative\": 0.9807}, \"confidence\": 0.971}, \"defect\": {\"type\": \"noul\", \"noul\": 0.996}, \"recommend\": {\"type\": \"noul\", \"noul\": 0.0044}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\"tool\": {\"type\": \"choice\", \"choice\": \"calendar\", \"probabilities\": {\"web_search\": 0.0032, \"calculator\": 0, \"calendar\": 0.9505, \"email\": 0.001, \"none\": 0.0452}, \"confidence\": 0.9381}, \"confirm\": {\"type\": \"noul\", \"noul\": 0.9976}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0023,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\"department\": {\"type\": \"choice\", \"choice\": \"technical\", \"probabilities\": {\"billing\": 0.008, \"technical\": 0.9896, \"account\": 0.0015, \"shipping\": 0.0004, \"sales\": 0.0005}, \"confidence\": 0.987}, \"urgency\": {\"type\": \"score\", \"score\": 2.9043, \"legend\": {\"0\": \"Can wait a week or more\", \"1\": \"Within a few days\", \"2\": \"Today\", \"3\": \"Immediately: business is blocked\"}, \"probabilities\": {\"0\": 0, \"1\": 0.0009, \"2\": 0.0938, \"3\": 0.9053}, \"confidence\": 0.9043}, \"outage\": {\"type\": \"noul\", \"noul\": 0.98}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0062,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ }
+}

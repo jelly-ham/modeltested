@@ -73,7 +73,9 @@ def decision_board(doc: dict, by_suite: dict, summaries: list[dict]) -> list[dic
         kind = "decision" if s.get("kind") == "decision" else "reference" if s.get("status") == "reference" else "local"
         rows.append({"slug": s["slug"], "name": s["name"], "org": s.get("org"), "kind": kind, "params_b": s.get("params_b"),
                      "open_weights": bool(s.get("hf_id")), "license": s.get("license"),
-                     "accuracy": d["score"], "calibration": d.get("calibration"), "hard": d.get("hard"), "openrouter_id": s.get("openrouter_id")})
+                     "accuracy": d["score"], "calibration": d.get("calibration"), "hard": d.get("hard"), "openrouter_id": s.get("openrouter_id"),
+                     "hf_id": s.get("hf_id"), "public": d.get("public"), "private": d.get("private"),
+                     "tested_on": "mac" if s.get("status") == "local" else "openrouter", "added": s.get("added")})
     rows.sort(key=lambda r: (-r["accuracy"], -(r["calibration"] or 0)))
     for i, r in enumerate(rows, 1):
         r["rank"] = i
@@ -147,6 +149,7 @@ def main(args) -> None:
     if not args.include_test:
         write_json(HISTORY, history)
 
+    decision_rows = decision_board(doc, by_suite, summaries)
     write_json(SITE_DATA / "leaderboard.json", {
         "generated": today(),
         "suites": [{"id": k, **v, "n_public": sum(not q.private for q in by_suite.get(k, [])),
@@ -159,7 +162,7 @@ def main(args) -> None:
         "references": [r for r in references if r["overall"] is not None],
         "quantized": quantized,
         # Reference (cloud) models get a write-up of their own, never a place on a board.
-        "decisions": decision_board(doc, by_suite, summaries),
+        "decisions": decision_rows,
         "decisions_unsupported": [{"name": m["name"], "openrouter_id": m["openrouter_id"], "open_weights": bool(m.get("hf_id")),
                                    "reason": m.get("unsupported_reason")} for m in doc["models"]
                                   if m.get("kind") == "decision" and m.get("status") == "unsupported"],
@@ -174,7 +177,8 @@ def main(args) -> None:
 
     out_dir = SITE_DATA / "outputs"
     shutil.rmtree(out_dir, ignore_errors=True)
-    for s in ranked:
+    # Decision models have their own pages (/decision-models/<slug>/) with their public answers.
+    for s in ranked + [r for r in decision_rows if r["kind"] == "decision"]:
         src = OUTPUTS_DIR / s["slug"]
         if src.exists():
             merged = {p.stem: json.loads(p.read_text()) for p in sorted(src.glob("*.json"))}

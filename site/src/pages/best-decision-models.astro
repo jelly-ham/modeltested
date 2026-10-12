@@ -1,6 +1,6 @@
 ---
 import Article from "../layouts/Article.astro";
-import { data, fmtDate, whole, orgName } from "../lib/data";
+import { data, fmtDate, whole, orgName, decisionHref } from "../lib/data";
 import { decisionPost, shortDate } from "../lib/posts";
 
 const rows = data.decisions ?? [];
@@ -59,7 +59,7 @@ const description = post?.dek ?? "Decision models tested on real classification,
             {decisionOnly().map((r, i) => (
               <tr>
                 <td class="num" style="color: var(--faint)">{i + 1}</td>
-                <td><b>{r.name}</b><div class="sub" style="font-size: 13px">{orgName(r.org)}{r.params_b && <> · {r.params_b >= 10 ? Math.round(r.params_b) : Math.round(r.params_b * 10) / 10}B</>}</div></td>
+                <td><a href={decisionHref(r)!} style="font-weight: 600">{r.name}</a><div class="sub" style="font-size: 13px">{orgName(r.org)}{r.params_b && <> · {r.params_b >= 10 ? Math.round(r.params_b) : Math.round(r.params_b * 10) / 10}B</>}</div></td>
                 <td>{r.open_weights ? <>Open<div class="sub" style="font-size: 13px">{r.license ?? ""}</div></> : <span class="sub">Closed (API only)</span>}</td>
                 <td class="num"><b>{whole(r.accuracy)}</b></td>
                 {showHard && <td class="num">{r.hard == null ? <span class="sub">–</span> : whole(r.hard)}</td>}
@@ -87,7 +87,7 @@ const description = post?.dek ?? "Decision models tested on real classification,
             {rows.map((r) => (
               <tr>
                 <td class="num" style="color: var(--faint)">{r.rank}</td>
-                <td>{r.kind === "local" ? <a href={`/models/${r.slug}/`} style="font-weight: 600">{r.name}</a> : <b>{r.name}</b>}<div class="sub" style="font-size: 13px"><code>{r.openrouter_id}</code></div></td>
+                <td>{decisionHref(r) ? <a href={decisionHref(r)!} style="font-weight: 600">{r.name}</a> : <b>{r.name}</b>}<div class="sub" style="font-size: 13px"><code>{r.openrouter_id}</code></div></td>
                 <td>{kindLabel[r.kind]}</td>
                 <td class="num"><b>{whole(r.accuracy)}</b></td>
                 {showHard && <td class="num">{r.hard == null ? <span class="sub">–</span> : whole(r.hard)}</td>}
