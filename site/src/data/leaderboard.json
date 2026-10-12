@@ -4915,6 +4915,11 @@
    "calibration": 99.9,
    "hard": 100.0,
    "openrouter_id": "qwen/qwen3.5-27b",
+   "hf_id": "Qwen/Qwen3.5-27B",
+   "public": 100.0,
+   "private": 100.0,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 1
   },
   {
@@ -4929,6 +4934,11 @@
    "calibration": 99.4,
    "hard": 100.0,
    "openrouter_id": "qwen/qwen3.5-35b-a3b",
+   "hf_id": "Qwen/Qwen3.5-35B-A3B",
+   "public": 100.0,
+   "private": 98.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 2
   },
   {
@@ -4943,6 +4953,11 @@
    "calibration": 99.2,
    "hard": 100.0,
    "openrouter_id": "qwen/qwen3.6-27b",
+   "hf_id": "Qwen/Qwen3.6-27B",
+   "public": 100.0,
+   "private": 98.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 3
   },
   {
@@ -4957,6 +4972,11 @@
    "calibration": 99.1,
    "hard": 100.0,
    "openrouter_id": "qwen/qwen3.5-122b-a10b",
+   "hf_id": "Qwen/Qwen3.5-122B-A10B",
+   "public": 100.0,
+   "private": 98.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 4
   },
   {
@@ -4971,6 +4991,11 @@
    "calibration": 99.1,
    "hard": 100.0,
    "openrouter_id": "qwen/qwen3.6-35b-a3b",
+   "hf_id": "Qwen/Qwen3.6-35B-A3B",
+   "public": 100.0,
+   "private": 98.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 5
   },
   {
@@ -4985,6 +5010,11 @@
    "calibration": 99.0,
    "hard": 100.0,
    "openrouter_id": "meta/muse-glimmer-30b",
+   "hf_id": "meta-models/Muse-Glimmer-30B",
+   "public": 100.0,
+   "private": 98.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 6
   },
   {
@@ -4999,6 +5029,11 @@
    "calibration": 98.6,
    "hard": 100.0,
    "openrouter_id": "openai/gpt-oss-120b",
+   "hf_id": "openai/gpt-oss-120b",
+   "public": 100.0,
+   "private": 98.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 7
   },
   {
@@ -5013,6 +5048,11 @@
    "calibration": 98.6,
    "hard": 97.4,
    "openrouter_id": "inclusionai/ling-3.0-flash",
+   "hf_id": "inclusionAI/Ling-3.0-flash",
+   "public": 100.0,
+   "private": 98.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 8
   },
   {
@@ -5027,6 +5067,11 @@
    "calibration": 98.8,
    "hard": 100.0,
    "openrouter_id": "z-ai/glm-4.5v",
+   "hf_id": "zai-org/GLM-4.5V",
+   "public": 100.0,
+   "private": 97.6,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 9
   },
   {
@@ -5041,6 +5086,11 @@
    "calibration": 98.3,
    "hard": 100.0,
    "openrouter_id": "qwen/qwen3.8-27b",
+   "hf_id": "Qwen/Qwen3.8-27B",
+   "public": 100.0,
+   "private": 97.6,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 10
   },
   {
@@ -5055,6 +5105,11 @@
    "calibration": 98.4,
    "hard": 100.0,
    "openrouter_id": "poolside/laguna-xs-2.1",
+   "hf_id": "poolside/Laguna-XS-2.1",
+   "public": 100.0,
+   "private": 96.4,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 11
   },
   {
@@ -5069,6 +5124,11 @@
    "calibration": 97.3,
    "hard": 100.0,
    "openrouter_id": "qwen/qwen3.5-9b",
+   "hf_id": "Qwen/Qwen3.5-9B",
+   "public": 100.0,
+   "private": 96.4,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 12
   },
   {
@@ -5083,6 +5143,11 @@
    "calibration": 97.0,
    "hard": 94.7,
    "openrouter_id": "prism-ml/ternary-bonsai-2-27b",
+   "hf_id": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "public": 96.4,
+   "private": 97.6,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 13
   },
   {
@@ -5097,6 +5162,11 @@
    "calibration": 97.6,
    "hard": 97.4,
    "openrouter_id": "qwen/qwen3-32b",
+   "hf_id": "Qwen/Qwen3-32B",
+   "public": 100.0,
+   "private": 95.2,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 14
   },
   {
@@ -5111,6 +5181,11 @@
    "calibration": 96.6,
    "hard": 92.1,
    "openrouter_id": "inclusionai/ling-3.0-flash-vl",
+   "hf_id": "inclusionAI/Ling-3.0-flash-VL",
+   "public": 100.0,
+   "private": 95.2,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 15
   },
   {
@@ -5125,6 +5200,11 @@
    "calibration": 95.8,
    "hard": 97.4,
    "openrouter_id": "qwen/qwen3-vl-30b-a3b-thinking",
+   "hf_id": "Qwen/Qwen3-VL-30B-A3B-Thinking",
+   "public": 96.4,
+   "private": 96.4,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 16
   },
   {
@@ -5139,6 +5219,11 @@
    "calibration": 96.1,
    "hard": 94.7,
    "openrouter_id": "upstage/solar-decide",
+   "hf_id": null,
+   "public": 92.9,
+   "private": 96.4,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 17
   },
   {
@@ -5153,6 +5238,11 @@
    "calibration": 95.5,
    "hard": 97.4,
    "openrouter_id": "qwen/qwen3-30b-a3b",
+   "hf_id": "Qwen/Qwen3-30B-A3B",
+   "public": 100.0,
+   "private": 94.0,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 18
   },
   {
@@ -5167,6 +5257,11 @@
    "calibration": 95.3,
    "hard": 94.7,
    "openrouter_id": "qwen/qwen3-14b",
+   "hf_id": "Qwen/Qwen3-14B",
+   "public": 100.0,
+   "private": 92.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 19
   },
   {
@@ -5181,6 +5276,11 @@
    "calibration": 95.2,
    "hard": 94.7,
    "openrouter_id": "nex-agi/nex-n2.5-mini",
+   "hf_id": "nex-agi/Nex-N2.5-mini",
+   "public": 100.0,
+   "private": 92.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 20
   },
   {
@@ -5195,6 +5295,11 @@
    "calibration": 94.6,
    "hard": 97.4,
    "openrouter_id": "openai/gpt-oss-20b",
+   "hf_id": "openai/gpt-oss-20b",
+   "public": 100.0,
+   "private": 92.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 21
   },
   {
@@ -5209,6 +5314,11 @@
    "calibration": 95.4,
    "hard": 94.7,
    "openrouter_id": "z-ai/glm-4.6v",
+   "hf_id": "zai-org/GLM-4.6V",
+   "public": 96.4,
+   "private": 92.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 22
   },
   {
@@ -5223,6 +5333,11 @@
    "calibration": 95.1,
    "hard": 89.5,
    "openrouter_id": "inception/mercury-decide",
+   "hf_id": null,
+   "public": 96.4,
+   "private": 92.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 23
   },
   {
@@ -5237,6 +5352,11 @@
    "calibration": 94.8,
    "hard": 97.4,
    "openrouter_id": "nvidia/nemotron-3-super-120b-a12b",
+   "hf_id": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8",
+   "public": 100.0,
+   "private": 91.7,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 24
   },
   {
@@ -5251,6 +5371,11 @@
    "calibration": 93.7,
    "hard": 100.0,
    "openrouter_id": "nvidia/nemotron-3-nano-30b-a3b",
+   "hf_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16",
+   "public": 96.4,
+   "private": 92.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 25
   },
   {
@@ -5265,6 +5390,11 @@
    "calibration": 92.9,
    "hard": 81.6,
    "openrouter_id": "google/gemma-4-31b-it",
+   "hf_id": "google/gemma-4-31B-it",
+   "public": 96.4,
+   "private": 91.7,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 26
   },
   {
@@ -5279,6 +5409,11 @@
    "calibration": 92.6,
    "hard": 97.4,
    "openrouter_id": "ibm-granite/granite-4.2-8b",
+   "hf_id": "ibm-granite/granite-4.2-8b",
+   "public": 96.4,
+   "private": 91.7,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 27
   },
   {
@@ -5293,6 +5428,11 @@
    "calibration": 93.5,
    "hard": 78.9,
    "openrouter_id": "typesafe/jev-1.13",
+   "hf_id": null,
+   "public": 89.3,
+   "private": 92.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 28
   },
   {
@@ -5307,6 +5447,11 @@
    "calibration": 92.9,
    "hard": 84.2,
    "openrouter_id": "nace-ai/drex-v1.5",
+   "hf_id": "nace-ai/drex-v1.5",
+   "public": 92.9,
+   "private": 91.7,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 29
   },
   {
@@ -5321,6 +5466,11 @@
    "calibration": 91.7,
    "hard": 78.9,
    "openrouter_id": "mistralai/devstral-2512",
+   "hf_id": "mistralai/Devstral-2-123B-Instruct-2512",
+   "public": 85.7,
+   "private": 94.0,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 30
   },
   {
@@ -5335,6 +5485,11 @@
    "calibration": 91.3,
    "hard": 78.9,
    "openrouter_id": "google/gemma-4-26b-a4b-it",
+   "hf_id": "google/gemma-4-26B-A4B-it",
+   "public": 89.3,
+   "private": 92.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 31
   },
   {
@@ -5349,6 +5504,11 @@
    "calibration": 93.6,
    "hard": 84.2,
    "openrouter_id": "perplexity/pplx-decider-v1.1-27b",
+   "hf_id": null,
+   "public": 96.4,
+   "private": 89.3,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 32
   },
   {
@@ -5363,6 +5523,11 @@
    "calibration": 91.9,
    "hard": 89.5,
    "openrouter_id": "z-ai/glm-4.5-air",
+   "hf_id": "zai-org/GLM-4.5-Air",
+   "public": 97.6,
+   "private": 88.1,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 33
   },
   {
@@ -5377,6 +5542,11 @@
    "calibration": 92.1,
    "hard": 86.8,
    "openrouter_id": "microsoft/microsoft-decision-1",
+   "hf_id": null,
+   "public": 96.4,
+   "private": 88.1,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 34
   },
   {
@@ -5391,6 +5561,11 @@
    "calibration": 94.5,
    "hard": 78.9,
    "openrouter_id": "openai/gpt-6-luna-decisions",
+   "hf_id": null,
+   "public": 89.3,
+   "private": 89.3,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 35
   },
   {
@@ -5405,6 +5580,11 @@
    "calibration": 89.4,
    "hard": 81.6,
    "openrouter_id": "qwen/qwen2.5-vl-72b-instruct",
+   "hf_id": "Qwen/Qwen2.5-VL-72B-Instruct",
+   "public": 89.3,
+   "private": 89.3,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 36
   },
   {
@@ -5419,6 +5599,11 @@
    "calibration": 90.7,
    "hard": 78.9,
    "openrouter_id": "google/gemma-3-27b-it",
+   "hf_id": "google/gemma-3-27b-it",
+   "public": 92.9,
+   "private": 86.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 37
   },
   {
@@ -5433,6 +5618,11 @@
    "calibration": 89.3,
    "hard": 81.6,
    "openrouter_id": "qwen/qwen-2.5-72b-instruct",
+   "hf_id": "Qwen/Qwen2.5-72B-Instruct",
+   "public": 89.3,
+   "private": 88.1,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 38
   },
   {
@@ -5447,6 +5637,11 @@
    "calibration": 91.2,
    "hard": 76.3,
    "openrouter_id": "cloudflare/clef",
+   "hf_id": "Cloudflare/clef",
+   "public": 92.9,
+   "private": 85.7,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 39
   },
   {
@@ -5461,6 +5656,11 @@
    "calibration": 88.7,
    "hard": 68.4,
    "openrouter_id": "cohere/command-a",
+   "hf_id": "CohereForAI/c4ai-command-a-03-2025",
+   "public": 89.3,
+   "private": 86.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 40
   },
   {
@@ -5475,6 +5675,11 @@
    "calibration": 90.7,
    "hard": 73.7,
    "openrouter_id": "liquid/d1",
+   "hf_id": null,
+   "public": 92.9,
+   "private": 84.5,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 41
   },
   {
@@ -5489,6 +5694,11 @@
    "calibration": 90.0,
    "hard": 73.7,
    "openrouter_id": "upstage/solar-decide-flash",
+   "hf_id": null,
+   "public": 82.1,
+   "private": 86.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 42
   },
   {
@@ -5503,6 +5713,11 @@
    "calibration": 86.2,
    "hard": 68.4,
    "openrouter_id": "meta-llama/llama-3.3-70b-instruct",
+   "hf_id": "meta-llama/Llama-3.3-70B-Instruct",
+   "public": 89.3,
+   "private": 84.5,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 43
   },
   {
@@ -5517,6 +5732,11 @@
    "calibration": 86.0,
    "hard": 68.4,
    "openrouter_id": "mistralai/ministral-14b-2512",
+   "hf_id": "mistralai/Ministral-3-14B-Instruct-2512",
+   "public": 82.1,
+   "private": 86.9,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 44
   },
   {
@@ -5531,6 +5751,11 @@
    "calibration": 88.2,
    "hard": 73.7,
    "openrouter_id": "togethercomputer/tev1-4b-experimental",
+   "hf_id": "togethercomputer/Tev1-4B-experimental",
+   "public": 89.3,
+   "private": 83.3,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 45
   },
   {
@@ -5545,6 +5770,11 @@
    "calibration": 88.1,
    "hard": 68.4,
    "openrouter_id": "cloudflare/clef-flash",
+   "hf_id": "Cloudflare/clef-flash",
+   "public": 82.1,
+   "private": 85.7,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 46
   },
   {
@@ -5559,6 +5789,11 @@
    "calibration": 86.9,
    "hard": 68.4,
    "openrouter_id": "mistralai/mistral-small-24b-instruct-2501",
+   "hf_id": "mistralai/Mistral-Small-24B-Instruct-2501",
+   "public": 85.7,
+   "private": 84.5,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 47
   },
   {
@@ -5573,6 +5808,11 @@
    "calibration": 86.7,
    "hard": 84.2,
    "openrouter_id": "z-ai/glm-4.7-flash",
+   "hf_id": "zai-org/GLM-4.7-Flash",
+   "public": 92.9,
+   "private": 82.1,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 48
   },
   {
@@ -5587,6 +5827,11 @@
    "calibration": 87.2,
    "hard": 68.4,
    "openrouter_id": "jaredpalmer/kev-4b",
+   "hf_id": "jaredpalmer/kev-4b",
+   "public": 89.3,
+   "private": 82.1,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 49
   },
   {
@@ -5601,6 +5846,11 @@
    "calibration": 86.4,
    "hard": 71.1,
    "openrouter_id": "meta-llama/llama-3.1-70b-instruct",
+   "hf_id": "meta-llama/Meta-Llama-3.1-70B-Instruct",
+   "public": 82.1,
+   "private": 84.5,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 50
   },
   {
@@ -5615,6 +5865,11 @@
    "calibration": 85.6,
    "hard": 68.4,
    "openrouter_id": "qwen/qwen3-30b-a3b-instruct-2507",
+   "hf_id": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+   "public": 85.7,
+   "private": 83.3,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 51
   },
   {
@@ -5629,6 +5884,11 @@
    "calibration": 85.0,
    "hard": 73.7,
    "openrouter_id": "mistralai/ministral-8b-2512",
+   "hf_id": "mistralai/Ministral-3-8B-Instruct-2512",
+   "public": 89.3,
+   "private": 82.1,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 52
   },
   {
@@ -5643,6 +5903,11 @@
    "calibration": 84.8,
    "hard": 65.8,
    "openrouter_id": "qwen/qwen3-next-80b-a3b-instruct",
+   "hf_id": "Qwen/Qwen3-Next-80B-A3B-Instruct",
+   "public": 82.1,
+   "private": 84.5,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 53
   },
   {
@@ -5657,6 +5922,11 @@
    "calibration": 87.1,
    "hard": 71.1,
    "openrouter_id": "google/gemma-3-12b-it",
+   "hf_id": "google/gemma-3-12b-it",
+   "public": 96.4,
+   "private": 78.6,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 54
   },
   {
@@ -5671,6 +5941,11 @@
    "calibration": 85.9,
    "hard": 68.4,
    "openrouter_id": "cloudflare/clef-omni",
+   "hf_id": "Cloudflare/clef-omni",
+   "public": 89.3,
+   "private": 81.0,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 55
   },
   {
@@ -5685,6 +5960,11 @@
    "calibration": 84.5,
    "hard": 60.5,
    "openrouter_id": "mistralai/mistral-small-3.2-24b-instruct",
+   "hf_id": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+   "public": 82.1,
+   "private": 83.3,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 56
   },
   {
@@ -5699,6 +5979,11 @@
    "calibration": 84.3,
    "hard": 73.7,
    "openrouter_id": "poolside/laguna-s-2.1",
+   "hf_id": "poolside/Laguna-S-2.1",
+   "public": 85.7,
+   "private": 82.1,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 57
   },
   {
@@ -5713,6 +5998,11 @@
    "calibration": 83.0,
    "hard": 68.4,
    "openrouter_id": "mistralai/mistral-small-2603",
+   "hf_id": "mistralai/Mistral-Small-4-119B-2603",
+   "public": 89.3,
+   "private": 79.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 58
   },
   {
@@ -5727,6 +6017,11 @@
    "calibration": 84.8,
    "hard": 63.2,
    "openrouter_id": "qwen/qwen3-coder-30b-a3b-instruct",
+   "hf_id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+   "public": 78.6,
+   "private": 82.1,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 59
   },
   {
@@ -5741,6 +6036,11 @@
    "calibration": 83.8,
    "hard": 71.1,
    "openrouter_id": "meta-llama/llama-4-scout",
+   "hf_id": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+   "public": 83.3,
+   "private": 79.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 60
   },
   {
@@ -5755,6 +6055,11 @@
    "calibration": 82.9,
    "hard": 68.4,
    "openrouter_id": "nvidia/nemotron-3.5-lightning",
+   "hf_id": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+   "public": 89.3,
+   "private": 77.4,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 61
   },
   {
@@ -5769,6 +6074,11 @@
    "calibration": 82.5,
    "hard": 60.5,
    "openrouter_id": "qwen/qwen3-coder-next",
+   "hf_id": "Qwen/Qwen3-Coder-Next",
+   "public": 82.1,
+   "private": 79.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 62
   },
   {
@@ -5783,6 +6093,11 @@
    "calibration": 82.8,
    "hard": 71.1,
    "openrouter_id": "google/gemma-2-27b-it",
+   "hf_id": "google/gemma-2-27b-it",
+   "public": 85.7,
+   "private": 77.4,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 63
   },
   {
@@ -5797,6 +6112,11 @@
    "calibration": 81.2,
    "hard": 63.2,
    "openrouter_id": "qwen/qwen3-vl-8b-instruct",
+   "hf_id": "Qwen/Qwen3-VL-8B-Instruct",
+   "public": 82.1,
+   "private": 77.4,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 64
   },
   {
@@ -5811,6 +6131,11 @@
    "calibration": 82.9,
    "hard": 71.1,
    "openrouter_id": "mistralai/mistral-nemo",
+   "hf_id": "mistralai/Mistral-Nemo-Instruct-2407",
+   "public": 79.8,
+   "private": 77.4,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 65
   },
   {
@@ -5825,6 +6150,11 @@
    "calibration": 77.8,
    "hard": 52.6,
    "openrouter_id": "microsoft/phi-4",
+   "hf_id": "microsoft/phi-4",
+   "public": 78.6,
+   "private": 73.8,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 66
   },
   {
@@ -5839,6 +6169,11 @@
    "calibration": 76.2,
    "hard": 42.1,
    "openrouter_id": "qwen/qwen3-vl-30b-a3b-instruct",
+   "hf_id": "Qwen/Qwen3-VL-30B-A3B-Instruct",
+   "public": 71.4,
+   "private": 76.2,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 67
   },
   {
@@ -5853,6 +6188,11 @@
    "calibration": 74.2,
    "hard": 60.5,
    "openrouter_id": "tencent/hunyuan-a13b-instruct",
+   "hf_id": "tencent/Hunyuan-A13B-Instruct",
+   "public": 65.5,
+   "private": 76.2,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 68
   },
   {
@@ -5867,6 +6207,11 @@
    "calibration": 74.9,
    "hard": 52.6,
    "openrouter_id": "mistralai/ministral-3b-2512",
+   "hf_id": "mistralai/Ministral-3-3B-Instruct-2512",
+   "public": 69.0,
+   "private": 72.6,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 69
   },
   {
@@ -5881,6 +6226,11 @@
    "calibration": 75.9,
    "hard": 63.2,
    "openrouter_id": "qwen/qwen-2.5-7b-instruct",
+   "hf_id": "Qwen/Qwen2.5-7B-Instruct",
+   "public": 75.0,
+   "private": 70.2,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 70
   },
   {
@@ -5895,6 +6245,11 @@
    "calibration": 70.9,
    "hard": 52.6,
    "openrouter_id": "meta-llama/llama-3.1-8b-instruct",
+   "hf_id": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+   "public": 72.6,
+   "private": 66.7,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 71
   },
   {
@@ -5909,6 +6264,11 @@
    "calibration": 73.0,
    "hard": 60.5,
    "openrouter_id": "google/gemma-3-4b-it",
+   "hf_id": "google/gemma-3-4b-it",
+   "public": 64.3,
+   "private": 69.0,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 72
   },
   {
@@ -5923,6 +6283,11 @@
    "calibration": 61.4,
    "hard": 55.3,
    "openrouter_id": null,
+   "hf_id": "allura-forge/Llama-3.3-8B-Instruct",
+   "public": 72.6,
+   "private": 54.8,
+   "tested_on": "mac",
+   "added": "2026-10-11",
    "rank": 73
   },
   {
@@ -5937,6 +6302,11 @@
    "calibration": 69.7,
    "hard": 55.3,
    "openrouter_id": null,
+   "hf_id": "Contrastive-LM/CLM-v0.1-8B",
+   "public": 69.0,
+   "private": 52.4,
+   "tested_on": "mac",
+   "added": "2026-10-11",
    "rank": 74
   },
   {
@@ -5951,6 +6321,11 @@
    "calibration": 54.3,
    "hard": 42.1,
    "openrouter_id": "meta-llama/llama-3.2-3b-instruct",
+   "hf_id": "meta-llama/Llama-3.2-3B-Instruct",
+   "public": 41.7,
+   "private": 45.2,
+   "tested_on": "openrouter",
+   "added": "2026-10-10",
    "rank": 75
   },
   {
@@ -5965,6 +6340,11 @@
    "calibration": 41.0,
    "hard": 57.9,
    "openrouter_id": "qwen/qwen3-next-80b-a3b-thinking",
+   "hf_id": "Qwen/Qwen3-Next-80B-A3B-Thinking",
+   "public": 57.1,
+   "private": 35.7,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 76
   },
   {
@@ -5979,6 +6359,11 @@
    "calibration": 14.0,
    "hard": 7.9,
    "openrouter_id": "rekaai/reka-edge",
+   "hf_id": "RekaAI/reka-edge-2603",
+   "public": 3.6,
+   "private": 10.7,
+   "tested_on": "openrouter",
+   "added": "2026-10-11",
    "rank": 77
   }
  ],
