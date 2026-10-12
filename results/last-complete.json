@@ -43,7 +43,11 @@
   },
   "providers": [
    "Cohere"
-  ]
+  ],
+  "cost": {
+   "tasks": 4.66,
+   "decisions": 1.52
+  }
  },
  "devstral-2512": {
   "slug": "devstral-2512",
@@ -89,7 +93,11 @@
   },
   "providers": [
    "Mistral"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.75,
+   "decisions": 0.26
+  }
  },
  "gemma-2-27b-it": {
   "slug": "gemma-2-27b-it",
@@ -135,7 +143,11 @@
   },
   "providers": [
    "NextBit"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "gemma-3-12b-it": {
   "slug": "gemma-3-12b-it",
@@ -181,7 +193,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "gemma-3-27b-it": {
   "slug": "gemma-3-27b-it",
@@ -231,7 +247,11 @@
    "Nebius",
    "DeepInfra",
    "Novita"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "gemma-3-4b-it": {
   "slug": "gemma-3-4b-it",
@@ -277,7 +297,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "gemma-3-4b-q4-mac": {
   "slug": "gemma-3-4b-q4-mac",
@@ -321,7 +345,8 @@
   },
   "providers": [
    "ollama/Q4_K_M"
-  ]
+  ],
+  "cost": null
  },
  "gemma-4-26b-a4b-it": {
   "slug": "gemma-4-26b-a4b-it",
@@ -375,7 +400,11 @@
    "SiliconFlow",
    "Parasail",
    "Venice"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "gemma-4-31b-it": {
   "slug": "gemma-4-31b-it",
@@ -425,7 +454,11 @@
    "SiliconFlow",
    "Novita",
    "Crusoe"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "glm-4-5-air": {
   "slug": "glm-4-5-air",
@@ -473,7 +506,11 @@
    "Novita",
    "SiliconFlow",
    "Z.AI"
-  ]
+  ],
+  "cost": {
+   "tasks": 7.1,
+   "decisions": 0.96
+  }
  },
  "glm-4-5v": {
   "slug": "glm-4-5v",
@@ -520,7 +557,11 @@
   "providers": [
    "Z.AI",
    "Novita"
-  ]
+  ],
+  "cost": {
+   "tasks": 4.59,
+   "decisions": 1.38
+  }
  },
  "glm-4-6v": {
   "slug": "glm-4-6v",
@@ -567,7 +608,11 @@
   "providers": [
    "Novita",
    "Z.AI"
-  ]
+  ],
+  "cost": {
+   "tasks": 4.6,
+   "decisions": 0.55
+  }
  },
  "glm-4-7-flash": {
   "slug": "glm-4-7-flash",
@@ -614,7 +659,11 @@
   "providers": [
    "Novita",
    "Venice"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "gpt-oss-120b": {
   "slug": "gpt-oss-120b",
@@ -664,7 +713,11 @@
    "DeepInfra",
    "Crusoe",
    "Mancer 2"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.31,
+   "decisions": 0.09
+  }
  },
  "gpt-oss-20b": {
   "slug": "gpt-oss-20b",
@@ -713,7 +766,11 @@
    "DekaLLM",
    "DeepInfra",
    "SiliconFlow"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "granite-4-0-h-micro-mac": {
   "slug": "granite-4-0-h-micro-mac",
@@ -757,7 +814,8 @@
   },
   "providers": [
    "ollama/Q4_K_M"
-  ]
+  ],
+  "cost": null
  },
  "granite-4-2-8b": {
   "slug": "granite-4-2-8b",
@@ -804,7 +862,11 @@
   "providers": [
    "DeepInfra",
    "CoreWeave"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "hunyuan-a13b-instruct": {
   "slug": "hunyuan-a13b-instruct",
@@ -850,7 +912,11 @@
   },
   "providers": [
    "SiliconFlow"
-  ]
+  ],
+  "cost": {
+   "tasks": 2.97,
+   "decisions": 0.26
+  }
  },
  "laguna-s-2-1": {
   "slug": "laguna-s-2-1",
@@ -896,7 +962,11 @@
   },
   "providers": [
    "Poolside"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.29,
+   "decisions": 0.04
+  }
  },
  "laguna-xs-2-1": {
   "slug": "laguna-xs-2-1",
@@ -942,7 +1012,11 @@
   },
   "providers": [
    "Poolside"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.89,
+   "decisions": 0.09
+  }
  },
  "ling-3-0-flash": {
   "slug": "ling-3-0-flash",
@@ -988,7 +1062,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.72,
+   "decisions": 0.08
+  }
  },
  "ling-3-0-flash-vl": {
   "slug": "ling-3-0-flash-vl",
@@ -1034,7 +1112,11 @@
   },
   "providers": [
    "Novita"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.23,
+   "decisions": 0.02
+  }
  },
  "llama-3-1-70b-instruct": {
   "slug": "llama-3-1-70b-instruct",
@@ -1080,7 +1162,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.26,
+   "decisions": 0.14
+  }
  },
  "llama-3-1-8b-instruct": {
   "slug": "llama-3-1-8b-instruct",
@@ -1128,7 +1214,11 @@
    "CoreWeave",
    "DeepInfra",
    "Novita"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "llama-3-1-8b-q4-mac": {
   "slug": "llama-3-1-8b-q4-mac",
@@ -1172,7 +1262,8 @@
   },
   "providers": [
    "ollama/Q4_K_M"
-  ]
+  ],
+  "cost": null
  },
  "llama-3-2-1b-q4-mac": {
   "slug": "llama-3-2-1b-q4-mac",
@@ -1216,7 +1307,8 @@
   },
   "providers": [
    "ollama/Q4_K_M"
-  ]
+  ],
+  "cost": null
  },
  "llama-3-2-3b-instruct": {
   "slug": "llama-3-2-3b-instruct",
@@ -1262,7 +1354,11 @@
   },
   "providers": [
    "Parasail"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "llama-3-3-70b-instruct": {
   "slug": "llama-3-3-70b-instruct",
@@ -1309,7 +1405,11 @@
   "providers": [
    "AkashML",
    "CoreWeave"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.37,
+   "decisions": 0.17
+  }
  },
  "llama-3-3-8b-q4-mac": {
   "slug": "llama-3-3-8b-q4-mac",
@@ -1355,7 +1455,8 @@
   },
   "providers": [
    "ollama/Q4_K_M"
-  ]
+  ],
+  "cost": null
  },
  "llama-4-scout": {
   "slug": "llama-4-scout",
@@ -1401,7 +1502,11 @@
   },
   "providers": [
    "Novita"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.26,
+   "decisions": 0.1
+  }
  },
  "ministral-14b-2512": {
   "slug": "ministral-14b-2512",
@@ -1447,7 +1552,11 @@
   },
   "providers": [
    "Mistral"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "ministral-3b-2512": {
   "slug": "ministral-3b-2512",
@@ -1493,7 +1602,11 @@
   },
   "providers": [
    "Mistral"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "ministral-8b-2512": {
   "slug": "ministral-8b-2512",
@@ -1539,7 +1652,11 @@
   },
   "providers": [
    "Mistral"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "mistral-nemo": {
   "slug": "mistral-nemo",
@@ -1588,7 +1705,11 @@
    "DekaLLM",
    "DeepInfra",
    "Parasail"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "mistral-small-24b-instruct-2501": {
   "slug": "mistral-small-24b-instruct-2501",
@@ -1634,7 +1755,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "mistral-small-2603": {
   "slug": "mistral-small-2603",
@@ -1680,7 +1805,11 @@
   },
   "providers": [
    "Mistral"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.24,
+   "decisions": 0.08
+  }
  },
  "mistral-small-3-2-24b-instruct": {
   "slug": "mistral-small-3-2-24b-instruct",
@@ -1728,7 +1857,11 @@
    "Parasail",
    "DeepInfra",
    "Venice"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "muse-glimmer-30b": {
   "slug": "muse-glimmer-30b",
@@ -1774,7 +1907,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": 5.15,
+   "decisions": 1.33
+  }
  },
  "nemotron-3-5-lightning": {
   "slug": "nemotron-3-5-lightning",
@@ -1821,7 +1958,11 @@
   "providers": [
    "DeepInfra",
    "CoreWeave"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "nemotron-3-nano-30b-a3b": {
   "slug": "nemotron-3-nano-30b-a3b",
@@ -1867,7 +2008,11 @@
   },
   "providers": [
    "Nebius"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "nemotron-3-super-120b-a12b": {
   "slug": "nemotron-3-super-120b-a12b",
@@ -1913,7 +2058,11 @@
   },
   "providers": [
    "DekaLLM"
-  ]
+  ],
+  "cost": {
+   "tasks": 1.71,
+   "decisions": 0.23
+  }
  },
  "nex-n2-5-mini": {
   "slug": "nex-n2-5-mini",
@@ -1959,7 +2108,11 @@
   },
   "providers": [
    "Nex AGI"
-  ]
+  ],
+  "cost": {
+   "tasks": 1.7,
+   "decisions": 0.03
+  }
  },
  "phi-4": {
   "slug": "phi-4",
@@ -2005,7 +2158,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen-2-5-72b-instruct": {
   "slug": "qwen-2-5-72b-instruct",
@@ -2051,7 +2208,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.25,
+   "decisions": 0.13
+  }
  },
  "qwen-2-5-7b-instruct": {
   "slug": "qwen-2-5-7b-instruct",
@@ -2097,7 +2258,11 @@
   },
   "providers": [
    "Phala"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen-2-5-7b-q4-mac": {
   "slug": "qwen-2-5-7b-q4-mac",
@@ -2141,7 +2306,8 @@
   },
   "providers": [
    "ollama/Q4_K_M"
-  ]
+  ],
+  "cost": null
  },
  "qwen2-5-vl-72b-instruct": {
   "slug": "qwen2-5-vl-72b-instruct",
@@ -2187,7 +2353,11 @@
   },
   "providers": [
    "Parasail"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.45,
+   "decisions": 0.28
+  }
  },
  "qwen3-14b": {
   "slug": "qwen3-14b",
@@ -2233,7 +2403,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-30b-a3b": {
   "slug": "qwen3-30b-a3b",
@@ -2279,7 +2453,11 @@
   },
   "providers": [
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-30b-a3b-instruct-2507": {
   "slug": "qwen3-30b-a3b-instruct-2507",
@@ -2326,7 +2504,11 @@
   "providers": [
    "SiliconFlow",
    "Nebius"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-32b": {
   "slug": "qwen3-32b",
@@ -2374,7 +2556,11 @@
    "SiliconFlow",
    "DeepInfra",
    "Tenstorrent"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-5-122b-a10b": {
   "slug": "qwen3-5-122b-a10b",
@@ -2422,7 +2608,11 @@
    "AtlasCloud",
    "SiliconFlow",
    "Novita"
-  ]
+  ],
+  "cost": {
+   "tasks": 16.36,
+   "decisions": 6.0
+  }
  },
  "qwen3-5-27b": {
   "slug": "qwen3-5-27b",
@@ -2471,7 +2661,11 @@
    "AtlasCloud",
    "Novita",
    "SiliconFlow"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-5-35b-a3b": {
   "slug": "qwen3-5-35b-a3b",
@@ -2520,7 +2714,11 @@
    "Parasail",
    "AtlasCloud",
    "SiliconFlow"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-5-9b": {
   "slug": "qwen3-5-9b",
@@ -2569,7 +2767,11 @@
    "Parasail",
    "Venice",
    "DeepInfra"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-6-27b": {
   "slug": "qwen3-6-27b",
@@ -2618,7 +2820,11 @@
    "SiliconFlow",
    "DeepInfra",
    "Venice"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-6-35b-a3b": {
   "slug": "qwen3-6-35b-a3b",
@@ -2669,7 +2875,11 @@
    "SiliconFlow",
    "CoreWeave",
    "AtlasCloud"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-8-27b": {
   "slug": "qwen3-8-27b",
@@ -2724,7 +2934,11 @@
    "AkashML",
    "Venice",
    "CoreWeave"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-coder-30b-a3b-instruct": {
   "slug": "qwen3-coder-30b-a3b-instruct",
@@ -2770,7 +2984,11 @@
   },
   "providers": [
    "SiliconFlow"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-coder-next": {
   "slug": "qwen3-coder-next",
@@ -2816,7 +3034,11 @@
   },
   "providers": [
    "Parasail"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.43,
+   "decisions": 0.09
+  }
  },
  "qwen3-next-80b-a3b-instruct": {
   "slug": "qwen3-next-80b-a3b-instruct",
@@ -2862,7 +3084,11 @@
   },
   "providers": [
    "Parasail"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.46,
+   "decisions": 0.12
+  }
  },
  "qwen3-next-80b-a3b-thinking": {
   "slug": "qwen3-next-80b-a3b-thinking",
@@ -2908,7 +3134,11 @@
   },
   "providers": [
    "Google"
-  ]
+  ],
+  "cost": {
+   "tasks": 28.19,
+   "decisions": 13.04
+  }
  },
  "qwen3-vl-30b-a3b-instruct": {
   "slug": "qwen3-vl-30b-a3b-instruct",
@@ -2956,7 +3186,11 @@
    "Novita",
    "DeepInfra",
    "SiliconFlow"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-vl-30b-a3b-thinking": {
   "slug": "qwen3-vl-30b-a3b-thinking",
@@ -3002,7 +3236,11 @@
   },
   "providers": [
    "SiliconFlow"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "qwen3-vl-8b-instruct": {
   "slug": "qwen3-vl-8b-instruct",
@@ -3048,7 +3286,11 @@
   },
   "providers": [
    "Parasail"
-  ]
+  ],
+  "cost": {
+   "tasks": null,
+   "decisions": null
+  }
  },
  "reka-edge": {
   "slug": "reka-edge",
@@ -3094,6 +3336,10 @@
   },
   "providers": [
    "Reka"
-  ]
+  ],
+  "cost": {
+   "tasks": 0.05,
+   "decisions": 0.03
+  }
  }
 }
