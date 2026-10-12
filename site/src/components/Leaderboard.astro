@@ -1,5 +1,5 @@
 ---
-import { data, ranked, size, minTiers, suiteLabel, quantLabel, whole, tiers } from "../lib/data";
+import { data, ranked, size, minTiers, suiteLabel, quantLabel, whole, tiers, fmtCost } from "../lib/data";
 
 interface Props { by: string }
 const { by } = Astro.props;
@@ -10,7 +10,7 @@ const maxGb = (kind: string) => Math.max(...tiers.filter((t) => t.kind === kind)
 const showHard = by === "overall" && rows.some((m) => m.hard != null);
 ---
 <div class="table-box" style="font-family: var(--sans)">
-  <table style="min-width: 760px">
+  <table style="min-width: 860px">
     <thead>
       <tr>
         <th class="num">#</th>
@@ -18,6 +18,7 @@ const showHard = by === "overall" && rows.some((m) => m.hard != null);
         {by === "overall" && <th class="num">Score</th>}
         {suiteCols.map((s) => <th class="num">{suiteLabel(s.id).short}</th>)}
         {showHard && <th class="num">Hard tasks</th>}
+        {by === "overall" && <th class="num" title="What it costs to run 1,000 of our tasks through an API (OpenRouter prices)">API cost / 1k tasks</th>}
         <th>Runs on (PC)</th>
         <th>Runs on (Mac)</th>
       </tr>
@@ -40,6 +41,7 @@ const showHard = by === "overall" && rows.some((m) => m.hard != null);
             )}
             {suiteCols.map((s) => <td class="num">{whole(m.suites[s.id]?.score)}</td>)}
             {showHard && <td class="num">{m.hard == null ? <span class="sub">–</span> : whole(m.hard)}</td>}
+            {by === "overall" && <td class="num">{m.cost?.tasks == null ? <span class="sub">–</span> : fmtCost(m.cost.tasks)}</td>}
             <td style="white-space: nowrap">{t.gpu ? `${t.gpu.gb} GB card (${quantLabel(m.memory!.best_quant_by_tier[t.gpu.id])})` : <span class="sub">more than {maxGb("gpu")} GB</span>}</td>
             <td style="white-space: nowrap">{t.mac ? `${t.mac.gb} GB Mac (${quantLabel(m.memory!.best_quant_by_tier[t.mac.id])})` : <span class="sub">more than {maxGb("mac")} GB</span>}</td>
           </tr>
@@ -49,6 +51,7 @@ const showHard = by === "overall" && rows.some((m) => m.hard != null);
   </table>
 </div>
 <p class="sub" style="font-size: 14px">
-  Scores are out of 100. "Runs on" is the smallest graphics card or Mac that can hold the model, and which version to download for it.
+  Scores are out of 100. "API cost" is what 1,000 of our coding and document tasks cost through OpenRouter, if you'd rather not run the model yourself; on your own computer it's free.
+  "Runs on" is the smallest graphics card or Mac that can hold the model, and which version to download for it.
   <a href="/best-local-llms/methodology/#memory" style="color: var(--blue)">How we worked this out</a>
 </p>

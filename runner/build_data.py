@@ -6,7 +6,7 @@ import os
 import shutil
 from collections import Counter
 
-from . import memory
+from . import costs, memory
 from .common import (CANARY, OUTPUTS_DIR, RANKED_SUITES, RESULTS, SITE_DATA, SUITES, load_models, load_questions,
                      load_scores, model_suites, today, write_json)
 
@@ -17,7 +17,13 @@ def _mean(xs):
     return sum(xs) / len(xs) if xs else None
 
 
+_SAMPLED_COSTS: dict | None = None
+
+
 def model_summary(model: dict, by_suite: dict) -> dict:
+    global _SAMPLED_COSTS
+    if _SAMPLED_COSTS is None:
+        _SAMPLED_COSTS = costs._load()
     items = load_scores(model["slug"])["items"]
     suites, providers, complete = {}, Counter(), True
     for suite, qs in by_suite.items():
@@ -59,6 +65,9 @@ def model_summary(model: dict, by_suite: dict) -> dict:
         "suites": suites,
         "providers": [p for p, _ in providers.most_common()],
         "memory": memory.estimate(model),
+        # API cost per 1,000 tasks at OpenRouter prices; local (Mac) runs have none.
+        "cost": None if model.get("status") == "local" else costs.per_1k(
+            model, [q for qs in by_suite.values() for q in qs if not q.private], _SAMPLED_COSTS),
     }
 
 
@@ -75,7 +84,8 @@ def decision_board(doc: dict, by_suite: dict, summaries: list[dict]) -> list[dic
                      "open_weights": bool(s.get("hf_id")), "license": s.get("license"),
                      "accuracy": d["score"], "calibration": d.get("calibration"), "hard": d.get("hard"), "openrouter_id": s.get("openrouter_id"),
                      "hf_id": s.get("hf_id"), "public": d.get("public"), "private": d.get("private"),
-                     "tested_on": "mac" if s.get("status") == "local" else "openrouter", "added": s.get("added")})
+                     "tested_on": "mac" if s.get("status") == "local" else "openrouter", "added": s.get("added"),
+                     "cost_per_1k": (s.get("cost") or {}).get("decisions")})
     rows.sort(key=lambda r: (-r["accuracy"], -(r["calibration"] or 0)))
     for i, r in enumerate(rows, 1):
         r["rank"] = i

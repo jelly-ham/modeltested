@@ -26,13 +26,15 @@ export type Model = {
   rank: number;
   suites: Record<string, SuiteScore>;
   providers: string[];
+  /** API cost in dollars per 1,000 tasks at OpenRouter prices; null when not measured or run locally. */
+  cost?: { tasks: number | null; decisions: number | null } | null;
   memory: { context: number; kv_cache_gb: number; need_gb: Record<string, number>; best_quant_by_tier: Record<string, string | null> } | null;
 };
 export type DecisionRow = {
   slug: string; name: string; org: string | null; kind: "decision" | "local" | "reference";
   params_b: number | null; accuracy: number; calibration: number | null; hard?: number | null; rank: number; openrouter_id: string;
   open_weights?: boolean; license?: string | null; hf_id?: string | null; public?: number | null; private?: number | null;
-  tested_on?: "openrouter" | "mac"; added?: string | null;
+  tested_on?: "openrouter" | "mac"; added?: string | null; cost_per_1k?: number | null;
 };
 /** A quantized download (run on our Mac) next to the same model at full precision. */
 export type QuantRun = {
@@ -125,6 +127,10 @@ export const quantLabel = (q: string | null | undefined) => (!q ? "" : /^Q\d/.te
 export function tierLabel(t: Tier): string {
   return t.kind === "gpu" ? `${t.gb} GB graphics card` : `Mac with ${t.gb} GB`;
 }
+
+/** Dollars per 1,000 tasks: "$0.31", "<$0.01", "$12". */
+export const fmtCost = (x: number | null | undefined) =>
+  x == null ? "–" : x < 0.01 ? "<$0.01" : x < 10 ? `$${x.toFixed(2)}` : `$${Math.round(x)}`;
 
 export const whole = (x: number | null | undefined) => (x == null ? "?" : String(Math.round(x)));
 
