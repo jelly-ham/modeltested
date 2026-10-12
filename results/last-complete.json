@@ -2008,7 +2008,7 @@
   },
   "cost": {
    "tasks": 0.13,
-   "decisions": null
+   "decisions": 0.05
   }
  },
  "muse-glimmer-30b": {
@@ -2170,8 +2170,8 @@
    "of": 54
   },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 1.02,
+   "decisions": 0.21
   }
  },
  "nemotron-3-super-120b-a12b": {
@@ -2332,8 +2332,8 @@
    "of": 54
   },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.08,
+   "decisions": 0.03
   }
  },
  "qwen-2-5-72b-instruct": {
@@ -2440,8 +2440,8 @@
    "of": 54
   },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.09,
+   "decisions": 0.04
   }
  },
  "qwen-2-5-7b-q4-mac": {
@@ -2597,8 +2597,8 @@
    "of": 54
   },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 1.36,
+   "decisions": 0.16
   }
  },
  "qwen3-30b-a3b": {
@@ -2651,8 +2651,8 @@
    "of": 54
   },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 2.94,
+   "decisions": 0.39
   }
  },
  "qwen3-30b-a3b-instruct-2507": {
@@ -2706,8 +2706,8 @@
    "of": 54
   },
   "cost": {
-   "tasks": null,
-   "decisions": null
+   "tasks": 0.15,
+   "decisions": 0.05
   }
  },
  "qwen3-32b": {
