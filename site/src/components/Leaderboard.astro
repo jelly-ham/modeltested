@@ -8,19 +8,19 @@ const rows = ranked(by);
 const suiteCols = by === "overall" ? data.suites.filter((s) => s.ranked !== false) : data.suites.filter((s) => s.id === by);
 const maxGb = (kind: string) => Math.max(...tiers.filter((t) => t.kind === kind).map((t) => t.gb));
 const showHard = by === "overall" && rows.some((m) => m.hard != null);
+const showCost = by === "overall";
 ---
-<div class="table-box" style="font-family: var(--sans)">
-  <table style="min-width: 860px">
+<div class="table-box lb-box" style="font-family: var(--sans)">
+  <table class="lb">
     <thead>
       <tr>
         <th class="num">#</th>
         <th>Model</th>
         {by === "overall" && <th class="num">Score</th>}
         {suiteCols.map((s) => <th class="num">{suiteLabel(s.id).short}</th>)}
-        {showHard && <th class="num">Hard tasks</th>}
-        {by === "overall" && <th class="num" title="What it costs to run 1,000 of our tasks through an API (OpenRouter prices)">API cost / 1k tasks</th>}
-        <th>Runs on (PC)</th>
-        <th>Runs on (Mac)</th>
+        {showHard && <th class="num" title="Our hardest tasks only">Hard</th>}
+        <th>Runs on</th>
+        {showCost && <th class="num" title="What 1,000 of our tasks cost through an API (OpenRouter prices)">API $/1k</th>}
       </tr>
     </thead>
     <tbody>
@@ -29,21 +29,22 @@ const showHard = by === "overall" && rows.some((m) => m.hard != null);
         const main = by === "overall" ? m.overall : m.suites[by]?.score ?? 0;
         return (
           <tr>
-            <td class="num" style="color: var(--faint)">{i + 1}</td>
-            <td><a href={`/models/${m.slug}/`} style="font-weight: 600">{m.name}</a>{m.updating && <span class="sub" style="font-size: 12px"> · updating</span>}<div class="sub" style="font-size: 13px">{size(m)}{m.ollama && <> · <code>{m.ollama}</code></>}</div></td>
+            <td class="num c-rank">{i + 1}</td>
+            <td class="c-model"><a href={`/models/${m.slug}/`}>{m.name}</a>{m.updating && <span class="sub" style="font-size: 12px"> · updating</span>}<div class="sub">{size(m)}</div></td>
             {by === "overall" && (
-              <td class="num">
-                <span style="display: inline-flex; align-items: center; gap: 10px; justify-content: flex-end">
-                  <b>{whole(main)}</b>
-                  <span class="track" style="width: 80px"><span style={`width: ${main}%`}></span></span>
-                </span>
+              <td class="num c-score">
+                <b>{whole(main)}</b>
+                <span class="track"><span style={`width: ${main}%`}></span></span>
               </td>
             )}
-            {suiteCols.map((s) => <td class="num">{whole(m.suites[s.id]?.score)}</td>)}
-            {showHard && <td class="num">{m.hard == null ? <span class="sub">–</span> : whole(m.hard)}</td>}
-            {by === "overall" && <td class="num">{m.cost?.tasks == null ? <span class="sub">–</span> : fmtCost(m.cost.tasks)}</td>}
-            <td style="white-space: nowrap">{t.gpu ? `${t.gpu.gb} GB card (${quantLabel(m.memory!.best_quant_by_tier[t.gpu.id])})` : <span class="sub">more than {maxGb("gpu")} GB</span>}</td>
-            <td style="white-space: nowrap">{t.mac ? `${t.mac.gb} GB Mac (${quantLabel(m.memory!.best_quant_by_tier[t.mac.id])})` : <span class="sub">more than {maxGb("mac")} GB</span>}</td>
+            <td class="c-break" aria-hidden="true"></td>
+            {suiteCols.map((s, j) => <td class={`num c-stat${j === 0 ? " c-first" : ""}`} data-label={s.id === "extract" ? "Docs" : suiteLabel(s.id).short}>{whole(m.suites[s.id]?.score)}</td>)}
+            {showHard && <td class="num c-stat" data-label="Hard">{m.hard == null ? "–" : whole(m.hard)}</td>}
+            <td class="c-runs">
+              <div>{t.gpu ? <>{t.gpu.gb} GB card · {quantLabel(m.memory!.best_quant_by_tier[t.gpu.id])}</> : <span class="sub">card: over {maxGb("gpu")} GB</span>}</div>
+              <div>{t.mac ? <>{t.mac.gb} GB Mac · {quantLabel(m.memory!.best_quant_by_tier[t.mac.id])}</> : <span class="sub">Mac: over {maxGb("mac")} GB</span>}</div>
+            </td>
+            {showCost && <td class="num c-stat c-cost" data-label="API">{fmtCost(m.cost?.tasks)}</td>}
           </tr>
         );
       })}
@@ -51,7 +52,42 @@ const showHard = by === "overall" && rows.some((m) => m.hard != null);
   </table>
 </div>
 <p class="sub" style="font-size: 14px">
-  Scores are out of 100. "API cost" is what 1,000 of our coding and document tasks cost through OpenRouter, if you'd rather not run the model yourself; on your own computer it's free.
-  "Runs on" is the smallest graphics card or Mac that can hold the model, and which version to download for it.
+  Scores are out of 100. "Runs on" is the smallest graphics card and Mac that can hold the model, with the version to download.
+  {showCost && <>"API $/1k" is what 1,000 of our coding and document tasks cost through OpenRouter, if you'd rather not run the model yourself; on your own computer it's free. </>}
   <a href="/best-local-llms/methodology/#memory" style="color: var(--blue)">How we worked this out</a>
 </p>
+
+<style>
+  .lb { font-size: 14.5px; }
+  .lb th, .lb td { padding: 10px 10px; }
+  .lb th:first-child, .lb td:first-child { padding-left: 14px; }
+  .lb th:last-child, .lb td:last-child { padding-right: 14px; }
+  .lb .c-rank { color: var(--faint); width: 1%; }
+  .lb .c-model a { font-weight: 600; }
+  .lb .c-model .sub { font-size: 12.5px; }
+  .lb .c-score { white-space: nowrap; }
+  .lb .c-score b { display: inline-block; min-width: 2ch; }
+  .lb .c-score .track { display: inline-block; width: 48px; margin-left: 8px; vertical-align: middle; }
+  .lb .c-runs { font-size: 13px; line-height: 1.45; white-space: nowrap; color: var(--text-2); }
+
+  .lb .c-break { display: none; }
+
+  /* Phones: one small block per model instead of a wide table. */
+  @media (max-width: 700px) {
+    .lb-box { border: none; overflow: visible; }
+    .lb thead { display: none; }
+    .lb, .lb tbody { display: block; }
+    .lb tr { display: flex; flex-wrap: wrap; align-items: baseline; padding: 12px 2px; border-top: 1px solid var(--line); }
+    .lb td { display: block; padding: 0 !important; border: none; text-align: left; }
+    .lb .c-rank { width: 2.2em; flex: none; }
+    .lb .c-model { flex: 1; min-width: 0; }
+    .lb .c-score { text-align: right; }
+    .lb .c-score .track { width: 36px; }
+    .lb .c-break { display: block; flex-basis: 100%; height: 6px; }
+    .lb .c-stat { font-size: 13px; color: var(--text-2); margin-right: 14px; }
+    .lb .c-stat.c-first { margin-left: 2.2em; }
+    .lb .c-stat::before { content: attr(data-label) " "; color: var(--faint); font-family: var(--sans); }
+    .lb .c-cost { order: 1; }
+    .lb .c-runs { order: 2; flex-basis: 100%; padding-left: 2.2em !important; margin-top: 4px; display: flex; flex-wrap: wrap; gap: 0 14px; }
+  }
+</style>
