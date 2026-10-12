@@ -23,12 +23,21 @@ def _load() -> dict:
     return json.loads(COSTS_FILE.read_text()) if COSTS_FILE.exists() else {}
 
 
-def per_1k(model: dict, public_qs: list, sampled: dict | None = None) -> dict:
-    """{"tasks": $ per 1,000 coding/document tasks, "decisions": $ per 1,000 decisions}; None when not fully measured."""
+def per_1k(model: dict, public_qs: list, sampled: dict | None = None, all_qs: list | None = None) -> dict:
+    """{"tasks": $ per 1,000 coding/document tasks, "decisions": $ per 1,000 decisions}; None when not fully measured.
+
+    Preferred: what OpenRouter actually billed for every question in the suite group (answers
+    since 2026-10-11 carry their cost). Fallback for older results: the public questions,
+    priced by `sample-cost`."""
     sampled = (sampled if sampled is not None else _load()).get(model["slug"], {})
     items = load_scores(model["slug"])["items"]
     out = {}
     for group, suites in GROUPS.items():
+        every = [items.get(q.key, {}) for q in (all_qs or []) if q.suite in suites and q.suite in model_suites(model)]
+        if every and all(it.get("h") == q.hash and it.get("cost") is not None
+                         for it, q in zip(every, [q for q in all_qs if q.suite in suites and q.suite in model_suites(model)])):
+            out[group] = round(1000 * sum(it["cost"] for it in every) / len(every), 2)
+            continue
         qs = [q for q in public_qs if q.suite in suites and q.suite in model_suites(model)]
         costs = []
         for q in qs:

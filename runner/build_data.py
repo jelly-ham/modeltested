@@ -72,7 +72,8 @@ def model_summary(model: dict, by_suite: dict) -> dict:
         "truncated": truncated,
         # API cost per 1,000 tasks at OpenRouter prices; local (Mac) runs have none.
         "cost": None if model.get("status") == "local" else costs.per_1k(
-            model, [q for qs in by_suite.values() for q in qs if not q.private], _SAMPLED_COSTS),
+            model, [q for qs in by_suite.values() for q in qs if not q.private], _SAMPLED_COSTS,
+            [q for qs in by_suite.values() for q in qs]),
     }
 
 
