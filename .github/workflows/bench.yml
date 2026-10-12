@@ -128,7 +128,20 @@ jobs:
           npm run build
 
       - name: Deploy to Cloudflare
+        id: deploy
         if: ${{ !cancelled() }}
+        # The Cloudflare API occasionally returns a one-off error; the next step retries once.
+        continue-on-error: true
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: site
+          wranglerVersion: "4.135.0"
+          command: deploy
+
+      - name: Retry deploy
+        if: ${{ !cancelled() && steps.deploy.outcome == 'failure' }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
