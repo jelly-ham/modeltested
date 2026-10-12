@@ -1,0 +1,10 @@
+{
+ "extract-hard-saas-escalator": {
+  "output": "",
+  "score": 0.0,
+  "detail": {
+   "error": "no JSON object",
+   "bare_json": false
+  }
+ }
+}

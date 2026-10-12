@@ -335,6 +335,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-churn-threat": {
+   "h": "d6335aa9dc79",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "DekaLLM",
+   "brier": 0.4,
+   "tok": 365,
+   "ptok": 181,
+   "cost": 0.0001787,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-code-review-auth": {
    "h": "23453bb85f69",
    "v": "priv",
@@ -346,6 +358,30 @@
    "cost": 0.0002006,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "decisions/decide-compliance-returns": {
+   "h": "0a4dcd13b9e5",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0019,
+   "tok": 417,
+   "ptok": 268,
+   "cost": 0.0002091,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-criticism-not-hate": {
+   "h": "0a90865e89ae",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0,
+   "tok": 364,
+   "ptok": 256,
+   "cost": 0.0001843,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-doc-bank-overdrawn": {
    "h": "8603b122a7d1",
@@ -382,6 +418,18 @@
    "cost": 0.0001436,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "decisions/decide-doc-resume": {
+   "h": "f02928ab84f6",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0025,
+   "tok": 409,
+   "ptok": 246,
+   "cost": 0.0002037,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-duplicate-ticket": {
    "h": "c9625a8d1dfd",
@@ -599,6 +647,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-hard-semver": {
+   "h": "4bce67599f05",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0,
+   "tok": 514,
+   "ptok": 261,
+   "cost": 0.0002522,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-hard-sla-timezones": {
    "h": "04ec9f2dab61",
    "v": "priv",
@@ -635,6 +695,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-incident-payments": {
+   "h": "2536c0ad4a10",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "DekaLLM",
+   "brier": 0.7775,
+   "tok": 475,
+   "ptok": 245,
+   "cost": 0.0002334,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-intent-upgrade": {
    "h": "d9a0553519c7",
    "v": "priv",
@@ -659,6 +731,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-loan-dti": {
+   "h": "7b196804131f",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0,
+   "tok": 400,
+   "ptok": 289,
+   "cost": 0.0002031,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-moderation-doxxing": {
    "h": "5301594c3843",
    "v": "publ",
@@ -671,6 +755,54 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-negated-billing": {
+   "h": "07fe2078d376",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "DekaLLM",
+   "brier": 2.0,
+   "tok": 306,
+   "ptok": 219,
+   "cost": 0.0001552,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-password-reset-no-rush": {
+   "h": "41b8d2f2f1b3",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0178,
+   "tok": 392,
+   "ptok": 272,
+   "cost": 0.0001982,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-legit-newsletter": {
+   "h": "5f9846221479",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0004,
+   "tok": 342,
+   "ptok": 213,
+   "cost": 0.0001709,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-mailbox-full": {
+   "h": "888daa8ba685",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0053,
+   "tok": 407,
+   "ptok": 231,
+   "cost": 0.0002016,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-phishing-paypal": {
    "h": "3483ab984a02",
    "v": "publ",
@@ -682,6 +814,30 @@
    "cost": 0.0001656,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "decisions/decide-pii-card": {
+   "h": "a5f51b6888c1",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.001,
+   "tok": 555,
+   "ptok": 255,
+   "cost": 0.0002701,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-contact-only": {
+   "h": "78e062b32aee",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0,
+   "tok": 425,
+   "ptok": 251,
+   "cost": 0.0002113,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-pii-health": {
    "h": "2202c616180c",
@@ -743,6 +899,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-route-calculator": {
+   "h": "fecbfc72964a",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0,
+   "tok": 354,
+   "ptok": 235,
+   "cost": 0.0001781,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-route-calendar": {
    "h": "cb843c555d6c",
    "v": "publ",
@@ -755,6 +923,30 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-route-email": {
+   "h": "0cc2c5dfb624",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0,
+   "tok": 317,
+   "ptok": 237,
+   "cost": 0.0001616,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-none": {
+   "h": "83d5627c2104",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0,
+   "tok": 219,
+   "ptok": 187,
+   "cost": 0.0001135,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-route-search": {
    "h": "c4689a70b581",
    "v": "priv",
@@ -766,6 +958,18 @@
    "cost": 0.0001168,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "decisions/decide-screening-work-auth": {
+   "h": "b2a2a46cb642",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "brier": 0.0,
+   "tok": 276,
+   "ptok": 217,
+   "cost": 0.0001416,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-self-harm-signal": {
    "h": "6dedfd528895",
@@ -846,6 +1050,17 @@
    "cost": 0.001545,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "extract/extract-hard-payroll-holiday": {
+   "h": "16a2289e0d2e",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "tok": 3261,
+   "ptok": 529,
+   "cost": 0.0015098,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "extract/extract-hard-project-schedule": {
    "h": "e41939ede116",
@@ -1044,6 +1259,17 @@
    "cost": 0.0009167,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "extract/extract-utility-bill": {
+   "h": "fd3b2eebc5e2",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "DekaLLM",
+   "tok": 1090,
+   "ptok": 420,
+   "cost": 0.0005241,
+   "mt": 32768,
+   "at": "2026-10-12"
   }
  }
 }

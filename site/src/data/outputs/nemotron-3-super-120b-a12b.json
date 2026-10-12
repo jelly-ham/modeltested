@@ -1,0 +1,266 @@
+{
+ "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    \"\"\"Parse INI text according to the specified dialect.\"\"\"\n    import re\n\n    lines = text.splitlines()\n    sections: dict[str, dict[str, str]] = {}\n    current_section: str | None = None\n\n    # State for building a multi-line value\n    building = False\n    building_key: str | None = None\n    building_parts: list[str] = []\n\n    def finalize_building() -> None:\n        \"\"\"Store the accumulated value for the current key.\"\"\"\n        nonlocal building, building_key, building_parts, current_section, sections\n        if building:\n            if current_section is None:\n                raise ValueError(\"Key line before any section header\")\n            sections.setdefault(current_section, {})[building_key] = \"\\n\".join(building_parts)\n            building = False\n            building_key = None\n            building_parts = []\n\n    def parse_value(v: str) -> str:\n        \"\"\"Parse a raw value string according to quoting and comment rules.\"\"\"\n        in_quote = False\n        i = 0\n        L = len(v)\n        while i < L:\n            ch = v[i]\n            if ch == '\"':\n                in_quote = not in_quote\n                i += 1\n            elif not in_quote and i + 1 < L and v[i] in \" \\t\" and v[i + 1] in \";#\":\n                # start of an inline comment\n                return v[:i]\n            else:\n                i += 1\n        commentless = v\n        stripped = commentless.strip()\n        if len(stripped) >= 2 and stripped[0] == '\"' and stripped[-1] == '\"':\n            # quoted value – keep interior exactly, remove the quotes\n            return stripped[1:-1]\n        else:\n            # unquoted value – strip surrounding whitespace\n            return commentless.strip()\n\n    idx = 0\n    while idx < len(lines):\n        line = lines[idx]\n        stripped = line.lstrip()\n\n        # 1. Empty line or comment line\n        if not stripped or stripped[0] in \";#\":\n            if building:\n                finalize_building()\n            idx += 1\n            continue\n\n        # 2. Section header\n        if stripped.startswith(\"[\"):\n            if building:\n                finalize_building()\n            bracket_end = stripped.find(\"]\", 1)\n            if bracket_end == -1:\n                raise ValueError(f\"Malformed section header: {line}\")\n            name = stripped[1:bracket_end].strip()\n            remainder = stripped[bracket_end + 1 :]\n            # Remove possible inline comment (outside quotes) from the remainder\n            comment_pos = None\n            for marker in (\" ;\", \" #\"):\n                pos = remainder.find(marker)\n                if pos != -1:\n                    if comment_pos is None or pos < comment_pos:\n                        comment_pos = pos\n            if comment_pos is not None:\n                remainder = remainder[:comment_pos]\n            if remainder.strip():\n                raise ValueError(f\"Extra text after section header: {line}\")\n            current_section = name\n            sections.setdefault(current_section, {})\n            idx += 1\n            continue\n\n        # 3. Continuation line (only if we are currently building a value)\n        if building and line and line[0] in \" \\t\":\n            building_parts.append(line.strip())\n            idx += 1\n            continue\n\n        # 4. Key line\n        if building:\n            finalize_building()\n\n        eq_pos = line.find(\"=\")\n        colon_pos = line.find(\":\")\n        delim_pos = -1\n        if eq_pos != -1 and colon_pos != -1:\n            delim_pos = min(eq_pos, colon_pos)\n        elif eq_pos != -1:\n            delim_pos = eq_pos\n        elif colon_pos != -1:\n            delim_pos = colon_pos\n        else:\n            raise ValueError(f\"Malformed key line (no delimiter): {line}\")\n\n        key_raw = line[:delim_pos]\n        value_raw = line[delim_pos + 1 :]\n        key = key_raw.strip().lower()\n\n        value = parse_value(value_raw)\n\n        building_key = key\n        building_parts = [value]\n        building = True\n        idx += 1\n        continue\n\n    # Finalise any pending value after the loop\n    if building:\n        finalize_building()\n\n    # The DEFAULT section is special: its keys are inherited but not returned\n    default_dict = sections.pop(\"DEFAULT\", {})\n\n    # ------------------------------------------------------------------\n    # Interpolation resolution (recursive, with cycle detection)\n    # ------------------------------------------------------------------\n    pattern = re.compile(r\"\\$\\{([^}]+)\\}\")\n\n    def get_raw(sec: str, key: str) -> str:\n        \"\"\"Fetch the raw (uninterpolated) value for a key, falling back to DEFAULT.\"\"\"\n        if sec in sections and key in sections[sec]:\n            return sections[sec][key]\n        if key in default_dict:\n            return default_dict[key]\n        raise KeyError(f\"Key {key!r} not found in section {sec!r} or DEFAULT\")\n\n    resolved: dict[tuple[str, str], str] = {}\n\n    def resolve(sec: str, key: str, visited: set[tuple[str, str]]) -> str:\n        \"\"\"Return the fully interpolated value for (sec, key).\"\"\"\n        if (sec, key) in visited:\n            raise ValueError(f\"Interpolation cycle detected involving {sec!r}:{key!r}\")\n        if (sec, key) in resolved:\n            return resolved[(sec, key)]\n\n        raw = get_raw(sec, key)\n\n        def repl(m: re.Match) -> str:\n            inner = m.group(1)\n            if \":\" in inner:\n                sec_name, subkey = inner.split(\":\", 1)\n                sec_name = sec_name.strip()\n                subkey = subkey.strip().lower()\n            else:\n                sec_name = sec\n                subkey = inner.strip().lower()\n            return resolve(sec_name, subkey, visited | {(sec, key)})\n\n        result = raw\n        while True:\n            m = pattern.search(result)\n            if not m:\n                break\n            replacement = repl(m)\n            result = result[:m.start()] + replacement + result[m.end():]\n\n        resolved[(sec, key)] = result\n        return result\n\n    output: dict[str, dict[str, str]] = {}\n    for sec_name, sec_dict in sections.items():\n        if sec_name == \"DEFAULT\":\n            continue\n        final_dict: dict[str, str] = {}\n        for key in sec_dict:\n            final_dict[key] = resolve(sec_name, key, set())\n        output[sec_name] = final_dict\n\n    return output\n```\n",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\nfrom typing import Callable, Any, Dict, Tuple\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock: Callable[[], float]):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self._data: OrderedDict[Any, Tuple[Any, float]] = OrderedDict()\n        self._hits = 0\n        self._misses = 0\n        self._evictions = 0\n        self._expirations = 0\n\n    def _now(self) -> float:\n        return self.clock()\n\n    def _remove_expired(self) -> None:\n        \"\"\"Delete all entries that have expired at the current time.\"\"\"\n        now = self._now()\n        expired_keys = [k for k, (_, exp) in self._data.items() if now >= exp]\n        for k in expired_keys:\n            del self._data[k]\n            self._expirations += 1\n\n    def put(self, key: Any, value: Any) -> None:\n        \"\"\"Insert or replace a key, respecting capacity and TTL rules.\"\"\"\n        if self.capacity == 0:\n            return\n\n        now = self._now()\n        if key in self._data:\n            # Refresh existing entry\n            self._data[key] = (value, now + self.ttl)\n            self._data.move_to_end(key)\n            return\n\n        # New key: first purge expired entries\n        self._remove_expired()\n        if len(self._data) >= self.capacity:\n            # Evict least‑recently‑used item\n            lru_key, _ = self._data.popitem(last=False)\n            self._evictions += 1\n\n        self._data[key] = (value, now + self.ttl)\n        self._data.move_to_end(key)   # ensure it's marked as most‑recent\n\n    def get(self, key: Any, default: Any = None) -> Any:\n        \"\"\"Return value if present and not expired; otherwise return default.\"\"\"\n        if self.capacity == 0:\n            self._misses += 1\n            return default\n\n        now = self._now()\n        if key in self._data:\n            value, exp = self._data[key]\n            if now >= exp:\n                # Expired entry – remove and count as expiration & miss\n                del self._data[key]\n                self._expirations += 1\n                self._misses += 1\n                return default\n            # Hit – move to most‑recent\n            self._hits += 1\n            self._data.move_to_end(key)\n            return value\n        else:\n            self._misses += 1\n            return default\n\n    def __len__(self) -> int:\n        \"\"\"Number of non‑expired entries (does not affect stats).\"\"\"\n        now = self._now()\n        return sum(1 for _, exp in self._data.values() if now < exp)\n\n    def stats(self) -> Dict[str, int]:\n        \"\"\"Return hit/miss/eviction/expiration counters.\"\"\"\n        return {\n            \"hits\": self._hits,\n            \"misses\": self._misses,\n            \"evictions\": self._evictions,\n            \"expirations\": self._expirations,\n        }\n```\n",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-parse-duration": {
+   "output": "```python\ndef parse_duration(s: str) -> int:\n    \"\"\"\n    Convert a duration string to total seconds.\n\n    Supported format: optional whitespace, then parts in order h, m, s.\n    Each part: non‑negative integer followed immediately by its unit (case‑insensitive).\n    Each unit may appear at most once. Whitespace may appear anywhere between parts.\n    Raises ValueError for any malformed input.\n    \"\"\"\n    if not isinstance(s, str):\n        raise ValueError(\"Input must be a string\")\n\n    i = 0\n    n = len(s)\n    total_seconds = 0\n    seen_units = set()\n    # mapping unit -> (index in order, seconds per unit)\n    order = {'h': 0, 'm': 1, 's': 2}\n    multipliers = {'h': 3600, 'm': 60, 's': 1}\n    last_order_index = -1  # ensures units appear in non-decreasing order\n\n    while True:\n        # skip whitespace\n        while i < n and s[i].isspace():\n            i += 1\n        if i >= n:  # reached end\n            break\n\n        # parse integer part\n        start = i\n        while i < n and s[i].isdigit():\n            i += 1\n        if start == i:  # no digits found\n            raise ValueError(\"Expected a number before a unit\")\n        number = int(s[start:i])\n\n        # parse unit\n        if i >= n:\n            raise ValueError(\"Missing unit after number\")\n        unit_char = s[i]\n        i += 1\n        unit = unit_char.lower()\n        if unit not in order:\n            raise ValueError(f\"Unknown unit '{unit_char}'\")\n        # check for repeated unit\n        if unit in seen_units:\n            raise ValueError(f\"Repeated unit '{unit_char}'\")\n        # check ordering\n        cur_order = order[unit]\n        if cur_order < last_order_index:\n            raise ValueError(f\"Units out of order: '{unit_char}' appears after a later unit\")\n        # accumulate seconds\n        total_seconds += number * multipliers[unit]\n        # record state\n        seen_units.add(unit)\n        last_order_index = cur_order\n\n        # continue loop; whitespace before next part will be skipped at top\n\n    # after processing all parts, ensure no stray characters remain\n    while i < n and s[i].isspace():\n        i += 1\n    if i != n:\n        raise ValueError(\"Invalid characters in duration string\")\n\n    return total_seconds\n```\nThis implementation follows the specification: it accepts optional whitespace, ensures each unit appears at most once and in the correct order (h → m → s), rejects malformed inputs with a `ValueError`, and returns the total duration in seconds. No external libraries beyond the standard library are used.",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport unicodedata\nimport re\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    # 1. Transliterate to ASCII, dropping any remaining non‑ASCII characters\n    ascii_title = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii')\n    # 2. Lowercase\n    ascii_title = ascii_title.lower()\n    # 3. Replace runs of non‑a-z0-9 with a single hyphen and strip leading/trailing hyphens\n    slug = re.sub(r'[^a-z0-9]+', '-', ascii_title).strip('-')\n    # 4. Truncate if needed, respecting word boundaries\n    if len(slug) <= max_len:\n        return slug\n    words = slug.split('-')\n    result = ''\n    for w in words:\n        candidate = w if not result else f'{result}-{w}'\n        if len(candidate) <= max_len:\n            result = candidate\n        else:\n            break\n    if result:\n        return result.rstrip('-')\n    # first word exceeds max_len – hard cut\n    return slug[:max_len].rstrip('-')\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    \"\"\"Return a compact string representation of sorted unique integers.\n    Consecutive runs of length >=3 are shown as \"start..end\";\n    shorter runs are listed individually, joined by commas without spaces.\n    \"\"\"\n    if not nums:\n        return \"\"\n\n    # Sort and deduplicate\n    uniq = sorted(set(nums))\n    parts = []\n    i = 0\n    n = len(uniq)\n\n    while i < n:\n        start = uniq[i]\n        j = i\n        # Extend while the next number is consecutive\n        while j + 1 < n and uniq[j + 1] == uniq[j] + 1:\n            j += 1\n        end = uniq[j]\n\n        # Determine formatting based on run length\n        if j - i + 1 >= 3:\n            parts.append(f\"{start}..{end}\")\n        else:\n            for k in range(i, j + 1):\n                parts.append(str(uniq[k]))\n\n        i = j + 1\n\n    return \",\".join(parts)\n```\n",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nclass TokenBucket:\n    \"\"\"Token bucket rate limiter.\n\n    Args:\n        capacity: Maximum number of tokens the bucket can hold.\n        refill_per_sec: Rate at which tokens are added per second.\n        clock: Zero‑argument callable returning the current time as a float.\n    \"\"\"\n\n    def __init__(self, capacity: float, refill_per_sec: float, clock):\n        if capacity < 0:\n            raise ValueError(\"capacity must be non‑negative\")\n        if refill_per_sec < 0:\n            raise ValueError(\"refill_per_sec must be non‑negative\")\n        self._capacity = float(capacity)\n        self._refill_rate = float(refill_per_sec)\n        self._clock = clock\n        self._last_time = self._clock()\n        self._tokens = float(capacity)  # start full\n\n    def _refill(self):\n        \"\"\"Add tokens based on elapsed time, capping at capacity.\"\"\"\n        now = self._clock()\n        # Guard against a non‑monotonic clock\n        elapsed = max(0.0, now - self._last_time)\n        if elapsed and self._refill_rate:\n            self._tokens = min(self._capacity,\n                               self._tokens + elapsed * self._refill_rate)\n        self._last_time = now\n\n    @property\n    def tokens(self) -> float:\n        \"\"\"Current token count after performing a refill.\"\"\"\n        self._refill()\n        return self._tokens\n\n    def allow(self, cost: float = 1.0) -> bool:\n        \"\"\"Attempt to consume `cost` tokens.\n\n        Returns True if enough tokens were available and they were deducted,\n        otherwise False and the bucket remains unchanged.\n        \"\"\"\n        if cost < 0:\n            raise ValueError(\"cost must be non‑negative\")\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n```\n",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    \"\"\"\n    Return the top `n` customers by total amount.\n\n    Each row is expected to have a \"customer\" key (string) and an \"amount\"\n    key (string possibly containing '$', commas, and a leading sign).\n    Customer names are matched case‑insensitively; the name returned is the\n    trimmed spelling from the first valid row for that customer.\n    Rows with empty customer names or unparsable amounts are ignored.\n    Totals are summed per customer, rounded to two decimal places, and the\n    result is sorted by total descending then name ascending.\n    \"\"\"\n    if n <= 0:\n        return []\n\n    # mapping: lower‑cased name -> [original_name, accumulated_total]\n    accum: dict[str, list] = {}\n\n    for row in rows:\n        raw_cust = row.get('customer')\n        raw_amt = row.get('amount')\n        if raw_cust is None or raw_amt is None:\n            continue\n\n        name = raw_cust.strip()\n        if not name:\n            continue\n\n        # Parse amount: strip, remove $ and commas, then convert to float\n        amt_str = str(raw_amt).strip()\n        cleaned = amt_str.replace('$', '').replace(',', '')\n        try:\n            amount = float(cleaned)\n        except ValueError:\n            continue\n\n        norm = name.lower()\n        if norm not in accum:\n            accum[norm] = [name, amount]\n        else:\n            accum[norm][1] += amount\n\n    # Build list of (original_name, rounded_total)\n    result = [(orig, round(total, 2)) for orig, total in accum.values()]\n\n    # Sort: descending total, then ascending name (case‑insensitive)\n    result.sort(key=lambda x: (-x[1], x[0].lower()))\n\n    return result[:n]\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\n  \"doc_type\": {\n    \"invoice\": 0.98,\n    \"resume\": 0.005,\n    \"contract\": 0.005,\n    \"bank_statement\": 0.005,\n    \"other\": 0.005\n  },\n  \"missing_due_date\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0004,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-hard-incident-matrix": {
+   "output": "{\n  \"severity\": {\"0\": 0, \"1\": 1, \"2\": 0, \"3\": 0},\n  \"page\": {\"true\": 0, \"false\": 1}\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 0.02,\n    \"false\": 0.98\n  },\n  \"action_needed\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0029,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "{\n  \"slot\": {\"A\": 0, \"B\": 1, \"C\": 0, \"D\": 0},\n  \"raj_last\": {\"true\": 1, \"false\": 0}\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "slot": "B",
+     "raj_last": "true"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "{\n  \"outcome\": {\n    \"full_refund\": 0,\n    \"partial_refund\": 0,\n    \"store_credit\": 1,\n    \"nothing\": 0\n  },\n  \"defective\": {\n    \"true\": 0,\n    \"false\": 1\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "{\n  \"hardware\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"support\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 0.98,\n    \"email\": 0.0,\n    \"none\": 0.02\n  },\n  \"confirm\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0029,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\n  \"policy\": {\n    \"none\": 0.01,\n    \"harassment\": 0.96,\n    \"hate\": 0.01,\n    \"spam\": 0.01,\n    \"self_harm\": 0.01\n  },\n  \"personal_info\": {\n    \"true\": 0.99,\n    \"false\": 0.01\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0011,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 0.999,\n    \"false\": 0.001\n  },\n  \"risk\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.0,\n    \"3\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\n  \"data_kind\": {\"none\": 0, \"contact\": 0, \"financial\": 0, \"government_id\": 1, \"health\": 0},\n  \"sensitive\": {\"true\": 1, \"false\": 0}\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.95,\n    \"technical\": 0.0125,\n    \"account\": 0.0125,\n    \"shipping\": 0.0125,\n    \"sales\": 0.0125\n  },\n  \"refund\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  },\n  \"tone\": {\n    \"frustrated\": 0.03,\n    \"calm\": 0.97\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0019,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\"positive\": 0.05, \"neutral\": 0.15, \"negative\": 0.8},\n  \"defect\": {\"true\": 0.99, \"false\": 0.01},\n  \"recommend\": {\"true\": 0.02, \"false\": 0.98}\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.022,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.01,\n    \"calculator\": 0.01,\n    \"calendar\": 0.95,\n    \"email\": 0.01,\n    \"none\": 0.02\n  },\n  \"confirm\": {\n    \"true\": 0.9,\n    \"false\": 0.1\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0116,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\n  \"department\": {\"billing\": 0.02, \"technical\": 0.94, \"account\": 0.01, \"shipping\": 0.01, \"sales\": 0.02},\n  \"urgency\": {\"0\": 0.0, \"1\": 0.0, \"2\": 0.0, \"3\": 1.0},\n  \"outage\": {\"false\": 0.0, \"true\": 1.0}\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0015,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\"date\": \"2025-02-24\", \"category\": \"airfare\", \"amount_usd\": 1184.60},\n    {\"date\": \"2025-02-24\", \"category\": \"ground_transport\", \"amount_usd\": 38.88},\n    {\"date\": \"2025-02-25\", \"category\": \"meals\", \"amount_usd\": 229.39},\n    {\"date\": \"2025-02-26\", \"category\": \"lodging\", \"amount_usd\": 466.56},\n    {\"date\": \"2025-02-27\", \"category\": \"ground_transport\", \"amount_usd\": 44.82}\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 24,
+    "total": 24,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 61236.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38556.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 293058.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.0,\n  \"monthly_rent_from_2025_06_01\": 2236.0,\n  \"late_fee_from_2025_06_01\": 111.8,\n  \"security_deposit\": 2150.0,\n  \"total_pet_deposits\": 800.0,\n  \"total_monthly_payment_july_2025\": 2306.0,\n  \"move_in_payment\": 4700.0\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "{\n  \"q3_total_usd\": 15346000,\n  \"q2_total_usd\": 14464000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 9,
+    "total": 9,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\n    \"billing_address\",\n    \"invoice_pdf\"\n  ],\n  \"affected_orders\": [\n    \"SO-99812\",\n    \"SO-99820\",\n    \"SO-99827\"\n  ],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+   "score": 0.9167,
+   "detail": {
+    "matched": 11,
+    "total": 12,
+    "wrong": [
+     "$.resolved_issues[1]"
+    ],
+    "bare_json": true
+   }
+  }
+ }
+}

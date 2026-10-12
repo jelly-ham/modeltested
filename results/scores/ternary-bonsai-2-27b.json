@@ -13,6 +13,17 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-cron-matches": {
+   "h": "3d42429ae11d",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Darkbloom",
+   "tok": 14634,
+   "ptok": 287,
+   "cost": 0.0073385,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "coding/code-dedupe-emails": {
    "h": "286981be824d",
    "v": "priv",
@@ -34,6 +45,29 @@
    "cost": 0.0019106,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "coding/code-evaluate-expr": {
+   "h": "9645efdf07a9",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Darkbloom",
+   "truncated": true,
+   "tok": 32768,
+   "ptok": 241,
+   "cost": 0.0164021,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "coding/code-hard-json-path": {
+   "h": "4b7ca7bd11df",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Darkbloom",
+   "tok": 20058,
+   "ptok": 291,
+   "cost": 0.0100508,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "coding/code-hard-ledger": {
    "h": "a48727466d95",
@@ -67,6 +101,40 @@
    "cost": 0.0008174,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "coding/code-hard-ttl-lru": {
+   "h": "5dc6bf962b41",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Darkbloom",
+   "tok": 29295,
+   "ptok": 367,
+   "cost": 0.014675,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "coding/code-inventory": {
+   "h": "50c4fef1ef24",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Darkbloom",
+   "tok": 10868,
+   "ptok": 307,
+   "cost": 0.005457,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "coding/code-mask-secrets": {
+   "h": "0b802cf0137a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Darkbloom",
+   "truncated": true,
+   "tok": 32768,
+   "ptok": 291,
+   "cost": 0.0164058,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "coding/code-money-split": {
    "h": "aa121a0efaa6",
@@ -112,6 +180,17 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-search-index": {
+   "h": "3fc4c534a420",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Darkbloom",
+   "tok": 4878,
+   "ptok": 243,
+   "cost": 0.0024572,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "coding/code-slugify": {
    "h": "ff09da2f4a43",
    "v": "publ",
@@ -122,6 +201,17 @@
    "cost": 0.0047776,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "coding/code-summarize-logs": {
+   "h": "712019075476",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Darkbloom",
+   "tok": 20398,
+   "ptok": 303,
+   "cost": 0.0102217,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "coding/code-summarize-ranges": {
    "h": "5fc14f626f2b",
@@ -144,6 +234,17 @@
    "cost": 0.0018169,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "coding/code-top-customers": {
+   "h": "61620e14b107",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Darkbloom",
+   "tok": 17634,
+   "ptok": 258,
+   "cost": 0.0088363,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "coding/code-topo-sort": {
    "h": "3abb90497cc4",
@@ -286,6 +387,18 @@
    "cost": 0.0002051,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "decisions/decide-hard-auto-renewal": {
+   "h": "3e087ffec063",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Darkbloom",
+   "brier": 0.002,
+   "tok": 4971,
+   "ptok": 404,
+   "cost": 0.0025158,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-hard-bec-reply-to": {
    "h": "2032b702a0a5",
@@ -848,6 +961,28 @@
    "cost": 0.0006889,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "h": "95f3efe03d45",
+   "v": "publ",
+   "score": 1.0,
+   "provider": "Darkbloom",
+   "tok": 4560,
+   "ptok": 617,
+   "cost": 0.0023263,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "extract/extract-hard-travel-per-diem": {
+   "h": "155ca1fed4af",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Darkbloom",
+   "tok": 2330,
+   "ptok": 544,
+   "cost": 0.0012058,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "extract/extract-lease-amendment": {
    "h": "9d0a9ed11a7c",

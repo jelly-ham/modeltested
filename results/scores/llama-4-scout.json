@@ -310,6 +310,17 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-topo-sort": {
+   "h": "3abb90497cc4",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "tok": 306,
+   "ptok": 161,
+   "cost": 0.0002095,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "coding/code-wrap-text": {
    "h": "b079bee015b9",
    "v": "priv",
@@ -476,6 +487,18 @@
    "cost": 9.23e-05,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "decisions/decide-hard-duplicate-encoding": {
+   "h": "cb77a5971040",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "Novita",
+   "brier": 0.02,
+   "tok": 63,
+   "ptok": 240,
+   "cost": 8.04e-05,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-hard-expense-cap": {
    "h": "aebb0f5d72e8",

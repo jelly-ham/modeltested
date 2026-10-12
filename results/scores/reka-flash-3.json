@@ -69,6 +69,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-hard-json-path": {
+   "h": "4b7ca7bd11df",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "truncated": true,
+   "tok": 32768,
+   "ptok": 249,
+   "cost": 0.0065785,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "coding/code-hard-meeting-slots": {
    "h": "0def4e647232",
    "v": "priv",
@@ -114,6 +126,29 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "coding/code-money-split": {
+   "h": "aa121a0efaa6",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "truncated": true,
+   "tok": 32768,
+   "ptok": 171,
+   "cost": 0.0065707,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "coding/code-paginate": {
+   "h": "6d0e58ddd5b7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "tok": 14217,
+   "ptok": 219,
+   "cost": 0.0028653,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "coding/code-parse-duration": {
    "h": "7d2f96c9a827",
    "v": "publ",
@@ -146,6 +181,17 @@
    "cost": 0.0054962,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "coding/code-sort-versions": {
+   "h": "e34aa61843e7",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "tok": 20293,
+   "ptok": 212,
+   "cost": 0.0040798,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "coding/code-summarize-logs": {
    "h": "712019075476",
@@ -299,6 +345,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-hard-bec-reply-to": {
+   "h": "2032b702a0a5",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 22266,
+   "ptok": 327,
+   "cost": 0.0044859,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-hard-contractor-access": {
    "h": "b7e390613d00",
    "v": "priv",
@@ -322,6 +380,18 @@
    "cost": 0.0051162,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "decisions/decide-hard-expense-cap": {
+   "h": "aebb0f5d72e8",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 8259,
+   "ptok": 306,
+   "cost": 0.0016824,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-hard-fraud-rules": {
    "h": "a0592e88c7ec",
@@ -384,6 +454,67 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-hard-meeting-slot": {
+   "h": "834e757cd044",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 1796,
+   "ptok": 310,
+   "cost": 0.0003902,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-misleading-subject": {
+   "h": "449ecb23cd0a",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 10211,
+   "ptok": 268,
+   "cost": 0.002069,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "h": "ebd11009bb29",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 27545,
+   "ptok": 367,
+   "cost": 0.0055457,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "h": "1f342341050d",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "truncated": true,
+   "brier": 2.0,
+   "tok": 32768,
+   "ptok": 258,
+   "cost": 0.0065794,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "h": "4824d643da57",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 1926,
+   "ptok": 310,
+   "cost": 0.0004162,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-incident-docs": {
    "h": "4c63e3a29e86",
    "v": "priv",
@@ -444,6 +575,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-moderation-doxxing": {
+   "h": "5301594c3843",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 953,
+   "ptok": 255,
+   "cost": 0.0002161,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-negated-billing": {
    "h": "07fe2078d376",
    "v": "priv",
@@ -479,6 +622,18 @@
    "cost": 0.0002319,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "decisions/decide-phishing-mailbox-full": {
+   "h": "888daa8ba685",
+   "v": "priv",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 18043,
+   "ptok": 224,
+   "cost": 0.003631,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-phishing-paypal": {
    "h": "3483ab984a02",
@@ -528,6 +683,42 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-pii-ssn-email": {
+   "h": "2285b10e744d",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 20050,
+   "ptok": 248,
+   "cost": 0.0040348,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "h": "655c40f0c349",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 19159,
+   "ptok": 287,
+   "cost": 0.0038605,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "h": "9e41737cefd0",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 1190,
+   "ptok": 217,
+   "cost": 0.0002597,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "decisions/decide-review-sarcasm": {
    "h": "c54f7879f164",
    "v": "priv",
@@ -551,6 +742,18 @@
    "cost": 0.0036126,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "decisions/decide-route-calendar": {
+   "h": "cb843c555d6c",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 20163,
+   "ptok": 238,
+   "cost": 0.0040564,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "decisions/decide-route-email": {
    "h": "0cc2c5dfb624",
@@ -624,6 +827,18 @@
    "mt": 32768,
    "at": "2026-10-11"
   },
+  "decisions/decide-support-checkout-down": {
+   "h": "5d379850ce99",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "brier": 2.0,
+   "tok": 2368,
+   "ptok": 312,
+   "cost": 0.0005048,
+   "mt": 32768,
+   "at": "2026-10-12"
+  },
   "extract/extract-event-registrations": {
    "h": "3199f1c4131a",
    "v": "priv",
@@ -690,6 +905,17 @@
    "cost": 0.0004434,
    "mt": 32768,
    "at": "2026-10-11"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "h": "95f3efe03d45",
+   "v": "publ",
+   "score": 0.0,
+   "provider": "Reka",
+   "tok": 17126,
+   "ptok": 576,
+   "cost": 0.0034828,
+   "mt": 32768,
+   "at": "2026-10-12"
   },
   "extract/extract-hard-three-way-match": {
    "h": "1388e321b606",

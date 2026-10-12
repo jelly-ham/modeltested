@@ -98,6 +98,17 @@
    }
   }
  },
+ "decide-pii-ssn-email": {
+  "output": "{\n  \"data_kind\": {\n    \"none\": 0.0,\n    \"contact\": 0.01,\n    \"financial\": 0.0,\n    \"government_id\": 0.99,\n    \"health\": 0.0\n  },\n  \"sensitive\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0001,
+   "picks": {
+    "data_kind": "government_id",
+    "sensitive": "true"
+   }
+  }
+ },
  "decide-refund-wrong-plan": {
   "output": "{\n  \"department\": {\n    \"billing\": 0.99,\n    \"technical\": 0.0,\n    \"account\": 0.0,\n    \"shipping\": 0.0,\n    \"sales\": 0.01\n  },\n  \"refund\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"tone\": {\n    \"frustrated\": 0.0,\n    \"calm\": 1.0\n  }\n}",
   "score": 1.0,
@@ -107,6 +118,18 @@
     "department": "billing",
     "refund": "true",
     "tone": "calm"
+   }
+  }
+ },
+ "decide-review-mixed": {
+  "output": "{\n  \"sentiment\": {\n    \"positive\": 0.01,\n    \"neutral\": 0.04,\n    \"negative\": 0.95\n  },\n  \"defect\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  },\n  \"recommend\": {\n    \"true\": 0.02,\n    \"false\": 0.98\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0019,
+   "picks": {
+    "sentiment": "negative",
+    "defect": "true",
+    "recommend": "false"
    }
   }
  },
