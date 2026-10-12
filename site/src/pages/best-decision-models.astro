@@ -1,6 +1,6 @@
 ---
 import Article from "../layouts/Article.astro";
-import { data, fmtDate, whole, orgName, decisionHref, fmtCost } from "../lib/data";
+import { data, fmtDate, whole, orgName, decisionHref } from "../lib/data";
 import { decisionPost, shortDate } from "../lib/posts";
 
 const rows = data.decisions ?? [];
@@ -54,7 +54,7 @@ const description = post?.dek ?? "Decision models tested on real classification,
       </p>
       <div class="table-box">
         <table style="min-width: 620px">
-          <thead><tr><th class="num">#</th><th>Model</th><th>Weights</th><th class="num">Accuracy</th>{showHard && <th class="num">Hard cases</th>}<th class="num">Calibration</th><th class="num" title="OpenRouter prices">API cost / 1k calls</th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Model</th><th>Weights</th><th class="num">Accuracy</th>{showHard && <th class="num">Hard cases</th>}<th class="num">Calibration</th></tr></thead>
           <tbody>
             {decisionOnly().map((r, i) => (
               <tr>
@@ -64,7 +64,6 @@ const description = post?.dek ?? "Decision models tested on real classification,
                 <td class="num"><b>{whole(r.accuracy)}</b></td>
                 {showHard && <td class="num">{r.hard == null ? <span class="sub">–</span> : whole(r.hard)}</td>}
                 <td class="num">{whole(r.calibration)}</td>
-                <td class="num">{r.tested_on === "mac" ? <span class="sub">local</span> : fmtCost(r.cost_per_1k)}</td>
               </tr>
             ))}
             {unsupported.map((u) => (
@@ -72,7 +71,7 @@ const description = post?.dek ?? "Decision models tested on real classification,
                 <td class="num" style="color: var(--faint)">–</td>
                 <td><b>{u.name}</b><div class="sub" style="font-size: 13px">{orgName(u.openrouter_id.split("/")[0])}</div></td>
                 <td>{u.open_weights ? "Open" : <span class="sub">Closed (API only)</span>}</td>
-                <td colspan={showHard ? 4 : 3} class="sub">Couldn't take the test: it only answers yes/no questions about a chat transcript.</td>
+                <td colspan={showHard ? 3 : 2} class="sub">Couldn't take the test: it only answers yes/no questions about a chat transcript.</td>
               </tr>
             ))}
           </tbody>
@@ -83,7 +82,7 @@ const description = post?.dek ?? "Decision models tested on real classification,
       <p class="sub" style="margin-top: -6px">Everyone who took the test, including free models you can run on your own computer.</p>
       <div class="table-box">
         <table style="min-width: 620px">
-          <thead><tr><th class="num">#</th><th>Model</th><th>Type</th><th class="num">Accuracy</th>{showHard && <th class="num">Hard cases</th>}<th class="num">Calibration</th><th class="num" title="OpenRouter prices">API cost / 1k calls</th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Model</th><th>Type</th><th class="num">Accuracy</th>{showHard && <th class="num">Hard cases</th>}<th class="num">Calibration</th></tr></thead>
           <tbody>
             {rows.map((r) => (
               <tr>
@@ -93,7 +92,6 @@ const description = post?.dek ?? "Decision models tested on real classification,
                 <td class="num"><b>{whole(r.accuracy)}</b></td>
                 {showHard && <td class="num">{r.hard == null ? <span class="sub">–</span> : whole(r.hard)}</td>}
                 <td class="num">{whole(r.calibration)}</td>
-                <td class="num">{r.tested_on === "mac" ? <span class="sub">local</span> : fmtCost(r.cost_per_1k)}</td>
               </tr>
             ))}
           </tbody>

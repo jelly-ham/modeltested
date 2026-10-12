@@ -1,7 +1,7 @@
 ---
 import Article from "../../layouts/Article.astro";
 import PostCard from "../../components/PostCard.astro";
-import { data, models, tiers, size, whole, suiteLabel, quantLabel, questionTitle, orgName, solvedBy, codingTotal, nCodingTasks, ranked, isLocalRun, quantRunFor, TEST_MAC, fmtCost, type Model } from "../../lib/data";
+import { data, models, tiers, size, whole, suiteLabel, quantLabel, questionTitle, orgName, solvedBy, codingTotal, nCodingTasks, ranked, isLocalRun, quantRunFor, TEST_MAC, type Model } from "../../lib/data";
 import { allPosts, verdict, hardwareLine, slugTag, shortDate } from "../../lib/posts";
 import publicQs from "../../data/public-questions.json";
 
@@ -115,11 +115,10 @@ const jsonLd = [{
     <div class="note-box">
       <strong>It often thinks too long.</strong> On {model.truncated.n} of {model.truncated.of} coding and document tasks, {model.name} kept
       thinking until it hit our limit (about 25,000 words) and never gave an answer. Those count as wrong, which pulls its score down,
-      and through an API you'd still pay for all that thinking{model.cost?.tasks != null ? `, which is why it costs ${fmtCost(model.cost.tasks)} per 1,000 tasks` : ""}.
+      and through an API you'd still pay for all that thinking.
       On your own computer it means waiting a long time for nothing.
     </div>
   )}
-  {model.cost?.tasks != null && <p class="sub">Don't want to run it yourself? Through an API (OpenRouter prices) our coding and document tasks cost about <b>{fmtCost(model.cost.tasks)} per 1,000</b>. On your own computer it costs nothing extra.</p>}
   {model.hard != null && <p class="sub">On the {data.n_hard} hardest tasks (included in the scores above) it scored <b>{whole(model.hard)}</b>. This number separates the top models.</p>}
   {model.updating && <p class="sub">We added new, harder questions. These results are from before; updated scores are on the way.</p>}
   {data.suites.some((s) => gap(model.suites[s.id]) > 15) && (

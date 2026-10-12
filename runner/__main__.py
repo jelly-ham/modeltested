@@ -32,6 +32,7 @@ def main() -> None:
     p.add_argument("--budget-usd", type=float, default=2.0)
     p.add_argument("--max-minutes", type=float, default=20)
     p.add_argument("--concurrency", type=int, default=16)
+    p.add_argument("--suites", help="comma-separated suites (default: all)")
     p.set_defaults(fn=costs.main)
 
     p = sub.add_parser("build-data", help="aggregate scores into site/src/data")

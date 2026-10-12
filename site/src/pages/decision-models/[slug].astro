@@ -1,6 +1,6 @@
 ---
 import Article from "../../layouts/Article.astro";
-import { data, whole, orgName, questionTitle, decisionHref, fmtCost, type DecisionRow } from "../../lib/data";
+import { data, whole, orgName, questionTitle, decisionHref, type DecisionRow } from "../../lib/data";
 import { shortDate } from "../../lib/posts";
 import publicQs from "../../data/public-questions.json";
 
@@ -82,7 +82,6 @@ const others = decisionModels.filter((r) => r.slug !== row.slug && Math.abs(deci
         {[["Accuracy", "accuracy"], ["Hard cases", "hard"], ["Calibration", "calibration"], ["Public questions", "public"], ["Secret questions", "private"]].map(([name, k]) => (
           <tr><td>{name}</td><td class="num"><b>{whole((row as any)[k])}</b></td>{bestDecision && bestDecision.slug !== row.slug && <td class="num">{whole((bestDecision as any)[k])}</td>}</tr>
         ))}
-        <tr><td>API cost per 1,000 calls</td><td class="num"><b>{row.tested_on === "mac" ? "local" : fmtCost(row.cost_per_1k)}</b></td>{bestDecision && bestDecision.slug !== row.slug && <td class="num">{fmtCost(bestDecision.cost_per_1k)}</td>}</tr>
       </tbody>
     </table>
   </div>

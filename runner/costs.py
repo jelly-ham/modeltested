@@ -63,6 +63,8 @@ def main(args) -> None:
     models = [m for m in runnable_models(doc) if m.get("status") != "reference" and not (m.get("openrouter_id") or "").startswith("mock:")]
     public_qs = load_questions(include_private=False)
     sampled = _load()
+    if args.suites:
+        public_qs = [q for q in public_qs if q.suite in args.suites.split(",")]
     jobs = [(m, q) for m in models for q in _missing(m, public_qs, sampled)]
     print(f"{len(jobs)} public answers to price across {len({m['slug'] for m, _ in jobs})} models", flush=True)
     spent = 0.0

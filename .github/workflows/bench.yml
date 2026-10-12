@@ -95,8 +95,9 @@ jobs:
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           PYTHONUNBUFFERED: "1"
-        # Only models missing API cost data on the public questions; usually nothing to do.
-        run: python -m runner sample-cost --budget-usd 3 --max-minutes 20
+        # Token and cost data on the public decision questions, for models scored before cost
+        # logging began (feeds the decision-model cost article); usually nothing to do.
+        run: python -m runner sample-cost --suites decisions --budget-usd 2 --max-minutes 20
 
       - name: Build site data
         if: ${{ !cancelled() }}  # publish partial progress even if benchmarking failed
