@@ -1,6 +1,26 @@
 # Model Tested
 
-Source of [modeltested.com](https://modeltested.com): automated, task-based tests of AI models, published as a static site. The first section ranks open-weight LLMs you can run locally.
+An open benchmark of open-weight LLMs on boring, real work: code that has to run, numbers pulled out of messy documents, and routine decisions like routing a ticket or spotting phishing. Results are at **[modeltested.com](https://modeltested.com)** and update automatically when a new open model ships.
+
+**Current results:** [leaderboard of 65 local models](https://modeltested.com/best-local-llms/) · [decision models vs. regular LLMs](https://modeltested.com/best-decision-models/) · [tokens and cost per call](https://modeltested.com/posts/decision-models-cost/)
+
+## How the grading works
+
+| Test | Questions | Graded by |
+|---|---|---|
+| Coding | 30 (10 hard) | Running the model's code against hidden unit tests in a sandbox (Docker: no network, read-only, unprivileged) |
+| Reading documents | 24 (8 hard) | Field-by-field comparison with a calculated answer key (corrections in email threads, currency conversion, business-day deadlines) |
+| Decisions | 56 (19 hard) | Accuracy of the most likely option, plus Brier score for calibration |
+
+- **Most questions are hidden.** They live in this public repo as an [age](https://age-encryption.org)-encrypted tarball (`bench/private.tar.age`); the key is a CI secret. A public sample is plaintext in `bench/public/`, and every model's raw answers to it are on the site, so you can check the grading.
+- **Public vs. hidden scores are shown side by side.** A big gap is a red flag for memorization. The public files carry a canary string so training pipelines can exclude them.
+- **Every model gets the same prompt and grading.** Models run through OpenRouter at full or 8-bit precision; some Q4 downloads are also run with Ollama on a Mac mini (M4, 16 GB) to show what quantization costs.
+- **No speed numbers.** They depend too much on your hardware. Instead each model gets a memory estimate: which graphics card or Mac it fits on, and which quantization to download.
+- **Incremental.** Each question is hashed, so a new model or an edited question only re-runs what changed. Testing a new model costs cents to a few dollars.
+
+Known limits: one run per question with default sampling, a question bank that's still small, and cloud precision rather than your exact Q4 file. Corrections and question ideas are welcome in Issues.
+
+## Repo layout
 
 - **runner/** — Python (stdlib only): discovers models on OpenRouter, runs the question bank, grades answers, estimates memory needs, writes site data.
 - **bench/** — question bank. `public/` is plaintext and published; the hidden set lives encrypted in `private.tar.age`.
@@ -13,7 +33,7 @@ Every day `.github/workflows/bench.yml`:
 
 1. decrypts the hidden set with the `AGE_SECRET_KEY` secret,
 2. validates the question bank (`selfcheck`),
-3. adds new open-weight models ≤ 40B from allowlisted labs (`discover`),
+3. adds new open-weight models up to ~130B (fits a 128 GB Mac) from allowlisted labs (`discover`),
 4. runs only the missing (model, question) pairs, within a spend budget (`run`),
 5. aggregates scores into `site/src/data` (`build-data`) and commits results,
 6. builds the site and deploys it with Wrangler.
