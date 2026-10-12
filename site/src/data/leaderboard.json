@@ -278,7 +278,7 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.31,
+    "tasks": 0.35,
     "decisions": 0.09
    },
    "rank": 2
@@ -357,8 +357,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 5.15,
-    "decisions": 1.33
+    "tasks": 4.76,
+    "decisions": 1.27
    },
    "rank": 3
   },
@@ -436,8 +436,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.72,
-    "decisions": 0.08
+    "tasks": 0.64,
+    "decisions": 0.07
    },
    "rank": 4
   },
@@ -516,7 +516,7 @@
     "of": 54
    },
    "cost": {
-    "tasks": 4.59,
+    "tasks": 5.35,
     "decisions": 1.38
    },
    "rank": 5
@@ -595,7 +595,7 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.23,
+    "tasks": 0.22,
     "decisions": 0.02
    },
    "rank": 6
@@ -676,8 +676,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 16.36,
-    "decisions": 6.0
+    "tasks": 20.81,
+    "decisions": 5.62
    },
    "rank": 7
   },
@@ -1170,8 +1170,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 1.71,
-    "decisions": 0.23
+    "tasks": 2.66,
+    "decisions": 0.22
    },
    "rank": 13
   },
@@ -1249,8 +1249,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.89,
-    "decisions": 0.09
+    "tasks": 1.05,
+    "decisions": 0.08
    },
    "rank": 14
   },
@@ -1326,7 +1326,7 @@
    },
    "cost": {
     "tasks": 5.14,
-    "decisions": 0.32
+    "decisions": 0.38
    },
    "rank": 15
   },
@@ -1806,8 +1806,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 7.1,
-    "decisions": 0.96
+    "tasks": 7.62,
+    "decisions": 0.86
    },
    "rank": 21
   },
@@ -1886,8 +1886,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 4.6,
-    "decisions": 0.55
+    "tasks": 5.11,
+    "decisions": 0.49
    },
    "rank": 22
   },
@@ -2295,8 +2295,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": null,
-    "decisions": null
+    "tasks": 7.16,
+    "decisions": 0.5
    },
    "rank": 27
   },
@@ -2374,8 +2374,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.29,
-    "decisions": 0.04
+    "tasks": 0.43,
+    "decisions": 0.03
    },
    "rank": 28
   },
@@ -2533,8 +2533,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 1.7,
-    "decisions": 0.03
+    "tasks": 1.2,
+    "decisions": 0.02
    },
    "rank": 30
   },
@@ -2612,7 +2612,7 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.43,
+    "tasks": 0.42,
     "decisions": 0.09
    },
    "rank": 31
@@ -2691,8 +2691,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.46,
-    "decisions": 0.12
+    "tasks": 0.52,
+    "decisions": 0.11
    },
    "rank": 32
   },
@@ -2770,8 +2770,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.75,
-    "decisions": 0.26
+    "tasks": 0.73,
+    "decisions": 0.24
    },
    "rank": 33
   },
@@ -2849,8 +2849,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 2.97,
-    "decisions": 0.26
+    "tasks": 3.69,
+    "decisions": 0.29
    },
    "rank": 34
   },
@@ -3007,7 +3007,7 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.24,
+    "tasks": 0.25,
     "decisions": 0.08
    },
    "rank": 36
@@ -3086,8 +3086,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.25,
-    "decisions": 0.13
+    "tasks": 0.22,
+    "decisions": 0.12
    },
    "rank": 37
   },
@@ -3247,8 +3247,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.37,
-    "decisions": 0.17
+    "tasks": 0.35,
+    "decisions": 0.16
    },
    "rank": 39
   },
@@ -3326,8 +3326,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 4.66,
-    "decisions": 1.52
+    "tasks": 4.22,
+    "decisions": 1.41
    },
    "rank": 40
   },
@@ -3886,8 +3886,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.26,
-    "decisions": 0.14
+    "tasks": 0.25,
+    "decisions": 0.13
    },
    "rank": 47
   },
@@ -4124,7 +4124,7 @@
    },
    "cost": {
     "tasks": 0.26,
-    "decisions": 0.1
+    "decisions": 0.09
    },
    "rank": 50
   },
@@ -4983,8 +4983,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 0.45,
-    "decisions": 0.28
+    "tasks": 0.37,
+    "decisions": 0.25
    },
    "rank": 61
   },
@@ -5291,8 +5291,8 @@
     "of": 54
    },
    "cost": {
-    "tasks": 3.27,
-    "decisions": 2.88
+    "tasks": 3.49,
+    "decisions": 2.54
    },
    "rank": 65
   }
@@ -5635,7 +5635,7 @@
    "private": 98.8,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 6.0,
+   "cost_per_1k": 5.62,
    "rank": 4
   },
   {
@@ -5675,7 +5675,7 @@
    "private": 98.8,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 1.33,
+   "cost_per_1k": 1.27,
    "rank": 6
   },
   {
@@ -5715,7 +5715,7 @@
    "private": 98.8,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.08,
+   "cost_per_1k": 0.07,
    "rank": 8
   },
   {
@@ -5775,7 +5775,7 @@
    "private": 96.4,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.09,
+   "cost_per_1k": 0.08,
    "rank": 11
   },
   {
@@ -5815,7 +5815,7 @@
    "private": 97.6,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.32,
+   "cost_per_1k": 0.38,
    "rank": 13
   },
   {
@@ -5835,7 +5835,7 @@
    "private": 95.2,
    "tested_on": "openrouter",
    "added": "2026-10-10",
-   "cost_per_1k": null,
+   "cost_per_1k": 0.5,
    "rank": 14
   },
   {
@@ -5955,7 +5955,7 @@
    "private": 92.9,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.03,
+   "cost_per_1k": 0.02,
    "rank": 20
   },
   {
@@ -5995,7 +5995,7 @@
    "private": 92.9,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.55,
+   "cost_per_1k": 0.49,
    "rank": 22
   },
   {
@@ -6035,7 +6035,7 @@
    "private": 91.7,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.23,
+   "cost_per_1k": 0.22,
    "rank": 24
   },
   {
@@ -6155,7 +6155,7 @@
    "private": 94.0,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.26,
+   "cost_per_1k": 0.24,
    "rank": 30
   },
   {
@@ -6215,7 +6215,7 @@
    "private": 88.1,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.96,
+   "cost_per_1k": 0.86,
    "rank": 33
   },
   {
@@ -6275,7 +6275,7 @@
    "private": 89.3,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.28,
+   "cost_per_1k": 0.25,
    "rank": 36
   },
   {
@@ -6315,7 +6315,7 @@
    "private": 88.1,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.13,
+   "cost_per_1k": 0.12,
    "rank": 38
   },
   {
@@ -6355,7 +6355,7 @@
    "private": 86.9,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 1.52,
+   "cost_per_1k": 1.41,
    "rank": 40
   },
   {
@@ -6415,7 +6415,7 @@
    "private": 84.5,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.17,
+   "cost_per_1k": 0.16,
    "rank": 43
   },
   {
@@ -6555,7 +6555,7 @@
    "private": 84.5,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.14,
+   "cost_per_1k": 0.13,
    "rank": 50
   },
   {
@@ -6615,7 +6615,7 @@
    "private": 84.5,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.12,
+   "cost_per_1k": 0.11,
    "rank": 53
   },
   {
@@ -6655,7 +6655,7 @@
    "private": 81.0,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.06,
+   "cost_per_1k": 0.05,
    "rank": 55
   },
   {
@@ -6695,7 +6695,7 @@
    "private": 82.1,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.04,
+   "cost_per_1k": 0.03,
    "rank": 57
   },
   {
@@ -6755,7 +6755,7 @@
    "private": 79.8,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.1,
+   "cost_per_1k": 0.09,
    "rank": 60
   },
   {
@@ -6915,7 +6915,7 @@
    "private": 76.2,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 0.26,
+   "cost_per_1k": 0.29,
    "rank": 68
   },
   {
@@ -7115,7 +7115,7 @@
    "private": 0.0,
    "tested_on": "openrouter",
    "added": "2026-10-11",
-   "cost_per_1k": 2.88,
+   "cost_per_1k": 2.54,
    "rank": 78
   }
  ],

@@ -4549,6 +4549,194 @@
    "ptok": 316,
    "tok": 16910,
    "at": "2026-10-12"
+  },
+  "coding/code-parse-duration": {
+   "cost": 0.0140371,
+   "ptok": 210,
+   "tok": 24575,
+   "at": "2026-10-12"
+  },
+  "coding/code-summarize-ranges": {
+   "cost": 0.0108172,
+   "ptok": 161,
+   "tok": 18938,
+   "at": "2026-10-12"
+  },
+  "coding/code-top-customers": {
+   "cost": 0.0124061,
+   "ptok": 208,
+   "tok": 21714,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 0.0103638,
+   "ptok": 204,
+   "tok": 18132,
+   "at": "2026-10-12"
+  },
+  "coding/code-token-bucket": {
+   "cost": 0.00547,
+   "ptok": 189,
+   "tok": 9550,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-refund-window": {
+   "cost": 0.0004075,
+   "ptok": 366,
+   "tok": 625,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-incident-matrix": {
+   "cost": 0.0006882,
+   "ptok": 372,
+   "tok": 1116,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-tool-followup": {
+   "cost": 0.0003938,
+   "ptok": 309,
+   "tok": 615,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-legit-security-alert": {
+   "cost": 0.0002733,
+   "ptok": 275,
+   "tok": 412,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-meeting-slot": {
+   "cost": 0.001398,
+   "ptok": 332,
+   "tok": 2371,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-hard-review-mixed": {
+   "cost": 0.0008685,
+   "ptok": 247,
+   "tok": 1463,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-support-checkout-down": {
+   "cost": 0.000247,
+   "ptok": 307,
+   "tok": 358,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-refund-wrong-plan": {
+   "cost": 0.0002665,
+   "ptok": 279,
+   "tok": 399,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-moderation-doxxing": {
+   "cost": 0.0003022,
+   "ptok": 245,
+   "tok": 470,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-route-calendar": {
+   "cost": 0.0002497,
+   "ptok": 228,
+   "tok": 382,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-doc-invoice-missing-due": {
+   "cost": 0.0002472,
+   "ptok": 255,
+   "tok": 371,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-phishing-paypal": {
+   "cost": 0.000227,
+   "ptok": 209,
+   "tok": 347,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-pii-ssn-email": {
+   "cost": 0.0001631,
+   "ptok": 245,
+   "tok": 226,
+   "at": "2026-10-12"
+  },
+  "decisions/decide-review-mixed": {
+   "cost": 0.0013316,
+   "ptok": 208,
+   "tok": 2285,
+   "at": "2026-10-12"
+  },
+  "extract/extract-hard-saas-escalator": {
+   "cost": 0.0041092,
+   "ptok": 546,
+   "tok": 7075,
+   "at": "2026-10-12"
+  },
+  "extract/extract-expense-thread": {
+   "cost": 0.001533,
+   "ptok": 698,
+   "tok": 2518,
+   "at": "2026-10-12"
+  },
+  "extract/extract-lease-amendment": {
+   "cost": 0.0008235,
+   "ptok": 524,
+   "tok": 1316,
+   "at": "2026-10-12"
+  },
+  "extract/extract-ticket-sla": {
+   "cost": 0.0010414,
+   "ptok": 574,
+   "tok": 1686,
+   "at": "2026-10-12"
+  },
+  "extract/extract-sales-footnotes": {
+   "cost": 0.0016134,
+   "ptok": 442,
+   "tok": 2722,
+   "at": "2026-10-12"
+  }
+ },
+ "qwen3-5-27b": {
+  "coding/code-hard-ini-parser": {
+   "cost": 0.030989,
+   "ptok": 414,
+   "tok": 14295,
+   "at": "2026-10-12"
+  },
+  "coding/code-hard-ttl-lru": {
+   "cost": 0.0072482,
+   "ptok": 325,
+   "tok": 3315,
+   "at": "2026-10-12"
+  },
+  "coding/code-parse-duration": {
+   "cost": 0.0761353,
+   "ptok": 218,
+   "tok": 29261,
+   "at": "2026-10-12"
+  },
+  "coding/code-summarize-ranges": {
+   "cost": 0.0134459,
+   "ptok": 165,
+   "tok": 5155,
+   "at": "2026-10-12"
+  },
+  "coding/code-top-customers": {
+   "cost": 0.0039666,
+   "ptok": 216,
+   "tok": 1504,
+   "at": "2026-10-12"
+  },
+  "coding/code-slugify": {
+   "cost": 0.0181537,
+   "ptok": 212,
+   "tok": 6961,
+   "at": "2026-10-12"
+  },
+  "coding/code-token-bucket": {
+   "cost": 0.015794,
+   "ptok": 196,
+   "tok": 6055,
+   "at": "2026-10-12"
   }
  }
 }
