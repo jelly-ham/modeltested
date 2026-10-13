@@ -24,7 +24,7 @@ ORG_ALLOWLIST = {
     "qwen", "google", "meta-llama", "mistralai", "microsoft", "openai", "deepseek", "z-ai", "nvidia",
     "ibm-granite", "liquid", "moonshotai", "allenai", "baidu", "tencent", "minimax", "stepfun-ai",
     "inclusionai", "xiaomi", "cohere", "arcee-ai", "ai21", "bytedance-seed", "thudm",
-    "meta", "prism-ml", "poolside", "nex-agi", "rekaai", "thinkingmachines",
+    "meta", "prism-ml", "poolside", "nex-agi", "rekaai", "thinkingmachines", "ornith-ai", "ornith",
 }
 
 # Hugging Face can't report a size for GGUF-only repos; fill in what the model card states.

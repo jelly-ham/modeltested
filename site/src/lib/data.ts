@@ -145,7 +145,7 @@ export function questionTitle(id: string): string {
 const ORG_NAMES: Record<string, string> = {
   openai: "OpenAI", google: "Google", qwen: "Alibaba's Qwen team", "meta-llama": "Meta", mistralai: "Mistral AI",
   microsoft: "Microsoft", nvidia: "NVIDIA", "z-ai": "Zhipu AI", "ibm-granite": "IBM", deepseek: "DeepSeek",
-  moonshotai: "Moonshot AI", liquid: "Liquid AI", cloudflare: "Cloudflare", "nace-ai": "Nace AI", typesafe: "Typesafe",
+  moonshotai: "Moonshot AI", liquid: "Liquid AI", cloudflare: "Cloudflare", "nace-ai": "Nace AI", typesafe: "Typesafe", "ornith-ai": "Ornith AI",
   jaredpalmer: "Jared Palmer", inception: "Inception", perplexity: "Perplexity", upstage: "Upstage", togethercomputer: "Together AI",
   respan: "Respan", "contrastive-lm": "Contrastive-LM", tencent: "Tencent", allenai: "Ai2", baidu: "Baidu", cohere: "Cohere",
 };
