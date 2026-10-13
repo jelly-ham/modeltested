@@ -682,33 +682,6 @@
       "note": "Never officially released by Meta: weights recovered by the community (allura-forge, Dec 2025) from Meta's Llama API fine-tuning download. Same architecture as Llama 3.1 8B (8k context config). Compare with llama-3-1-8b-q4-mac (same Mac, same Q4)."
     },
     {
-      "slug": "ornith-1-5-9b-q4-mac",
-      "name": "Ornith 1.5 9B (Q4, Mac)",
-      "status": "local",
-      "backend": "ollama",
-      "ollama_tag": "hf.co/ornith-ai/Ornith-1.5-9B-GGUF:Q4_K_M",
-      "quant": "Q4_K_M",
-      "base": null,
-      "openrouter_id": null,
-      "hf_id": "ornith-ai/Ornith-1.5-9B",
-      "org": "ornith-ai",
-      "params_b": 9.65,
-      "active_params_b": null,
-      "arch": {
-        "layers": 32,
-        "kv_heads": 4,
-        "head_dim": 256
-      },
-      "native_quant": {
-        "name": "Q4_K_M",
-        "bpw": 4.85
-      },
-      "ollama": "hf.co/ornith-ai/Ornith-1.5-9B-GGUF:Q4_K_M",
-      "license": "mit",
-      "added": "2026-10-13",
-      "note": "Not on OpenRouter; tested from the official GGUF. Fine-tune of Qwen3.5-9B (same architecture), so compare with qwen3-5-9b."
-    },
-    {
       "slug": "llama-4-scout",
       "name": "Llama 4 Scout",
       "status": "auto",
@@ -1034,6 +1007,33 @@
       },
       "ollama": null,
       "added": "2026-10-11"
+    },
+    {
+      "slug": "ornith-1-5-9b-q4-mac",
+      "name": "Ornith 1.5 9B (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "hf.co/ornith-ai/Ornith-1.5-9B-GGUF:Q4_K_M",
+      "quant": "Q4_K_M",
+      "base": null,
+      "openrouter_id": null,
+      "hf_id": "ornith-ai/Ornith-1.5-9B",
+      "org": "ornith-ai",
+      "params_b": 9.65,
+      "active_params_b": null,
+      "arch": {
+        "layers": 32,
+        "kv_heads": 4,
+        "head_dim": 256
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "hf.co/ornith-ai/Ornith-1.5-9B-GGUF:Q4_K_M",
+      "license": "mit",
+      "added": "2026-10-13",
+      "note": "Not on OpenRouter; tested from the official GGUF. Fine-tune of Qwen3.5-9B (same architecture), so compare with qwen3-5-9b."
     },
     {
       "slug": "phi-4",
