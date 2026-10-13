@@ -124,6 +124,20 @@
       "license": "custom license"
     },
     {
+      "slug": "drex-v2-0",
+      "name": "Drex v2.0",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "nace-ai/drex-v2.0",
+      "hf_id": null,
+      "org": "nace-ai",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-13"
+    },
+    {
       "slug": "gemma-2-27b-it",
       "name": "Gemma 2 27B",
       "status": "active",
@@ -1733,6 +1747,7 @@
     "meta/muse-spark-1.3": "no open weights linked",
     "meta/muse-spark-1.3-contributor": "no open weights linked",
     "meta/muse-voice-transcribe-1.0": "output is transcription, not text",
+    "meta/muse-wonder": "no open weights linked",
     "microsoft/mai-image-2.5": "output is image, not text",
     "microsoft/mai-image-2.5-pro": "output is image, not text",
     "microsoft/mai-image-2.6": "output is image, not text",
