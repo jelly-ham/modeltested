@@ -170,8 +170,9 @@ code, pre, .mono { font-family: var(--mono); }
 .tier-cards .m a { color: var(--ink); text-decoration: none; }
 
 .after-article { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; padding: 20px 0; margin-top: 16px; border-top: 1px solid var(--line); font-size: 14px; }
-.after-article .share { display: flex; gap: 18px; }
-.after-article .share a { color: var(--muted); }
+.after-article .share { display: flex; gap: 8px; }
+.after-article .share a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); }
+.after-article .share a:hover { color: var(--ink); border-color: var(--muted); }
 details.answer { border-bottom: 1px solid var(--line); padding: 14px 0; }
 details.answer summary { cursor: pointer; display: flex; gap: 12px; align-items: center; font-weight: 500; font-size: 16px; }
 details.answer summary span:first-child { flex: 1; }
