@@ -28,6 +28,20 @@
       "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
     },
     {
+      "slug": "classify-1",
+      "name": "Classify-1",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "scaledown/classify-1",
+      "hf_id": null,
+      "org": "scaledown",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-13"
+    },
+    {
       "slug": "clef",
       "name": "Clef",
       "status": "auto",
@@ -2088,6 +2102,8 @@
     "sao10k/l3-lunaris-8b": "org 'sao10k' not on allowlist",
     "sao10k/l3.1-euryale-70b": "org 'sao10k' not on allowlist",
     "sao10k/l3.3-euryale-70b": "org 'sao10k' not on allowlist",
+    "scaledown/extract": "no open weights linked",
+    "scaledown/summarize": "no open weights linked",
     "sentence-transformers/all-minilm-l12-v2": "output is embeddings, not text",
     "sentence-transformers/all-minilm-l6-v2": "output is embeddings, not text",
     "sentence-transformers/all-mpnet-base-v2": "output is embeddings, not text",
