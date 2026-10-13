@@ -50,7 +50,9 @@ def _hf_json(url: str):
 
 def hf_params_b(hf_id: str) -> float | None:
     info = _hf_json(f"https://huggingface.co/api/models/{hf_id}") or {}
-    total = (info.get("safetensors") or {}).get("total")
+    st = info.get("safetensors") or {}
+    # "total" is occasionally wrong (Ornith-1.0-9B reports 1.5M); the per-dtype counts are not.
+    total = max(st.get("total") or 0, sum((st.get("parameters") or {}).values()))
     return round(total / 1e9, 2) if total else None
 
 

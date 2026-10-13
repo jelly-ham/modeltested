@@ -1,6 +1,6 @@
 import argparse
 
-from . import build_data, costs, discover, local, run, selfcheck
+from . import build_data, costs, discover, hf_scan, local, run, selfcheck
 
 
 def main() -> None:
@@ -10,6 +10,10 @@ def main() -> None:
     p = sub.add_parser("discover", help="add new open-weight models from OpenRouter to bench/models.json")
     p.add_argument("--dry-run", action="store_true")
     p.set_defaults(fn=discover.main)
+
+    p = sub.add_parser("hf-scan", help="add popular Hugging Face-only models as Mac Q4 models; list bigger ones under hf_watch")
+    p.add_argument("--dry-run", action="store_true")
+    p.set_defaults(fn=hf_scan.main)
 
     p = sub.add_parser("run", help="run missing (model, question) pairs")
     p.add_argument("--models", help="comma-separated slugs (default: all active/auto models)")

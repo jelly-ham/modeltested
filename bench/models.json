@@ -1,6 +1,33 @@
 {
   "models": [
     {
+      "slug": "agents-a1-4b-q4-mac",
+      "name": "Agents A1 4B (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "hf.co/bartowski/InternScience_Agents-A1-4B-GGUF:Q4_K_M",
+      "quant": "Q4_K_M",
+      "base": null,
+      "openrouter_id": null,
+      "hf_id": "InternScience/Agents-A1-4B",
+      "org": "internscience",
+      "params_b": 4.54,
+      "active_params_b": null,
+      "arch": {
+        "layers": 32,
+        "kv_heads": 4,
+        "head_dim": 256
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "hf.co/bartowski/InternScience_Agents-A1-4B-GGUF:Q4_K_M",
+      "license": "apache-2.0",
+      "added": "2026-10-13",
+      "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
+    },
+    {
       "slug": "clef",
       "name": "Clef",
       "status": "auto",
@@ -547,6 +574,33 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "ling-3-0-tiny-q4-mac",
+      "name": "Ling 3.0 tiny (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "hf.co/inclusionAI/Ling-3.0-tiny-GGUF:Q4_K_M",
+      "quant": "Q4_K_M",
+      "base": null,
+      "openrouter_id": null,
+      "hf_id": "inclusionAI/Ling-3.0-tiny",
+      "org": "inclusionai",
+      "params_b": 7.89,
+      "active_params_b": null,
+      "arch": {
+        "layers": 24,
+        "kv_heads": 16,
+        "head_dim": 128
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "hf.co/inclusionAI/Ling-3.0-tiny-GGUF:Q4_K_M",
+      "license": "mit",
+      "added": "2026-10-13",
+      "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
+    },
+    {
       "slug": "llama-3-1-70b-instruct",
       "name": "Llama 3.1 70B Instruct",
       "status": "auto",
@@ -721,6 +775,60 @@
       "arch": null,
       "ollama": null,
       "added": "2026-10-11"
+    },
+    {
+      "slug": "minicpm5-1b-q4-mac",
+      "name": "MiniCPM5 1B (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "hf.co/openbmb/MiniCPM5-1B-GGUF:Q4_K_M",
+      "quant": "Q4_K_M",
+      "base": null,
+      "openrouter_id": null,
+      "hf_id": "openbmb/MiniCPM5-1B",
+      "org": "openbmb",
+      "params_b": 1.08,
+      "active_params_b": null,
+      "arch": {
+        "layers": 24,
+        "kv_heads": 2,
+        "head_dim": 128
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "hf.co/openbmb/MiniCPM5-1B-GGUF:Q4_K_M",
+      "license": "apache-2.0",
+      "added": "2026-10-13",
+      "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
+    },
+    {
+      "slug": "minicpm5-2b-q4-mac",
+      "name": "MiniCPM5 2B (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "hf.co/openbmb/MiniCPM5-2B-GGUF:Q4_K_M",
+      "quant": "Q4_K_M",
+      "base": null,
+      "openrouter_id": null,
+      "hf_id": "openbmb/MiniCPM5-2B",
+      "org": "openbmb",
+      "params_b": 2.52,
+      "active_params_b": null,
+      "arch": {
+        "layers": 42,
+        "kv_heads": 2,
+        "head_dim": 128
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "hf.co/openbmb/MiniCPM5-2B-GGUF:Q4_K_M",
+      "license": "apache-2.0",
+      "added": "2026-10-13",
+      "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
     },
     {
       "slug": "ministral-14b-2512",
@@ -2055,5 +2163,90 @@
     "z-ai/glm-5.3-flashx": "no open weights linked",
     "z-ai/glm-5.3-prime": "no open weights linked",
     "z-ai/glm-5v-turbo": "no open weights linked"
+  },
+  "hf_watch": {
+    "ornith-ai/Ornith-1.5-35B-A3B": {
+      "params_b": 35.95,
+      "downloads_30d": 8496019,
+      "license": "mit",
+      "seen": "2026-10-13"
+    },
+    "ornith-ai/Ornith-1.0-35B": {
+      "params_b": 35.11,
+      "downloads_30d": 3172759,
+      "license": "mit",
+      "seen": "2026-10-13"
+    },
+    "farbodtavakkoli/OTel-2.0-LLM-31B-IT": {
+      "params_b": 31.27,
+      "downloads_30d": 774082,
+      "license": "apache-2.0",
+      "seen": "2026-10-13"
+    },
+    "swiss-ai/Apertus-v1.5-8B": {
+      "params_b": 8.9,
+      "downloads_30d": 699922,
+      "license": "apache-2.0",
+      "seen": "2026-10-13",
+      "why": "no Q4_K_M GGUF found yet"
+    },
+    "FINAL-Bench/Darwin-36B-Opus": {
+      "params_b": 34.66,
+      "downloads_30d": 533195,
+      "license": "apache-2.0",
+      "seen": "2026-10-13"
+    }
+  },
+  "hf_ignored": {
+    "RadixArk/Kimi-K3-DSpark": "specialized model, not a general assistant",
+    "google/gemma-4-12B-it": "finetune of google/gemma-4-12B",
+    "ornith-ai/Ornith-1.0-9B": "older version; a newer one exists",
+    "CMSManhattan/JiRackUltra_1b": "older version; a newer one exists",
+    "baidu/Unlimited-OCR": "specialized model, not a general assistant",
+    "ornith-ai/Ornith-1.5-397B": "403.4B params > 130B",
+    "DavidAU/Qwen3.5-9B-The-Defiant-Fable-Uncensored-Heretic-NEO-IMATRIX-MAX-MTP": "community variant (uncensored/abliterated/...)",
+    "DavidAU/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU": "community variant (uncensored/abliterated/...)",
+    "autotrust/JEV-27B-VL": "adapter of Qwen/Qwen3.8-27B",
+    "XHToken/Spark-X2.5-4B": "finetune of XHToken/Spark-X2.5-4B-Base",
+    "ukisai/Swift-1.5-Qwen3.8-27b": "finetune of Qwen/Qwen3.8-27B",
+    "openbmb/MiniCPM5-2B-DSpark": "specialized model, not a general assistant",
+    "google/diffusiongemma-26B-A4B-it": "specialized model, not a general assistant",
+    "empero-ai/Qwen3.8-35B-A3B-Distill": "finetune of Qwen/Qwen3.6-35B-A3B",
+    "endless-frontier/BigBang-v1": "finetune of Qwen/Qwen3.6-35B-A3B",
+    "google/gemma-4-31B-it-qat-q4_0-unquantized": "finetune of google/gemma-4-31B-it",
+    "unsloth/Qwen3.8-27B-NVFP4": "re-upload by a quantizer, not an original release",
+    "empero-ai/Qwen3.8-4B-Distill": "finetune of Qwen/Qwen3.5-4B",
+    "XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B": "finetune of Qwen/Qwen3.5-9B",
+    "philbert440/Qwen3.8-27B-Uncensored-Cyber": "community variant (uncensored/abliterated/...)",
+    "HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive": "community variant (uncensored/abliterated/...)",
+    "empero-ai/Qwen3.8-9B-Distill": "finetune of Qwen/Qwen3.5-9B",
+    "Accio-Lab/occamy-1.0": "finetune of Qwen/Qwen3.6-35B-A3B",
+    "huihui-ai/Huihui-Ornith-1.5-35B-A3B-abliterated": "community variant (uncensored/abliterated/...)",
+    "Jackrong/Qwopus3.8-27B-Flash-V2": "finetune of Jackrong/Qwopus3.8-27B-Flash",
+    "bottlecapai/ThinkingCap-Qwen3.8-27B": "finetune of Qwen/Qwen3.8-27B",
+    "apodex/Apodex-1.1-mini": "finetune of Qwen/Qwen3.5-35B-A3B",
+    "empero-ai/Qwythos-9B-Claude-Mythos-5-1M": "finetune of Qwen/Qwen3.5-9B",
+    "ukisai/Swift-Qwen3.8-27b": "finetune of Qwen/Qwen3.8-27B",
+    "ukisai/Swift1.5-Qwen3.8-Flash-Next": "finetune of Qwen/Qwen3.8-Flash-Next",
+    "orcarouter/GLM-5.3-Flash-Uncensored-FP8": "community variant (uncensored/abliterated/...)",
+    "empero-ai/Qwen3.8-2B-Distill": "finetune of Qwen/Qwen3.5-2B",
+    "Bahushruth/Qwen3.6-35B-A3B-abliterated-v4": "community variant (uncensored/abliterated/...)",
+    "LiquidAI/LFM2.5-230M": "finetune of LiquidAI/LFM2.5-230M-Base",
+    "DavidAU/Qwen3.6-27B-Fable-Fusion-711-Uncensored-Heretic-NM-DAU-MTP": "community variant (uncensored/abliterated/...)",
+    "zed-industries/zeta-2.1": "finetune of ByteDance-Seed/Seed-Coder-8B-Base",
+    "google/gemma-4-26B-A4B-it-qat-q4_0-unquantized": "finetune of google/gemma-4-26B-A4B-it",
+    "ornith-ai/Ornith-1.0-397B": "older version; a newer one exists",
+    "migtissera/Tess-4-27B": "finetune of Qwen/Qwen3.6-27B",
+    "Qwen/Qwen3.5-4B": "finetune of Qwen/Qwen3.5-4B-Base",
+    "poolside/Laguna-M.1": "225.8B params > 130B",
+    "empero-ai/Qwythos-9B-v2": "finetune of empero-ai/Qwythos-9B-Claude-Mythos-5-1M",
+    "lmstudio-community/gemma-4-26B-A4B-it-QAT": "re-upload by a quantizer, not an original release",
+    "DavidAU/Qwen3.8-27B-Cold-Fusion-GAIN-V1.1": "finetune of Qwen/Qwen3.8-27B",
+    "Jackrong/Qwopus3.6-35B-A3B-Coder-MTP": "specialized model, not a general assistant",
+    "tvall43/Qwen3.6-14B-A3B-FableVibes": "finetune of tvall43/Qwen3.6-35B-A3B-heretic",
+    "Jackrong/Qwopus3.6-27B-Coder": "adapter of Jackrong/Qwopus3.6-27B-v2",
+    "thomsonreuters/Thomson-1.0-Small": "finetune of tri-fair-lab/Snowdon1.1-Small",
+    "Qwen/Qwen-AgentWorld-35B-A3B": "finetune of Qwen/Qwen3.5-35B-A3B-Base",
+    "Qwen/Qwen3-4B": "older version; a newer one exists"
   }
 }

@@ -74,6 +74,12 @@ jobs:
       - name: Discover new models
         run: python -m runner discover
 
+      # Hugging Face-only releases. Small ones become Mac models (run by scripts/mac-run.sh);
+      # bigger ones are listed under hf_watch. Not worth failing the run over.
+      - name: Scan Hugging Face for popular models OpenRouter doesn't serve
+        continue-on-error: true
+        run: python -m runner hf-scan
+
       - name: Run benchmarks
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
