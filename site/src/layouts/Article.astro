@@ -29,28 +29,29 @@ const share = [
 ];
 ---
 <Base title={seoTitle} description={description} jsonLd={jsonLd} nav={nav} ogType="article">
-  <div class="wrap">
+  <div class="wrap" data-pagefind-body>
+    <span data-pagefind-meta="kind" hidden>{kicker.split(" · ")[0]}</span>
     <header class="article-head">
       {crumbs.length > 0 && (
-        <nav class="crumbs" aria-label="Breadcrumb">
+        <nav class="crumbs" aria-label="Breadcrumb" data-pagefind-ignore>
           {crumbs.map((c, i) => <>{i > 0 && " / "}<a href={c.href}>{c.label}</a></>)}
         </nav>
       )}
-      <div class="kicker">{kicker}<span data-views hidden></span></div>
-      <h1>{heading}</h1>
+      <div class="kicker" data-pagefind-ignore>{kicker}<span data-views hidden></span></div>
+      <h1 data-pagefind-meta="title">{heading}</h1>
       <p class="dek">{dek}</p>
     </header>
     {cover && <KeyStrip cover={cover} />}
     <div class={`cols cols-article${toc.length > 1 ? " has-toc" : ""}`}>
       {toc.length > 1 && (
-        <nav class="toc-left" aria-label="On this page">
+        <nav class="toc-left" aria-label="On this page" data-pagefind-ignore>
           <div class="side-title">On this page</div>
           {toc.map((t) => <a href={t.href}>{t.label}</a>)}
         </nav>
       )}
       <main>
         <slot />
-        <div class="after-article">
+        <div class="after-article" data-pagefind-ignore>
           <slot name="tags" />
           <div class="share">{share.map((s) => (
             <a class={s.cls} href={s.href} rel="noopener" target="_blank" aria-label={s.label} title={s.label}>
@@ -58,8 +59,10 @@ const share = [
             </a>
           ))}</div>
         </div>
-        <slot name="after" />
-        <Comments />
+        <div data-pagefind-ignore>
+          <slot name="after" />
+          <Comments />
+        </div>
       </main>
       <Sidebar toc={toc} mentioned={mentioned} />
     </div>

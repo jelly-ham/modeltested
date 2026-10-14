@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { SITE_NAME, REPO_URL, data, models } from "../lib/data";
+import { SITE_NAME, REPO_URL } from "../lib/data";
 
 interface Props {
   title: string;
@@ -51,7 +51,11 @@ const links = [
         <nav class="site-nav" aria-label="Main">
           {links.map((l) => <a href={l.href} aria-current={nav === l.key ? "page" : undefined}>{l.label}</a>)}
         </nav>
-        <span class="site-stat">{models.length} models · updated {new Date(data.generated + "T00:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}</span>
+        <form class="site-search" action="/search/" method="get" role="search">
+          <label for="site-q" class="sr-only">Search</label>
+          <input id="site-q" name="q" type="search" placeholder="Search" autocomplete="off" />
+          <button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></button>
+        </form>
         <a class="btn btn-line btn-sm" href="/rss.xml">Follow (RSS)</a>
       </div>
     </header>

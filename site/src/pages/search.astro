@@ -1,0 +1,81 @@
+---
+import Base from "../layouts/Base.astro";
+import Sidebar from "../components/Sidebar.astro";
+import { SITE_NAME } from "../lib/data";
+---
+<Base title={`Search | ${SITE_NAME}`} description="Search every model review, ranking and guide on Model Tested.">
+  <div class="wrap">
+    <div class="cols cols-top">
+      <main>
+        <h1 class="search-title">Search</h1>
+        <form class="search-page" action="/search/" method="get" role="search">
+          <label for="q" class="sr-only">Search models and posts</label>
+          <input id="q" name="q" type="search" placeholder="Try “Qwen”, “16 GB Mac” or “coding”" autocomplete="off" autofocus />
+          <button class="btn btn-blue" type="submit">Search</button>
+        </form>
+        <p class="sub" id="search-status" aria-live="polite"></p>
+        <ol class="search-results" id="search-results"></ol>
+        <noscript><p class="sub">Search needs JavaScript. You can browse <a href="/posts/">all posts</a> or the <a href="/best-local-llms/">leaderboard</a> instead.</p></noscript>
+      </main>
+      <Sidebar />
+    </div>
+  </div>
+  <script is:inline>
+    (() => {
+      const input = document.getElementById("q");
+      const list = document.getElementById("search-results");
+      const status = document.getElementById("search-status");
+      const form = input.form;
+      let pf = null, seq = 0, timer = 0;
+      const load = () => (pf ??= import("/pagefind/pagefind.js").then(async (m) => { await m.options({ excerptLength: 26 }); return m; }));
+
+      // Results come from our own index, but excerpts are HTML (<mark> around matches): keep only text and <mark>.
+      const safe = (html) => {
+        const tmp = document.createElement("div");
+        tmp.innerHTML = html;
+        const out = document.createElement("span");
+        for (const n of tmp.childNodes) {
+          if (n.nodeName === "MARK") { const m = document.createElement("mark"); m.textContent = n.textContent; out.append(m); }
+          else out.append(document.createTextNode(n.textContent));
+        }
+        return out;
+      };
+
+      async function run(q) {
+        const mine = ++seq;
+        const url = new URL(location.href);
+        if (q) url.searchParams.set("q", q); else url.searchParams.delete("q");
+        history.replaceState(null, "", url);
+        if (!q.trim()) { list.replaceChildren(); status.textContent = ""; return; }
+        status.textContent = "Searching…";
+        const m = await load();
+        const res = await m.search(q);
+        const hits = await Promise.all(res.results.slice(0, 30).map((r) => r.data()));
+        if (mine !== seq) return;
+        status.textContent = res.results.length
+          ? `${res.results.length} result${res.results.length === 1 ? "" : "s"} for “${q}”` + (res.results.length > 30 ? ", showing the first 30" : "")
+          : `Nothing found for “${q}”. Try a model family (Qwen, Llama, Gemma) or a memory size (16 GB).`;
+        list.replaceChildren(...hits.map((h) => {
+          const li = document.createElement("li");
+          const kind = document.createElement("span");
+          kind.className = "meta";
+          kind.textContent = h.meta.kind || "";
+          const a = document.createElement("a");
+          a.href = h.url;
+          a.className = "t";
+          a.textContent = h.meta.title || h.url;
+          const p = document.createElement("p");
+          p.append(safe(h.excerpt));
+          li.append(kind, a, p);
+          return li;
+        }));
+      }
+
+      const q0 = new URLSearchParams(location.search).get("q") || "";
+      input.value = q0;
+      if (q0) run(q0);
+      input.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => run(input.value), 180); });
+      form.addEventListener("submit", (e) => { e.preventDefault(); run(input.value); });
+    })();
+  </script>
+</Base>

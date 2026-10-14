@@ -19,17 +19,18 @@ const description = `${fits.length} of the ${models.length} local AI models we t
 const others = tiers.filter((t) => t.kind === tier.kind);
 ---
 <Base title={title} description={description} nav="rankings">
-  <div class="wrap">
+  <div class="wrap" data-pagefind-body>
+    <span data-pagefind-meta="kind" hidden>Hardware</span>
     <header class="article-head">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/best-local-llms/">Best Local LLMs</a></nav>
-      <div class="kicker">What can I run · updated {fmtDate(data.generated)}</div>
-      <h1>Local LLMs that run on {hardwareName(tier)}</h1>
+      <nav class="crumbs" aria-label="Breadcrumb" data-pagefind-ignore><a href="/">Home</a> / <a href="/best-local-llms/">Best Local LLMs</a></nav>
+      <div class="kicker" data-pagefind-ignore>What can I run · updated {fmtDate(data.generated)}</div>
+      <h1 data-pagefind-meta="title">Local LLMs that run on {hardwareName(tier)}</h1>
       <p class="dek">
         {fits.length} of the {models.length} models we've tested fit, with room for a normal-length chat.
         {top && <>The best one is <a href={`/models/${top.model.slug}/`} style="color: var(--blue)">{top.model.name}</a>, scoring {whole(top.model.overall)} out of 100.</>}
         {tier.id === "mac-128" && <> The same list is a good guide for 128 GB "AI PCs" such as AMD Strix Halo (Ryzen AI Max+ 395) and NVIDIA DGX Spark.</>}
       </p>
-      <div class="hw-chips" style="margin-top: 20px">
+      <div class="hw-chips" style="margin-top: 20px" data-pagefind-ignore>
         {others.map((t) => (
           <a class={`hw-chip${t.id === tier.id ? " on" : ""}`} href={`/hardware/${hardwareSlug(t)}/`} aria-current={t.id === tier.id ? "page" : undefined}>
             <span>{t.kind === "gpu" ? `${t.gb} GB GPU` : `Mac ${t.gb} GB`}</span>
