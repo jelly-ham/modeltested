@@ -1,22 +1,30 @@
 ---
 import Base from "../layouts/Base.astro";
-import CoverArt from "../components/CoverArt.astro";
-import PostCard from "../components/PostCard.astro";
-import PostRow from "../components/PostRow.astro";
+import KeyStrip from "../components/KeyStrip.astro";
 import Sidebar from "../components/Sidebar.astro";
-import { SITE_NAME, TAGLINE, data, models, ranked, fmtDate } from "../lib/data";
-import { allPosts, rankingPosts, shortDate } from "../lib/posts";
+import { SITE_NAME, TAGLINE, data, models, ranked, fmtDate, size, pct, minTiers } from "../lib/data";
+import { allPosts, guidePosts, shortDate } from "../lib/posts";
 
 const posts = await allPosts();
-const [hero, codingPost] = rankingPosts();
-const top = ranked("overall")[0];
-const featured = [
-  codingPost,
-  posts.find((p) => p.url === `/models/${top.slug}/`),
-  posts.find((p) => p.url === "/best-decision-models/") ?? posts.find((p) => p.category === "Guides"),
-].filter(Boolean) as typeof posts;
-const shown = new Set([hero.url, ...featured.map((p) => p.url)]);
-const latest = posts.filter((p) => !shown.has(p.url)).slice(0, 12);
+// Lead story: the newest written post; then the next few, each with its one-line summary.
+const written = (await guidePosts()).sort((a, b) => b.date.localeCompare(a.date) || a.order - b.order);
+const [lead, ...rest] = written;
+const alsoNew = rest.slice(0, 3);
+const shown = new Set([lead.url, ...alsoNew.map((p) => p.url)]);
+const latest = posts.filter((p) => !shown.has(p.url)).slice(0, 14);
+
+const board = ranked("overall").slice(0, 15);
+const setup = (m: (typeof board)[number]) => {
+  const t = minTiers(m);
+  const parts = [t.gpu && `${t.gpu.gb} GB GPU`, t.mac && `${t.mac.gb} GB Mac`].filter(Boolean);
+  return parts.length ? parts.join(" · ") : "—";
+};
+const q4 = (m: (typeof board)[number]) => {
+  const n = m.memory?.need_gb;
+  if (!n) return "—";
+  const gb = n.Q4_K_M ?? Math.min(...Object.values(n));
+  return `${gb.toFixed(0)} GB`;
+};
 
 const title = `${SITE_NAME}: Which AI Model Should You Use?`;
 const description = `${TAGLINE} Rankings and reviews based on our own tests of ${models.length} models, updated ${fmtDate(data.generated)}.`;
@@ -25,32 +33,65 @@ const jsonLd = [{ "@context": "https://schema.org", "@type": "WebSite", name: SI
 <Base title={title} description={description} jsonLd={jsonLd}>
   <div class="wrap">
     <div class="cols cols-top">
-      <main>
-        <section class="hero hero-compact">
-          <div class="text">
-            <div class="kicker">{hero.category} · {shortDate(hero.date)}</div>
-            <h1><a href={hero.url}>{hero.title}</a></h1>
-            <p>{hero.dek}</p>
-            <a class="btn btn-blue" href={hero.url}>See the full ranking
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </a>
+      <main class="home">
+        <section class="lead">
+          <div>
+            <div class="kicker">{lead.category} · {shortDate(lead.date)}</div>
+            <h1><a href={lead.url}>{lead.title}</a></h1>
+            <p class="dek">{lead.dek}</p>
+            <KeyStrip cover={lead.cover} limit={3} />
           </div>
-          <a class="hero-chart" href={hero.url} tabindex="-1" aria-hidden="true">
-            <CoverArt cover={hero.cover} size="compact" />
-          </a>
+          <div class="also">
+            <div class="side-title">Also new</div>
+            {alsoNew.map((p) => (
+              <a href={p.url}><span class="t">{p.title}</span><span class="d">{p.dek}</span><span class="meta">{p.category} · {shortDate(p.date)}</span></a>
+            ))}
+          </div>
         </section>
 
-        <section class="featured featured-compact" aria-label="Featured">
-          {featured.map((p) => <PostCard post={p} />)}
+        <section aria-labelledby="lb">
+          <div class="home-head">
+            <h2 id="lb">Leaderboard <span>top {board.length} of {models.length} · score out of 100</span></h2>
+            <a href="/best-local-llms/#leaderboard">Full table →</a>
+          </div>
+          <div class="dense-box">
+            <table class="dense">
+              <thead><tr><th>#</th><th>Model</th><th>Score</th><th>Coding</th><th>Docs</th><th>Decisions</th><th>Hard</th><th>Q4 size</th><th>Smallest setup</th></tr></thead>
+              <tbody>
+                {board.map((m) => (
+                  <tr>
+                    <td class="rk">{m.rank}</td>
+                    <td class="nm"><a href={`/models/${m.slug}/`}>{m.name}</a> <span class="sz">{size(m)}</span></td>
+                    <td class="sc">{pct(m.overall)}</td>
+                    <td>{pct(m.suites.coding?.score)}</td>
+                    <td>{pct(m.suites.extract?.score)}</td>
+                    <td>{pct(m.suites.decisions?.score)}</td>
+                    <td>{pct(m.hard)}</td>
+                    <td>{q4(m)}</td>
+                    <td class="st">{setup(m)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
-        <div class="list-compact">
-          <h2 class="section-title">Latest <a href="/posts/">All posts →</a></h2>
-          {latest.map((p) => <PostRow post={p} />)}
-        </div>
-        <a class="btn btn-line" href="/posts/" style="margin-top: 20px">See all {posts.length} posts</a>
+        <section aria-labelledby="latest">
+          <div class="home-head ruled">
+            <h2 id="latest">Latest</h2>
+            <a href="/posts/">All {posts.length} posts →</a>
+          </div>
+          <div class="latest-grid">
+            {latest.map((p) => (
+              <a href={p.url}>
+                <span class="meta">{shortDate(p.date)}</span>
+                <span><span class="t">{p.title}</span><span class="d">{p.category} · {p.dek}</span></span>
+              </a>
+            ))}
+          </div>
+        </section>
       </main>
-      <Sidebar />
+      <Sidebar home />
     </div>
   </div>
 </Base>

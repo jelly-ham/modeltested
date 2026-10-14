@@ -180,6 +180,9 @@ def main(args) -> None:
                                "quants": dict(memory.QUANTS)},
         "models": ranked,
         "pending": pending,
+        # Mac (Ollama) models waiting for their first complete run; shown as "Testing next".
+        "local_queue": [s["name"].replace(" (Q4, Mac)", "") for s in summaries
+                        if s.get("status") == "local" and s["overall"] is None and not s.get("updating")],
         "references": [r for r in references if r["overall"] is not None],
         "quantized": quantized,
         # Reference (cloud) models get a write-up of their own, never a place on a board.

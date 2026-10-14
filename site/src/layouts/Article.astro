@@ -1,9 +1,10 @@
 ---
 import Base from "./Base.astro";
-import CoverArt from "../components/CoverArt.astro";
+import KeyStrip from "../components/KeyStrip.astro";
 import Sidebar from "../components/Sidebar.astro";
 import Comments from "../components/Comments.astro";
 import type { Cover } from "../lib/posts";
+import type { Model } from "../lib/data";
 
 interface Props {
   seoTitle: string;
@@ -16,8 +17,9 @@ interface Props {
   toc?: { href: string; label: string }[];
   jsonLd?: object[];
   nav?: string;
+  mentioned?: Model[];
 }
-const { seoTitle, description, heading, dek, kicker, crumbs = [], cover, toc = [], jsonLd = [], nav } = Astro.props;
+const { seoTitle, description, heading, dek, kicker, crumbs = [], cover, toc = [], jsonLd = [], nav, mentioned = [] } = Astro.props;
 const url = new URL(Astro.url.pathname, Astro.site).href;
 const share = [
   { label: "Share on X", cls: "x", href: `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(heading)}`,
@@ -38,8 +40,14 @@ const share = [
       <h1>{heading}</h1>
       <p class="dek">{dek}</p>
     </header>
-    {cover && <CoverArt cover={cover} size="banner" />}
-    <div class="cols">
+    {cover && <KeyStrip cover={cover} />}
+    <div class={`cols cols-article${toc.length > 1 ? " has-toc" : ""}`}>
+      {toc.length > 1 && (
+        <nav class="toc-left" aria-label="On this page">
+          <div class="side-title">On this page</div>
+          {toc.map((t) => <a href={t.href}>{t.label}</a>)}
+        </nav>
+      )}
       <main>
         <slot />
         <div class="after-article">
@@ -53,7 +61,7 @@ const share = [
         <slot name="after" />
         <Comments />
       </main>
-      <Sidebar toc={toc} />
+      <Sidebar toc={toc} mentioned={mentioned} />
     </div>
   </div>
   <script is:inline>

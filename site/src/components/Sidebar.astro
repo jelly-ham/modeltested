@@ -1,62 +1,103 @@
 ---
-import { data, models, ranked, whole, fmtDate } from "../lib/data";
+import { data, models, ranked, tiers, whole, fmtDate, quantLabel, decisionHref, type Model } from "../lib/data";
 import { allTags } from "../lib/posts";
-import HardwarePicker from "./HardwarePicker.astro";
+import { hardwareSlug, fitsTier } from "../lib/hardware";
 
-interface Props { toc?: { href: string; label: string }[] }
-const { toc = [] } = Astro.props;
-const top = ranked("overall").slice(0, 5);
-const tags = (await allTags()).slice(0, 14);
+interface Props {
+  toc?: { href: string; label: string }[];
+  /** Models the page links to; listed with their rank and score. */
+  mentioned?: Model[];
+  /** The home page shows the full leaderboard in the main column, so the sidebar shows other things. */
+  home?: boolean;
+}
+const { toc = [], mentioned = [], home = false } = Astro.props;
+const top = ranked("overall").slice(0, 8);
+const tags = (await allTags()).slice(0, 16);
+const SHOWN_TIERS = ["gpu-8", "gpu-12", "gpu-16", "gpu-24", "gpu-32", "mac-16", "mac-24", "mac-32", "mac-64", "mac-128"];
+const hw = tiers.filter((t) => SHOWN_TIERS.includes(t.id)).map((t) => ({ t, best: fitsTier(t)[0] })).filter((x) => x.best);
+const decisions = (data.decisions ?? []).filter((r) => r.kind === "decision");
+const queue = (data as { local_queue?: string[] }).local_queue ?? [];
 const startHere = [
-  { href: "/best-local-llms/", label: "The best local LLMs right now" },
-  { href: "/posts/check-your-gpu-memory/", label: "How to check your graphics card or Mac memory" },
   { href: "/posts/run-a-local-llm-with-ollama/", label: "How to run a local LLM with Ollama" },
   { href: "/posts/q4-vs-q8/", label: "Q4 or Q8: which version should you download?" },
-  { href: "/best-local-llms/coding/", label: "Best local LLM for coding" },
+  { href: "/posts/check-your-gpu-memory/", label: "How to check your graphics card or Mac memory" },
+  { href: "/best-local-llms/methodology/", label: "How we test" },
 ];
 ---
 <aside aria-label="Sidebar">
   {toc.length > 0 && (
-    <nav aria-label="On this page">
-      <h2 class="section-title">On this page</h2>
-      <div class="side-list">
-        {toc.map((t) => <a href={t.href}>{t.label}</a>)}
-      </div>
+    <nav class="toc-side" aria-label="On this page">
+      <h2 class="side-title">On this page</h2>
+      {toc.map((t) => <a class="side-link" href={t.href}>{t.label}</a>)}
     </nav>
   )}
 
-  <HardwarePicker />
-
-  <section>
-    <h2 class="section-title">Leaderboard <a href="/best-local-llms/#leaderboard">All {models.length} →</a></h2>
-    <div class="board">
-      {top.map((m) => (
-        <a href={`/models/${m.slug}/`}>
-          <span class="row"><span><span class="rk">{m.rank}</span>{m.name}</span><span class="sc">{whole(m.overall)}</span></span>
-          <span class="track"><span style={`width: ${m.overall}%`}></span></span>
+  {mentioned.length > 0 && (
+    <section>
+      <h2 class="side-title">Models in this article</h2>
+      {mentioned.map((m) => (
+        <a class="side-row" href={`/models/${m.slug}/`}>
+          <span class="rk">{m.rank}</span><span class="name">{m.name}</span><span class="sc">{whole(m.overall)}</span>
         </a>
       ))}
-    </div>
-    <p class="meta" style="margin: 10px 0 0">Updated {fmtDate(data.generated)}</p>
+    </section>
+  )}
+
+  <section>
+    <h2 class="side-title">Best model for your computer</h2>
+    {hw.map(({ t, best }) => (
+      <a class="side-row hw" href={`/hardware/${hardwareSlug(t)}/`}>
+        <span class="tier">{t.kind === "gpu" ? `${t.gb} GB GPU` : `${t.gb} GB Mac`}</span>
+        <span class="name">{best.model.name} {quantLabel(best.quant) !== "standard" && <span class="q">{quantLabel(best.quant)}</span>}</span>
+        <span class="sc">{whole(best.model.overall)}</span>
+      </a>
+    ))}
+    <a class="side-more" href="/posts/check-your-gpu-memory/">Not sure how much memory you have?</a>
+  </section>
+
+  {!home && (
+    <section>
+      <h2 class="side-title">Leaderboard</h2>
+      {top.map((m) => (
+        <a class="side-row" href={`/models/${m.slug}/`}>
+          <span class="rk">{m.rank}</span><span class="name">{m.name}</span><span class="sc">{whole(m.overall)}</span>
+        </a>
+      ))}
+      <a class="side-more" href="/best-local-llms/#leaderboard">All {models.length} models →</a>
+    </section>
+  )}
+
+  {home && decisions.length > 0 && (
+    <section>
+      <h2 class="side-title">Decision models · accuracy</h2>
+      {decisions.slice(0, 5).map((r, i) => (
+        <a class="side-row" href={decisionHref(r) ?? "/best-decision-models/"}>
+          <span class="rk">{i + 1}</span>
+          <span class="name">{r.name} <span class="q">{r.open_weights ? "open" : "closed"}</span></span>
+          <span class="sc">{r.accuracy.toFixed(1)}%</span>
+        </a>
+      ))}
+      <a class="side-more" href="/best-decision-models/">All {decisions.length} decision models →</a>
+    </section>
+  )}
+
+  {home && queue.length > 0 && (
+    <section>
+      <h2 class="side-title">Testing next (on a 16 GB Mac)</h2>
+      <p class="side-text">{queue.join(" · ")}</p>
+    </section>
+  )}
+
+  <section>
+    <h2 class="side-title">Start here</h2>
+    {startHere.map((s) => <a class="side-link" href={s.href}>{s.label}</a>)}
   </section>
 
   <section>
-    <h2 class="section-title">Start here</h2>
-    <ol class="side-list" style="margin: 0; padding: 0; list-style: none">
-      {startHere.map((s, i) => <li><a href={s.href}><span class="n">{i + 1}</span><span>{s.label}</span></a></li>)}
-    </ol>
-  </section>
-
-  <section>
-    <h2 class="section-title" style="margin-bottom: 16px">Topics</h2>
-    <div class="chips">
-      {tags.map((t) => <a class="chip" href={`/topics/${t.slug}/`}>{t.tag}</a>)}
+    <h2 class="side-title">Topics</h2>
+    <div class="side-tags">
+      {tags.map((t) => <a href={`/topics/${t.slug}/`}>{t.tag}</a>)}
     </div>
-  </section>
-
-  <section class="callout">
-    <h2>New results as they land</h2>
-    <p>We re-test whenever a notable model comes out. Follow along with RSS, or watch the project on GitHub.</p>
-    <a class="btn btn-blue" href="/rss.xml">Subscribe via RSS</a>
+    <p class="meta" style="margin: 12px 0 0">Scores updated {fmtDate(data.generated)}</p>
   </section>
 </aside>

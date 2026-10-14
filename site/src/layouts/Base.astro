@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { SITE_NAME, REPO_URL } from "../lib/data";
+import { SITE_NAME, REPO_URL, data, models } from "../lib/data";
 
 interface Props {
   title: string;
@@ -12,10 +12,12 @@ interface Props {
 const { title, description, jsonLd = [], nav = "", ogType = "website" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const links = [
-  { href: "/posts/", label: "Latest", key: "latest" },
-  { href: "/best-local-llms/", label: "Rankings", key: "rankings" },
+  { href: "/best-local-llms/", label: "Leaderboard", key: "rankings" },
+  { href: "/best-local-llms/coding/", label: "Coding", key: "coding" },
+  { href: "/best-decision-models/", label: "Decision models", key: "decisions" },
   { href: "/topics/reviews/", label: "Reviews", key: "reviews" },
   { href: "/topics/guides/", label: "Guides", key: "guides" },
+  { href: "/posts/", label: "Latest", key: "latest" },
   { href: "/best-local-llms/methodology/", label: "How we test", key: "method" },
 ];
 ---
@@ -49,7 +51,8 @@ const links = [
         <nav class="site-nav" aria-label="Main">
           {links.map((l) => <a href={l.href} aria-current={nav === l.key ? "page" : undefined}>{l.label}</a>)}
         </nav>
-        <a class="btn btn-ink" href="/rss.xml" style="min-height: 40px; font-size: 14px">Follow</a>
+        <span class="site-stat">{models.length} models · updated {new Date(data.generated + "T00:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}</span>
+        <a class="btn btn-line btn-sm" href="/rss.xml">Follow (RSS)</a>
       </div>
     </header>
     <slot />

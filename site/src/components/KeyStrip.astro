@@ -1,0 +1,31 @@
+---
+import { whole } from "../lib/data";
+import type { Cover } from "../lib/posts";
+
+/** The headline numbers of a post, in one row of cells (replaces the big banner chart). */
+interface Props { cover: Cover; limit?: number }
+const { cover, limit = 4 } = Astro.props;
+
+const cells: { value: string; label: string }[] =
+  cover.kind === "compare" ? cover.items.map((i) => ({ value: whole(i.value), label: i.label }))
+  : cover.kind === "bars" ? cover.rows.map((r) => ({ value: whole(r.value), label: r.name }))
+  : cover.kind === "cells" ? [{ value: `${cover.solved} / ${cover.total}`, label: cover.label }]
+  : cover.kind === "model" ? [
+      { value: whole(cover.overall), label: "Overall score, out of 100" },
+      { value: `#${cover.rank}`, label: `of ${cover.of} models tested` },
+      { value: whole(cover.coding), label: "Coding" },
+      { value: whole(cover.docs), label: "Reading documents" },
+    ]
+  : cover.big ? [{ value: cover.big, label: cover.label }] : [];
+const label = cover.kind === "model" || cover.kind === "word" || cover.kind === "cells" ? null : cover.label;
+---
+{cells.length > 0 && (
+  <div class="keys" aria-label={label ?? "Key numbers"}>
+    {label && <div class="keys-label">{label}</div>}
+    <div class="keys-row">
+      {cells.slice(0, limit).map((c) => (
+        <div class="key"><div class="v">{c.value}</div><div class="l">{c.label}</div></div>
+      ))}
+    </div>
+  </div>
+)}
