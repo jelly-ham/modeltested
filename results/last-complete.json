@@ -353,11 +353,13 @@
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 37,
-    "total": 56
+    "score": 58.0,
+    "public": 57.1,
+    "private": 58.3,
+    "done": 56,
+    "total": 56,
+    "calibration": 64.9,
+    "hard": 55.3
    },
    "extract": {
     "score": 26.7,
@@ -858,11 +860,13 @@
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 37,
-    "total": 56
+    "score": 25.9,
+    "public": 17.9,
+    "private": 28.6,
+    "done": 56,
+    "total": 56,
+    "calibration": 30.3,
+    "hard": 18.4
    },
    "extract": {
     "score": 31.1,
@@ -1396,11 +1400,13 @@
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 37,
-    "total": 56
+    "score": 50.3,
+    "public": 44.0,
+    "private": 52.4,
+    "done": 56,
+    "total": 56,
+    "calibration": 57.5,
+    "hard": 47.4
    },
    "extract": {
     "score": 28.3,
@@ -1445,11 +1451,13 @@
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 37,
-    "total": 56
+    "score": 2.7,
+    "public": 3.6,
+    "private": 2.4,
+    "done": 56,
+    "total": 56,
+    "calibration": 5.0,
+    "hard": 7.9
    },
    "extract": {
     "score": 9.3,
@@ -2575,11 +2583,13 @@
     "total": 30
    },
    "decisions": {
-    "score": null,
-    "public": null,
-    "private": null,
-    "done": 37,
-    "total": 56
+    "score": 76.8,
+    "public": 67.9,
+    "private": 79.8,
+    "done": 56,
+    "total": 56,
+    "calibration": 78.3,
+    "hard": 63.2
    },
    "extract": {
     "score": 34.3,

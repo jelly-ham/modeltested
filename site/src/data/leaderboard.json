@@ -4777,11 +4777,13 @@
      "total": 30
     },
     "decisions": {
-     "score": null,
-     "public": null,
-     "private": null,
-     "done": 37,
-     "total": 56
+     "score": 25.9,
+     "public": 17.9,
+     "private": 28.6,
+     "done": 56,
+     "total": 56,
+     "calibration": 30.3,
+     "hard": 18.4
     },
     "extract": {
      "score": 31.1,
@@ -5324,11 +5326,13 @@
      "total": 30
     },
     "decisions": {
-     "score": null,
-     "public": null,
-     "private": null,
-     "done": 37,
-     "total": 56
+     "score": 2.7,
+     "public": 3.6,
+     "private": 2.4,
+     "done": 56,
+     "total": 56,
+     "calibration": 5.0,
+     "hard": 7.9
     },
     "extract": {
      "score": 9.3,
@@ -5547,11 +5551,13 @@
      "total": 30
     },
     "decisions": {
-     "score": null,
-     "public": null,
-     "private": null,
-     "done": 37,
-     "total": 56
+     "score": 58.0,
+     "public": 57.1,
+     "private": 58.3,
+     "done": 56,
+     "total": 56,
+     "calibration": 64.9,
+     "hard": 55.3
     },
     "extract": {
      "score": 26.7,
@@ -5606,11 +5612,13 @@
      "total": 30
     },
     "decisions": {
-     "score": null,
-     "public": null,
-     "private": null,
-     "done": 37,
-     "total": 56
+     "score": 50.3,
+     "public": 44.0,
+     "private": 52.4,
+     "done": 56,
+     "total": 56,
+     "calibration": 57.5,
+     "hard": 47.4
     },
     "extract": {
      "score": 28.3,
@@ -5665,11 +5673,13 @@
      "total": 30
     },
     "decisions": {
-     "score": null,
-     "public": null,
-     "private": null,
-     "done": 37,
-     "total": 56
+     "score": 76.8,
+     "public": 67.9,
+     "private": 79.8,
+     "done": 56,
+     "total": 56,
+     "calibration": 78.3,
+     "hard": 63.2
     },
     "extract": {
      "score": 34.3,
@@ -7291,6 +7301,26 @@
    "rank": 79
   },
   {
+   "slug": "granite-4-0-h-micro-mac",
+   "name": "Granite 4.0 Micro (Q4, Mac)",
+   "org": "ibm-granite",
+   "kind": "local",
+   "params_b": 3.19,
+   "open_weights": true,
+   "license": null,
+   "accuracy": 25.9,
+   "calibration": 30.3,
+   "hard": 18.4,
+   "openrouter_id": null,
+   "hf_id": "ibm-granite/granite-4.0-h-micro",
+   "public": 17.9,
+   "private": 28.6,
+   "tested_on": "mac",
+   "added": "2026-10-11",
+   "cost_per_1k": null,
+   "rank": 80
+  },
+  {
    "slug": "reka-edge",
    "name": "Reka Edge",
    "org": "rekaai",
@@ -7308,7 +7338,27 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.03,
-   "rank": 80
+   "rank": 81
+  },
+  {
+   "slug": "llama-3-2-1b-q4-mac",
+   "name": "Llama 3.2 1B Instruct (Q4, Mac)",
+   "org": "meta-llama",
+   "kind": "local",
+   "params_b": 1.24,
+   "open_weights": true,
+   "license": null,
+   "accuracy": 2.7,
+   "calibration": 5.0,
+   "hard": 7.9,
+   "openrouter_id": null,
+   "hf_id": "meta-llama/Llama-3.2-1B-Instruct",
+   "public": 3.6,
+   "private": 2.4,
+   "tested_on": "mac",
+   "added": "2026-10-11",
+   "cost_per_1k": null,
+   "rank": 82
   },
   {
    "slug": "reka-flash-3",
@@ -7328,7 +7378,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 2.54,
-   "rank": 81
+   "rank": 83
   }
  ],
  "decisions_unsupported": [
