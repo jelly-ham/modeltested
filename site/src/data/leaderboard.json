@@ -354,7 +354,8 @@
    },
    "truncated": {
     "n": 2,
-    "of": 54
+    "of": 54,
+    "provider_cap": 16384
    },
    "cost": {
     "tasks": 4.76,
@@ -2523,7 +2524,8 @@
    },
    "truncated": {
     "n": 20,
-    "of": 54
+    "of": 54,
+    "provider_cap": 8192
    },
    "cost": {
     "tasks": 4.4,
