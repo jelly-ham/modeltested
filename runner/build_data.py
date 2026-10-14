@@ -6,7 +6,7 @@ import os
 import shutil
 from collections import Counter
 
-from . import costs, memory
+from . import client, costs, memory
 from .common import (CANARY, OUTPUTS_DIR, RANKED_SUITES, RESULTS, SITE_DATA, SUITES, load_models, load_questions,
                      load_scores, model_suites, today, write_json)
 
@@ -60,6 +60,11 @@ def model_summary(model: dict, by_suite: dict) -> dict:
     ranked_rows = [items[q.key] for k, qs in by_suite.items() if k in RANKED_SUITES for q in qs
                    if items.get(q.key, {}).get("h") == q.hash]
     truncated = {"n": sum(1 for r in ranked_rows if r.get("truncated")), "of": len(ranked_rows)}
+    # When every cut-off answer stopped well short of what we asked for, the provider imposed a lower
+    # output limit (LFM2.5-24B-A2B's only provider stops at 8,192). That's not the model overthinking.
+    cut = [r.get("tok") or 0 for r in ranked_rows if r.get("truncated")]
+    if cut and all(cut) and max(cut) < 0.9 * min(r.get("mt") or client.MAX_TOKENS for r in ranked_rows if r.get("truncated")):
+        truncated["provider_cap"] = max(cut)
     keep = ("slug", "name", "org", "openrouter_id", "hf_id", "params_b", "active_params_b", "ollama", "license", "added", "kind", "status",
             "base", "quant")
     return {

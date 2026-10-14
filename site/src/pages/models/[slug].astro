@@ -113,10 +113,17 @@ const jsonLd = [{
   </div>
   {model.truncated && model.truncated.of > 0 && model.truncated.n / model.truncated.of >= 0.1 && (
     <div class="note-box">
+      {model.truncated.provider_cap ? (<>
+      <strong>Its scores are held back by the API.</strong> The provider we test {model.name} through stops every answer at
+      {model.truncated.provider_cap.toLocaleString("en-US")} tokens, counting its thinking. On {model.truncated.n} of {model.truncated.of} coding and
+      document tasks it was still thinking when it was cut off, so it never gave an answer and those count as wrong. Other models
+      get up to 32,768 tokens. Run it yourself with a higher limit and it should do better than its score here.
+      </>) : (<>
       <strong>It often thinks too long.</strong> On {model.truncated.n} of {model.truncated.of} coding and document tasks, {model.name} kept
       thinking until it hit our limit (about 25,000 words) and never gave an answer. Those count as wrong, which pulls its score down,
       and through an API you'd still pay for all that thinking.
       On your own computer it means waiting a long time for nothing.
+      </>)}
     </div>
   )}
   {model.hard != null && <p class="sub">On the {data.n_hard} hardest tasks (included in the scores above) it scored <b>{whole(model.hard)}</b>. This number separates the top models.</p>}
