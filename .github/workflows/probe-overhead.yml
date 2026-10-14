@@ -1,0 +1,25 @@
+name: probe-overhead
+
+# Manual one-off: billed input tokens for synthetic decision requests (no benchmark content).
+on:
+  workflow_dispatch:
+    inputs:
+      models:
+        description: OpenRouter ids, space separated
+        default: upstage/solar-decide upstage/solar-decide-flash perplexity/pplx-decider-v1.1-27b
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          MODELS: ${{ inputs.models }}
+        run: python3 scripts/probe_overhead.py $MODELS
