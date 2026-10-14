@@ -554,6 +554,23 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "lfm-2-5-24b-a2b",
+      "name": "LFM2.5-24B-A2B",
+      "status": "auto",
+      "openrouter_id": "liquid/lfm-2.5-24b-a2b",
+      "hf_id": "LiquidAI/LFM2.5-24B-A2B",
+      "org": "liquid",
+      "params_b": 23.97,
+      "active_params_b": 2.0,
+      "arch": {
+        "layers": 40,
+        "kv_heads": 8,
+        "head_dim": 64
+      },
+      "ollama": null,
+      "added": "2026-10-14"
+    },
+    {
       "slug": "ling-3-0-flash",
       "name": "Ling 3.0 Flash",
       "status": "auto",
@@ -1824,6 +1841,7 @@
     "elevenlabs/scribe-v2": "output is transcription, not text",
     "elevenlabs/scribe-v2-medical": "output is transcription, not text",
     "fireworks/ember-1": "no open weights linked",
+    "fish-audio/drama-3": "output is speech, not text",
     "fish-audio/s1": "output is speech, not text",
     "fish-audio/s2-pro": "output is speech, not text",
     "fish-audio/s2.1-pro": "output is speech, not text",
@@ -1854,6 +1872,7 @@
     "google/gemini-3.8-flash": "no open weights linked",
     "google/gemini-3.8-flash-lite-tts": "output is speech, not text",
     "google/gemini-3.8-flash-tts": "output is speech, not text",
+    "google/gemini-4-argon": "no open weights linked",
     "google/gemini-embedding-001": "output is embeddings, not text",
     "google/gemini-embedding-2": "output is embeddings, not text",
     "google/gemini-embedding-2-preview": "output is embeddings, not text",
@@ -1867,6 +1886,8 @@
     "hexgrad/kokoro-82m": "output is speech, not text",
     "heygen/avatar-iv": "output is video, not text",
     "heygen/heygen-video-1": "output is video, not text",
+    "heygen/heygen-voice-1": "output is speech, not text",
+    "heygen/heygen-voice-1-turbo": "output is speech, not text",
     "inception/mercury-2": "no open weights linked",
     "inception/mercury-2.5": "no open weights linked",
     "inclusionai/ling-3.0-flash-fin": "no open weights linked",
@@ -2134,6 +2155,7 @@
     "typesafe/jev-router": "no open weights linked",
     "unbiased/pareto": "no open weights linked",
     "unbiased/pareto-26.10-preview": "no open weights linked",
+    "unbiased/pareto-26.9": "no open weights linked",
     "undi95/remm-slerp-l2-13b": "org 'undi95' not on allowlist",
     "upstage/solar-mini4": "no open weights linked",
     "upstage/solar-pro-3": "no open weights linked",
@@ -2203,7 +2225,7 @@
       "params_b": 8.9,
       "downloads_30d": 699922,
       "license": "apache-2.0",
-      "seen": "2026-10-13",
+      "seen": "2026-10-14",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {

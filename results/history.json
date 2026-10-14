@@ -619,5 +619,23 @@
   "overall": 0.1,
   "rank": 65,
   "of": 65
+ },
+ {
+  "date": "2026-10-14",
+  "slug": "ornith-1-5-9b-q4-mac",
+  "name": "Ornith 1.5 9B (Q4, Mac)",
+  "event": "added",
+  "overall": 63.8,
+  "rank": 29,
+  "of": 67
+ },
+ {
+  "date": "2026-10-14",
+  "slug": "lfm-2-5-24b-a2b",
+  "name": "LFM2.5-24B-A2B",
+  "event": "added",
+  "overall": 61.7,
+  "rank": 30,
+  "of": 67
  }
 ]

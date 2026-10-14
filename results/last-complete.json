@@ -1098,6 +1098,60 @@
    "decisions": 0.08
   }
  },
+ "lfm-2-5-24b-a2b": {
+  "slug": "lfm-2-5-24b-a2b",
+  "name": "LFM2.5-24B-A2B",
+  "org": "liquid",
+  "openrouter_id": "liquid/lfm-2.5-24b-a2b",
+  "hf_id": "LiquidAI/LFM2.5-24B-A2B",
+  "params_b": 23.97,
+  "active_params_b": 2.0,
+  "ollama": null,
+  "license": null,
+  "added": "2026-10-14",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 61.7,
+  "hard": 33.3,
+  "suites": {
+   "coding": {
+    "score": 43.3,
+    "public": 71.4,
+    "private": 34.8,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 92.0,
+    "public": 96.4,
+    "private": 90.5,
+    "done": 56,
+    "total": 56,
+    "calibration": 92.9,
+    "hard": 86.8
+   },
+   "extract": {
+    "score": 80.1,
+    "public": 96.7,
+    "private": 75.7,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Liquid"
+  ],
+  "truncated": {
+   "n": 20,
+   "of": 54
+  },
+  "cost": {
+   "tasks": 4.4,
+   "decisions": 1.69
+  }
+ },
  "ling-3-0-flash": {
   "slug": "ling-3-0-flash",
   "name": "Ling 3.0 Flash",
@@ -2281,6 +2335,57 @@
    "tasks": 1.2,
    "decisions": 0.02
   }
+ },
+ "ornith-1-5-9b-q4-mac": {
+  "slug": "ornith-1-5-9b-q4-mac",
+  "name": "Ornith 1.5 9B (Q4, Mac)",
+  "org": "ornith-ai",
+  "openrouter_id": null,
+  "hf_id": "ornith-ai/Ornith-1.5-9B",
+  "params_b": 9.65,
+  "active_params_b": null,
+  "ollama": "hf.co/ornith-ai/Ornith-1.5-9B-GGUF:Q4_K_M",
+  "license": "mit",
+  "added": "2026-10-13",
+  "kind": null,
+  "status": "local",
+  "base": null,
+  "quant": "Q4_K_M",
+  "overall": 63.8,
+  "hard": 43.8,
+  "suites": {
+   "coding": {
+    "score": 56.7,
+    "public": 42.9,
+    "private": 60.9,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 95.5,
+    "public": 100.0,
+    "private": 94.0,
+    "done": 56,
+    "total": 56,
+    "calibration": 96.7,
+    "hard": 97.4
+   },
+   "extract": {
+    "score": 70.9,
+    "public": 73.7,
+    "private": 70.1,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "ollama/Q4_K_M"
+  ],
+  "truncated": {
+   "n": 11,
+   "of": 54
+  },
+  "cost": null
  },
  "phi-4": {
   "slug": "phi-4",
