@@ -10,11 +10,12 @@ import sys
 import urllib.request
 
 HOST = "modeltested.com"
+UA = {"User-Agent": "modeltested-indexnow/1.0 (+https://modeltested.com)"}  # Cloudflare blocks Python's default UA
 KEY = "07152c33226e13555b31ec1d9a9499c2"
 
 
 def main() -> None:
-    with urllib.request.urlopen(f"https://{HOST}/sitemap.xml", timeout=30) as r:
+    with urllib.request.urlopen(urllib.request.Request(f"https://{HOST}/sitemap.xml", headers=UA), timeout=30) as r:
         xml = r.read().decode()
     today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
     urls = [u for u, d in re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", xml) if d == today]
@@ -24,7 +25,7 @@ def main() -> None:
         return
     body = json.dumps({"host": HOST, "key": KEY, "keyLocation": f"https://{HOST}/{KEY}.txt", "urlList": urls[:10000]}).encode()
     req = urllib.request.Request("https://api.indexnow.org/indexnow", data=body,
-                                 headers={"Content-Type": "application/json; charset=utf-8"})
+                                 headers={"Content-Type": "application/json; charset=utf-8", **UA})
     with urllib.request.urlopen(req, timeout=30) as r:
         print(f"IndexNow: submitted {len(urls)} URLs, HTTP {r.status}")
 
