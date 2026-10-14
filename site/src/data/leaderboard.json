@@ -5456,6 +5456,12 @@
   }
  ],
  "pending": [],
+ "local_queue": [
+  "Agents A1 4B",
+  "Ling 3.0 tiny",
+  "MiniCPM5 1B",
+  "MiniCPM5 2B"
+ ],
  "references": [
   {
    "slug": "mistral-large-4",
