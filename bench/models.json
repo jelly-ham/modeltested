@@ -2223,7 +2223,7 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 699922,
+      "downloads_30d": 685739,
       "license": "apache-2.0",
       "seen": "2026-10-14",
       "why": "no Q4_K_M GGUF found yet"
@@ -2285,6 +2285,7 @@
     "Jackrong/Qwopus3.6-27B-Coder": "adapter of Jackrong/Qwopus3.6-27B-v2",
     "thomsonreuters/Thomson-1.0-Small": "finetune of tri-fair-lab/Snowdon1.1-Small",
     "Qwen/Qwen-AgentWorld-35B-A3B": "finetune of Qwen/Qwen3.5-35B-A3B-Base",
-    "Qwen/Qwen3-4B": "older version; a newer one exists"
+    "Qwen/Qwen3-4B": "older version; a newer one exists",
+    "kindlingai/glm-5.3-exlr8-k2-k3-k4": "finetune of zai-org/GLM-5.3-BF16"
   }
 }
