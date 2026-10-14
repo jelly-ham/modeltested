@@ -10,6 +10,72 @@
    }
   }
  },
+ "decide-hard-incident-matrix": {
+  "output": "{\n  \"severity\": {\n    \"0\": 0.1,\n    \"1\": 0.0,\n    \"2\": 0.7,\n    \"3\": 0.2\n  },\n  \"page\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 1.77,
+   "picks": {
+    "severity": "2",
+    "page": "true"
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "{\n  \"phishing\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  },\n  \"action_needed\": {\n    \"true\": 0.2,\n    \"false\": 0.8\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0425,
+   "picks": {
+    "phishing": "false",
+    "action_needed": "false"
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "{\n  \"slot\": {\n    \"A\": 0.0,\n    \"B\": 0.1,\n    \"C\": 0.9,\n    \"D\": 0.0\n  },\n  \"raj_last\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 1.81,
+   "picks": {
+    "slot": "C",
+    "raj_last": "false"
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "{\n  \"outcome\": {\n    \"partial_refund\": 1.0\n  },\n  \"defective\": {\n    \"false\": 1.0\n  }\n}",
+  "score": 0.5,
+  "detail": {
+   "brier": 1.0,
+   "picks": {
+    "outcome": "partial_refund",
+    "defective": "false"
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "{\n  \"hardware\": {\n    \"true\": 1,\n    \"false\": 0\n  },\n  \"support\": {\n    \"true\": 1,\n    \"false\": 0\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0,
+   "picks": {
+    "hardware": "true",
+    "support": "true"
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "{\n  \"0\": {\n    \"calendar\": 1.0\n  },\n  \"1\": {\n    \"true\": 1.0\n  }\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "tool": null,
+    "confirm": null
+   }
+  }
+ },
  "decide-moderation-doxxing": {
   "output": "{\n  \"policy\": {\n    \"none\": 0.8,\n    \"harassment\": 0.2\n  },\n  \"personal_info\": {\n    \"true\": 1\n  }\n}",
   "score": 0.5,

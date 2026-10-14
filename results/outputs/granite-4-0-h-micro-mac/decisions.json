@@ -10,6 +10,72 @@
    }
   }
  },
+ "decide-hard-incident-matrix": {
+  "output": "{\n  \"severity\": \"2\",\n  \"page\": \"true\"\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "severity": null,
+    "page": null
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "{\n  \"phishing\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  },\n  \"action_needed\": {\n    \"true\": 0.1,\n    \"false\": 0.9\n  }\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0125,
+   "picks": {
+    "phishing": "false",
+    "action_needed": "false"
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "{\n  \"slot\": {\n    \"A\": 0.5,\n    \"B\": 0.3,\n    \"C\": 0.1,\n    \"D\": 0.1\n  },\n  \"raj_last\": {\n    \"true\": 0.5,\n    \"false\": 0.5\n  }\n}",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.63,
+   "picks": {
+    "slot": "A",
+    "raj_last": "true"
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "{\n  \"outcome\": {\n    \"full_refund\": 0.5,\n    \"partial_refund\": 0.4,\n    \"store_credit\": 0.05,\n    \"nothing\": 0.05\n  },\n  \"defective\": false\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 1.6575,
+   "picks": {
+    "outcome": "full_refund",
+    "defective": null
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "{\n  \"hardware\": \"false\",\n  \"support\": \"true\"\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "hardware": null,
+    "support": null
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "{\n  \"tool\": \"calendar\",\n  \"confirm\": \"false\"\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 2.0,
+   "picks": {
+    "tool": null,
+    "confirm": null
+   }
+  }
+ },
  "decide-moderation-doxxing": {
   "output": "{\n  \"policy\": {\n    \"none\": 0.95,\n    \"harassment\": 0.01,\n    \"hate\": 0.01,\n    \"spam\": 0.01,\n    \"self_harm\": 0.01\n  },\n  \"personal_info\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}",
   "score": 0.5,

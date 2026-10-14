@@ -10,6 +10,72 @@
    }
   }
  },
+ "decide-hard-incident-matrix": {
+  "output": "{\n  \"severity\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.7,\n    \"3\": 0.3\n  },\n  \"page\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+  "score": 0.0,
+  "detail": {
+   "brier": 1.79,
+   "picks": {
+    "severity": "2",
+    "page": "true"
+   }
+  }
+ },
+ "decide-hard-legit-security-alert": {
+  "output": "```json\n{\n  \"phishing\": {\n    \"true\": 0.05,\n    \"false\": 0.95\n  },\n  \"action_needed\": {\n    \"true\": 0.75,\n    \"false\": 0.25\n  }\n}\n```",
+  "score": 0.5,
+  "detail": {
+   "brier": 0.565,
+   "picks": {
+    "phishing": "false",
+    "action_needed": "true"
+   }
+  }
+ },
+ "decide-hard-meeting-slot": {
+  "output": "```\n{\n  \"slot\": {\n    \"A\": 0.5,\n    \"B\": 0.4,\n    \"C\": 0.1,\n    \"D\": 0.0\n  },\n  \"raj_last\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}\n```",
+  "score": 0.0,
+  "detail": {
+   "brier": 1.31,
+   "picks": {
+    "slot": "A",
+    "raj_last": "false"
+   }
+  }
+ },
+ "decide-hard-refund-window": {
+  "output": "{\n  \"outcome\": {\n    \"full_refund\": 0.0,\n    \"partial_refund\": 0.0,\n    \"store_credit\": 0.0,\n    \"nothing\": 1.0\n  },\n  \"defective\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+  "score": 0.5,
+  "detail": {
+   "brier": 1.0,
+   "picks": {
+    "outcome": "nothing",
+    "defective": "false"
+   }
+  }
+ },
+ "decide-hard-review-mixed": {
+  "output": "```\n{\n  \"hardware\": {\"true\": 0.99, \"false\": 0.01},\n  \"support\": {\"true\": 0.95, \"false\": 0.05}\n}\n```",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.0026,
+   "picks": {
+    "hardware": "true",
+    "support": "true"
+   }
+  }
+ },
+ "decide-hard-tool-followup": {
+  "output": "{\n  \"tool\": {\"web_search\": 0, \"calculator\": 0, \"calendar\": 0.97, \"email\": 0.03, \"none\": 0},\n  \"confirm\": {\"true\": 0.99, \"false\": 0.01}\n}",
+  "score": 1.0,
+  "detail": {
+   "brier": 0.001,
+   "picks": {
+    "tool": "calendar",
+    "confirm": "true"
+   }
+  }
+ },
  "decide-moderation-doxxing": {
   "output": "I can't engage in this conversation. I can provide information on how to report harassment or hate speech. Is there anything else I can help you with?",
   "score": 0.0,
