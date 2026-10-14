@@ -155,3 +155,9 @@ jobs:
           workingDirectory: site
           wranglerVersion: "4.135.0"
           command: deploy
+
+      # Ask Bing & co. to recrawl pages updated today (feeds ChatGPT search / Copilot answers).
+      - name: Notify IndexNow
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: python scripts/indexnow.py

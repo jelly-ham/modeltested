@@ -34,6 +34,14 @@ faq.push(
 const jsonLd = [
   { "@context": "https://schema.org", "@type": "ItemList", name: title,
     itemListElement: models.slice(0, 10).map((m, i) => ({ "@type": "ListItem", position: i + 1, name: m.name, url: new URL(`/models/${m.slug}/`, Astro.site).href })) },
+  { "@context": "https://schema.org", "@type": "Dataset", name: "Model Tested local LLM leaderboard",
+    description: `Scores out of 100 for ${models.length} open-weight AI models on coding jobs (graded by hidden unit tests), document extraction and decision tasks, with the memory each needs.`,
+    url: new URL("/best-local-llms/", Astro.site).href, dateModified: data.generated, isAccessibleForFree: true,
+    creator: { "@type": "Organization", name: "Model Tested", url: "https://modeltested.com/" },
+    distribution: [
+      { "@type": "DataDownload", encodingFormat: "text/csv", contentUrl: new URL("/data/leaderboard.csv", Astro.site).href },
+      { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: new URL("/data/leaderboard.json", Astro.site).href },
+    ] },
   { "@context": "https://schema.org", "@type": "FAQPage",
     mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
 ];

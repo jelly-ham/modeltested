@@ -25,7 +25,11 @@ const mentioned = [...new Set([...(entry.body ?? "").matchAll(/\/models\/([a-z0-
 const toc = headings.filter((h) => h.depth === 2).map((h) => ({ href: `#${h.slug}`, label: h.text }));
 const jsonLd = [{
   "@context": "https://schema.org", "@type": "Article", headline: post.title, description: post.dek,
-  datePublished: post.date, publisher: { "@type": "Organization", name: "Model Tested" },
+  datePublished: post.date, dateModified: post.date,
+  author: { "@type": "Organization", name: "Model Tested", url: "https://modeltested.com/" },
+  publisher: { "@type": "Organization", name: "Model Tested", url: "https://modeltested.com/", logo: { "@type": "ImageObject", url: "https://modeltested.com/favicon-v2.svg" } },
+  mainEntityOfPage: new URL(`/posts/${entry.id}/`, Astro.site).href,
+  about: mentioned.map((m) => ({ "@type": "SoftwareApplication", name: m.name, applicationCategory: "AI model", url: new URL(`/models/${m.slug}/`, Astro.site).href })),
 }];
 ---
 <Article

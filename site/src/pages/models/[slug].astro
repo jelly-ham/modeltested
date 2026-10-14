@@ -56,9 +56,14 @@ const toc = [
 ];
 const jsonLd = [{
   "@context": "https://schema.org", "@type": "Review",
-  itemReviewed: { "@type": "SoftwareApplication", name: model.name, applicationCategory: "AI model" },
+  name: post.title, url: new URL(`/models/${model.slug}/`, Astro.site).href,
+  itemReviewed: { "@type": "SoftwareApplication", name: model.name, applicationCategory: "AI model", operatingSystem: "Windows, macOS, Linux",
+    ...(model.hf_id ? { sameAs: `https://huggingface.co/${model.hf_id}` } : {}) },
   reviewRating: { "@type": "Rating", ratingValue: Math.round(model.overall), bestRating: 100, worstRating: 0 },
-  author: { "@type": "Organization", name: "Model Tested" }, datePublished: post.date,
+  reviewBody: post.dek,
+  author: { "@type": "Organization", name: "Model Tested", url: "https://modeltested.com/" },
+  publisher: { "@type": "Organization", name: "Model Tested", url: "https://modeltested.com/" },
+  datePublished: post.date, dateModified: data.generated,
 }];
 ---
 <Article
