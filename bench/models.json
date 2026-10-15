@@ -505,6 +505,20 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "jev-1-14",
+      "name": "Jev 1.14",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "typesafe/jev-1.14",
+      "hf_id": null,
+      "org": "typesafe",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-15"
+    },
+    {
       "slug": "kev-4b",
       "name": "Kev 4B",
       "status": "auto",
@@ -1775,6 +1789,7 @@
     "anthropic/claude-sonnet-5.5": "no open weights linked",
     "arcee-ai/trinity-large-thinking": "398.64B params > 40B",
     "assemblyai/universal-3-5-pro": "output is transcription, not text",
+    "assemblyai/universal-3-6-pro": "output is transcription, not text",
     "baai/bge-base-en-v1.5": "output is embeddings, not text",
     "baai/bge-large-en-v1.5": "output is embeddings, not text",
     "baai/bge-m3": "output is embeddings, not text",
@@ -2223,9 +2238,9 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 685739,
+      "downloads_30d": 653723,
       "license": "apache-2.0",
-      "seen": "2026-10-14",
+      "seen": "2026-10-15",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
