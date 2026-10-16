@@ -133,6 +133,20 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "d1-ultra",
+      "name": "d1-ultra",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "liquid/d1-ultra",
+      "hf_id": null,
+      "org": "liquid",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-16"
+    },
+    {
       "slug": "devstral-2512",
       "name": "Devstral 2 2512",
       "status": "auto",
@@ -1715,6 +1729,20 @@
       "unsupported_reason": "Respan only accepts yes/no questions about a chat transcript ({input, output} state); our decision tasks use multiple-choice questions and structured states."
     },
     {
+      "slug": "span-02",
+      "name": "Span-02",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "respan/span-02",
+      "hf_id": null,
+      "org": "respan",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-16"
+    },
+    {
       "slug": "ternary-bonsai-2-27b",
       "name": "Ternary Bonsai 2 27B",
       "status": "auto",
@@ -1794,6 +1822,7 @@
     "baai/bge-large-en-v1.5": "output is embeddings, not text",
     "baai/bge-m3": "output is embeddings, not text",
     "black-forest-labs/flux-3-image": "output is image, not text",
+    "black-forest-labs/flux-3-image-klein": "output is image, not text",
     "black-forest-labs/flux-3-video": "output is video, not text",
     "black-forest-labs/flux-video-edit": "output is video, not text",
     "black-forest-labs/flux-video-upscale": "output is video, not text",
@@ -1915,6 +1944,7 @@
     "intfloat/e5-base-v2": "output is embeddings, not text",
     "intfloat/e5-large-v2": "output is embeddings, not text",
     "intfloat/multilingual-e5-large": "output is embeddings, not text",
+    "krea/k3-edit": "output is image, not text",
     "krea/krea-2-large": "output is image, not text",
     "krea/krea-2-medium": "output is image, not text",
     "krea/krea-2-medium-turbo": "output is image, not text",
@@ -1931,6 +1961,7 @@
     "meta/muse-spark-1.2-contributor": "no open weights linked",
     "meta/muse-spark-1.3": "no open weights linked",
     "meta/muse-spark-1.3-contributor": "no open weights linked",
+    "meta/muse-spark-open": "822.04B params > 130B",
     "meta/muse-voice-transcribe-1.0": "output is transcription, not text",
     "meta/muse-wonder": "no open weights linked",
     "microsoft/mai-image-2.5": "output is image, not text",
@@ -1972,6 +2003,8 @@
     "mistralai/voxtral-mini-tts-2603": "output is speech, not text",
     "mistralai/voxtral-small-24b-2507": "specialized model, not a general assistant",
     "mistralai/voxtral-small-24b-2507-stt": "output is transcription, not text",
+    "moondream/moondream3-preview": "org 'moondream' not on allowlist",
+    "moondream/moondream3.1-9b-a2b": "org 'moondream' not on allowlist",
     "moonshotai/kimi-k2": "1026.41B params > 40B",
     "moonshotai/kimi-k2-0905": "1026.47B params > 40B",
     "moonshotai/kimi-k2-thinking": "1026.41B params > 40B",
@@ -2238,9 +2271,9 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 653723,
+      "downloads_30d": 621652,
       "license": "apache-2.0",
-      "seen": "2026-10-15",
+      "seen": "2026-10-16",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
@@ -2301,6 +2334,8 @@
     "thomsonreuters/Thomson-1.0-Small": "finetune of tri-fair-lab/Snowdon1.1-Small",
     "Qwen/Qwen-AgentWorld-35B-A3B": "finetune of Qwen/Qwen3.5-35B-A3B-Base",
     "Qwen/Qwen3-4B": "older version; a newer one exists",
-    "kindlingai/glm-5.3-exlr8-k2-k3-k4": "finetune of zai-org/GLM-5.3-BF16"
+    "kindlingai/glm-5.3-exlr8-k2-k3-k4": "finetune of zai-org/GLM-5.3-BF16",
+    "nerkyor/Qwen3.8-27B-EfficientThink-Uncensored-K3-Opus5-Grok4.6-GPT5.6Sol-SFT-SimPO-DFlash2": "community variant (uncensored/abliterated/...)",
+    "incoai/Qwen3.8-27B-DFlash2": "finetune of Qwen/Qwen3.8-27B"
   }
 }
