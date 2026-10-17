@@ -59,7 +59,11 @@ def _ask(model: dict, q: Question) -> client.ChatResult:
     if model.get("backend") == "ollama":
         return client.ollama_chat(model, suites.build_prompt(q.suite, q.data))
     if q.suite == "decisions" and model.get("kind") == "decision":
-        return client.decide(model, q.data["state"], q.data["questions"])
+        state = q.data["state"]
+        # Some decision APIs only take text: send structured states as the same JSON text the LLMs see.
+        if model.get("text_state") and not isinstance(state, str):
+            state = json.dumps(state, indent=2)
+        return client.decide(model, state, q.data["questions"])
     return client.chat(model, suites.build_prompt(q.suite, q.data))
 
 

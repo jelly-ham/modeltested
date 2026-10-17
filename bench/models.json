@@ -33,6 +33,7 @@
       "status": "auto",
       "kind": "decision",
       "openrouter_id": "scaledown/classify-1",
+      "text_state": true,
       "hf_id": null,
       "org": "scaledown",
       "params_b": null,
