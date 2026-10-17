@@ -1221,6 +1221,20 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "pplx-decider-flash-v1-2",
+      "name": "Decider Flash V1.2",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "perplexity/pplx-decider-flash-v1.2",
+      "hf_id": null,
+      "org": "perplexity",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-17"
+    },
+    {
       "slug": "pplx-decider-v1-1-27b",
       "name": "Decider V1.1 27B",
       "status": "auto",
@@ -1233,6 +1247,20 @@
       "arch": null,
       "ollama": null,
       "added": "2026-10-11"
+    },
+    {
+      "slug": "pplx-decider-v1-2",
+      "name": "Decider V1.2",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "perplexity/pplx-decider-v1.2",
+      "hf_id": null,
+      "org": "perplexity",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-17"
     },
     {
       "slug": "qwen-2-5-72b-instruct",
@@ -1874,6 +1902,7 @@
     "deepseek/deepseek-v4-pro": "1598.84B params > 40B",
     "deepseek/deepseek-v4-pro-0813": "1650.5B params > 40B",
     "deepseek/deepseek-v4.1-flash": "763.21B params > 40B",
+    "deepseek/deepseek-v4.1-flash-1017": "763.21B params > 130B",
     "elevenlabs/eleven-flash-v2": "output is speech, not text",
     "elevenlabs/eleven-flash-v2.5": "output is speech, not text",
     "elevenlabs/eleven-multilingual-v2": "output is speech, not text",
@@ -1885,6 +1914,7 @@
     "elevenlabs/eleven-v4-turbo": "output is speech, not text",
     "elevenlabs/scribe-v2": "output is transcription, not text",
     "elevenlabs/scribe-v2-medical": "output is transcription, not text",
+    "elorian/glimpse": "no open weights linked",
     "fireworks/ember-1": "no open weights linked",
     "fish-audio/drama-3": "output is speech, not text",
     "fish-audio/s1": "output is speech, not text",
@@ -2118,6 +2148,8 @@
     "perplexity/sonar-reasoning-pro": "no open weights linked",
     "qwen/qwen-audio-3.0-tts-flash": "output is speech, not text",
     "qwen/qwen-audio-3.0-tts-plus": "output is speech, not text",
+    "qwen/qwen-image-2.1-pro": "output is image, not text",
+    "qwen/qwen-image-2.1-turbo": "output is image, not text",
     "qwen/qwen-image-3": "output is image, not text",
     "qwen/qwen-image-3-pro": "output is image, not text",
     "qwen/qwen-plus": "no open weights linked",
@@ -2161,6 +2193,7 @@
     "recraft/recraft-v4.1-utility": "output is image, not text",
     "recraft/recraft-v4.1-utility-pro": "output is image, not text",
     "recraft/recraft-v4.1-vector": "output is image, not text",
+    "reflection/beam-1.0-501b-a23b": "org 'reflection' not on allowlist",
     "relace/relace-apply-3": "no open weights linked",
     "relace/relace-search": "no open weights linked",
     "runway/aleph-2": "output is video, not text",
@@ -2272,9 +2305,9 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 621652,
+      "downloads_30d": 589026,
       "license": "apache-2.0",
-      "seen": "2026-10-16",
+      "seen": "2026-10-17",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
@@ -2337,6 +2370,7 @@
     "Qwen/Qwen3-4B": "older version; a newer one exists",
     "kindlingai/glm-5.3-exlr8-k2-k3-k4": "finetune of zai-org/GLM-5.3-BF16",
     "nerkyor/Qwen3.8-27B-EfficientThink-Uncensored-K3-Opus5-Grok4.6-GPT5.6Sol-SFT-SimPO-DFlash2": "community variant (uncensored/abliterated/...)",
-    "incoai/Qwen3.8-27B-DFlash2": "finetune of Qwen/Qwen3.8-27B"
+    "incoai/Qwen3.8-27B-DFlash2": "finetune of Qwen/Qwen3.8-27B",
+    "zenosai/MonkeyOCRv2-B-Parsing": "specialized model, not a general assistant"
   }
 }

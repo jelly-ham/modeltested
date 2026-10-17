@@ -90,6 +90,17 @@
    "cost": 2.38e-05,
    "at": "2026-10-13"
   },
+  "decisions/decide-duplicate-ticket": {
+   "h": "c9625a8d1dfd",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ScaleDown",
+   "brier": 0.0091,
+   "tok": 1,
+   "ptok": 242,
+   "cost": 9.7e-06,
+   "at": "2026-10-17"
+  },
   "decisions/decide-gdpr-erasure": {
    "h": "71059f428f66",
    "v": "priv",
@@ -310,6 +321,28 @@
    "cost": 2.99e-05,
    "at": "2026-10-13"
   },
+  "decisions/decide-incident-docs": {
+   "h": "4c63e3a29e86",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ScaleDown",
+   "brier": 0.4227,
+   "tok": 2,
+   "ptok": 631,
+   "cost": 2.52e-05,
+   "at": "2026-10-17"
+  },
+  "decisions/decide-incident-payments": {
+   "h": "2536c0ad4a10",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ScaleDown",
+   "brier": 0.4085,
+   "tok": 2,
+   "ptok": 607,
+   "cost": 2.43e-05,
+   "at": "2026-10-17"
+  },
   "decisions/decide-intent-upgrade": {
    "h": "d9a0553519c7",
    "v": "priv",
@@ -331,6 +364,17 @@
    "ptok": 669,
    "cost": 2.68e-05,
    "at": "2026-10-13"
+  },
+  "decisions/decide-loan-dti": {
+   "h": "7b196804131f",
+   "v": "priv",
+   "score": 0.5,
+   "provider": "ScaleDown",
+   "brier": 0.5831,
+   "tok": 2,
+   "ptok": 687,
+   "cost": 2.75e-05,
+   "at": "2026-10-17"
   },
   "decisions/decide-moderation-doxxing": {
    "h": "5301594c3843",
@@ -529,6 +573,17 @@
    "ptok": 570,
    "cost": 2.28e-05,
    "at": "2026-10-13"
+  },
+  "decisions/decide-screening-work-auth": {
+   "h": "b2a2a46cb642",
+   "v": "priv",
+   "score": 1.0,
+   "provider": "ScaleDown",
+   "brier": 0.022,
+   "tok": 2,
+   "ptok": 551,
+   "cost": 2.2e-05,
+   "at": "2026-10-17"
   },
   "decisions/decide-self-harm-signal": {
    "h": "6dedfd528895",
