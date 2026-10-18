@@ -1,6 +1,7 @@
-// Serves the static site and one small API: page view counts (/api/views?path=/posts/x/).
+// Serves the static site, page view counts (/api/views?path=/posts/x/) and the MCP server (/mcp, see mcp.js).
 // Counts live in a single SQLite-backed Durable Object; no IPs or cookies are stored.
 import { DurableObject } from "cloudflare:workers";
+import { mcp } from "./mcp.js";
 
 const COUNTED = /^\/(posts|models|decision-models|hardware|best-local-llms|best-decision-models)(\/[a-z0-9-]+)*\/$/;
 const BOT = /bot|crawl|spider|slurp|headless|lighthouse|preview|curl|wget|python|httpclient|java\/|go-http/i;
@@ -26,6 +27,8 @@ const json = (body, status = 200) =>
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // /mcp/ is also the docs page: browsers get the page, MCP clients that add a slash still reach the server.
+    if (url.pathname === "/mcp" || (url.pathname === "/mcp/" && request.method !== "GET" && request.method !== "HEAD")) return mcp(request, env);
     if (url.pathname !== "/api/views") return env.ASSETS.fetch(request);
 
     const path = url.searchParams.get("path") || "";

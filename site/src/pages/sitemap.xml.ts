@@ -9,6 +9,7 @@ export const GET: APIRoute = async ({ site }) => {
     { path: "/", date: data.generated },
     { path: "/posts/", date: data.generated },
     { path: "/best-local-llms/methodology/", date: data.generated },
+    { path: "/mcp/", date: data.generated },
     ...posts.map((p) => ({ path: p.url, date: p.category === "Guides" || p.category === "News" ? p.date : data.generated })),
     ...(await allTags()).map((t) => ({ path: `/topics/${t.slug}/`, date: data.generated })),
     ...tiers.map((t) => ({ path: `/hardware/${hardwareSlug(t)}/`, date: data.generated })),

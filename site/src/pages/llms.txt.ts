@@ -53,6 +53,7 @@ export const GET: APIRoute = async ({ site }) => {
     "",
     "## Data",
     `- [Leaderboard as JSON](${u("/data/leaderboard.json")}) and [CSV](${u("/data/leaderboard.csv")})`,
+    `- [MCP server](${u("/mcp/")}): connect Claude, ChatGPT or Cursor to ${u("/mcp")} to query every result (free, no key)`,
     `- [Test code, public questions and every model answer](${REPO_URL})`,
     "",
   ];

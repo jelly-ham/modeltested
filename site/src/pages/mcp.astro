@@ -1,0 +1,106 @@
+---
+import Article from "../layouts/Article.astro";
+import { data, models, fmtDate } from "../lib/data";
+
+const MCP_URL = "https://modeltested.com/mcp";
+const title = "Model Tested MCP Server: Our LLM Test Results in Claude, ChatGPT and Cursor | Model Tested";
+const description = "Connect Claude, ChatGPT, Cursor or VS Code to Model Tested's free MCP server and ask which local LLM fits your GPU or Mac, using our real test scores.";
+const toc = [
+  { href: "#claude", label: "Claude" },
+  { href: "#claude-code", label: "Claude Code" },
+  { href: "#other", label: "ChatGPT, Cursor, VS Code" },
+  { href: "#ask", label: "What to ask" },
+  { href: "#tools", label: "Tools" },
+  { href: "#notes", label: "Good to know" },
+];
+const tools = [
+  { name: "find_models", what: "The best models for a task (overall, coding, documents, decisions, hard tasks), optionally only those that fit a graphics card or Mac of a given size, with the download to use and the memory it needs." },
+  { name: "get_model", what: "Everything we have on one model: scores, rank, memory at each quantization, the smallest GPU and Mac it fits, decision accuracy and our Q4 run on a Mac." },
+  { name: "compare_models", what: "Two to six models side by side." },
+  { name: "decision_models", what: "Decision model rankings: accuracy, hard tasks, how honest their confidence is, and cost per 1,000 calls." },
+  { name: "search_articles", what: "Our articles and ranking pages by keyword." },
+];
+const jsonLd = [{
+  "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Model Tested MCP server",
+  applicationCategory: "DeveloperApplication", operatingSystem: "Any", url: new URL("/mcp/", Astro.site).href,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+}];
+---
+<Article
+  seoTitle={title}
+  description={description}
+  heading="Use our test results in Claude, ChatGPT and Cursor"
+  dek="Our MCP server lets your AI assistant look up every score on this site. Ask it which model fits your graphics card, or how two models compare, and it answers from our numbers, with links back to the details."
+  kicker="Tools"
+  crumbs={[{ href: "/", label: "Home" }]}
+  toc={toc}
+  jsonLd={jsonLd}
+>
+  <div class="prose">
+    <p>It's free, read-only and needs no account or API key. You add one address to your assistant:</p>
+    <pre><code>{MCP_URL}</code></pre>
+    <p>It covers all {models.length} models we've tested and is updated every time we publish new results (last update: {fmtDate(data.generated)}).</p>
+
+    <h2 id="claude">Claude (web, desktop and mobile)</h2>
+    <ol>
+      <li>Open <strong>Settings → Connectors</strong> and choose <strong>Add custom connector</strong>.</li>
+      <li>Name it <em>Model Tested</em> and paste <code>{MCP_URL}</code> as the URL. Leave the advanced settings empty.</li>
+      <li>In a chat, turn on Model Tested from the tools menu, then ask away.</li>
+    </ol>
+    <p>On Team and Enterprise plans, an admin may need to add the connector for the organization first.</p>
+
+    <h2 id="claude-code">Claude Code</h2>
+    <pre><code>claude mcp add --transport http modeltested {MCP_URL}</code></pre>
+
+    <h2 id="other">ChatGPT, Cursor, VS Code and others</h2>
+    <p>Any app that supports remote MCP servers over HTTP works with the same address.</p>
+    <ul>
+      <li><strong>ChatGPT:</strong> turn on developer mode under Settings → Apps &amp; Connectors → Advanced, then create a connector with the URL above and no authentication.</li>
+      <li><strong>Cursor:</strong> add this to <code>~/.cursor/mcp.json</code>:
+        <pre><code>{`{
+  "mcpServers": {
+    "modeltested": { "url": "${MCP_URL}" }
+  }
+}`}</code></pre></li>
+      <li><strong>VS Code:</strong> add this to <code>.vscode/mcp.json</code>:
+        <pre><code>{`{
+  "servers": {
+    "modeltested": {
+      "type": "http",
+      "url": "${MCP_URL}"
+    }
+  }
+}`}</code></pre></li>
+      <li><strong>Apps that only run local servers:</strong> use <code>npx mcp-remote {MCP_URL}</code> as the command.</li>
+    </ul>
+
+    <h2 id="ask">What to ask</h2>
+    <ul>
+      <li>"What's the best model I can run on a 16 GB graphics card?"</li>
+      <li>"Which local model is best at coding on a Mac with 32 GB?"</li>
+      <li>"Compare Qwen3.5 9B and Ornith 1.5 9B."</li>
+      <li>"How much memory does gpt-oss-20b need at Q8?"</li>
+      <li>"Which decision model is the most accurate, and what does it cost?"</li>
+    </ul>
+
+    <h2 id="tools">Tools</h2>
+    <table class="tools">
+      <thead><tr><th>Tool</th><th>What it returns</th></tr></thead>
+      <tbody>{tools.map((t) => <tr><td><code>{t.name}</code></td><td>{t.what}</td></tr>)}</tbody>
+    </table>
+
+    <h2 id="notes">Good to know</h2>
+    <ul>
+      <li>The numbers are the same ones on our pages, from our own runs, not vendor benchmarks. See <a href="/best-local-llms/methodology/">how we test</a>.</li>
+      <li>Memory figures assume an 8k-token context. We don't measure speed, so the server doesn't either.</li>
+      <li>It never returns our hidden test questions or the models' answers to them, only scores.</li>
+      <li>We don't log what you ask. Cloudflare, which hosts the site, keeps standard request logs.</li>
+      <li>Prefer raw data? The full leaderboard is also available as <a href="/data/leaderboard.json">JSON</a> and <a href="/data/leaderboard.csv">CSV</a>.</li>
+    </ul>
+  </div>
+</Article>
+
+<style>
+  .tools td { vertical-align: top; }
+  .tools th { text-align: left; }
+</style>
