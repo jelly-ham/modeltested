@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17",
+ "generated": "2026-10-18",
  "suites": [
   {
    "id": "coding",
@@ -5460,7 +5460,8 @@
   "Agents A1 4B",
   "Ling 3.0 tiny",
   "MiniCPM5 1B",
-  "MiniCPM5 2B"
+  "MiniCPM5 2B",
+  "Qwen3.5-9B"
  ],
  "references": [
   {

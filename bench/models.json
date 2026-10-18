@@ -1204,33 +1204,6 @@
       "note": "Not on OpenRouter; tested from the official GGUF. Fine-tune of Qwen3.5-9B (same architecture), so compare with qwen3-5-9b."
     },
     {
-      "slug": "qwen3-5-9b-q4-mac",
-      "name": "Qwen3.5-9B (Q4, Mac)",
-      "status": "local",
-      "backend": "ollama",
-      "ollama_tag": "hf.co/unsloth/Qwen3.5-9B-GGUF:Q4_K_M",
-      "quant": "Q4_K_M",
-      "base": null,
-      "openrouter_id": null,
-      "hf_id": "Qwen/Qwen3.5-9B",
-      "org": "qwen",
-      "params_b": 9.65,
-      "active_params_b": null,
-      "arch": {
-        "layers": 32,
-        "kv_heads": 4,
-        "head_dim": 256
-      },
-      "native_quant": {
-        "name": "Q4_K_M",
-        "bpw": 4.85
-      },
-      "ollama": "hf.co/unsloth/Qwen3.5-9B-GGUF:Q4_K_M",
-      "license": "apache-2.0",
-      "added": "2026-10-17",
-      "note": "Same Q4 download and Mac as ornith-1-5-9b-q4-mac, so the two can be compared fairly."
-    },
-    {
       "slug": "phi-4",
       "name": "Phi 4",
       "status": "active",
@@ -1264,7 +1237,7 @@
     {
       "slug": "pplx-decider-v1-1-27b",
       "name": "Decider V1.1 27B",
-      "status": "auto",
+      "status": "unavailable",
       "kind": "decision",
       "openrouter_id": "perplexity/pplx-decider-v1.1-27b",
       "hf_id": null,
@@ -1273,7 +1246,10 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "previous_status": "auto",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-10-18"
     },
     {
       "slug": "pplx-decider-v1-2",
@@ -1521,6 +1497,33 @@
       },
       "ollama": null,
       "added": "2026-10-10"
+    },
+    {
+      "slug": "qwen3-5-9b-q4-mac",
+      "name": "Qwen3.5-9B (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "hf.co/unsloth/Qwen3.5-9B-GGUF:Q4_K_M",
+      "quant": "Q4_K_M",
+      "base": null,
+      "openrouter_id": null,
+      "hf_id": "Qwen/Qwen3.5-9B",
+      "org": "qwen",
+      "params_b": 9.65,
+      "active_params_b": null,
+      "arch": {
+        "layers": 32,
+        "kv_heads": 4,
+        "head_dim": 256
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "hf.co/unsloth/Qwen3.5-9B-GGUF:Q4_K_M",
+      "license": "apache-2.0",
+      "added": "2026-10-17",
+      "note": "Same Q4 download and Mac as ornith-1-5-9b-q4-mac, so the two can be compared fairly."
     },
     {
       "slug": "qwen3-6-27b",
@@ -2263,6 +2266,7 @@
     "thinkingmachines/inkling-small": "265.96B params > 40B",
     "typesafe/jev-router": "no open weights linked",
     "unbiased/pareto": "no open weights linked",
+    "unbiased/pareto-26.10": "no open weights linked",
     "unbiased/pareto-26.10-preview": "no open weights linked",
     "unbiased/pareto-26.9": "no open weights linked",
     "undi95/remm-slerp-l2-13b": "org 'undi95' not on allowlist",
@@ -2334,7 +2338,7 @@
       "params_b": 8.9,
       "downloads_30d": 589026,
       "license": "apache-2.0",
-      "seen": "2026-10-17",
+      "seen": "2026-10-18",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
