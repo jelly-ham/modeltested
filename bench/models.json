@@ -2336,7 +2336,7 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 589026,
+      "downloads_30d": 556067,
       "license": "apache-2.0",
       "seen": "2026-10-18",
       "why": "no Q4_K_M GGUF found yet"
@@ -2402,6 +2402,7 @@
     "kindlingai/glm-5.3-exlr8-k2-k3-k4": "finetune of zai-org/GLM-5.3-BF16",
     "nerkyor/Qwen3.8-27B-EfficientThink-Uncensored-K3-Opus5-Grok4.6-GPT5.6Sol-SFT-SimPO-DFlash2": "community variant (uncensored/abliterated/...)",
     "incoai/Qwen3.8-27B-DFlash2": "finetune of Qwen/Qwen3.8-27B",
-    "zenosai/MonkeyOCRv2-B-Parsing": "specialized model, not a general assistant"
+    "zenosai/MonkeyOCRv2-B-Parsing": "specialized model, not a general assistant",
+    "0bserverx/RVN-Qwen3.8-Flash-Next-Abliterated-Uncensored": "community variant (uncensored/abliterated/...)"
   }
 }
