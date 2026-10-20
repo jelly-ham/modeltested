@@ -1995,6 +1995,7 @@
     "heygen/heygen-voice-1-turbo": "output is speech, not text",
     "inception/mercury-2": "no open weights linked",
     "inception/mercury-2.5": "no open weights linked",
+    "inception/mercury-3": "no open weights linked",
     "inclusionai/ling-3.0-flash-fin": "no open weights linked",
     "inclusionai/ling-3.0-flash-sante": "no open weights linked",
     "inclusionai/ling-3.1-flash": "no open weights linked",
@@ -2336,9 +2337,9 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 523963,
+      "downloads_30d": 492587,
       "license": "apache-2.0",
-      "seen": "2026-10-19",
+      "seen": "2026-10-20",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
