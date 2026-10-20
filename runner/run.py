@@ -170,7 +170,8 @@ def main(args) -> None:
         allowed = model_suites(m)
         todo[m["slug"]] = [q for q in questions if q.suite in allowed and (args.rerun or items.get(q.key, {}).get("h") != q.hash
                            or (getattr(args, "rerun_truncated", False) and items[q.key].get("truncated"))
-                           or items[q.key].get("provider") in client.BLOCKED_PROVIDERS
+                           # Decision models may only be served by their maker (Clef Omni by Cloudflare), as in discover.
+                           or (items[q.key].get("provider") in client.BLOCKED_PROVIDERS and m.get("kind") != "decision")
                            or items[q.key].get("cfg") != model_cfg(m)
                            or (items[q.key].get("truncated") and items[q.key].get("mt", 8192) < m.get("max_tokens", client.MAX_TOKENS)))]
     jobs = [(m, q) for m in models for q in todo[m["slug"]]]
