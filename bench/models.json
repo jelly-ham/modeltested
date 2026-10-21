@@ -2062,9 +2062,12 @@
     "mistralai/mixtral-8x22b-instruct": "140.63B params > 40B",
     "mistralai/voxtral-mini-3b-2507": "output is transcription, not text",
     "mistralai/voxtral-mini-transcribe": "output is transcription, not text",
+    "mistralai/voxtral-mini-transcribe-3-0": "output is transcription, not text",
     "mistralai/voxtral-mini-tts-2603": "output is speech, not text",
+    "mistralai/voxtral-mini-tts-3-0": "output is speech, not text",
     "mistralai/voxtral-small-24b-2507": "specialized model, not a general assistant",
     "mistralai/voxtral-small-24b-2507-stt": "output is transcription, not text",
+    "mistralai/voxtral-small-transcribe-3-0": "output is transcription, not text",
     "moondream/moondream3-preview": "org 'moondream' not on allowlist",
     "moondream/moondream3.1-9b-a2b": "org 'moondream' not on allowlist",
     "moonshotai/kimi-k2": "1026.41B params > 40B",
@@ -2337,9 +2340,9 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 492587,
+      "downloads_30d": 459165,
       "license": "apache-2.0",
-      "seen": "2026-10-20",
+      "seen": "2026-10-21",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
@@ -2347,6 +2350,12 @@
       "downloads_30d": 533195,
       "license": "apache-2.0",
       "seen": "2026-10-13"
+    },
+    "openbmb/MiniCPM-V-4.7-35B-A3B": {
+      "params_b": 35.21,
+      "downloads_30d": 318491,
+      "license": "apache-2.0",
+      "seen": "2026-10-21"
     }
   },
   "hf_ignored": {
