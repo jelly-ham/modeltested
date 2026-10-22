@@ -165,6 +165,20 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "drex-max",
+      "name": "Drex Max",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "nace-ai/drex-max",
+      "hf_id": null,
+      "org": "nace-ai",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-22"
+    },
+    {
       "slug": "drex-v1-5",
       "name": "Drex v1.5",
       "status": "auto",
@@ -2340,9 +2354,9 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 459165,
+      "downloads_30d": 425476,
       "license": "apache-2.0",
-      "seen": "2026-10-21",
+      "seen": "2026-10-22",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
