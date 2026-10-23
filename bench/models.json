@@ -2061,6 +2061,7 @@
     "minimax/minimax-m2.5": "228.7B params > 40B",
     "minimax/minimax-m2.7": "228.69B params > 40B",
     "minimax/minimax-m3": "427.04B params > 40B",
+    "minimax/minimax-m3.1-flash": "220.49B params > 130B",
     "minimax/speech-2.8-hd": "output is speech, not text",
     "minimax/speech-2.8-turbo": "output is speech, not text",
     "mistralai/codestral-2508": "no open weights linked",
@@ -2354,9 +2355,9 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 425476,
+      "downloads_30d": 392239,
       "license": "apache-2.0",
-      "seen": "2026-10-22",
+      "seen": "2026-10-23",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
