@@ -597,6 +597,23 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "lfm-2-5-2-6b",
+      "name": "LFM2.5-2.6B",
+      "status": "auto",
+      "openrouter_id": "liquid/lfm-2.5-2.6b",
+      "hf_id": "LiquidAI/LFM2.5-2.6B",
+      "org": "liquid",
+      "params_b": 2.7,
+      "active_params_b": null,
+      "arch": {
+        "layers": 30,
+        "kv_heads": 8,
+        "head_dim": 64
+      },
+      "ollama": null,
+      "added": "2026-10-25"
+    },
+    {
       "slug": "lfm-2-5-24b-a2b",
       "name": "LFM2.5-24B-A2B",
       "status": "auto",
@@ -2356,9 +2373,9 @@
     },
     "swiss-ai/Apertus-v1.5-8B": {
       "params_b": 8.9,
-      "downloads_30d": 361447,
+      "downloads_30d": 331302,
       "license": "apache-2.0",
-      "seen": "2026-10-24",
+      "seen": "2026-10-25",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
@@ -2429,6 +2446,7 @@
     "nerkyor/Qwen3.8-27B-EfficientThink-Uncensored-K3-Opus5-Grok4.6-GPT5.6Sol-SFT-SimPO-DFlash2": "community variant (uncensored/abliterated/...)",
     "incoai/Qwen3.8-27B-DFlash2": "finetune of Qwen/Qwen3.8-27B",
     "zenosai/MonkeyOCRv2-B-Parsing": "specialized model, not a general assistant",
-    "0bserverx/RVN-Qwen3.8-Flash-Next-Abliterated-Uncensored": "community variant (uncensored/abliterated/...)"
+    "0bserverx/RVN-Qwen3.8-Flash-Next-Abliterated-Uncensored": "community variant (uncensored/abliterated/...)",
+    "kindlingai/glm-5.3-flash-exlr8-k2-k3-k4": "finetune of zai-org/GLM-5.3-Flash-BF16"
   }
 }

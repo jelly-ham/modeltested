@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-24",
+ "generated": "2026-10-25",
  "suites": [
   {
    "id": "coding",
@@ -5455,7 +5455,9 @@
    "rank": 67
   }
  ],
- "pending": [],
+ "pending": [
+  "lfm-2-5-2-6b"
+ ],
  "local_queue": [
   "Agents A1 4B",
   "Ling 3.0 tiny",
