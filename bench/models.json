@@ -2375,7 +2375,7 @@
       "params_b": 8.9,
       "downloads_30d": 331302,
       "license": "apache-2.0",
-      "seen": "2026-10-25",
+      "seen": "2026-10-26",
       "why": "no Q4_K_M GGUF found yet"
     },
     "FINAL-Bench/Darwin-36B-Opus": {
