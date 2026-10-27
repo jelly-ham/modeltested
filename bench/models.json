@@ -1888,6 +1888,9 @@
     "amazon/nova-micro-v1": "no open weights linked",
     "amazon/nova-premier-v1": "no open weights linked",
     "amazon/nova-pro-v1": "no open weights linked",
+    "amazon/titan-embed-image-v1": "output is embeddings, not text",
+    "amazon/titan-embed-text-v1": "output is embeddings, not text",
+    "amazon/titan-embed-text-v2": "output is embeddings, not text",
     "anthracite-org/magnum-v4-72b": "org 'anthracite-org' not on allowlist",
     "anthropic/claude-fable-5": "no open weights linked",
     "anthropic/claude-fable-5.1": "no open weights linked",
@@ -2174,6 +2177,8 @@
     "openai/gpt-6-sol-pro": "no open weights linked",
     "openai/gpt-6.1-sol": "no open weights linked",
     "openai/gpt-6.1-sol-pro": "no open weights linked",
+    "openai/gpt-6.1-terra": "no open weights linked",
+    "openai/gpt-6.1-terra-pro": "no open weights linked",
     "openai/gpt-audio": "no open weights linked",
     "openai/gpt-audio-mini": "no open weights linked",
     "openai/gpt-chat-latest": "no open weights linked",
@@ -2389,6 +2394,12 @@
       "downloads_30d": 318491,
       "license": "apache-2.0",
       "seen": "2026-10-21"
+    },
+    "ornith-ai/Ornith-1.5-122B": {
+      "params_b": 125.09,
+      "downloads_30d": 468144,
+      "license": "mit",
+      "seen": "2026-10-27"
     }
   },
   "hf_ignored": {
