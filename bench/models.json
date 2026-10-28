@@ -134,6 +134,20 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "d1-1",
+      "name": "d1.1",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "liquid/d1.1",
+      "hf_id": null,
+      "org": "liquid",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-28"
+    },
+    {
       "slug": "d1-ultra",
       "name": "d1-ultra",
       "status": "auto",
@@ -866,6 +880,33 @@
       "arch": null,
       "ollama": null,
       "added": "2026-10-11"
+    },
+    {
+      "slug": "minicpm-v-4-7-1b-q4-mac",
+      "name": "MiniCPM V 4.7 1B (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "hf.co/openbmb/MiniCPM-V-4.7-1B-GGUF:Q4_K_M",
+      "quant": "Q4_K_M",
+      "base": null,
+      "openrouter_id": null,
+      "hf_id": "openbmb/MiniCPM-V-4.7-1B",
+      "org": "openbmb",
+      "params_b": 1.55,
+      "active_params_b": null,
+      "arch": {
+        "layers": 24,
+        "kv_heads": 2,
+        "head_dim": 256
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "hf.co/openbmb/MiniCPM-V-4.7-1B-GGUF:Q4_K_M",
+      "license": "apache-2.0",
+      "added": "2026-10-28",
+      "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
     },
     {
       "slug": "minicpm5-1b-q4-mac",
@@ -2400,6 +2441,12 @@
       "downloads_30d": 468144,
       "license": "mit",
       "seen": "2026-10-27"
+    },
+    "InternScience/Sage-A1.5": {
+      "params_b": 35.95,
+      "downloads_30d": 357589,
+      "license": "apache-2.0",
+      "seen": "2026-10-28"
     }
   },
   "hf_ignored": {
