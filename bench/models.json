@@ -222,6 +222,20 @@
       "added": "2026-10-13"
     },
     {
+      "slug": "elephant-1",
+      "name": "Elephant 1",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "baseten/elephant-1",
+      "hf_id": "baselabs/elephant-1",
+      "org": "baseten",
+      "params_b": 9.41,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-29"
+    },
+    {
       "slug": "gemma-2-27b-it",
       "name": "Gemma 2 27B",
       "status": "active",
@@ -852,6 +866,20 @@
       "arch": null,
       "ollama": null,
       "added": "2026-10-11"
+    },
+    {
+      "slug": "mammoth-1",
+      "name": "Mammoth 1",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "baseten/mammoth-1",
+      "hf_id": "baselabs/mammoth-1",
+      "org": "baseten",
+      "params_b": 27.36,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-29"
     },
     {
       "slug": "mercury-decide",
@@ -1702,7 +1730,7 @@
     {
       "slug": "qwen3-next-80b-a3b-thinking",
       "name": "Qwen3 Next 80B A3B Thinking",
-      "status": "auto",
+      "status": "unavailable",
       "openrouter_id": "qwen/qwen3-next-80b-a3b-thinking",
       "hf_id": "Qwen/Qwen3-Next-80B-A3B-Thinking",
       "org": "qwen",
@@ -1714,7 +1742,10 @@
         "head_dim": 256
       },
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "previous_status": "auto",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-10-29"
     },
     {
       "slug": "qwen3-vl-30b-a3b-instruct",
@@ -1950,6 +1981,7 @@
     "anthropic/claude-sonnet-5": "no open weights linked",
     "anthropic/claude-sonnet-5.5": "no open weights linked",
     "arcee-ai/trinity-large-thinking": "398.64B params > 40B",
+    "assemblyai/assemblyai-tts-1": "output is speech, not text",
     "assemblyai/universal-3-5-pro": "output is transcription, not text",
     "assemblyai/universal-3-6-pro": "output is transcription, not text",
     "baai/bge-base-en-v1.5": "output is embeddings, not text",
@@ -2163,6 +2195,7 @@
     "nvidia/nemotron-3-ultra-550b-a55b": "560.52B params > 40B",
     "nvidia/nemotron-3.5-asr-streaming-multilingual-0.6b": "output is transcription, not text",
     "nvidia/nemotron-3.5-content-safety": "specialized model, not a general assistant",
+    "nvidia/nemotron-3.5-transcribe": "output is transcription, not text",
     "nvidia/parakeet-tdt-0.6b-v3": "output is transcription, not text",
     "nvidia/switchyard": "no open weights linked",
     "openai/gpt-3.5-turbo": "no open weights linked",
@@ -2250,6 +2283,7 @@
     "openrouter/free": "no open weights linked",
     "openrouter/fusion": "no open weights linked",
     "openrouter/pareto-code": "no open weights linked",
+    "particle-ai/particle-1": "no open weights linked",
     "perceptron/perceptron-mk1": "no open weights linked",
     "perceptron/perceptron-mk1.5": "no open weights linked",
     "perplexity/pplx-embed-v1-0.6b": "output is embeddings, not text",
@@ -2505,6 +2539,9 @@
     "incoai/Qwen3.8-27B-DFlash2": "finetune of Qwen/Qwen3.8-27B",
     "zenosai/MonkeyOCRv2-B-Parsing": "specialized model, not a general assistant",
     "0bserverx/RVN-Qwen3.8-Flash-Next-Abliterated-Uncensored": "community variant (uncensored/abliterated/...)",
-    "kindlingai/glm-5.3-flash-exlr8-k2-k3-k4": "finetune of zai-org/GLM-5.3-Flash-BF16"
+    "kindlingai/glm-5.3-flash-exlr8-k2-k3-k4": "finetune of zai-org/GLM-5.3-Flash-BF16",
+    "huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated": "community variant (uncensored/abliterated/...)",
+    "FINAL-Bench/Darwin-180B-RSI-R3": "180.0B params > 130B",
+    "JetBrains/Mellum2.1-12B-A2.5B-Thinking": "finetune of JetBrains/Mellum2-12B-A2.5B-Base"
   }
 }

@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-28",
+ "generated": "2026-10-29",
  "suites": [
   {
    "id": "coding",
@@ -4294,7 +4294,7 @@
    "license": null,
    "added": "2026-10-11",
    "kind": null,
-   "status": "auto",
+   "status": "unavailable",
    "base": null,
    "quant": null,
    "overall": 31.3,
@@ -6353,6 +6353,26 @@
    "rank": 31
   },
   {
+   "slug": "mammoth-1",
+   "name": "Mammoth 1",
+   "org": "baseten",
+   "kind": "decision",
+   "params_b": 27.36,
+   "open_weights": true,
+   "license": null,
+   "accuracy": 92.0,
+   "calibration": 95.4,
+   "hard": 86.8,
+   "openrouter_id": "baseten/mammoth-1",
+   "hf_id": "baselabs/mammoth-1",
+   "public": 96.4,
+   "private": 90.5,
+   "tested_on": "openrouter",
+   "added": "2026-10-29",
+   "cost_per_1k": 0.03,
+   "rank": 32
+  },
+  {
    "slug": "jev-1-13",
    "name": "Jev 1.13",
    "org": "typesafe",
@@ -6370,7 +6390,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.02,
-   "rank": 32
+   "rank": 33
   },
   {
    "slug": "lfm-2-5-24b-a2b",
@@ -6390,7 +6410,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-14",
    "cost_per_1k": 1.69,
-   "rank": 33
+   "rank": 34
   },
   {
    "slug": "drex-v1-5",
@@ -6410,7 +6430,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.01,
-   "rank": 34
+   "rank": 35
   },
   {
    "slug": "devstral-2512",
@@ -6430,7 +6450,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.24,
-   "rank": 35
+   "rank": 36
   },
   {
    "slug": "gemma-4-26b-a4b-it",
@@ -6450,7 +6470,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.05,
-   "rank": 36
+   "rank": 37
   },
   {
    "slug": "pplx-decider-v1-2",
@@ -6470,7 +6490,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-17",
    "cost_per_1k": 0.0,
-   "rank": 37
+   "rank": 38
   },
   {
    "slug": "pplx-decider-v1-1-27b",
@@ -6490,7 +6510,27 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.01,
-   "rank": 38
+   "rank": 39
+  },
+  {
+   "slug": "elephant-1",
+   "name": "Elephant 1",
+   "org": "baseten",
+   "kind": "decision",
+   "params_b": 9.41,
+   "open_weights": true,
+   "license": null,
+   "accuracy": 91.1,
+   "calibration": 93.3,
+   "hard": 84.2,
+   "openrouter_id": "baseten/elephant-1",
+   "hf_id": "baselabs/elephant-1",
+   "public": 92.9,
+   "private": 90.5,
+   "tested_on": "openrouter",
+   "added": "2026-10-29",
+   "cost_per_1k": 0.01,
+   "rank": 40
   },
   {
    "slug": "pplx-decider-flash-v1-2",
@@ -6510,7 +6550,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-17",
    "cost_per_1k": 0.0,
-   "rank": 39
+   "rank": 41
   },
   {
    "slug": "glm-4-5-air",
@@ -6530,7 +6570,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.86,
-   "rank": 40
+   "rank": 42
   },
   {
    "slug": "d1-ultra",
@@ -6550,7 +6590,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-16",
    "cost_per_1k": 0.01,
-   "rank": 41
+   "rank": 43
   },
   {
    "slug": "microsoft-decision-1",
@@ -6570,7 +6610,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.01,
-   "rank": 42
+   "rank": 44
   },
   {
    "slug": "gpt-6-luna-decisions",
@@ -6590,7 +6630,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.04,
-   "rank": 43
+   "rank": 45
   },
   {
    "slug": "qwen2-5-vl-72b-instruct",
@@ -6610,7 +6650,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.25,
-   "rank": 44
+   "rank": 46
   },
   {
    "slug": "d1-1",
@@ -6630,7 +6670,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-28",
    "cost_per_1k": 0.0,
-   "rank": 45
+   "rank": 47
   },
   {
    "slug": "gemma-3-27b-it",
@@ -6650,7 +6690,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.06,
-   "rank": 46
+   "rank": 48
   },
   {
    "slug": "qwen-2-5-72b-instruct",
@@ -6670,7 +6710,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.12,
-   "rank": 47
+   "rank": 49
   },
   {
    "slug": "drex-v2-0",
@@ -6690,7 +6730,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-13",
    "cost_per_1k": 0.01,
-   "rank": 48
+   "rank": 50
   },
   {
    "slug": "clef",
@@ -6710,7 +6750,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.09,
-   "rank": 49
+   "rank": 51
   },
   {
    "slug": "command-a",
@@ -6730,7 +6770,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 1.41,
-   "rank": 50
+   "rank": 52
   },
   {
    "slug": "classify-1",
@@ -6750,7 +6790,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-13",
    "cost_per_1k": 0.03,
-   "rank": 51
+   "rank": 53
   },
   {
    "slug": "d1",
@@ -6770,7 +6810,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.01,
-   "rank": 52
+   "rank": 54
   },
   {
    "slug": "solar-decide-flash",
@@ -6790,7 +6830,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.05,
-   "rank": 53
+   "rank": 55
   },
   {
    "slug": "llama-3-3-70b-instruct",
@@ -6810,7 +6850,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.16,
-   "rank": 54
+   "rank": 56
   },
   {
    "slug": "ministral-14b-2512",
@@ -6830,7 +6870,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.07,
-   "rank": 55
+   "rank": 57
   },
   {
    "slug": "tev1-4b-experimental",
@@ -6850,7 +6890,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.02,
-   "rank": 56
+   "rank": 58
   },
   {
    "slug": "clef-flash",
@@ -6870,7 +6910,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.01,
-   "rank": 57
+   "rank": 59
   },
   {
    "slug": "mistral-small-24b-instruct-2501",
@@ -6890,7 +6930,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.03,
-   "rank": 58
+   "rank": 60
   },
   {
    "slug": "glm-4-7-flash",
@@ -6910,7 +6950,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.53,
-   "rank": 59
+   "rank": 61
   },
   {
    "slug": "kev-4b",
@@ -6930,7 +6970,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.01,
-   "rank": 60
+   "rank": 62
   },
   {
    "slug": "llama-3-1-70b-instruct",
@@ -6950,7 +6990,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.13,
-   "rank": 61
+   "rank": 63
   },
   {
    "slug": "qwen3-30b-a3b-instruct-2507",
@@ -6970,7 +7010,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.05,
-   "rank": 62
+   "rank": 64
   },
   {
    "slug": "ministral-8b-2512",
@@ -6990,7 +7030,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.06,
-   "rank": 63
+   "rank": 65
   },
   {
    "slug": "qwen3-next-80b-a3b-instruct",
@@ -7010,7 +7050,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.11,
-   "rank": 64
+   "rank": 66
   },
   {
    "slug": "gemma-3-12b-it",
@@ -7030,7 +7070,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.03,
-   "rank": 65
+   "rank": 67
   },
   {
    "slug": "clef-omni",
@@ -7050,7 +7090,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.05,
-   "rank": 66
+   "rank": 68
   },
   {
    "slug": "mistral-small-3-2-24b-instruct",
@@ -7070,7 +7110,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.05,
-   "rank": 67
+   "rank": 69
   },
   {
    "slug": "laguna-s-2-1",
@@ -7090,7 +7130,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.03,
-   "rank": 68
+   "rank": 70
   },
   {
    "slug": "mistral-small-2603",
@@ -7110,7 +7150,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.08,
-   "rank": 69
+   "rank": 71
   },
   {
    "slug": "qwen3-coder-30b-a3b-instruct",
@@ -7130,7 +7170,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.04,
-   "rank": 70
+   "rank": 72
   },
   {
    "slug": "llama-4-scout",
@@ -7150,7 +7190,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.09,
-   "rank": 71
+   "rank": 73
   },
   {
    "slug": "nemotron-3-5-lightning",
@@ -7170,7 +7210,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.16,
-   "rank": 72
+   "rank": 74
   },
   {
    "slug": "qwen3-coder-next",
@@ -7190,7 +7230,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.09,
-   "rank": 73
+   "rank": 75
   },
   {
    "slug": "gemma-2-27b-it",
@@ -7210,7 +7250,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.24,
-   "rank": 74
+   "rank": 76
   },
   {
    "slug": "qwen3-vl-8b-instruct",
@@ -7230,7 +7270,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.12,
-   "rank": 75
+   "rank": 77
   },
   {
    "slug": "mistral-nemo",
@@ -7250,7 +7290,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.01,
-   "rank": 76
+   "rank": 78
   },
   {
    "slug": "phi-4",
@@ -7270,7 +7310,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.03,
-   "rank": 77
+   "rank": 79
   },
   {
    "slug": "qwen3-vl-30b-a3b-instruct",
@@ -7290,7 +7330,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.11,
-   "rank": 78
+   "rank": 80
   },
   {
    "slug": "hunyuan-a13b-instruct",
@@ -7310,7 +7350,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.29,
-   "rank": 79
+   "rank": 81
   },
   {
    "slug": "ministral-3b-2512",
@@ -7330,7 +7370,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.04,
-   "rank": 80
+   "rank": 82
   },
   {
    "slug": "qwen-2-5-7b-instruct",
@@ -7350,7 +7390,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.04,
-   "rank": 81
+   "rank": 83
   },
   {
    "slug": "llama-3-1-8b-instruct",
@@ -7370,7 +7410,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.08,
-   "rank": 82
+   "rank": 84
   },
   {
    "slug": "gemma-3-4b-it",
@@ -7390,7 +7430,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.02,
-   "rank": 83
+   "rank": 85
   },
   {
    "slug": "llama-3-3-8b-q4-mac",
@@ -7410,7 +7450,7 @@
    "tested_on": "mac",
    "added": "2026-10-11",
    "cost_per_1k": null,
-   "rank": 84
+   "rank": 86
   },
   {
    "slug": "clm-v0-1-8b",
@@ -7430,7 +7470,7 @@
    "tested_on": "mac",
    "added": "2026-10-11",
    "cost_per_1k": null,
-   "rank": 85
+   "rank": 87
   },
   {
    "slug": "llama-3-2-3b-instruct",
@@ -7450,7 +7490,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.04,
-   "rank": 86
+   "rank": 88
   },
   {
    "slug": "qwen3-next-80b-a3b-thinking",
@@ -7470,7 +7510,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 13.04,
-   "rank": 87
+   "rank": 89
   },
   {
    "slug": "granite-4-0-h-micro-mac",
@@ -7490,7 +7530,7 @@
    "tested_on": "mac",
    "added": "2026-10-11",
    "cost_per_1k": null,
-   "rank": 88
+   "rank": 90
   },
   {
    "slug": "reka-edge",
@@ -7510,7 +7550,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.03,
-   "rank": 89
+   "rank": 91
   },
   {
    "slug": "llama-3-2-1b-q4-mac",
@@ -7530,7 +7570,7 @@
    "tested_on": "mac",
    "added": "2026-10-11",
    "cost_per_1k": null,
-   "rank": 90
+   "rank": 92
   },
   {
    "slug": "reka-flash-3",
@@ -7550,7 +7590,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 2.54,
-   "rank": 91
+   "rank": 93
   }
  ],
  "decisions_unsupported": [
