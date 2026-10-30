@@ -28,6 +28,20 @@
       "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
     },
     {
+      "slug": "clairic",
+      "name": "Clairic",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "cloudflare/clairic",
+      "hf_id": "Cloudflare/clairic",
+      "org": "cloudflare",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-30"
+    },
+    {
       "slug": "classify-1",
       "name": "Classify-1",
       "status": "auto",
@@ -574,6 +588,20 @@
       "arch": null,
       "ollama": null,
       "added": "2026-10-15"
+    },
+    {
+      "slug": "joey-1",
+      "name": "Joey 1",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "baseten/joey-1",
+      "hf_id": "baselabs/joey-1",
+      "org": "baseten",
+      "params_b": 2.72,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-10-30"
     },
     {
       "slug": "kev-4b",
@@ -2364,9 +2392,11 @@
     "sourceful/riverflow-v2-pro": "output is image, not text",
     "sourceful/riverflow-v2.5-fast": "output is image, not text",
     "sourceful/riverflow-v2.5-pro": "output is image, not text",
+    "sourceful/riverflow-v2.6-pro": "output is image, not text",
     "stepfun/step-3.5-flash": "org 'stepfun' not on allowlist",
     "stepfun/step-3.7-flash": "org 'stepfun' not on allowlist",
     "stepfun/step-5-preview": "no open weights linked",
+    "tbc/mischief-1": "output is video, not text",
     "tencent/hy-image-v3.5-preview": "output is image, not text",
     "tencent/hy-mt2-1.8b": "specialized model, not a general assistant",
     "tencent/hy-mt2-30b-a3b": "specialized model, not a general assistant",
@@ -2542,6 +2572,8 @@
     "kindlingai/glm-5.3-flash-exlr8-k2-k3-k4": "finetune of zai-org/GLM-5.3-Flash-BF16",
     "huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated": "community variant (uncensored/abliterated/...)",
     "FINAL-Bench/Darwin-180B-RSI-R3": "180.0B params > 130B",
-    "JetBrains/Mellum2.1-12B-A2.5B-Thinking": "finetune of JetBrains/Mellum2-12B-A2.5B-Base"
+    "JetBrains/Mellum2.1-12B-A2.5B-Thinking": "finetune of JetBrains/Mellum2-12B-A2.5B-Base",
+    "Qwen/Qwen3.5-2B": "finetune of Qwen/Qwen3.5-2B-Base",
+    "trl-internal-testing/tiny-DiffusionGemmaForBlockDiffusion": "specialized model, not a general assistant"
   }
 }

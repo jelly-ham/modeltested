@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-29",
+ "generated": "2026-10-30",
  "suites": [
   {
    "id": "coding",
@@ -7193,6 +7193,26 @@
    "rank": 73
   },
   {
+   "slug": "joey-1",
+   "name": "Joey 1",
+   "org": "baseten",
+   "kind": "decision",
+   "params_b": 2.72,
+   "open_weights": true,
+   "license": null,
+   "accuracy": 80.4,
+   "calibration": 86.6,
+   "hard": 65.8,
+   "openrouter_id": "baseten/joey-1",
+   "hf_id": "baselabs/joey-1",
+   "public": 85.7,
+   "private": 78.6,
+   "tested_on": "openrouter",
+   "added": "2026-10-30",
+   "cost_per_1k": 0.0,
+   "rank": 74
+  },
+  {
    "slug": "nemotron-3-5-lightning",
    "name": "Nemotron 3.5 Lightning",
    "org": "nvidia",
@@ -7210,7 +7230,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.16,
-   "rank": 74
+   "rank": 75
   },
   {
    "slug": "qwen3-coder-next",
@@ -7230,7 +7250,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.09,
-   "rank": 75
+   "rank": 76
   },
   {
    "slug": "gemma-2-27b-it",
@@ -7250,7 +7270,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.24,
-   "rank": 76
+   "rank": 77
   },
   {
    "slug": "qwen3-vl-8b-instruct",
@@ -7270,7 +7290,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.12,
-   "rank": 77
+   "rank": 78
   },
   {
    "slug": "mistral-nemo",
@@ -7290,7 +7310,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.01,
-   "rank": 78
+   "rank": 79
   },
   {
    "slug": "phi-4",
@@ -7310,7 +7330,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.03,
-   "rank": 79
+   "rank": 80
   },
   {
    "slug": "qwen3-vl-30b-a3b-instruct",
@@ -7330,7 +7350,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.11,
-   "rank": 80
+   "rank": 81
   },
   {
    "slug": "hunyuan-a13b-instruct",
@@ -7350,7 +7370,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.29,
-   "rank": 81
+   "rank": 82
   },
   {
    "slug": "ministral-3b-2512",
@@ -7370,7 +7390,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.04,
-   "rank": 82
+   "rank": 83
   },
   {
    "slug": "qwen-2-5-7b-instruct",
@@ -7390,7 +7410,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.04,
-   "rank": 83
+   "rank": 84
   },
   {
    "slug": "llama-3-1-8b-instruct",
@@ -7410,7 +7430,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.08,
-   "rank": 84
+   "rank": 85
   },
   {
    "slug": "gemma-3-4b-it",
@@ -7430,7 +7450,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.02,
-   "rank": 85
+   "rank": 86
   },
   {
    "slug": "llama-3-3-8b-q4-mac",
@@ -7450,7 +7470,7 @@
    "tested_on": "mac",
    "added": "2026-10-11",
    "cost_per_1k": null,
-   "rank": 86
+   "rank": 87
   },
   {
    "slug": "clm-v0-1-8b",
@@ -7470,7 +7490,7 @@
    "tested_on": "mac",
    "added": "2026-10-11",
    "cost_per_1k": null,
-   "rank": 87
+   "rank": 88
   },
   {
    "slug": "llama-3-2-3b-instruct",
@@ -7490,7 +7510,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-10",
    "cost_per_1k": 0.04,
-   "rank": 88
+   "rank": 89
   },
   {
    "slug": "qwen3-next-80b-a3b-thinking",
@@ -7510,7 +7530,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 13.04,
-   "rank": 89
+   "rank": 90
   },
   {
    "slug": "granite-4-0-h-micro-mac",
@@ -7530,7 +7550,7 @@
    "tested_on": "mac",
    "added": "2026-10-11",
    "cost_per_1k": null,
-   "rank": 90
+   "rank": 91
   },
   {
    "slug": "reka-edge",
@@ -7550,7 +7570,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 0.03,
-   "rank": 91
+   "rank": 92
   },
   {
    "slug": "llama-3-2-1b-q4-mac",
@@ -7570,7 +7590,7 @@
    "tested_on": "mac",
    "added": "2026-10-11",
    "cost_per_1k": null,
-   "rank": 92
+   "rank": 93
   },
   {
    "slug": "reka-flash-3",
@@ -7590,7 +7610,7 @@
    "tested_on": "openrouter",
    "added": "2026-10-11",
    "cost_per_1k": 2.54,
-   "rank": 93
+   "rank": 94
   }
  ],
  "decisions_unsupported": [
