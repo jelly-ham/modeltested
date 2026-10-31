@@ -30,7 +30,7 @@
     {
       "slug": "clairic",
       "name": "Clairic",
-      "status": "auto",
+      "status": "unavailable",
       "kind": "decision",
       "openrouter_id": "cloudflare/clairic",
       "hf_id": "Cloudflare/clairic",
@@ -39,7 +39,10 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-30"
+      "added": "2026-10-30",
+      "previous_status": "auto",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-10-31"
     },
     {
       "slug": "classify-1",
@@ -2574,6 +2577,7 @@
     "FINAL-Bench/Darwin-180B-RSI-R3": "180.0B params > 130B",
     "JetBrains/Mellum2.1-12B-A2.5B-Thinking": "finetune of JetBrains/Mellum2-12B-A2.5B-Base",
     "Qwen/Qwen3.5-2B": "finetune of Qwen/Qwen3.5-2B-Base",
-    "trl-internal-testing/tiny-DiffusionGemmaForBlockDiffusion": "specialized model, not a general assistant"
+    "trl-internal-testing/tiny-DiffusionGemmaForBlockDiffusion": "specialized model, not a general assistant",
+    "migtissera/Tess-4.5-27B": "finetune of Qwen/Qwen3.8-27B"
   }
 }
