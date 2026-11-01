@@ -607,6 +607,33 @@
       "added": "2026-10-30"
     },
     {
+      "slug": "k2-horizon-7b-q4-mac",
+      "name": "K2 Horizon 7B (Q4, Mac)",
+      "status": "local",
+      "backend": "ollama",
+      "ollama_tag": "hf.co/IFM/K2-Horizon-7B-GGUF:Q4_K_M",
+      "quant": "Q4_K_M",
+      "base": null,
+      "openrouter_id": null,
+      "hf_id": "IFM/K2-Horizon-7B",
+      "org": "ifm",
+      "params_b": 9.0,
+      "active_params_b": null,
+      "arch": {
+        "layers": 36,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "native_quant": {
+        "name": "Q4_K_M",
+        "bpw": 4.85
+      },
+      "ollama": "hf.co/IFM/K2-Horizon-7B-GGUF:Q4_K_M",
+      "license": "apache-2.0",
+      "added": "2026-11-01",
+      "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
+    },
+    {
       "slug": "kev-4b",
       "name": "Kev 4B",
       "status": "auto",
@@ -624,7 +651,7 @@
     {
       "slug": "laguna-s-2-1",
       "name": "Laguna S 2.1",
-      "status": "auto",
+      "status": "unavailable",
       "openrouter_id": "poolside/laguna-s-2.1",
       "hf_id": "poolside/Laguna-S-2.1",
       "org": "poolside",
@@ -636,12 +663,15 @@
         "head_dim": 128
       },
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "previous_status": "auto",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-11-01"
     },
     {
       "slug": "laguna-xs-2-1",
       "name": "Laguna XS 2.1",
-      "status": "auto",
+      "status": "unavailable",
       "openrouter_id": "poolside/laguna-xs-2.1",
       "hf_id": "poolside/Laguna-XS-2.1",
       "org": "poolside",
@@ -653,7 +683,10 @@
         "head_dim": 128
       },
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "previous_status": "auto",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-11-01"
     },
     {
       "slug": "lfm-2-5-2-6b",
@@ -2578,6 +2611,8 @@
     "JetBrains/Mellum2.1-12B-A2.5B-Thinking": "finetune of JetBrains/Mellum2-12B-A2.5B-Base",
     "Qwen/Qwen3.5-2B": "finetune of Qwen/Qwen3.5-2B-Base",
     "trl-internal-testing/tiny-DiffusionGemmaForBlockDiffusion": "specialized model, not a general assistant",
-    "migtissera/Tess-4.5-27B": "finetune of Qwen/Qwen3.8-27B"
+    "migtissera/Tess-4.5-27B": "finetune of Qwen/Qwen3.8-27B",
+    "XHToken/Spark-X2.6-4B": "finetune of XHToken/Spark-X2.6-4B-Base",
+    "AtomicChat/LFM2.5-24B-A2B-Uncensored": "community variant (uncensored/abliterated/...)"
   }
 }

@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31",
+ "generated": "2026-11-01",
  "suites": [
   {
    "id": "coding",
@@ -1188,7 +1188,7 @@
    "license": null,
    "added": "2026-10-11",
    "kind": null,
-   "status": "auto",
+   "status": "unavailable",
    "base": null,
    "quant": null,
    "overall": 82.2,
@@ -2313,7 +2313,7 @@
    "license": null,
    "added": "2026-10-11",
    "kind": null,
-   "status": "auto",
+   "status": "unavailable",
    "base": null,
    "quant": null,
    "overall": 64.2,
@@ -5460,6 +5460,7 @@
  ],
  "local_queue": [
   "Agents A1 4B",
+  "K2 Horizon 7B",
   "Ling 3.0 tiny",
   "MiniCPM V 4.7 1B",
   "MiniCPM5 1B",
