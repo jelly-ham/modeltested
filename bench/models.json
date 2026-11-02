@@ -2495,6 +2495,7 @@
     "z-ai/glm-5.3": "753.33B params > 40B",
     "z-ai/glm-5.3-flash": "321.32B params > 40B",
     "z-ai/glm-5.3-flashx": "no open weights linked",
+    "z-ai/glm-5.3-flashx-legal": "no open weights linked",
     "z-ai/glm-5.3-prime": "no open weights linked",
     "z-ai/glm-5v-turbo": "no open weights linked"
   },
@@ -2613,6 +2614,8 @@
     "trl-internal-testing/tiny-DiffusionGemmaForBlockDiffusion": "specialized model, not a general assistant",
     "migtissera/Tess-4.5-27B": "finetune of Qwen/Qwen3.8-27B",
     "XHToken/Spark-X2.6-4B": "finetune of XHToken/Spark-X2.6-4B-Base",
-    "AtomicChat/LFM2.5-24B-A2B-Uncensored": "community variant (uncensored/abliterated/...)"
+    "AtomicChat/LFM2.5-24B-A2B-Uncensored": "community variant (uncensored/abliterated/...)",
+    "nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-BF16": "finetune of google/gemma-4-E4B-it",
+    "DavidAU/Qwen3.8-27B-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP-GGUF": "specialized model, not a general assistant"
   }
 }
