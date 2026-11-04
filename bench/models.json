@@ -30,7 +30,7 @@
     {
       "slug": "clairic",
       "name": "Clairic",
-      "status": "unavailable",
+      "status": "auto",
       "kind": "decision",
       "openrouter_id": "cloudflare/clairic",
       "hf_id": "Cloudflare/clairic",
@@ -39,10 +39,7 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-30",
-      "previous_status": "auto",
-      "unavailable_reason": "no longer listed on OpenRouter",
-      "unavailable_since": "2026-10-31"
+      "added": "2026-10-30"
     },
     {
       "slug": "classify-1",
@@ -1863,6 +1860,20 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "reflex",
+      "name": "Reflex",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "morph/reflex",
+      "hf_id": null,
+      "org": "morph",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-04"
+    },
+    {
       "slug": "reka-edge",
       "name": "Reka Edge",
       "status": "auto",
@@ -2083,8 +2094,12 @@
     "cohere/command-r-08-2024": "no open weights linked",
     "cohere/command-r-plus-08-2024": "no open weights linked",
     "cohere/command-r7b-12-2024": "no open weights linked",
+    "cohere/embed-5-fast": "output is embeddings, not text",
+    "cohere/embed-5-pro": "output is embeddings, not text",
     "cohere/rerank-4-fast": "output is rerank, not text",
     "cohere/rerank-4-pro": "output is rerank, not text",
+    "cohere/rerank-5-fast": "output is rerank, not text",
+    "cohere/rerank-5-pro": "output is rerank, not text",
     "cohere/rerank-v3.5": "output is rerank, not text",
     "deepgram/aura-2": "output is speech, not text",
     "deepgram/flux-tts": "output is speech, not text",
@@ -2240,8 +2255,18 @@
     "mistralai/voxtral-small-24b-2507": "specialized model, not a general assistant",
     "mistralai/voxtral-small-24b-2507-stt": "output is transcription, not text",
     "mistralai/voxtral-small-transcribe-3-0": "output is transcription, not text",
+    "mongodb/rerank-2.5": "output is rerank, not text",
+    "mongodb/rerank-2.5-lite": "output is rerank, not text",
+    "mongodb/rerank-3": "output is rerank, not text",
+    "mongodb/rerank-3-lite": "output is rerank, not text",
+    "mongodb/voyage-4": "output is embeddings, not text",
+    "mongodb/voyage-4-large": "output is embeddings, not text",
+    "mongodb/voyage-4-lite": "output is embeddings, not text",
+    "mongodb/voyage-code-4": "output is embeddings, not text",
+    "mongodb/voyage-multimodal-3.5": "output is embeddings, not text",
     "moondream/moondream3-preview": "org 'moondream' not on allowlist",
     "moondream/moondream3.1-9b-a2b": "org 'moondream' not on allowlist",
+    "moondream/parakeet-ultra": "output is transcription, not text",
     "moonshotai/kimi-k2": "1026.41B params > 40B",
     "moonshotai/kimi-k2-0905": "1026.47B params > 40B",
     "moonshotai/kimi-k2-thinking": "1026.41B params > 40B",
@@ -2429,6 +2454,7 @@
     "sourceful/riverflow-v2.5-fast": "output is image, not text",
     "sourceful/riverflow-v2.5-pro": "output is image, not text",
     "sourceful/riverflow-v2.6-pro": "output is image, not text",
+    "stealth/crouton-alpha": "no open weights linked",
     "stepfun/step-3.5-flash": "org 'stepfun' not on allowlist",
     "stepfun/step-3.7-flash": "org 'stepfun' not on allowlist",
     "stepfun/step-5-preview": "no open weights linked",
@@ -2616,6 +2642,7 @@
     "XHToken/Spark-X2.6-4B": "finetune of XHToken/Spark-X2.6-4B-Base",
     "AtomicChat/LFM2.5-24B-A2B-Uncensored": "community variant (uncensored/abliterated/...)",
     "nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-BF16": "finetune of google/gemma-4-E4B-it",
-    "DavidAU/Qwen3.8-27B-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP-GGUF": "specialized model, not a general assistant"
+    "DavidAU/Qwen3.8-27B-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP-GGUF": "specialized model, not a general assistant",
+    "jialinyyzz/humanizer": "finetune of google/gemma-4-12B"
   }
 }
