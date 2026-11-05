@@ -637,5 +637,14 @@
   "overall": 61.7,
   "rank": 30,
   "of": 67
+ },
+ {
+  "date": "2026-11-05",
+  "slug": "ling-3-0-tiny",
+  "name": "Ling 3.0 Tiny",
+  "event": "added",
+  "overall": 58.4,
+  "rank": 31,
+  "of": 68
  }
 ]

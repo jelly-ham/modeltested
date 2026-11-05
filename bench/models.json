@@ -754,6 +754,19 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "ling-3-0-tiny",
+      "name": "Ling 3.0 Tiny",
+      "status": "auto",
+      "openrouter_id": "inclusionai/ling-3.0-tiny",
+      "hf_id": "inclusionAI/Ling-3.0-tiny",
+      "org": "inclusionai",
+      "params_b": 7.89,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-05"
+    },
+    {
       "slug": "ling-3-0-tiny-q4-mac",
       "name": "Ling 3.0 tiny (Q4, Mac)",
       "status": "local",
@@ -2350,6 +2363,8 @@
     "openai/gpt-image-2": "output is image, not text",
     "openai/gpt-image-2.5-flare": "output is image, not text",
     "openai/gpt-image-2.5-sunburst": "output is image, not text",
+    "openai/gpt-image-2.6-flare": "output is image, not text",
+    "openai/gpt-image-2.6-sunburst": "output is image, not text",
     "openai/gpt-oss-safeguard-20b": "specialized model, not a general assistant",
     "openai/gpt-transcribe": "output is transcription, not text",
     "openai/o1": "no open weights linked",
@@ -2368,6 +2383,7 @@
     "openai/whisper-large-v3-turbo": "output is transcription, not text",
     "openrouter/auto": "no open weights linked",
     "openrouter/auto-beta": "no open weights linked",
+    "openrouter/auto-code": "no open weights linked",
     "openrouter/bodybuilder": "no open weights linked",
     "openrouter/free": "no open weights linked",
     "openrouter/fusion": "no open weights linked",
@@ -2432,6 +2448,7 @@
     "reflection/beam-1.0-501b-a23b": "org 'reflection' not on allowlist",
     "relace/relace-apply-3": "no open weights linked",
     "relace/relace-search": "no open weights linked",
+    "ricursiveai/ripple-65b-preview": "no open weights linked",
     "runway/aleph-2": "output is video, not text",
     "runway/gen-4.5": "output is video, not text",
     "sakana/fugu-max": "no open weights linked",
@@ -2643,6 +2660,9 @@
     "AtomicChat/LFM2.5-24B-A2B-Uncensored": "community variant (uncensored/abliterated/...)",
     "nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-BF16": "finetune of google/gemma-4-E4B-it",
     "DavidAU/Qwen3.8-27B-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP-GGUF": "specialized model, not a general assistant",
-    "jialinyyzz/humanizer": "finetune of google/gemma-4-12B"
+    "jialinyyzz/humanizer": "finetune of google/gemma-4-12B",
+    "Qwen/Qwen3.5-0.8B": "finetune of Qwen/Qwen3.5-0.8B-Base",
+    "LiquidAI/LFM3-1.7B": "finetune of LiquidAI/LFM3-1.7B-Base",
+    "DavidAU/Qwen3.8-27B-Jumbo-Fusion-IQ-747-900-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP": "specialized model, not a general assistant"
   }
 }

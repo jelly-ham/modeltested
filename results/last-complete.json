@@ -1265,6 +1265,60 @@
    "decisions": 0.02
   }
  },
+ "ling-3-0-tiny": {
+  "slug": "ling-3-0-tiny",
+  "name": "Ling 3.0 Tiny",
+  "org": "inclusionai",
+  "openrouter_id": "inclusionai/ling-3.0-tiny",
+  "hf_id": "inclusionAI/Ling-3.0-tiny",
+  "params_b": 7.89,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-11-05",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 58.4,
+  "hard": 23.7,
+  "suites": {
+   "coding": {
+    "score": 46.7,
+    "public": 57.1,
+    "private": 43.5,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 73.2,
+    "public": 82.1,
+    "private": 70.2,
+    "done": 56,
+    "total": 56,
+    "calibration": 73.9,
+    "hard": 81.6
+   },
+   "extract": {
+    "score": 70.0,
+    "public": 100.0,
+    "private": 62.1,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Ant Digital"
+  ],
+  "truncated": {
+   "n": 16,
+   "of": 54
+  },
+  "cost": {
+   "tasks": 0.86,
+   "decisions": 0.11
+  }
+ },
  "llama-3-1-70b-instruct": {
   "slug": "llama-3-1-70b-instruct",
   "name": "Llama 3.1 70B Instruct",
