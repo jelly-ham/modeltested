@@ -2181,6 +2181,8 @@
     "google/gemini-embedding-2": "output is embeddings, not text",
     "google/gemini-embedding-2-preview": "output is embeddings, not text",
     "google/gemini-nano-banana-2.1": "no open weights linked",
+    "google/gemini-omni-1.1-flash": "no open weights linked",
+    "google/gemini-omni-1.2-flash": "no open weights linked",
     "google/lyria-3-clip-preview": "no open weights linked",
     "google/lyria-3-pro-preview": "no open weights linked",
     "google/veo-3.1": "output is video, not text",
@@ -2663,6 +2665,8 @@
     "jialinyyzz/humanizer": "finetune of google/gemma-4-12B",
     "Qwen/Qwen3.5-0.8B": "finetune of Qwen/Qwen3.5-0.8B-Base",
     "LiquidAI/LFM3-1.7B": "finetune of LiquidAI/LFM3-1.7B-Base",
-    "DavidAU/Qwen3.8-27B-Jumbo-Fusion-IQ-747-900-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP": "specialized model, not a general assistant"
+    "DavidAU/Qwen3.8-27B-Jumbo-Fusion-IQ-747-900-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP": "specialized model, not a general assistant",
+    "baidu/Unlimited-OCR-2": "specialized model, not a general assistant",
+    "ATH-MaaS/OvisOCR2": "older version; a newer one exists"
   }
 }
