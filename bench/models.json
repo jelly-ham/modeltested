@@ -720,6 +720,23 @@
       "added": "2026-10-14"
     },
     {
+      "slug": "lfm-3-1-7b",
+      "name": "LFM3-1.7B",
+      "status": "auto",
+      "openrouter_id": "liquid/lfm-3-1.7b",
+      "hf_id": "LiquidAI/LFM3-1.7B",
+      "org": "liquid",
+      "params_b": 1.73,
+      "active_params_b": null,
+      "arch": {
+        "layers": 24,
+        "kv_heads": 4,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-11-07"
+    },
+    {
       "slug": "ling-3-0-flash",
       "name": "Ling 3.0 Flash",
       "status": "auto",
@@ -2667,6 +2684,7 @@
     "LiquidAI/LFM3-1.7B": "finetune of LiquidAI/LFM3-1.7B-Base",
     "DavidAU/Qwen3.8-27B-Jumbo-Fusion-IQ-747-900-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP": "specialized model, not a general assistant",
     "baidu/Unlimited-OCR-2": "specialized model, not a general assistant",
-    "ATH-MaaS/OvisOCR2": "older version; a newer one exists"
+    "ATH-MaaS/OvisOCR2": "older version; a newer one exists",
+    "nvidia/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-BF16": "finetune of nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16"
   }
 }

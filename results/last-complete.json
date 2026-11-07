@@ -1157,6 +1157,61 @@
    "decisions": 1.69
   }
  },
+ "lfm-3-1-7b": {
+  "slug": "lfm-3-1-7b",
+  "name": "LFM3-1.7B",
+  "org": "liquid",
+  "openrouter_id": "liquid/lfm-3-1.7b",
+  "hf_id": "LiquidAI/LFM3-1.7B",
+  "params_b": 1.73,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-11-07",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 25.5,
+  "hard": 5.6,
+  "suites": {
+   "coding": {
+    "score": 16.7,
+    "public": 42.9,
+    "private": 8.7,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 90.2,
+    "public": 96.4,
+    "private": 88.1,
+    "done": 56,
+    "total": 56,
+    "calibration": 90.3,
+    "hard": 92.1
+   },
+   "extract": {
+    "score": 34.3,
+    "public": 38.3,
+    "private": 33.3,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "Liquid"
+  ],
+  "truncated": {
+   "n": 39,
+   "of": 54,
+   "provider_cap": 8192
+  },
+  "cost": {
+   "tasks": 1.55,
+   "decisions": 0.56
+  }
+ },
  "ling-3-0-flash": {
   "slug": "ling-3-0-flash",
   "name": "Ling 3.0 Flash",

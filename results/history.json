@@ -646,5 +646,14 @@
   "overall": 58.4,
   "rank": 31,
   "of": 68
+ },
+ {
+  "date": "2026-11-07",
+  "slug": "lfm-3-1-7b",
+  "name": "LFM3-1.7B",
+  "event": "added",
+  "overall": 25.5,
+  "rank": 55,
+  "of": 69
  }
 ]
