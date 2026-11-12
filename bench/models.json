@@ -264,6 +264,20 @@
       "added": "2026-10-29"
     },
     {
+      "slug": "gemini-decision-1",
+      "name": "Gemini Decision 1",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "google/gemini-decision-1",
+      "hf_id": null,
+      "org": "google",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-12"
+    },
+    {
       "slug": "gemma-2-27b-it",
       "name": "Gemma 2 27B",
       "status": "active",
@@ -1334,6 +1348,19 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "nemotron-3-5-super-vl",
+      "name": "Nemotron 3.5 Super VL",
+      "status": "auto",
+      "openrouter_id": "nvidia/nemotron-3.5-super-vl",
+      "hf_id": "nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16",
+      "org": "nvidia",
+      "params_b": 124.45,
+      "active_params_b": 12.0,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-12"
+    },
+    {
       "slug": "nemotron-3-nano-30b-a3b",
       "name": "Nemotron 3 Nano 30B A3B",
       "status": "active",
@@ -1493,7 +1520,7 @@
     {
       "slug": "qwen-2-5-7b-instruct",
       "name": "Qwen2.5 7B Instruct",
-      "status": "active",
+      "status": "unavailable",
       "openrouter_id": "qwen/qwen-2.5-7b-instruct",
       "hf_id": "Qwen/Qwen2.5-7B-Instruct",
       "org": "qwen",
@@ -1505,7 +1532,10 @@
         "head_dim": 128
       },
       "ollama": "qwen2.5:7b",
-      "added": "2026-10-10"
+      "added": "2026-10-10",
+      "previous_status": "active",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-11-12"
     },
     {
       "slug": "qwen-2-5-7b-q4-mac",
@@ -2110,6 +2140,7 @@
     "baai/bge-base-en-v1.5": "output is embeddings, not text",
     "baai/bge-large-en-v1.5": "output is embeddings, not text",
     "baai/bge-m3": "output is embeddings, not text",
+    "baidu/ernie-light-dt-1.0-intl": "no open weights linked",
     "black-forest-labs/flux-3-image": "output is image, not text",
     "black-forest-labs/flux-3-image-klein": "output is image, not text",
     "black-forest-labs/flux-3-video": "output is video, not text",
@@ -2212,6 +2243,7 @@
     "google/gemini-3.8-flash-lite-tts": "output is speech, not text",
     "google/gemini-3.8-flash-tts": "output is speech, not text",
     "google/gemini-4-argon": "no open weights linked",
+    "google/gemini-4-carbon": "no open weights linked",
     "google/gemini-embedding-001": "output is embeddings, not text",
     "google/gemini-embedding-2": "output is embeddings, not text",
     "google/gemini-embedding-2-preview": "output is embeddings, not text",
@@ -2246,6 +2278,7 @@
     "krea/krea-2-large": "output is image, not text",
     "krea/krea-2-medium": "output is image, not text",
     "krea/krea-2-medium-turbo": "output is image, not text",
+    "kt/midm-k-3.0-pro": "no open weights linked",
     "kwaivgi/kling-v3.0-pro": "output is video, not text",
     "kwaivgi/kling-v3.0-std": "output is video, not text",
     "kwaivgi/kling-video-o1": "output is video, not text",
@@ -2277,6 +2310,8 @@
     "minimax/hailuo-3": "output is video, not text",
     "minimax/hailuo-3-max": "output is video, not text",
     "minimax/minimax-01": "456.09B params > 40B",
+    "minimax/minimax-h3-image": "output is image, not text",
+    "minimax/minimax-h3-image-highspeed": "output is image, not text",
     "minimax/minimax-m1": "no open weights linked",
     "minimax/minimax-m2": "228.69B params > 40B",
     "minimax/minimax-m2-her": "no open weights linked",
@@ -2328,7 +2363,9 @@
     "moonshotai/kimi-k3.1-pro": "no open weights linked",
     "morph/morph-v3-fast": "no open weights linked",
     "morph/morph-v3-large": "no open weights linked",
+    "motif-technologies/motif-3": "org 'motif-technologies' not on allowlist",
     "nex-agi/nex-n2.5-pro": "396.8B params > 40B",
+    "nex-agi/nex-n2.6": "321.32B params > 130B",
     "nousresearch/hermes-3-llama-3.1-405b": "org 'nousresearch' not on allowlist",
     "nousresearch/hermes-3-llama-3.1-70b": "org 'nousresearch' not on allowlist",
     "nousresearch/hermes-4-405b": "org 'nousresearch' not on allowlist",
@@ -2510,6 +2547,7 @@
     "sourceful/riverflow-v2.5-fast": "output is image, not text",
     "sourceful/riverflow-v2.5-pro": "output is image, not text",
     "sourceful/riverflow-v2.6-pro": "output is image, not text",
+    "speechify/simba-3.5": "output is speech, not text",
     "stealth/crouton-alpha": "no open weights linked",
     "stepfun/step-3.5-flash": "org 'stepfun' not on allowlist",
     "stepfun/step-3.7-flash": "org 'stepfun' not on allowlist",
@@ -2561,6 +2599,7 @@
     "x-ai/grok-imagine-video-1.5": "output is video, not text",
     "x-ai/grok-imagine-video-1.5-lite": "output is video, not text",
     "x-ai/grok-stt-1.0": "output is transcription, not text",
+    "x-ai/grok-stt-2.0": "output is transcription, not text",
     "x-ai/grok-voice-tts-1.0": "output is speech, not text",
     "xiaomi/mimo-v2.5": "310.78B params > 40B",
     "xiaomi/mimo-v2.5-pro": "1023.18B params > 40B",
@@ -2709,6 +2748,7 @@
     "google/gemma-4-E2B-it-qat-q4_0-unquantized": "finetune of google/gemma-4-E2B-it",
     "AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored": "community variant (uncensored/abliterated/...)",
     "Kujira/Underdog-Saluki-27B-1.0-MTP-Abliterated": "community variant (uncensored/abliterated/...)",
-    "google/gemma-4-E4B-it-qat-q4_0-unquantized": "finetune of google/gemma-4-E4B-it"
+    "google/gemma-4-E4B-it-qat-q4_0-unquantized": "finetune of google/gemma-4-E4B-it",
+    "autotrust/AutoTrust-Decider-Pro-Vision-27B": "adapter of Qwen/Qwen3.8-27B"
   }
 }
