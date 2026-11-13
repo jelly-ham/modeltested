@@ -1,0 +1,161 @@
+{
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\"doc_type\": {\"type\": \"choice\", \"choice\": \"invoice\", \"probabilities\": {\"bank_statement\": 5.138008577639186e-05, \"contract\": 3.116359732204664e-05, \"invoice\": 0.9987410974162733, \"other\": 0.0011694053621670833, \"resume\": 6.953538461269447e-06}, \"confidence\": 0.9984263717703414}, \"missing_due_date\": {\"type\": \"noul\", \"noul\": 0.9940889298631745}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-hard-incident-matrix": {
+   "output": "{\"page\": {\"type\": \"noul\", \"noul\": 0.006692850072955687}, \"severity\": {\"type\": \"score\", \"score\": 1.0074737909926146, \"legend\": {\"0\": \"SEV4\", \"1\": \"SEV3\", \"2\": \"SEV2\", \"3\": \"SEV1\"}, \"probabilities\": {\"0\": 3.099268328095611e-05, \"1\": 0.9932635354775853, \"2\": 0.0059061600023719765, \"3\": 0.0007993118367617646}, \"confidence\": 0.9924642236408235}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "{\"action_needed\": {\"type\": \"noul\", \"noul\": 0.014063624047297284}, \"phishing\": {\"type\": \"noul\", \"noul\": 0.0075772423148668415}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0003,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "{\"raj_last\": {\"type\": \"noul\", \"noul\": 0.9579122696813394}, \"slot\": {\"type\": \"choice\", \"choice\": \"B\", \"probabilities\": {\"A\": 0.1791197224807094, \"B\": 0.42968590253249156, \"C\": 0.0958758785309496, \"D\": 0.2953184964558495}, \"confidence\": 0.23958120337665542}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.2286,
+    "picks": {
+     "slot": "B",
+     "raj_last": "true"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "{\"defective\": {\"type\": \"noul\", \"noul\": 0.001169510152864029}, \"outcome\": {\"type\": \"choice\", \"choice\": \"store_credit\", \"probabilities\": {\"full_refund\": 0.0008509598615317504, \"nothing\": 0.01331125186216091, \"partial_refund\": 0.0526470223929658, \"store_credit\": 0.9331907658833415}, \"confidence\": 0.9109210211777886}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0037,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "{\"hardware\": {\"type\": \"noul\", \"noul\": 0.9902915213248099}, \"support\": {\"type\": \"noul\", \"noul\": 0.994088930478839}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "{\"confirm\": {\"type\": \"noul\", \"noul\": 0.8519528019683106}, \"tool\": {\"type\": \"choice\", \"choice\": \"calendar\", \"probabilities\": {\"calculator\": 0.00026096192634652546, \"calendar\": 0.9988644342022229, \"email\": 0.00015828140934683776, \"none\": 0.0007093680623074279, \"web_search\": 6.9543997762913885e-06}, \"confidence\": 0.9985805427527785}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0219,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\"personal_info\": {\"type\": \"noul\", \"noul\": 0.9770226310935413}, \"policy\": {\"type\": \"choice\", \"choice\": \"harassment\", \"probabilities\": {\"harassment\": 0.9922850068296827, \"hate\": 0.0019155608357954929, \"none\": 0.005207034211250709, \"self_harm\": 0.00010806849580912414, \"spam\": 0.00048432962746193476}, \"confidence\": 0.9903562585371034}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0006,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\"phishing\": {\"type\": \"noul\", \"noul\": 0.9924227569882963}, \"risk\": {\"type\": \"score\", \"score\": 2.9767362314546952, \"legend\": {\"0\": \"No risk: legitimate\", \"1\": \"Low\", \"2\": \"Medium\", \"3\": \"High: clearly phishing\"}, \"probabilities\": {\"0\": 0.005192811814555597, \"1\": 0.0024529106158744404, \"2\": 0.0027795118698893183, \"3\": 0.9895747656996807}, \"confidence\": 0.976736231454695}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\"data_kind\": {\"type\": \"choice\", \"choice\": \"government_id\", \"probabilities\": {\"contact\": 0.0007974905787260905, \"financial\": 0.005892702624575754, \"government_id\": 0.9910004329410825, \"health\": 0.0016882875684115853, \"none\": 0.0006210862872039472}, \"confidence\": 0.9887505411763531}, \"sensitive\": {\"type\": \"noul\", \"noul\": 0.9740426437440897}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0007,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\"department\": {\"type\": \"choice\", \"choice\": \"billing\", \"probabilities\": {\"account\": 2.4279034517964e-05, \"billing\": 0.9991028550990524, \"sales\": 0.0007095373946873786, \"shipping\": 0.00012329911110038066, \"technical\": 4.0029360641829875e-05}, \"confidence\": 0.9988785688738155}, \"refund\": {\"type\": \"noul\", \"noul\": 0.9820137869124695}, \"tone\": {\"type\": \"choice\", \"choice\": \"calm\", \"probabilities\": {\"calm\": 0.9964063978587703, \"frustrated\": 0.0035936021412296677}, \"confidence\": 0.9928127957175406}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0002,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\"defect\": {\"type\": \"noul\", \"noul\": 0.9933071482863007}, \"recommend\": {\"type\": \"noul\", \"noul\": 0.0013250221890673186}, \"sentiment\": {\"type\": \"choice\", \"choice\": \"negative\", \"probabilities\": {\"negative\": 0.990272957923448, \"neutral\": 0.007560828455744254, \"positive\": 0.0021662136208077526}, \"confidence\": 0.9854094368851719}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0001,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\"confirm\": {\"type\": \"noul\", \"noul\": 0.996827317711253}, \"tool\": {\"type\": \"choice\", \"choice\": \"calendar\", \"probabilities\": {\"calculator\": 3.525858766113465e-05, \"calendar\": 0.9972028768896516, \"email\": 0.000802482138966552, \"none\": 0.0016988547015235652, \"web_search\": 0.00026052768219718794}, \"confidence\": 0.9965035961120644}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\"department\": {\"type\": \"choice\", \"choice\": \"technical\", \"probabilities\": {\"account\": 0.000690440560290115, \"billing\": 0.02286425120461991, \"sales\": 0.003094339912770299, \"shipping\": 0.001138344037904427, \"technical\": 0.9722126242844151}, \"confidence\": 0.9652657803555189}, \"outage\": {\"type\": \"noul\", \"noul\": 0.9875683465970443}, \"urgency\": {\"type\": \"score\", \"score\": 2.8343597160798764, \"legend\": {\"0\": \"Can wait a week or more\", \"1\": \"Within a few days\", \"2\": \"Today\", \"3\": \"Immediately: business is blocked\"}, \"probabilities\": {\"0\": 8.110830260724696e-05, \"1\": 0.009374845126073268, \"2\": 0.14664726876015546, \"3\": 0.843896777811164}, \"confidence\": 0.8343597160798762}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0159,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ }
+}
