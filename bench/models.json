@@ -744,7 +744,7 @@
     {
       "slug": "lfm-2-5-2-6b",
       "name": "LFM2.5-2.6B",
-      "status": "auto",
+      "status": "unavailable",
       "openrouter_id": "liquid/lfm-2.5-2.6b",
       "hf_id": "LiquidAI/LFM2.5-2.6B",
       "org": "liquid",
@@ -756,7 +756,10 @@
         "head_dim": 64
       },
       "ollama": null,
-      "added": "2026-10-25"
+      "added": "2026-10-25",
+      "previous_status": "auto",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-11-13"
     },
     {
       "slug": "lfm-2-5-24b-a2b",
