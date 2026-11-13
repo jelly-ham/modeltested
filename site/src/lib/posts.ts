@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content";
-import { data, models, ranked, family, minTiers, solvedBy, codingTotal, nCodingTasks, whole, type Model } from "./data";
+import { data, models, ranked, family, minTiers, solvedBy, codingTotal, nCodingTasks, whole, type Model, type DecisionRow } from "./data";
 
 /** A cover is a small chart (or a big word) drawn from real numbers. */
 export type Cover =
@@ -56,6 +56,37 @@ function reviewPost(m: Model): Post {
     tags,
     cover: { kind: "model", label: m.name, overall: m.overall, rank: m.rank, of: models.length, coding: c, docs: d },
     order: 10 + m.rank,
+  };
+}
+
+const decisionModels = () => (data.decisions ?? []).filter((r) => r.kind === "decision");
+
+/** "#4 of the 30 decision models we've tested": the heading of a decision model's page and its entry in the feed. */
+export function decisionVerdict(r: DecisionRow): string {
+  const all = decisionModels();
+  const rank = all.findIndex((x) => x.slug === r.slug) + 1;
+  return rank === 1 ? "the most accurate decision model we've tested" : `#${rank} of the ${all.length} decision models we've tested`;
+}
+
+export const decisionDek = (r: DecisionRow) =>
+  `It got ${whole(r.accuracy)}% of our calls right and ${whole(r.hard)}% of the hard ones. ${r.open_weights ? "Open weights you can download." : "Available only through an API."}`;
+
+/** Every decision model we test gets a review in the feed on the day it was added, like the local models do. */
+function decisionReviewPost(r: DecisionRow): Post {
+  const rank = decisionModels().findIndex((x) => x.slug === r.slug) + 1;
+  return {
+    url: `/decision-models/${r.slug}/`,
+    title: `${r.name} review: ${decisionVerdict(r)}`,
+    dek: decisionDek(r),
+    date: r.added ?? data.generated,
+    category: "Reviews",
+    tags: ["Reviews", "Decision models"],
+    cover: { kind: "compare", label: `${r.name} · scores`, items: [
+      { label: "Accuracy", value: Math.round(r.accuracy) },
+      ...(r.hard != null ? [{ label: "Hard cases", value: Math.round(r.hard) }] : []),
+      ...(r.calibration != null ? [{ label: "Calibration", value: Math.round(r.calibration) }] : []),
+    ] },
+    order: 10 + rank,
   };
 }
 
@@ -132,7 +163,7 @@ export async function guidePosts(): Promise<Post[]> {
 }
 
 export async function allPosts(): Promise<Post[]> {
-  const posts = [...rankingPosts(), ...(await guidePosts()), ...models.map(reviewPost)];
+  const posts = [...rankingPosts(), ...(await guidePosts()), ...models.map(reviewPost), ...decisionModels().map(decisionReviewPost)];
   return posts.sort((a, b) => b.date.localeCompare(a.date) || a.order - b.order);
 }
 

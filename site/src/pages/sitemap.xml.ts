@@ -15,7 +15,9 @@ export const GET: APIRoute = async ({ site }) => {
     ...tiers.map((t) => ({ path: `/hardware/${hardwareSlug(t)}/`, date: data.generated })),
     ...(data.decisions ?? []).filter((r) => r.kind === "decision").map((r) => ({ path: `/decision-models/${r.slug}/`, date: data.generated })),
   ];
-  const urls = entries.map((e) => `<url><loc>${new URL(e.path, site).href}</loc><lastmod>${e.date}</lastmod></url>`).join("");
+  // Decision model pages are also in the feed, so drop the second copy.
+  const seen = new Set<string>();
+  const urls = entries.filter((e) => !seen.has(e.path) && seen.add(e.path)).map((e) => `<url><loc>${new URL(e.path, site).href}</loc><lastmod>${e.date}</lastmod></url>`).join("");
   return new Response(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`, {
     headers: { "Content-Type": "application/xml" },
   });

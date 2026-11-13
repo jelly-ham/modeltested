@@ -1,7 +1,7 @@
 ---
 import Article from "../../layouts/Article.astro";
 import { data, whole, orgName, questionTitle, decisionHref, type DecisionRow } from "../../lib/data";
-import { shortDate } from "../../lib/posts";
+import { shortDate, decisionVerdict, decisionDek } from "../../lib/posts";
 import publicQs from "../../data/public-questions.json";
 
 export function getStaticPaths() {
@@ -35,10 +35,8 @@ function pageTitle(name: string): string {
   const options = [": Decision Model Benchmarks and Accuracy", ": Decision Model Benchmarks", " Benchmarks"];
   return options.map((o) => name + o).find((t) => t.length <= 60) ?? name;
 }
-const verdictLine = rankAmong === 1
-  ? "the most accurate decision model we've tested"
-  : `#${rankAmong} of the ${decisionModels.length} decision models we've tested`;
-const dek = `It got ${whole(row.accuracy)}% of our calls right and ${whole(row.hard)}% of the hard ones. ${row.open_weights ? "Open weights you can download." : "Available only through an API."}`;
+const verdictLine = decisionVerdict(row);
+const dek = decisionDek(row);
 const cover = { kind: "compare" as const, label: `${row.name} · scores`, items: [
   { label: "Accuracy", value: Math.round(row.accuracy) },
   ...(row.hard != null ? [{ label: "Hard cases", value: Math.round(row.hard) }] : []),

@@ -33,8 +33,8 @@ const gap = (s: { public: number | null; private: number | null } | undefined) =
   s && s.public != null && s.private != null ? s.public - s.private : 0;
 const neighbors = posts
   .filter((p) => p.category === "Reviews" && p.url !== post.url)
-  .map((p) => ({ p, m: models.find((m) => p.url === `/models/${m.slug}/`)! }))
-  .filter(({ m }) => Math.abs(m.rank - model.rank) <= 2)
+  .map((p) => ({ p, m: models.find((m) => p.url === `/models/${m.slug}/`) }))
+  .filter(({ m }) => m && Math.abs(m.rank - model.rank) <= 2)
   .slice(0, 3)
   .map(({ p }) => p);
 
