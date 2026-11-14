@@ -176,6 +176,20 @@
       "added": "2026-10-16"
     },
     {
+      "slug": "decisions-fast",
+      "name": "Decisions Fast",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "parallel/decisions-fast",
+      "hf_id": null,
+      "org": "parallel",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-14"
+    },
+    {
       "slug": "devstral-2512",
       "name": "Devstral 2 2512",
       "status": "auto",
@@ -2549,6 +2563,7 @@
     "recraft/recraft-v4-vector": "output is image, not text",
     "recraft/recraft-v4.1": "output is image, not text",
     "recraft/recraft-v4.1-flash": "output is image, not text",
+    "recraft/recraft-v4.1-flash-v2": "output is image, not text",
     "recraft/recraft-v4.1-pro": "output is image, not text",
     "recraft/recraft-v4.1-pro-vector": "output is image, not text",
     "recraft/recraft-v4.1-utility": "output is image, not text",
@@ -2590,6 +2605,7 @@
     "tencent/hy-mt2-1.8b": "specialized model, not a general assistant",
     "tencent/hy-mt2-30b-a3b": "specialized model, not a general assistant",
     "tencent/hy-mt2-7b": "specialized model, not a general assistant",
+    "tencent/hy-world-2.1-panorama": "output is image, not text",
     "tencent/hy3": "298.79B params > 40B",
     "tencent/hy3-preview": "298.79B params > 40B",
     "tencent/hy4-preview": "779.96B params > 40B",
