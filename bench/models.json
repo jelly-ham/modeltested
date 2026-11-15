@@ -617,7 +617,7 @@
     {
       "slug": "hunyuan-a13b-instruct",
       "name": "Hunyuan A13B Instruct",
-      "status": "auto",
+      "status": "unavailable",
       "openrouter_id": "tencent/hunyuan-a13b-instruct",
       "hf_id": "tencent/Hunyuan-A13B-Instruct",
       "org": "tencent",
@@ -629,7 +629,10 @@
         "head_dim": 128
       },
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "previous_status": "auto",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-11-15"
     },
     {
       "slug": "jev-1-13",
@@ -1950,7 +1953,7 @@
     {
       "slug": "qwen3-vl-30b-a3b-thinking",
       "name": "Qwen3 VL 30B A3B Thinking",
-      "status": "active",
+      "status": "unavailable",
       "openrouter_id": "qwen/qwen3-vl-30b-a3b-thinking",
       "hf_id": "Qwen/Qwen3-VL-30B-A3B-Thinking",
       "org": "qwen",
@@ -1962,7 +1965,10 @@
         "head_dim": 128
       },
       "ollama": null,
-      "added": "2026-10-10"
+      "added": "2026-10-10",
+      "previous_status": "active",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-11-15"
     },
     {
       "slug": "qwen3-vl-8b-instruct",

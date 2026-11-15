@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-14",
+ "generated": "2026-11-15",
  "suites": [
   {
    "id": "coding",
@@ -1743,7 +1743,7 @@
    "license": null,
    "added": "2026-10-10",
    "kind": null,
-   "status": "active",
+   "status": "unavailable",
    "base": null,
    "quant": null,
    "overall": 76.6,
@@ -3099,7 +3099,7 @@
    "license": null,
    "added": "2026-10-11",
    "kind": null,
-   "status": "auto",
+   "status": "unavailable",
    "base": null,
    "quant": null,
    "overall": 51.8,
