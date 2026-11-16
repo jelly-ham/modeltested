@@ -2558,6 +2558,7 @@
     "qwen/qwen3.8-max-0902": "no open weights linked",
     "qwen/qwen3.8-max-prime": "no open weights linked",
     "qwen/qwen3.8-omni-flash": "no open weights linked",
+    "qwen/qwen4-max": "no open weights linked",
     "recraft/recraft-v3": "output is image, not text",
     "recraft/recraft-v4": "output is image, not text",
     "recraft/recraft-v4-pro": "output is image, not text",
@@ -2614,6 +2615,7 @@
     "tencent/hy-world-2.1-panorama": "output is image, not text",
     "tencent/hy3": "298.79B params > 40B",
     "tencent/hy3-preview": "298.79B params > 40B",
+    "tencent/hy4-flash": "no open weights linked",
     "tencent/hy4-preview": "779.96B params > 40B",
     "thedrummer/cydonia-24b-v4.1": "org 'thedrummer' not on allowlist",
     "thedrummer/skyfall-36b-v2": "org 'thedrummer' not on allowlist",
@@ -2725,6 +2727,13 @@
       "downloads_30d": 357589,
       "license": "apache-2.0",
       "seen": "2026-10-28"
+    },
+    "nvidia/NVIDIA-Nemotron-Parse-2.0": {
+      "params_b": 0.9,
+      "downloads_30d": 348026,
+      "license": "openmdw-1.1",
+      "seen": "2026-11-16",
+      "why": "no Q4_K_M GGUF found yet"
     }
   },
   "hf_ignored": {
@@ -2805,6 +2814,7 @@
     "AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored": "community variant (uncensored/abliterated/...)",
     "Kujira/Underdog-Saluki-27B-1.0-MTP-Abliterated": "community variant (uncensored/abliterated/...)",
     "google/gemma-4-E4B-it-qat-q4_0-unquantized": "finetune of google/gemma-4-E4B-it",
-    "autotrust/AutoTrust-Decider-Pro-Vision-27B": "adapter of Qwen/Qwen3.8-27B"
+    "autotrust/AutoTrust-Decider-Pro-Vision-27B": "adapter of Qwen/Qwen3.8-27B",
+    "ATH-MaaS/OvisOCR3": "specialized model, not a general assistant"
   }
 }
