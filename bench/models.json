@@ -162,6 +162,34 @@
       "added": "2026-10-28"
     },
     {
+      "slug": "d1-2",
+      "name": "d1.2",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "liquid/d1.2",
+      "hf_id": null,
+      "org": "liquid",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-17"
+    },
+    {
+      "slug": "d1-2-ultra",
+      "name": "d1.2-ultra",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "liquid/d1.2-ultra",
+      "hf_id": null,
+      "org": "liquid",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-17"
+    },
+    {
       "slug": "d1-ultra",
       "name": "d1-ultra",
       "status": "auto",
@@ -2218,6 +2246,7 @@
     "bytedance/seedance-2.0-fast": "output is video, not text",
     "bytedance/seedance-2.0-mini": "output is video, not text",
     "bytedance/seedance-2.5": "output is video, not text",
+    "bytedance/seedance-2.5-flash": "output is video, not text",
     "bytedance/ui-tars-1.5-7b": "org 'bytedance' not on allowlist",
     "canopylabs/orpheus-3b-0.1-ft": "output is speech, not text",
     "cognitivecomputations/dolphin-mistral-24b-venice-edition": "org 'cognitivecomputations' not on allowlist",
@@ -2730,9 +2759,9 @@
     },
     "nvidia/NVIDIA-Nemotron-Parse-2.0": {
       "params_b": 0.9,
-      "downloads_30d": 348026,
+      "downloads_30d": 408468,
       "license": "openmdw-1.1",
-      "seen": "2026-11-16",
+      "seen": "2026-11-17",
       "why": "no Q4_K_M GGUF found yet"
     }
   },
