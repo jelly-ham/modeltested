@@ -1108,6 +1108,20 @@
       "added": "2026-10-11"
     },
     {
+      "slug": "microsoft-decision-1-1",
+      "name": "Microsoft-Decision-1.1",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "microsoft/microsoft-decision-1.1",
+      "hf_id": null,
+      "org": "microsoft",
+      "params_b": null,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-18"
+    },
+    {
       "slug": "minicpm-v-4-7-1b-q4-mac",
       "name": "MiniCPM V 4.7 1B (Q4, Mac)",
       "status": "local",
@@ -2340,6 +2354,8 @@
     "gryphe/mythomax-l2-13b": "org 'gryphe' not on allowlist",
     "hexgrad/kokoro-82m": "output is speech, not text",
     "heygen/avatar-iv": "output is video, not text",
+    "heygen/heygen-avatar-6": "output is video, not text",
+    "heygen/heygen-avatar-6-turbo": "output is video, not text",
     "heygen/heygen-video-1": "output is video, not text",
     "heygen/heygen-voice-1": "output is speech, not text",
     "heygen/heygen-voice-1-turbo": "output is speech, not text",
@@ -2382,6 +2398,8 @@
     "microsoft/mai-image-2.5-pro": "output is image, not text",
     "microsoft/mai-image-2.6": "output is image, not text",
     "microsoft/mai-image-2.6-flash": "output is image, not text",
+    "microsoft/mai-image-2.7": "output is image, not text",
+    "microsoft/mai-image-2.7-flash": "output is image, not text",
     "microsoft/mai-transcribe-1.5": "output is transcription, not text",
     "microsoft/mai-transcribe-2": "output is transcription, not text",
     "microsoft/mai-voice-2": "output is speech, not text",
@@ -2512,6 +2530,10 @@
     "openai/gpt-6.1-sol-pro": "no open weights linked",
     "openai/gpt-6.1-terra": "no open weights linked",
     "openai/gpt-6.1-terra-pro": "no open weights linked",
+    "openai/gpt-6.2-astra": "no open weights linked",
+    "openai/gpt-6.2-astra-pro": "no open weights linked",
+    "openai/gpt-6.2-sol": "no open weights linked",
+    "openai/gpt-6.2-sol-pro": "no open weights linked",
     "openai/gpt-audio": "no open weights linked",
     "openai/gpt-audio-mini": "no open weights linked",
     "openai/gpt-chat-latest": "no open weights linked",
@@ -2759,9 +2781,9 @@
     },
     "nvidia/NVIDIA-Nemotron-Parse-2.0": {
       "params_b": 0.9,
-      "downloads_30d": 408468,
+      "downloads_30d": 469151,
       "license": "openmdw-1.1",
-      "seen": "2026-11-17",
+      "seen": "2026-11-18",
       "why": "no Q4_K_M GGUF found yet"
     }
   },
