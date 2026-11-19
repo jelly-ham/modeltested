@@ -2340,6 +2340,7 @@
     "google/gemini-4-argon": "no open weights linked",
     "google/gemini-4-carbon": "no open weights linked",
     "google/gemini-4-hydrogen": "no open weights linked",
+    "google/gemini-4-neon": "no open weights linked",
     "google/gemini-embedding-001": "output is embeddings, not text",
     "google/gemini-embedding-2": "output is embeddings, not text",
     "google/gemini-embedding-2-preview": "output is embeddings, not text",
@@ -2781,9 +2782,9 @@
     },
     "nvidia/NVIDIA-Nemotron-Parse-2.0": {
       "params_b": 0.9,
-      "downloads_30d": 469151,
+      "downloads_30d": 525387,
       "license": "openmdw-1.1",
-      "seen": "2026-11-18",
+      "seen": "2026-11-19",
       "why": "no Q4_K_M GGUF found yet"
     }
   },
