@@ -136,7 +136,7 @@
     {
       "slug": "d1",
       "name": "d1",
-      "status": "auto",
+      "status": "unavailable",
       "kind": "decision",
       "openrouter_id": "liquid/d1",
       "hf_id": null,
@@ -145,7 +145,10 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "previous_status": "auto",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-11-20"
     },
     {
       "slug": "d1-1",
@@ -2316,8 +2319,10 @@
     "google/gemini-2.5-flash": "no open weights linked",
     "google/gemini-2.5-flash-image": "no open weights linked",
     "google/gemini-2.5-flash-lite": "no open weights linked",
+    "google/gemini-2.5-flash-tts": "output is speech, not text",
     "google/gemini-2.5-pro": "no open weights linked",
     "google/gemini-2.5-pro-preview": "no open weights linked",
+    "google/gemini-2.5-pro-tts": "output is speech, not text",
     "google/gemini-3-flash-preview": "no open weights linked",
     "google/gemini-3-pro-image": "no open weights linked",
     "google/gemini-3-pro-image-preview": "no open weights linked",
@@ -2434,6 +2439,7 @@
     "mistralai/mistral-medium-3.1": "no open weights linked",
     "mistralai/mistral-saba": "no open weights linked",
     "mistralai/mixtral-8x22b-instruct": "140.63B params > 40B",
+    "mistralai/pixtral-large-2502": "no open weights linked",
     "mistralai/voxtral-mini-3b-2507": "output is transcription, not text",
     "mistralai/voxtral-mini-transcribe": "output is transcription, not text",
     "mistralai/voxtral-mini-transcribe-3-0": "output is transcription, not text",
@@ -2667,6 +2673,7 @@
     "tencent/hy-world-2.1-panorama": "output is image, not text",
     "tencent/hy3": "298.79B params > 40B",
     "tencent/hy3-preview": "298.79B params > 40B",
+    "tencent/hy4": "774.43B params > 130B",
     "tencent/hy4-flash": "no open weights linked",
     "tencent/hy4-preview": "779.96B params > 40B",
     "thedrummer/cydonia-24b-v4.1": "org 'thedrummer' not on allowlist",
@@ -2782,10 +2789,16 @@
     },
     "nvidia/NVIDIA-Nemotron-Parse-2.0": {
       "params_b": 0.9,
-      "downloads_30d": 525387,
+      "downloads_30d": 589266,
       "license": "openmdw-1.1",
-      "seen": "2026-11-19",
+      "seen": "2026-11-20",
       "why": "no Q4_K_M GGUF found yet"
+    },
+    "nvidia/Qwen3.8-Flash-Next-NVFP4": {
+      "params_b": 119.6,
+      "downloads_30d": 303865,
+      "license": "other",
+      "seen": "2026-11-20"
     }
   },
   "hf_ignored": {
@@ -2867,6 +2880,7 @@
     "Kujira/Underdog-Saluki-27B-1.0-MTP-Abliterated": "community variant (uncensored/abliterated/...)",
     "google/gemma-4-E4B-it-qat-q4_0-unquantized": "finetune of google/gemma-4-E4B-it",
     "autotrust/AutoTrust-Decider-Pro-Vision-27B": "adapter of Qwen/Qwen3.8-27B",
-    "ATH-MaaS/OvisOCR3": "specialized model, not a general assistant"
+    "ATH-MaaS/OvisOCR3": "specialized model, not a general assistant",
+    "datalab-to/surya-ocr-2.5": "specialized model, not a general assistant"
   }
 }
