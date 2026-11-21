@@ -1,0 +1,266 @@
+{
+ "coding": {
+  "code-hard-ini-parser": {
+   "output": "```python\nimport re\n\n_REF_RE = re.compile(r\"\\$\\{([^}]*)\\}\")\n_HEADER_RE = re.compile(r\"^\\[([^\\[\\]]*)\\]$\")\n\n\ndef parse_ini(text: str) -> dict[str, dict[str, str]]:\n    sections: dict[str, dict[str, str]] = {}\n    cur: str | None = None\n    continuation_key: tuple[str, str] | None = None\n\n    for raw_line in text.splitlines():\n        stripped = raw_line.strip()\n\n        if not stripped:\n            continue\n        if stripped[0] == \";\" or stripped[0] == \"#\":\n            continue\n\n        if stripped.startswith(\"[\"):\n            m = _HEADER_RE.match(stripped)\n            if not m:\n                raise ValueError(\"malformed section header\")\n            name = m.group(1).strip()\n            if not name:\n                raise ValueError(\"malformed section header\")\n            cur = name\n            sections.setdefault(cur, {})\n            continuation_key = None\n            continue\n\n        if raw_line[0] in \" \\t\" and continuation_key is not None:\n            sec, key = continuation_key\n            sections[sec][key] += \"\\n\" + stripped\n            continue\n\n        if cur is None:\n            raise ValueError(\"key line before any section header\")\n\n        i_eq = stripped.find(\"=\")\n        i_col = stripped.find(\":\")\n        positions = [i for i in (i_eq, i_col) if i >= 0]\n        if not positions:\n            raise ValueError(\"malformed line\")\n\n        pos = min(positions)\n        key = stripped[:pos].strip().lower()\n        value_part = stripped[pos + 1:].strip()\n        if not key:\n            raise ValueError(\"malformed line\")\n\n        if value_part.startswith('\"'):\n            end = value_part.find('\"', 1)\n            if end == -1:\n                raise ValueError(\"malformed line\")\n            value = value_part[1:end]\n            rest = value_part[end + 1:].strip()\n            if rest and rest[0] not in \";#\":\n                raise ValueError(\"malformed line\")\n        else:\n            comment_idx = None\n            for i in range(len(value_part) - 1):\n                if value_part[i] in \" \\t\" and value_part[i + 1] in \";#\":\n                    comment_idx = i\n                    break\n            if comment_idx is not None:\n                value = value_part[:comment_idx].strip()\n            else:\n                value = value_part.strip()\n\n        sections[cur][key] = value\n        continuation_key = (cur, key)\n\n    default_values = sections.get(\"DEFAULT\", {})\n\n    def get_raw(sec: str, key: str):\n        merged = dict(default_values)\n        merged.update(sections.get(sec, {}))\n        return merged.get(key)\n\n    def interpolate(value: str, section_name: str, stack: list) -> str:\n        def replace(match):\n            content = match.group(1).strip()\n            if \":\" in content:\n                sec_part, _, key_part = content.partition(\":\")\n                target_sec = sec_part.strip()\n                key = key_part.strip().lower()\n            else:\n                target_sec = section_name\n                key = content.lower()\n            if not target_sec or not key:\n                raise KeyError(\"invalid interpolation reference\")\n            if target_sec not in sections:\n                raise KeyError(f\"missing section: {target_sec}\")\n            raw = get_raw(target_sec, key)\n            if raw is None:\n                raise KeyError(f\"missing key: {key}\")\n            if (target_sec, key) in stack:\n                raise ValueError(f\"cyclic reference: {target_sec}:{key}\")\n            return interpolate(raw, target_sec, stack + [(target_sec, key)])\n\n        return _REF_RE.sub(replace, value)\n\n    result: dict[str, dict[str, str]] = {}\n    for sec_name, sec_values in sections.items():\n        if sec_name == \"DEFAULT\":\n            continue\n        effective: dict[str, str] = {}\n        effective.update(default_values)\n        effective.update(sec_values)\n        interpolated: dict[str, str] = {}\n        for key, val in effective.items():\n            interpolated[key] = interpolate(val, sec_name, [(sec_name, key)])\n        result[sec_name] = interpolated\n\n    return result\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\n\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = capacity\n        self.ttl = ttl\n        self.clock = clock\n        self._data = OrderedDict()  # key -> (value, expiry)\n        self._hits = 0\n        self._misses = 0\n        self._evictions = 0\n        self._expirations = 0\n\n    def put(self, key, value):\n        if self.capacity <= 0:\n            return\n        now = self.clock()\n        if key in self._data:\n            self._data.pop(key)\n            self._data[key] = (value, now + self.ttl)\n            return\n        if len(self._data) + 1 > self.capacity:\n            expired = [k for k, (_, expiry) in self._data.items() if now >= expiry]\n            for k in expired:\n                del self._data[k]\n                self._expirations += 1\n            if len(self._data) + 1 > self.capacity:\n                self._data.popitem(last=False)\n                self._evictions += 1\n        self._data[key] = (value, now + self.ttl)\n\n    def get(self, key, default=None):\n        now = self.clock()\n        entry = self._data.get(key)\n        if entry is None:\n            self._misses += 1\n            return default\n        value, expiry = entry\n        if now >= expiry:\n            del self._data[key]\n            self._expirations += 1\n            self._misses += 1\n            return default\n        self._data.move_to_end(key)\n        self._hits += 1\n        return value\n\n    def __len__(self):\n        now = self.clock()\n        return sum(1 for _, expiry in self._data.values() if now < expiry)\n\n    def stats(self):\n        return {\n            \"hits\": self._hits,\n            \"misses\": self._misses,\n            \"evictions\": self._evictions,\n            \"expirations\": self._expirations,\n        }\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\ndef parse_duration(s: str) -> int:\n    if not s.strip():\n        raise ValueError(\"duration string must not be empty\")\n\n    match = re.fullmatch(r\"(?:(\\d+)[hH]\\s*)?(?:(\\d+)[mM]\\s*)?(?:(\\d+)[sS]\\s*)?\", s)\n    if match is None:\n        raise ValueError(\"invalid duration format\")\n\n    hours, minutes, seconds = match.groups()\n    if hours is None and minutes is None and seconds is None:\n        raise ValueError(\"duration string must not be empty\")\n\n    return (int(hours) * 3600 if hours is not None else 0) + (int(minutes) * 60 if minutes is not None else 0) + (int(seconds) if seconds is not None else 0)\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "ValueError: invalid duration format"
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport re\nimport unicodedata\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    ascii_title = unicodedata.normalize('NFKD', title).encode('ascii', 'ignore').decode('ascii')\n    slug = ascii_title.lower()\n    slug = re.sub(r'[^a-z0-9]+', '-', slug).strip('-')\n\n    if len(slug) > max_len:\n        words = slug.split('-')\n        prefix: list[str] = []\n        length = 0\n        for word in words:\n            candidate = len(word) if not prefix else length + 1 + len(word)\n            if candidate <= max_len:\n                prefix.append(word)\n                length = candidate\n            else:\n                break\n        if prefix:\n            slug = '-'.join(prefix)\n        else:\n            slug = slug[:max_len]\n\n    return slug.rstrip('-')\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n    uniq = sorted(set(nums))\n    parts = []\n    i = 0\n    n = len(uniq)\n    while i < n:\n        j = i\n        while j + 1 < n and uniq[j + 1] == uniq[j] + 1:\n            j += 1\n        if j - i + 1 >= 3:\n            parts.append(f\"{uniq[i]}..{uniq[j]}\")\n        else:\n            parts.extend(str(x) for x in uniq[i:j + 1])\n        i = j + 1\n    return \",\".join(parts)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nfrom collections.abc import Callable\n\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]):\n        self.capacity = float(capacity)\n        self.refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._tokens = self.capacity\n        self._last_time = self._clock()\n\n    def _refill(self) -> None:\n        now = self._clock()\n        elapsed = now - self._last_time\n        if elapsed > 0.0:\n            self._tokens = min(self.capacity, self._tokens + elapsed * self.refill_per_sec)\n            self._last_time = now\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return self._tokens\n\n    @tokens.setter\n    def tokens(self, value):\n        raise AttributeError(\"tokens is read-only\")\n\n    def allow(self, cost: float = 1) -> bool:\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n        return False\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nimport re\nfrom decimal import Decimal, InvalidOperation\n\ndef _parse_amount(text):\n    if not isinstance(text, str):\n        return None\n    s = text.strip()\n    if not s:\n        return None\n    sign = Decimal(\"1\")\n    if s.startswith(\"-\"):\n        sign = Decimal(\"-1\")\n        s = s[1:].lstrip()\n    elif s.startswith(\"+\"):\n        s = s[1:].lstrip()\n    if not s:\n        return None\n    if s.startswith(\"$\"):\n        s = s[1:].lstrip()\n    s = s.replace(\",\", \"\").strip()\n    if not re.fullmatch(r\"[0-9]+(\\.[0-9]+)?|\\.[0-9]+\", s):\n        return None\n    try:\n        return sign * Decimal(s)\n    except InvalidOperation:\n        return None\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    totals: dict[str, Decimal] = {}\n    display: dict[str, str] = {}\n\n    for row in rows:\n        if not isinstance(row, dict):\n            continue\n        raw_name = row.get(\"customer\")\n        if not isinstance(raw_name, str):\n            continue\n        name = raw_name.strip()\n        if not name:\n            continue\n        amount = _parse_amount(row.get(\"amount\"))\n        if amount is None:\n            continue\n        key = name.lower()\n        if key not in totals:\n            totals[key] = Decimal(\"0.00\")\n            display[key] = name\n        totals[key] += amount\n\n    result = []\n    for key, total in totals.items():\n        rounded = total.quantize(Decimal(\"0.01\"))\n        result.append((display[key], float(rounded)))\n\n    result.sort(key=lambda item: (-item[1], item[0].lower(), item[0]))\n    return result[:max(n, 0)]\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  }
+ },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\"doc_type\":{\"invoice\":0.95,\"resume\":0.01,\"contract\":0.03,\"bank_statement\":0.01,\"other\":0.0},\"missing_due_date\":{\"true\":0.95,\"false\":0.05}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0043,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-hard-incident-matrix": {
+   "output": "{\"severity\":{\"0\":0.02,\"1\":0.85,\"2\":0.10,\"3\":0.03},\"page\":{\"true\":0.13,\"false\":0.87}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0338,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "{\"phishing\":{\"true\":0.05,\"false\":0.95},\"action_needed\":{\"true\":0.1,\"false\":0.9}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0125,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "{\"slot\":{\"A\":0,\"B\":1,\"C\":0,\"D\":0},\"raj_last\":{\"true\":1,\"false\":0}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "slot": "B",
+     "raj_last": "true"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "{\"outcome\":{\"full_refund\":0.04,\"partial_refund\":0.10,\"store_credit\":0.85,\"nothing\":0.01},\"defective\":{\"true\":0.15,\"false\":0.85}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0396,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "{\"hardware\":{\"true\":0.96,\"false\":0.04},\"support\":{\"true\":0.9,\"false\":0.1}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0116,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "{\"tool\":{\"web_search\":0.01,\"calculator\":0.03,\"calendar\":0.92,\"email\":0.02,\"none\":0.02},\"confirm\":{\"true\":0.7,\"false\":0.3}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0941,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\"policy\":{\"none\":0.03,\"harassment\":0.945,\"hate\":0.01,\"spam\":0.005,\"self_harm\":0.01},\"personal_info\":{\"true\":0.98,\"false\":0.02}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0025,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\"phishing\":{\"true\":0.95,\"false\":0.05},\"risk\":{\"0\":0.01,\"1\":0.03,\"2\":0.10,\"3\":0.86}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0178,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\"data_kind\":{\"none\":0.01,\"contact\":0.04,\"financial\":0.03,\"government_id\":0.91,\"health\":0.01},\"sensitive\":{\"true\":0.98,\"false\":0.02}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0058,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\"department\":{\"billing\":0.87,\"technical\":0.01,\"account\":0.01,\"shipping\":0.01,\"sales\":0.10},\"refund\":{\"true\":0.95,\"false\":0.05},\"tone\":{\"frustrated\":0.05,\"calm\":0.95}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0124,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\"sentiment\":{\"positive\":0.1,\"neutral\":0.15,\"negative\":0.75},\"defect\":{\"true\":0.98,\"false\":0.02},\"recommend\":{\"true\":0.05,\"false\":0.95}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0336,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\"tool\":{\"web_search\":0.02,\"calculator\":0.01,\"calendar\":0.88,\"email\":0.06,\"none\":0.03},\"confirm\":{\"true\":0.88,\"false\":0.12}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0241,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\"department\":{\"billing\":0.20,\"technical\":0.73,\"account\":0.02,\"shipping\":0.01,\"sales\":0.04},\"urgency\":{\"0\":0.01,\"1\":0.02,\"2\":0.05,\"3\":0.92},\"outage\":{\"true\":0.95,\"false\":0.05}}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0431,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    { \"date\": \"2025-02-24\", \"category\": \"airfare\", \"amount_usd\": 1184.60 },\n    { \"date\": \"2025-02-24\", \"category\": \"ground_transport\", \"amount_usd\": 38.88 },\n    { \"date\": \"2025-02-25\", \"category\": \"meals\", \"amount_usd\": 229.39 },\n    { \"date\": \"2025-02-26\", \"category\": \"lodging\", \"amount_usd\": 466.56 },\n    { \"date\": \"2025-02-27\", \"category\": \"ground_transport\", \"amount_usd\": 44.82 }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 24,
+    "total": 24,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 61236.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38556.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 293058.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2236.00,\n  \"late_fee_from_2025_06_01\": 111.80,\n  \"security_deposit\": 2150.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2306.00,\n  \"move_in_payment\": 4700.00\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "{\n  \"q3_total_usd\": 15346000,\n  \"q2_total_usd\": 14464000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 9,
+    "total": 9,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\"billing_address\", \"invoice_pdf\"],\n  \"affected_orders\": [\"SO-99812\", \"SO-99820\", \"SO-99827\"],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+   "score": 0.9167,
+   "detail": {
+    "matched": 11,
+    "total": 12,
+    "wrong": [
+     "$.resolved_issues[1]"
+    ],
+    "bare_json": true
+   }
+  }
+ }
+}

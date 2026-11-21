@@ -28,6 +28,20 @@
       "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
     },
     {
+      "slug": "bison-1",
+      "name": "Bison 1",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "baseten/bison-1",
+      "hf_id": "baselabs/bison-1",
+      "org": "baseten",
+      "params_b": 32.68,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-21"
+    },
+    {
       "slug": "clairic",
       "name": "Clairic",
       "status": "auto",
@@ -618,6 +632,20 @@
       "added": "2026-10-10"
     },
     {
+      "slug": "groundhog-1",
+      "name": "Groundhog 1",
+      "status": "auto",
+      "kind": "decision",
+      "openrouter_id": "baseten/groundhog-1",
+      "hf_id": "baselabs/groundhog-1",
+      "org": "baseten",
+      "params_b": 26.54,
+      "active_params_b": null,
+      "arch": null,
+      "ollama": null,
+      "added": "2026-11-21"
+    },
+    {
       "slug": "heygen-decision-1",
       "name": "HeyGen Decision",
       "status": "auto",
@@ -664,6 +692,23 @@
       "previous_status": "auto",
       "unavailable_reason": "no longer listed on OpenRouter",
       "unavailable_since": "2026-11-15"
+    },
+    {
+      "slug": "inkling-2-mini",
+      "name": "Inkling 2 Mini",
+      "status": "auto",
+      "openrouter_id": "thinkingmachines/inkling-2-mini",
+      "hf_id": "thinkingmachines/Inkling-2-Mini",
+      "org": "thinkingmachines",
+      "params_b": 26.39,
+      "active_params_b": null,
+      "arch": {
+        "layers": 24,
+        "kv_heads": 8,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-11-21"
     },
     {
       "slug": "jev-1-13",
@@ -2579,6 +2624,8 @@
     "perceptron/perceptron-mk1.5": "no open weights linked",
     "perplexity/pplx-embed-v1-0.6b": "output is embeddings, not text",
     "perplexity/pplx-embed-v1-4b": "output is embeddings, not text",
+    "perplexity/pplx-embed-v2-context-0.6b": "output is embeddings, not text",
+    "perplexity/pplx-embed-v2-context-9b": "output is embeddings, not text",
     "perplexity/sonar": "no open weights linked",
     "perplexity/sonar-deep-research": "no open weights linked",
     "perplexity/sonar-pro": "no open weights linked",
@@ -2601,6 +2648,7 @@
     "qwen/qwen3-embedding-8b": "output is embeddings, not text",
     "qwen/qwen3-reranker-0.6b": "output is rerank, not text",
     "qwen/qwen3-reranker-8b": "output is rerank, not text",
+    "qwen/qwen3-tts-1.7b": "output is speech, not text",
     "qwen/qwen3-vl-235b-a22b-instruct": "235.67B params > 40B",
     "qwen/qwen3.5-397b-a17b": "403.4B params > 40B",
     "qwen/qwen3.5-flash-02-23": "no open weights linked",
@@ -2617,6 +2665,7 @@
     "qwen/qwen3.8-max-prime": "no open weights linked",
     "qwen/qwen3.8-omni-flash": "no open weights linked",
     "qwen/qwen4-max": "no open weights linked",
+    "radixark/daisyrose-27b": "org 'radixark' not on allowlist",
     "recraft/recraft-v3": "output is image, not text",
     "recraft/recraft-v4": "output is image, not text",
     "recraft/recraft-v4-pro": "output is image, not text",
@@ -2789,9 +2838,9 @@
     },
     "nvidia/NVIDIA-Nemotron-Parse-2.0": {
       "params_b": 0.9,
-      "downloads_30d": 589266,
+      "downloads_30d": 650568,
       "license": "openmdw-1.1",
-      "seen": "2026-11-20",
+      "seen": "2026-11-21",
       "why": "no Q4_K_M GGUF found yet"
     },
     "nvidia/Qwen3.8-Flash-Next-NVFP4": {
@@ -2799,6 +2848,12 @@
       "downloads_30d": 303865,
       "license": "other",
       "seen": "2026-11-20"
+    },
+    "Kwaipilot/KAT-Coder-V2.5-Dev": {
+      "params_b": 34.66,
+      "downloads_30d": 448547,
+      "license": "apache-2.0",
+      "seen": "2026-11-21"
     }
   },
   "hf_ignored": {
@@ -2881,6 +2936,7 @@
     "google/gemma-4-E4B-it-qat-q4_0-unquantized": "finetune of google/gemma-4-E4B-it",
     "autotrust/AutoTrust-Decider-Pro-Vision-27B": "adapter of Qwen/Qwen3.8-27B",
     "ATH-MaaS/OvisOCR3": "specialized model, not a general assistant",
-    "datalab-to/surya-ocr-2.5": "specialized model, not a general assistant"
+    "datalab-to/surya-ocr-2.5": "specialized model, not a general assistant",
+    "orcarouter/Qwen3.8-27B-Uncensored": "community variant (uncensored/abliterated/...)"
   }
 }
