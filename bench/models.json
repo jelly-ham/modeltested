@@ -2838,9 +2838,9 @@
     },
     "nvidia/NVIDIA-Nemotron-Parse-2.0": {
       "params_b": 0.9,
-      "downloads_30d": 650568,
+      "downloads_30d": 708992,
       "license": "openmdw-1.1",
-      "seen": "2026-11-21",
+      "seen": "2026-11-22",
       "why": "no Q4_K_M GGUF found yet"
     },
     "nvidia/Qwen3.8-Flash-Next-NVFP4": {
