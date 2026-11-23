@@ -2838,9 +2838,9 @@
     },
     "nvidia/NVIDIA-Nemotron-Parse-2.0": {
       "params_b": 0.9,
-      "downloads_30d": 708992,
+      "downloads_30d": 766414,
       "license": "openmdw-1.1",
-      "seen": "2026-11-22",
+      "seen": "2026-11-23",
       "why": "no Q4_K_M GGUF found yet"
     },
     "nvidia/Qwen3.8-Flash-Next-NVFP4": {
@@ -2937,6 +2937,9 @@
     "autotrust/AutoTrust-Decider-Pro-Vision-27B": "adapter of Qwen/Qwen3.8-27B",
     "ATH-MaaS/OvisOCR3": "specialized model, not a general assistant",
     "datalab-to/surya-ocr-2.5": "specialized model, not a general assistant",
-    "orcarouter/Qwen3.8-27B-Uncensored": "community variant (uncensored/abliterated/...)"
+    "orcarouter/Qwen3.8-27B-Uncensored": "community variant (uncensored/abliterated/...)",
+    "ibm-granite/granite-4.2-3b": "finetune of ibm-granite/granite-4.1-3b-base",
+    "AtomicChat/Inkling-2-Mini-Uncensored": "community variant (uncensored/abliterated/...)",
+    "openbmb/MiniCPM-OCR-1.0": "specialized model, not a general assistant"
   }
 }
