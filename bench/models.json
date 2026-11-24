@@ -167,7 +167,7 @@
     {
       "slug": "d1-1",
       "name": "d1.1",
-      "status": "auto",
+      "status": "unavailable",
       "kind": "decision",
       "openrouter_id": "liquid/d1.1",
       "hf_id": null,
@@ -176,7 +176,10 @@
       "active_params_b": null,
       "arch": null,
       "ollama": null,
-      "added": "2026-10-28"
+      "added": "2026-10-28",
+      "previous_status": "auto",
+      "unavailable_reason": "no longer listed on OpenRouter",
+      "unavailable_since": "2026-11-24"
     },
     {
       "slug": "d1-2",
@@ -2838,9 +2841,9 @@
     },
     "nvidia/NVIDIA-Nemotron-Parse-2.0": {
       "params_b": 0.9,
-      "downloads_30d": 766414,
+      "downloads_30d": 812928,
       "license": "openmdw-1.1",
-      "seen": "2026-11-23",
+      "seen": "2026-11-24",
       "why": "no Q4_K_M GGUF found yet"
     },
     "nvidia/Qwen3.8-Flash-Next-NVFP4": {
@@ -2940,6 +2943,7 @@
     "orcarouter/Qwen3.8-27B-Uncensored": "community variant (uncensored/abliterated/...)",
     "ibm-granite/granite-4.2-3b": "finetune of ibm-granite/granite-4.1-3b-base",
     "AtomicChat/Inkling-2-Mini-Uncensored": "community variant (uncensored/abliterated/...)",
-    "openbmb/MiniCPM-OCR-1.0": "specialized model, not a general assistant"
+    "openbmb/MiniCPM-OCR-1.0": "specialized model, not a general assistant",
+    "llmfan46/Qwen3-Coder-Next-Uncensored-Heretic": "community variant (uncensored/abliterated/...)"
   }
 }
