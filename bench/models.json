@@ -501,7 +501,7 @@
     {
       "slug": "glm-4-7-flash",
       "name": "GLM 4.7 Flash",
-      "status": "active",
+      "status": "unavailable",
       "openrouter_id": "z-ai/glm-4.7-flash",
       "hf_id": "zai-org/GLM-4.7-Flash",
       "org": "z-ai",
@@ -513,7 +513,10 @@
         "head_dim": 102
       },
       "ollama": null,
-      "added": "2026-10-10"
+      "added": "2026-10-10",
+      "previous_status": "active",
+      "unavailable_reason": "only blocked providers (Cloudflare)",
+      "unavailable_since": "2026-11-25"
     },
     {
       "slug": "gpt-6-luna-decisions",
@@ -2742,8 +2745,10 @@
     "unbiased/pareto-26.10-preview": "no open weights linked",
     "unbiased/pareto-26.9": "no open weights linked",
     "undi95/remm-slerp-l2-13b": "org 'undi95' not on allowlist",
+    "upstage/solar-mini-4-5": "no open weights linked",
     "upstage/solar-mini4": "no open weights linked",
     "upstage/solar-pro-3": "no open weights linked",
+    "upstage/solar-pro-4-contributor": "no open weights linked",
     "upstage/solar-pro4": "no open weights linked",
     "voyageai/rerank-2.5": "output is rerank, not text",
     "voyageai/rerank-2.5-lite": "output is rerank, not text",
@@ -2773,6 +2778,7 @@
     "xiaomi/mimo-v2.5": "310.78B params > 40B",
     "xiaomi/mimo-v2.5-pro": "1023.18B params > 40B",
     "xiaomi/mimo-v2.6-flash": "310.76B params > 40B",
+    "xiaomi/mimo-v2.6-flash-mopd": "310.76B params > 130B",
     "xiaomi/mimo-v2.6-pro": "1024.22B params > 40B",
     "xiaomi/mimo-v2.6-pro-ultraspeed": "no open weights linked",
     "z-ai/glm-4.5": "358.34B params > 40B",
@@ -2841,9 +2847,9 @@
     },
     "nvidia/NVIDIA-Nemotron-Parse-2.0": {
       "params_b": 0.9,
-      "downloads_30d": 812928,
+      "downloads_30d": 859053,
       "license": "openmdw-1.1",
-      "seen": "2026-11-24",
+      "seen": "2026-11-25",
       "why": "no Q4_K_M GGUF found yet"
     },
     "nvidia/Qwen3.8-Flash-Next-NVFP4": {
