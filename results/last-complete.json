@@ -1429,6 +1429,60 @@
    "decisions": 0.11
   }
  },
+ "lingsante-3-1-air-vl": {
+  "slug": "lingsante-3-1-air-vl",
+  "name": "LingSante 3.1 Air VL",
+  "org": "inclusionai",
+  "openrouter_id": "inclusionai/lingsante-3.1-air-vl",
+  "hf_id": "inclusionAI/LingSante-3.1-air-VL",
+  "params_b": 124.85,
+  "active_params_b": null,
+  "ollama": null,
+  "license": null,
+  "added": "2026-11-26",
+  "kind": null,
+  "status": "auto",
+  "base": null,
+  "quant": null,
+  "overall": 82.7,
+  "hard": 70.0,
+  "suites": {
+   "coding": {
+    "score": 70.0,
+    "public": 71.4,
+    "private": 69.6,
+    "done": 30,
+    "total": 30
+   },
+   "decisions": {
+    "score": 98.2,
+    "public": 100.0,
+    "private": 97.6,
+    "done": 56,
+    "total": 56,
+    "calibration": 98.2,
+    "hard": 100.0
+   },
+   "extract": {
+    "score": 95.4,
+    "public": 100.0,
+    "private": 94.2,
+    "done": 24,
+    "total": 24
+   }
+  },
+  "providers": [
+   "DeepInfra"
+  ],
+  "truncated": {
+   "n": 7,
+   "of": 54
+  },
+  "cost": {
+   "tasks": 1.72,
+   "decisions": 0.1
+  }
+ },
  "llama-3-1-70b-instruct": {
   "slug": "llama-3-1-70b-instruct",
   "name": "Llama 3.1 70B Instruct",

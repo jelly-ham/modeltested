@@ -1,0 +1,265 @@
+{
+ "coding": {
+  "code-hard-ini-parser": {
+   "output": "",
+   "score": 0.0,
+   "detail": {
+    "error": "NameError: name 'parse_ini' is not defined"
+   },
+   "reasoning_tail": "1: # unterminated\n        # Should we return stripped (with leading outside spaces)? For accumulation, maybe keep frag? If leading outside spaces, they might be stripped? If value quoted, outside spaces before opening quote should not be inside. But if unterminated, maybe include? Ambiguous. We can return stripped as fragment (leading outside spaces removed). If later continuation, combined starts with quote. final parse will handle.\n        return stripped\n    rest = stripped[q+1:]\n    if rest.strip(): raise ValueError trailing\n    return stripped[1:q]\nelse:\n    return frag.strip()\n```\nBut if `stripped` starts with quote and `frag` had leading spaces, returning `stripped` removes outside spaces. Good. If unterminated, returning `stripped` also removes outside spaces. Good. If there are spaces inside quotes, kept. If value is empty quoted `\"\"`, stripped starts quote, q=1, rest empty, return `''`. Good.\n\nNeed ensure comment-stripped frag may have trailing spaces. In quoted branch, `rest.strip()` handles. In unquoted branch, `frag.strip()`.\n\nBut if frag starts with quote but has internal quote before closing and then rest nonwhitespace? It will close at first quote. Good.\n\nNow, for key line fragment, we can use `frag = line_no_comment[sep+1:]`. If frag is empty, value empty. But if frag is only spaces? It will unquoted branch strip -> empty. Good.\n\nBut one issue: `line_no_comment` removed comments. If frag starts with quote and is unterminated, and there is a comment outside quote later? If quote unterminated, outside comment after opening quote but before closing cannot be determined; comment stripper would not remove because in_q True if no closing. Good. If there is a closing quote before comment, immediate branch would have rest and raise if trailing non-comment? But line_no_comment already removed comment, rest empty or whitespace. Good.\n\nNow, continuation raw text: Should it be stripped? `line.strip()`. If value pending is quoted unterminated, and continuation starts with quote, combined starts with quote. final parse will find closing quote maybe. If continuation has leading spaces, strip removes. Good.\n\nNow, finalize pending:\n```\ndef finalize_pending():\n    nonlocal pending\n    if pending is None: return\n    sec = pending['sec']; key = pending['key']; frags = pending['fragments']\n    combined = '\\n'.join(frags)\n    value = parse_value_text(combined)\n    raw_sections.setdefault(sec, {})[key] = value\n    pending = None\n```\nNeed if sec 'DEFAULT'? raw_sections may not have DEFAULT; use setdefault. For non-DEFAULT, if section not exist create. For DEFAULT, store under 'DEFAULT'.\n\n`parse_value_text(text)`:\n```\ndef parse_value_text(text: str) -> str:\n    # text may contain newlines\n    if text.startswith('\"'):\n        end = text.find('\"', 1)\n        if end == -1:\n            raise ValueError('unterminated quoted value')\n        value = text[1:end]\n        if text[end+1:].strip():\n            raise ValueError('trailing data after quoted value')\n        return value\n    # If first non-space is quote but text doesn't start with quote? e.g. '  \"value\"'\n    # For robustness:\n    stripped = text.lstrip()\n    if stripped.startswith('\"'):\n        # reprocess stripped (outside spaces removed)\n        return parse_value_text(stripped)\n    return text.strip()\n```\nBut if text starts with quote and has rest whitespace only, returns inner. Good. If text is `  \"value\"  `, startswith quote false, lstrip branch reprocess -> `\"value\"  `, parse returns `value`. Good. If text is `  value  `, lstrip no quote, strip -> `value`. Good. If text is empty, returns empty? startswith quote false, strip empty empty. Good.\n\nBut if text is multiline and starts with quote, but there is a comment after closing quote on a later line, comment stripping already done on combined? We applied `strip_inline_comment` to combined before parse_value_text? Yes. If comment was inside quotes, kept. If outside, removed. Good.\n\nNeed think about applying `strip_inline_comment` to combined fragments. If key fragment already comment-stripped, and continuation raw contains quotes and comments, final strip works. But what if key fragment was unquoted and had a comment after value, already removed. Continuation raw might contain a comment outside quotes; final strip removes. Good. What if key fragment was unquoted and had no comment, continuation raw has ` ;` comment; final strip removes. Good.\n\nBut there is a subtle issue with final comment stripping when key fragment started with quote and was unterminated, and continuation fragment contains a `\"` that closes and then outside comment. final combined e.g. `\"first\\nsecond\" ; comment`. `strip_inline_comment` will toggle quotes: starts quote, passes newline, at second quote toggles False, then sees ` ;` outside and truncates. Good. Then parse_value_text sees starts quote, closing quote at end? combined after comment removal `\"first\\nsecond\"`. find quote at end, value `first\\nsecond`. Good.\n\nWhat if continuation fragment is inside quote but contains a comment start before closing quote: `\"first ; comment\\nsecond\"`. Comment stripper in q, no truncation. Good.\n\nWhat if continuation fragment starts with whitespace? We strip, so no leading whitespace. Good.\n\nNow, finalize pending when header or key line occurs. But if a header occurs after unterminated quoted value, finalize before changing section. Good.\n\nIf a key line occurs after unterminated quoted value, finalize previous pending, then start new. Good.\n\nIf EOF, finalize.\n\nNow, what if pending key duplicate in same section with continuation? Duplicate key appears only when a new key line with same key occurs after previous key finalized. Later wins, so new key overwrites. Good.\n\nNow, need handle continuation after unterminated pending when a comment line appears? Comment line ignored and resets prev_type to none. Then next continuation not allowed. But pending still unterminated? Comment line doesn't finalize. Could be okay; pending remains. But"
+  },
+  "code-hard-ttl-lru": {
+   "output": "```python\nfrom collections import OrderedDict\n\n\nclass TTLCache:\n    def __init__(self, capacity: int, ttl: float, clock):\n        self.capacity = max(0, capacity)\n        self.ttl = ttl\n        self.clock = clock\n        self.cache = OrderedDict()\n        self.hits = 0\n        self.misses = 0\n        self.evictions = 0\n        self.expirations = 0\n\n    def _purge_expired(self, now: float) -> None:\n        expired_keys = [\n            key\n            for key, entry in self.cache.items()\n            if entry[\"expiry\"] <= now\n        ]\n        if expired_keys:\n            for key in expired_keys:\n                del self.cache[key]\n            self.expirations += len(expired_keys)\n\n    def put(self, key, value) -> None:\n        if self.capacity == 0:\n            return\n\n        now = self.clock()\n\n        if key in self.cache:\n            entry = self.cache[key]\n            entry[\"value\"] = value\n            entry[\"expiry\"] = now + self.ttl\n            self.cache.move_to_end(key)\n            return\n\n        self._purge_expired(now)\n\n        if len(self.cache) >= self.capacity:\n            self.cache.popitem(last=False)\n            self.evictions += 1\n\n        self.cache[key] = {\"value\": value, \"expiry\": now + self.ttl}\n\n    def get(self, key, default=None):\n        if self.capacity == 0:\n            self.misses += 1\n            return default\n\n        now = self.clock()\n\n        if key not in self.cache:\n            self.misses += 1\n            return default\n\n        entry = self.cache[key]\n\n        if entry[\"expiry\"] <= now:\n            del self.cache[key]\n            self.expirations += 1\n            self.misses += 1\n            return default\n\n        self.cache.move_to_end(key)\n        self.hits += 1\n        return entry[\"value\"]\n\n    def __len__(self) -> int:\n        if self.capacity == 0:\n            return 0\n\n        now = self.clock()\n        return sum(\n            1\n            for entry in self.cache.values()\n            if entry[\"expiry\"] > now\n        )\n\n    def stats(self) -> dict:\n        return {\n            \"hits\": self.hits,\n            \"misses\": self.misses,\n            \"evictions\": self.evictions,\n            \"expirations\": self.expirations,\n        }\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-parse-duration": {
+   "output": "```python\nimport re\n\n_DURATION_PATTERN = re.compile(\n    r\"^\\s*\"\n    r\"(?:(?P<hours>[0-9]+)h\\s*)?\"\n    r\"(?:(?P<minutes>[0-9]+)m\\s*)?\"\n    r\"(?:(?P<seconds>[0-9]+)s\\s*)?\"\n    r\"\\s*$\",\n    re.IGNORECASE,\n)\n\n\ndef parse_duration(s: str) -> int:\n    if not s.strip():\n        raise ValueError(\"Duration string must not be empty or blank\")\n\n    match = _DURATION_PATTERN.fullmatch(s)\n    if match is None:\n        raise ValueError(f\"Invalid duration string: {s!r}\")\n\n    total_seconds = 0\n\n    if (hours := match.group(\"hours\")) is not None:\n        total_seconds += int(hours) * 3600\n\n    if (minutes := match.group(\"minutes\")) is not None:\n        total_seconds += int(minutes) * 60\n\n    if (seconds := match.group(\"seconds\")) is not None:\n        total_seconds += int(seconds)\n\n    return total_seconds\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-slugify": {
+   "output": "```python\nimport re\nimport unicodedata\n\n\ndef slugify(title: str, max_len: int = 50) -> str:\n    ascii_only = unicodedata.normalize(\"NFKD\", title).encode(\"ascii\", \"ignore\").decode(\"ascii\")\n    slug = re.sub(r\"[^a-z0-9]+\", \"-\", ascii_only.lower()).strip(\"-\")\n\n    if not slug or max_len <= 0:\n        return \"\"\n\n    if len(slug) <= max_len:\n        return slug\n\n    words = slug.split(\"-\")\n    length = 0\n    kept = 0\n\n    for i, word in enumerate(words):\n        needed = len(word) + (1 if i else 0)\n        if length + needed > max_len:\n            break\n        length += needed\n        kept += 1\n\n    if kept:\n        return \"-\".join(words[:kept])\n\n    return slug[:max_len]\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-summarize-ranges": {
+   "output": "```python\nfrom itertools import groupby\n\n\ndef summarize_ranges(nums: list[int]) -> str:\n    if not nums:\n        return \"\"\n\n    sorted_unique = sorted(set(nums))\n    parts = []\n\n    for _, group in groupby(\n        enumerate(sorted_unique), key=lambda pair: pair[1] - pair[0]\n    ):\n        run = [value for _, value in group]\n\n        if len(run) >= 3:\n            parts.append(f\"{run[0]}..{run[-1]}\")\n        else:\n            parts.extend(str(value) for value in run)\n\n    return \",\".join(parts)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-token-bucket": {
+   "output": "```python\nfrom collections.abc import Callable\n\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_per_sec: float, clock: Callable[[], float]) -> None:\n        self._capacity = float(capacity)\n        self._refill_per_sec = float(refill_per_sec)\n        self._clock = clock\n        self._tokens = float(capacity)\n        self._last_refill = float(clock())\n\n    def _refill(self) -> None:\n        now = float(self._clock())\n        if now <= self._last_refill:\n            return\n\n        elapsed = now - self._last_refill\n        if elapsed > 0 and self._refill_per_sec > 0:\n            self._tokens = min(self._capacity, self._tokens + elapsed * self._refill_per_sec)\n\n        self._last_refill = now\n\n    def allow(self, cost: float = 1) -> bool:\n        if cost <= 0:\n            return True\n\n        self._refill()\n        if self._tokens >= cost:\n            self._tokens -= cost\n            return True\n\n        return False\n\n    @property\n    def tokens(self) -> float:\n        self._refill()\n        return float(self._tokens)\n```",
+   "score": 1.0,
+   "detail": {
+    "error": null
+   }
+  },
+  "code-top-customers": {
+   "output": "```python\nimport re\nfrom decimal import Decimal, InvalidOperation, ROUND_HALF_EVEN\n\n_AMOUNT_PATTERN = re.compile(\n    r'^-?\\$?(?:'\n    r'\\d{1,3}(?:,\\d{3})*|'\n    r'\\d+(?:\\.\\d*)?|'\n    r'\\.\\d+'\n    r')$'\n)\n\ndef _parse_amount(amount: str) -> Decimal | None:\n    if not isinstance(amount, str):\n        return None\n\n    value = amount.strip()\n    if not value:\n        return None\n\n    if not _AMOUNT_PATTERN.fullmatch(value):\n        return None\n\n    normalized = value.replace(\"$\", \"\").replace(\",\", \"\")\n\n    try:\n        return Decimal(normalized)\n    except (InvalidOperation, ArithmeticError):\n        return None\n\ndef top_customers(rows: list[dict], n: int) -> list[tuple[str, float]]:\n    if not isinstance(n, int) or n <= 0:\n        return []\n\n    customers = {}\n\n    for row in rows:\n        if not isinstance(row, dict):\n            continue\n\n        customer = row.get(\"customer\")\n        if not isinstance(customer, str):\n            continue\n\n        trimmed_customer = customer.strip()\n        if not trimmed_customer:\n            continue\n\n        amount = _parse_amount(row.get(\"amount\"))\n        if amount is None:\n            continue\n\n        key = trimmed_customer.lower()\n        entry = customers.get(key)\n\n        if entry is None:\n            customers[key] = [trimmed_customer, amount]\n        else:\n            entry[1] += amount\n\n    items = [\n        (name, total.quantize(Decimal(\"0.01\"), rounding=ROUND_HALF_EVEN))\n        for name, total in customers.values()\n    ]\n\n    items.sort(key=lambda item: (-item[1], item[0]))\n\n    return [(name, float(total)) for name, total in items[:n]]\n```",
+   "score": 0.0,
+   "detail": {
+    "error": "AssertionError"
+   }
+  }
+ },
+ "decisions": {
+  "decide-doc-invoice-missing-due": {
+   "output": "{\n  \"doc_type\": {\n    \"invoice\": 1.0,\n    \"resume\": 0.0,\n    \"contract\": 0.0,\n    \"bank_statement\": 0.0,\n    \"other\": 0.0\n  },\n  \"missing_due_date\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "doc_type": "invoice",
+     "missing_due_date": "true"
+    }
+   }
+  },
+  "decide-hard-incident-matrix": {
+   "output": "{\n  \"severity\": {\"0\": 0, \"1\": 1, \"2\": 0, \"3\": 0},\n  \"page\": {\"true\": 0, \"false\": 1}\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "severity": "1",
+     "page": "false"
+    }
+   }
+  },
+  "decide-hard-legit-security-alert": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 0.01,\n    \"false\": 0.99\n  },\n  \"action_needed\": {\n    \"true\": 0.02,\n    \"false\": 0.98\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0005,
+    "picks": {
+     "phishing": "false",
+     "action_needed": "false"
+    }
+   }
+  },
+  "decide-hard-meeting-slot": {
+   "output": "{\n  \"slot\": {\n    \"A\": 0,\n    \"B\": 1,\n    \"C\": 0,\n    \"D\": 0\n  },\n  \"raj_last\": {\n    \"true\": 1,\n    \"false\": 0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "slot": "B",
+     "raj_last": "true"
+    }
+   }
+  },
+  "decide-hard-refund-window": {
+   "output": "{\n  \"outcome\": {\n    \"full_refund\": 0.0,\n    \"partial_refund\": 0.0,\n    \"store_credit\": 1.0,\n    \"nothing\": 0.0\n  },\n  \"defective\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "outcome": "store_credit",
+     "defective": "false"
+    }
+   }
+  },
+  "decide-hard-review-mixed": {
+   "output": "{\n  \"hardware\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"support\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "hardware": "true",
+     "support": "true"
+    }
+   }
+  },
+  "decide-hard-tool-followup": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 1.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-moderation-doxxing": {
+   "output": "{\n  \"policy\": {\n    \"none\": 0.0,\n    \"harassment\": 0.95,\n    \"hate\": 0.02,\n    \"spam\": 0.01,\n    \"self_harm\": 0.02\n  },\n  \"personal_info\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0021,
+    "picks": {
+     "policy": "harassment",
+     "personal_info": "true"
+    }
+   }
+  },
+  "decide-phishing-paypal": {
+   "output": "{\n  \"phishing\": {\n    \"true\": 0.98,\n    \"false\": 0.02\n  },\n  \"risk\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.02,\n    \"3\": 0.98\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0008,
+    "picks": {
+     "phishing": "true",
+     "risk": "3"
+    }
+   }
+  },
+  "decide-pii-ssn-email": {
+   "output": "{\n  \"data_kind\": {\n    \"government_id\": 1.0\n  },\n  \"sensitive\": {\n    \"true\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "data_kind": "government_id",
+     "sensitive": "true"
+    }
+   }
+  },
+  "decide-refund-wrong-plan": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.97,\n    \"technical\": 0.01,\n    \"account\": 0.01,\n    \"shipping\": 0.01,\n    \"sales\": 0.0\n  },\n  \"refund\": {\n    \"true\": 1,\n    \"false\": 0\n  },\n  \"tone\": {\n    \"calm\": 1,\n    \"frustrated\": 0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0004,
+    "picks": {
+     "department": "billing",
+     "refund": "true",
+     "tone": "calm"
+    }
+   }
+  },
+  "decide-review-mixed": {
+   "output": "{\n  \"sentiment\": {\n    \"positive\": 0.0,\n    \"neutral\": 0.0,\n    \"negative\": 1.0\n  },\n  \"defect\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  },\n  \"recommend\": {\n    \"true\": 0.0,\n    \"false\": 1.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "sentiment": "negative",
+     "defect": "true",
+     "recommend": "false"
+    }
+   }
+  },
+  "decide-route-calendar": {
+   "output": "{\n  \"tool\": {\n    \"web_search\": 0.0,\n    \"calculator\": 0.0,\n    \"calendar\": 1.0,\n    \"email\": 0.0,\n    \"none\": 0.0\n  },\n  \"confirm\": {\n    \"true\": 1.0,\n    \"false\": 0.0\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0,
+    "picks": {
+     "tool": "calendar",
+     "confirm": "true"
+    }
+   }
+  },
+  "decide-support-checkout-down": {
+   "output": "{\n  \"department\": {\n    \"billing\": 0.10,\n    \"technical\": 0.85,\n    \"account\": 0.02,\n    \"shipping\": 0.01,\n    \"sales\": 0.02\n  },\n  \"urgency\": {\n    \"0\": 0.0,\n    \"1\": 0.0,\n    \"2\": 0.05,\n    \"3\": 0.95\n  },\n  \"outage\": {\n    \"true\": 0.95,\n    \"false\": 0.05\n  }\n}",
+   "score": 1.0,
+   "detail": {
+    "brier": 0.0145,
+    "picks": {
+     "department": "technical",
+     "urgency": "3",
+     "outage": "true"
+    }
+   }
+  }
+ },
+ "extract": {
+  "extract-expense-thread": {
+   "output": "{\n  \"employee_id\": \"EMP-20417\",\n  \"destination_city\": \"Lisbon\",\n  \"trip_start\": \"2025-02-24\",\n  \"trip_end\": \"2025-02-27\",\n  \"approved_items\": [\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"airfare\",\n      \"amount_usd\": 1184.60\n    },\n    {\n      \"date\": \"2025-02-24\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 38.88\n    },\n    {\n      \"date\": \"2025-02-25\",\n      \"category\": \"meals\",\n      \"amount_usd\": 229.39\n    },\n    {\n      \"date\": \"2025-02-26\",\n      \"category\": \"lodging\",\n      \"amount_usd\": 466.56\n    },\n    {\n      \"date\": \"2025-02-27\",\n      \"category\": \"ground_transport\",\n      \"amount_usd\": 44.82\n    }\n  ],\n  \"rejected_item_count\": 1,\n  \"per_diem_days\": 3,\n  \"per_diem_usd\": 195.00,\n  \"total_reimbursable_usd\": 2159.25,\n  \"approver_email\": \"priya.raman@corvane.com\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 24,
+    "total": 24,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-hard-saas-escalator": {
+   "output": "{\n  \"year2_price_per_seat_month\": 47.25,\n  \"year3_price_per_seat_month\": 47.25,\n  \"year1_invoice\": 58320.00,\n  \"year2_invoice\": 61236.00,\n  \"addon_months_billed\": 6,\n  \"addon_invoice\": 38556.00,\n  \"year3_invoice\": 134946.00,\n  \"year3_discount_percent\": 15,\n  \"total_contract_value\": 293058.00,\n  \"contract_end_date\": \"2027-02-28\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 10,
+    "total": 10,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-lease-amendment": {
+   "output": "{\n  \"tenants\": [\"Marcus Lin\", \"Sofia Lin\"],\n  \"landlord\": \"Ridgeline Property Group LLC\",\n  \"zip\": \"97205\",\n  \"lease_end\": \"2025-11-30\",\n  \"original_monthly_rent\": 2150.00,\n  \"monthly_rent_from_2025_06_01\": 2236.00,\n  \"late_fee_from_2025_06_01\": 111.80,\n  \"security_deposit\": 2150.00,\n  \"total_pet_deposits\": 800.00,\n  \"total_monthly_payment_july_2025\": 2306.00,\n  \"move_in_payment\": 4700.00\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 12,
+    "total": 12,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-sales-footnotes": {
+   "output": "{\n  \"q3_total_usd\": 15346000,\n  \"q2_total_usd\": 14464000,\n  \"q2_central_originally_reported_usd\": 3047000,\n  \"q2_to_q3_change_pct\": 6.1,\n  \"top_region_q3\": \"East\",\n  \"fastest_growing_region_q1_to_q3\": \"International\",\n  \"regions_declining_q2_to_q3\": [\"East\"],\n  \"international_q3_organic_usd\": 1731000,\n  \"west_excluding_mountain_q3_usd\": 4201000\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 9,
+    "total": 9,
+    "wrong": [],
+    "bare_json": true
+   }
+  },
+  "extract-ticket-sla": {
+   "output": "{\n  \"ticket_id\": \"48213\",\n  \"account_id\": \"ACC-7731\",\n  \"open_issue\": \"inventory_sync\",\n  \"resolved_issues\": [\n    \"billing_address\"\n  ],\n  \"affected_orders\": [\n    \"SO-99812\",\n    \"SO-99820\",\n    \"SO-99827\"\n  ],\n  \"priority\": \"P2\",\n  \"sla_due_local\": \"2025-09-15T15:30\",\n  \"sla_due_utc\": \"2025-09-15T20:30:00Z\",\n  \"reissued_invoice\": \"INV-2025-0812\"\n}",
+   "score": 1.0,
+   "detail": {
+    "matched": 11,
+    "total": 11,
+    "wrong": [],
+    "bare_json": true
+   }
+  }
+ }
+}

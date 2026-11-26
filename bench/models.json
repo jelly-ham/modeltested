@@ -969,6 +969,23 @@
       "note": "Found by the Hugging Face scan; not on OpenRouter. Name is from the repo; check it before publishing."
     },
     {
+      "slug": "lingsante-3-1-air-vl",
+      "name": "LingSante 3.1 Air VL",
+      "status": "auto",
+      "openrouter_id": "inclusionai/lingsante-3.1-air-vl",
+      "hf_id": "inclusionAI/LingSante-3.1-air-VL",
+      "org": "inclusionai",
+      "params_b": 124.85,
+      "active_params_b": null,
+      "arch": {
+        "layers": 42,
+        "kv_heads": 32,
+        "head_dim": 128
+      },
+      "ollama": null,
+      "added": "2026-11-26"
+    },
+    {
       "slug": "llama-3-1-70b-instruct",
       "name": "Llama 3.1 70B Instruct",
       "status": "auto",
@@ -2304,6 +2321,7 @@
     "bytedance-seed/seed-2.0-lite": "no open weights linked",
     "bytedance-seed/seed-2.0-mini": "no open weights linked",
     "bytedance-seed/seed-audio-1-0": "output is speech, not text",
+    "bytedance-seed/seed-tts-3-0": "output is speech, not text",
     "bytedance-seed/seedream-4.5": "output is image, not text",
     "bytedance-seed/seedream-5-0-flash": "output is image, not text",
     "bytedance-seed/seedream-5-0-lite": "output is image, not text",
@@ -2739,6 +2757,7 @@
     "thinkingmachines/inkling": "952.38B params > 40B",
     "thinkingmachines/inkling-2-small": "383.07B params > 130B",
     "thinkingmachines/inkling-small": "265.96B params > 40B",
+    "tngtech/deepseek-r1t2-chimera": "org 'tngtech' not on allowlist",
     "typesafe/jev-router": "no open weights linked",
     "unbiased/pareto": "no open weights linked",
     "unbiased/pareto-26.10": "no open weights linked",
@@ -2849,7 +2868,7 @@
       "params_b": 0.9,
       "downloads_30d": 859053,
       "license": "openmdw-1.1",
-      "seen": "2026-11-25",
+      "seen": "2026-11-26",
       "why": "no Q4_K_M GGUF found yet"
     },
     "nvidia/Qwen3.8-Flash-Next-NVFP4": {
